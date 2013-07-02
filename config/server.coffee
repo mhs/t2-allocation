@@ -13,10 +13,4 @@
  ###
 
 
-module.exports =
-  drawRoutes: (app) ->
-    app.get '/hellos/1', (req, res) ->
-      res.json
-        hello:
-          greeting: "Hello"
-          audience: "World"
+module.exports = {}
