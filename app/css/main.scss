@@ -1,0 +1,115 @@
+$sidebar-width: 192px;
+
+body {
+	margin: 0;
+	background-color: #ffefdf;
+	font-family: sans-serif;
+}
+
+#controls {
+	position: relative;
+	height: 57px;
+	.title {
+		position: absolute;
+		width: $sidebar-width;
+		background-color: #8BDEF6;
+		height: 100%;
+	}
+	.controls {
+		position: absolute;
+		left: $sidebar-width;
+	}
+	background-color: #73d7f4;
+}
+
+#timeline {
+	#calendarBar {
+		height: 24px;
+		background-color: #fff8f0;
+		position: relative;
+		overflow: hidden;
+		border-bottom: 1px solid #aaa;
+		.selector {
+			position: absolute;
+			height: 100%;
+			width: $sidebar-width - 4px;
+			font-size: 14px;
+			padding: 4px 0 0 4px;
+			color: #888888;
+			background-color: #f8f0f0;
+			.datePicker {
+				padding-right: 20px;
+				float: right;
+			}
+		}
+		.calendar {
+			position: absolute;
+			left: $sidebar-width+2;
+			width: 100%;
+			height: 24px;
+			background-image: url('days.png');
+			background-position: 0px 12px;
+			background-repeat: repeat-x;
+			ul {
+				font-size: 10px;
+				color: #888;
+				margin: 0;
+				padding: 0;
+				li {
+					display: inline-block;
+					width: 107px;
+					height: 24px;
+					border-right: 2px solid rgba(0,0,0,0.09);
+				}
+			}
+		}
+	}
+	#projectList {
+
+		overflow: hidden;
+		.project {
+			display:block;
+			width: 100%;
+			min-height: 42px;
+			position: relative;
+			border-bottom: 1px solid #aaa;
+			background-color: rgba(255,255,255,0.5);
+			background-image: url('calendar.png');
+			background-position: $sidebar-width;
+			.descriptor {
+				position: absolute;
+				display:block;
+				height: 100%;
+				width: $sidebar-width;
+				background-color: #ffffff;
+
+			}
+			.container {
+				position: absolute;
+				left: $sidebar-width;
+				.allocations {
+					position: relative;
+					height: 100%;
+					div {
+						margin-top: 1px;
+						height: 15px;
+						background-color: rgba(0,127,87,0.3);
+						position: absolute;
+						font-size: 11px;
+						//color: #ffffff;
+						//font-weight: bold;
+						color: #666666;
+						border-radius: 3px;
+						.allocationContent {
+							background-color: transparent;
+							padding-left: 4px;
+							.role {
+								font-style: italic;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
