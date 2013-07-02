@@ -33,7 +33,8 @@ module.exports = require(process.env['LINEMAN_MAIN']).config.extend 'application
 
   ember_handlebars:
     options:
-      processName: (name) -> name.match(/app\/templates\/([^.]*)/)[1]
+      processName: (name) -> 
+        name.match(/app\/templates\/([^.]*)/)[1]
     compile:
       files:
         "generated/template/handlebars.js": "<%= files.template.handlebars %>"

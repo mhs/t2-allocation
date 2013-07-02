@@ -12,7 +12,7 @@
 //
 //= require jquery
 //= require jquery-ui
-//= require handlebars.runtime
+//= require handlebars
 //= require underscore
 //= require ember
 //= require ember-data
