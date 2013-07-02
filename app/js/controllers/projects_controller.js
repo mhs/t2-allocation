@@ -31,7 +31,7 @@ App.ProjectsController = Ember.ArrayController.extend({
   dateRange: function () {
     var date = moment(this.get('date'));
     var daysInWindow = this.get('daysInWindow');
-    if(!date.isValid()) date = moment();
+    if(!date.isValid()) { date = moment(); }
     var dateArray = [];
     var monday = moment(date).startOf('week').add('days', 1);
     for(var i=0; i<=(daysInWindow/7); i++) {
@@ -81,7 +81,6 @@ App.ProjectController = Ember.ObjectController.extend({
     var trackInfo = buildAllocationTracks(allocations, controller);
     controller.set('trackCount', trackInfo['trackCount']);
     return trackInfo['allocations'];
-    debugger;
   }).property('date', 'daysInWindow', 'allocations.@each.project', 'allocations.@each'),
 
 

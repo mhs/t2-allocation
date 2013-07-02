@@ -15,8 +15,8 @@ App.ModalController = Em.ObjectController.extend({
     var model = this.get('model'),
         transaction = model.get('transaction');
 
-    if (transaction) transaction.rollback();
-    if (model.get('errors')) model.set('errors', null);
+    if (transaction) { transaction.rollback(); }
+    if (model.get('errors')) { model.set('errors', null); }
 
     this.send("closeModal");
   },

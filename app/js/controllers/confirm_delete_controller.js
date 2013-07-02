@@ -12,7 +12,7 @@ App.ConfirmDeleteController = Em.ObjectController.extend({
     model.on('didDelete', this, function() {
       this.close();
       
-      if (after) this.transitionToRoute(after);
+      if (after) { this.transitionToRoute(after); }
     });
 
     model.deleteRecord();
