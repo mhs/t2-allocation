@@ -11,9 +11,9 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require jquery
-//= require jquery.ui.all
-//= require jquery_ujs
-//= require handlebars
+//= require jquery-ui
+//= require handlebars.runtime
+//= require underscore
 //= require ember
 //= require ember-data
 //= require moment
