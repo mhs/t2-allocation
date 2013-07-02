@@ -4,18 +4,18 @@ A reimplementation of a reimplementation of Teamster, a time tracking and schedu
 
 Ember can be VERY difficult to get started, so here are some links to help lead the way:
 
-[Ember.js Getting Started](http://emberjs.com/guides/getting-started/)
-[Peepcode Ember.js](https://peepcode.com/products/emberjs)
-[How a gaslighter learned Ember](http://www.youtube.com/watch?v=LyHK18s9taM)
-[Getting Started with Ember](http://tech.pro/tutorial/1166/getting-started-with-emberjs)
+- [Ember.js Getting Started](http://emberjs.com/guides/getting-started/)
+- [Peepcode Ember.js](https://peepcode.com/products/emberjs)
+- [How a gaslighter learned Ember](http://www.youtube.com/watch?v=LyHK18s9taM)
+- [Getting Started with Ember](http://tech.pro/tutorial/1166/getting-started-with-emberjs)
 
 Due to Ember Data's unstable nature, we use Ember Model:
 
-[Embercasts.com screencast on Ember Model](http://www.embercasts.com/episodes/getting-started-with-ember-model)
+- [Embercasts.com screencast on Ember Model](http://www.embercasts.com/episodes/getting-started-with-ember-model)
 
 and for a comprehensive list of what's happening in Ember Land:
 
-[emberwatch.com](http://emberwatch.com/)
+- [emberwatch.com](http://emberwatch.com/)
 
 ## Install
 
@@ -55,7 +55,7 @@ then a browser will open [localhost:7357](http://localhost:7357) and run the tes
 
 Some links to help get started:
 
-[Lineman docs on testing](https://github.com/testdouble/lineman#specs)
-[Qunit](http://qunitjs.com/)
-[Erik Bryn's talk at Seattle Ember.js Meetup](http://www.youtube.com/watch?v=nO1hxT9GBTs) - April 23rd, 2013
-[Dan Gephart's talk at Boston Ember.js Meetup](http://www.youtube.com/watch?v=9DC4M1BWPH4#t=38s)
+- [Lineman docs on testing](https://github.com/testdouble/lineman#specs)
+- [Qunit](http://qunitjs.com/)
+- [Erik Bryn's talk at Seattle Ember.js Meetup](http://www.youtube.com/watch?v=nO1hxT9GBTs) - April 23rd, 2013
+- [Dan Gephart's talk at Boston Ember.js Meetup](http://www.youtube.com/watch?v=9DC4M1BWPH4#t=38s)
