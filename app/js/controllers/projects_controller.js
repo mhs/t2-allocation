@@ -81,7 +81,7 @@ App.ProjectController = Ember.ObjectController.extend({
     var trackInfo = buildAllocationTracks(allocations, controller);
     controller.set('trackCount', trackInfo['trackCount']);
     return trackInfo['allocations'];
-  }).property('date', 'daysInWindow', 'allocations.@each.project', 'allocations.@each'),
+  }).property('date', 'daysInWindow', 'allocations.@each'),
 
 
   projectHeight: (function () {
