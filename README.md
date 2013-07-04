@@ -21,7 +21,7 @@ and for a comprehensive list of what's happening in Ember Land:
 
 As a client-side only app, it requires interfacing with a backend api.  Currently, we are using a rails api, which should be installed separately.
 
-So to get the API working, go install the [T2 backend](https://github.com/neo/T2/tree/t3) and get it running on localhost:3000.  This is a standard rails application, and there should be instructions there if you have any issues.
+So to get the API working, go install the [T2 and use the 'api_only' branch](https://github.com/neo/T2/tree/api_only) and get it running on localhost:3000.  This is a standard rails application, and there should be instructions there if you have any issues.
 
 Next, lineman requires node.js to run.
 
@@ -40,7 +40,7 @@ $ npm install
 $ lineman run
 ```
 
-Finally, visit the page at [localhost:8000](http://localhost:8000) to verify that it works.
+Finally, visit the page at [localhost:8000/#/projects](http://localhost:8000/#/projects) to verify that it works.
 
 
 ## Testing
