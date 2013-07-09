@@ -4,7 +4,7 @@ App.Project = DS.Model.extend({
   billable: DS.attr('boolean'),
   binding: DS.attr('boolean'),
   slug: DS.attr('string'),
-  clientPrincipal: DS.belongsTo('App.User'),
+  clientPrincipal: DS.belongsTo('App.Person'),
   slots: DS.hasMany('App.Slot'),
   allocations: DS.hasMany('App.Allocation'),
   office: DS.belongsTo('App.Office'),
