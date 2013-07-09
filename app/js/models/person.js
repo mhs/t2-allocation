@@ -2,8 +2,9 @@ App.Person = DS.Model.extend({
   name: DS.attr('string'),
   notes: DS.attr('string'),
   email: DS.attr('string'),
-  assignable: DS.attr('boolean'),
-  role: DS.belongsTo('App.Role'),
+  unsellable: DS.attr('boolean'),
+  startDate: DS.attr('date'),
+  endDate: DS.attr('date'),
   office: DS.belongsTo('App.Office'),
   allocations: DS.hasMany('App.Allocation')
 });

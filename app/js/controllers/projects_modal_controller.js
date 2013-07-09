@@ -1,6 +1,5 @@
 App.ProjectsModalController = App.ModalController.extend({
 	offices: [],
-	clients: [],
 	create: function() {
 		var project = App.Project.createRecord();
 

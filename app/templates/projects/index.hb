@@ -10,7 +10,7 @@
           {{#each allocations}}
           <li class="allocation">
             {{shortDate start_date}} - {{shortDate end_date}}
-            {{#if person}} : {{person.name}}{{/if}}{{#if role}} : {{role.name}}{{/if}}{{#if office}} : {{office.name}}{{/if}}
+            {{#if person}} : {{person.name}}{{/if}}{{#if office}} : {{office.name}}{{/if}}
           </li>
           {{/each}}
         </ul>
