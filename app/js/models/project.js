@@ -7,6 +7,5 @@ App.Project = DS.Model.extend({
   clientPrincipal: DS.belongsTo('App.Person'),
   slots: DS.hasMany('App.Slot'),
   allocations: DS.hasMany('App.Allocation'),
-  office: DS.belongsTo('App.Office'),
   offices: DS.hasMany('App.Office')
 });

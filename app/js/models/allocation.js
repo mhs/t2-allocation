@@ -6,7 +6,7 @@ App.Allocation = DS.Model.extend({
   binding: DS.attr('boolean'),
   slot: DS.belongsTo('App.Slot'),
   person: DS.belongsTo('App.Person'),
-  office: DS.belongsTo('App.Office'),
+  // office: DS.belongsTo('App.Office'),
   project: DS.belongsTo('App.Project'),
 
   track: 0

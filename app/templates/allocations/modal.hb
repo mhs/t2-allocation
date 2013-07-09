@@ -33,15 +33,6 @@
         {{view Ember.TextArea valueBinding="notes"}}
         {{#each msg in errors.notes}}{{msg}}{{/each}}
       </div>
-      <div {{bindAttr class="errors.office:error :field"}}>
-        <label>Office</label>
-        {{view Ember.Select contentBinding="offices"
-                            optionLabelPath="content.name"
-                            optionValuePath="content"
-                            valueBinding="office"
-                            selectionBinding="office"}}
-        {{#each msg in errors.office}}{{msg}}{{/each}}
-      </div>
       <div {{bindAttr class="errors.person:error :field"}}>
         <label>Person</label>
         {{view Ember.Select contentBinding="people"
