@@ -58,5 +58,22 @@ test("test modal interface at /projects", function() {
   });
 });
 
+test("create an allocation via a  modal", function() {
+  expect(3);
+
+  visit("/projects").then(function() {
+    ok($("[data-project-id='1'] .allocationContent").length === 0, "Allocation not present to begin" );
+    return click(".new-allocation-button");
+  }).then(function() {
+    ok(exists('.modal'), "Modal was rendered.");
+    fillIn(".modal-body .start-date", "07/14/13\t");
+    fillIn(".modal-body .end-date", "08/14/13\t");
+    return click(".modal button[type='submit']");
+  }).then(function() {
+    ok(find("[data-project-id='1'] .allocationContent:first").text().indexOf("Dave") !== -1, "Allocation was created" );
+  });
+});
 // model interation tests - actaul test data loaded into test database
 // interface testing - fixtures
+//
+

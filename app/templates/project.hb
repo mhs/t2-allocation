@@ -1,4 +1,4 @@
-<article class="project"  {{bindAttr style="projectHeight"}}>
+<article class="project" {{bindAttr data-project-id="id"}} {{bindAttr style="projectHeight"}}>
 	<div class="container">
 		<div class="allocations">
 			{{#each allocation in currentAllocations}}

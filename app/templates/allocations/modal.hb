@@ -10,12 +10,12 @@
     <div class="modal-body">
       <div {{bindAttr class="errors.startDate:error :field"}}>
         <label>Start Date</label>
-        {{view App.DateField dateBinding="startDate"}}
+        {{view App.DateField class="start-date" dateBinding="startDate"}}
         {{#each msg in errors.startDate}}{{msg}}{{/each}}
       </div>
       <div {{bindAttr class="errors.end_date:error :field"}}>
         <label>End Date</label>
-        {{view App.DateField dateBinding="endDate"}}
+        {{view App.DateField class="end-date" dateBinding="endDate"}}
         {{#each msg in errors.end_date}}{{msg}}{{/each}}
       </div>
       <div {{bindAttr class="errors.billable:error :field"}}>
