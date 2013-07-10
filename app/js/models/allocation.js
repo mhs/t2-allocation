@@ -1,13 +1,19 @@
-App.Allocation = DS.Model.extend({
-  notes: DS.attr('string'),
-  startDate: DS.attr('date'),
-  endDate: DS.attr('date'),
-  billable: DS.attr('boolean'),
-  binding: DS.attr('boolean'),
-  slot: DS.belongsTo('App.Slot'),
-  person: DS.belongsTo('App.Person'),
-  // office: DS.belongsTo('App.Office'),
-  project: DS.belongsTo('App.Project'),
+var attr = Ember.attr, belongsTo = Ember.belongsTo, hasMany = Ember.hasMany;
+
+App.Allocation = Ember.Model.extend({
+  notes: attr(),
+  startDate: attr(Date),
+  endDate: attr(Date),
+  billable: attr(),
+  binding: attr(),
+  slot: belongsTo('App.Slot'),
+  person: belongsTo('App.Person'),
+  project: belongsTo('App.Project'),
 
   track: 0
 });
+
+App.Allocation.adapter = Ember.RESTAdapter.create();
+App.Allocation.url  = "/api/v1/allocations";
+App.Allocation.collectionKey = "allocations";
+App.Allocation.camelizeKeys = true;

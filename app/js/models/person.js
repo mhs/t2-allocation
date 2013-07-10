@@ -1,10 +1,17 @@
-App.Person = DS.Model.extend({
-  name: DS.attr('string'),
-  notes: DS.attr('string'),
-  email: DS.attr('string'),
-  unsellable: DS.attr('boolean'),
-  startDate: DS.attr('date'),
-  endDate: DS.attr('date'),
-  office: DS.belongsTo('App.Office'),
-  allocations: DS.hasMany('App.Allocation')
+var attr = Ember.attr, belongsTo = Ember.belongsTo, hasMany = Ember.hasMany;
+
+App.Person = Ember.Model.extend({
+  name: attr(),
+  notes: attr(),
+  email: attr(),
+  unsellable: attr(),
+  startDate: attr(Date),
+  endDate: attr(Date),
+  office: belongsTo('App.Office'),
+  allocations: hasMany('App.Allocation', {key: 'allocation_ids'})
 });
+
+App.Person.adapter = Ember.RESTAdapter.create();
+App.Person.url = "/api/v1/people";
+App.Person.collectionKey = "people";
+App.Person.camelizeKeys = true;

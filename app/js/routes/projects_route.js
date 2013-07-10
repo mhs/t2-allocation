@@ -23,12 +23,14 @@ App.ProjectsRoute = Ember.Route.extend({
 	},
   setupController: function(controller) {
     // why does this need to be set here?
-    controller.set('model', App.Project.find());
+    var people = App.Person.find();
+    var projects = App.Project.find();
     var offices = App.Office.find();
+    this.controllerFor('projects.index').set('model', projects); 
     this.controllerFor('projects.modal').set('offices', offices);
     this.controllerFor('allocations.modal').set('offices', offices);
-    this.controllerFor('allocations.modal').set('people', App.Person.find());
-    this.controllerFor('allocations.modal').set('projects', App.Project.find());
+    this.controllerFor('allocations.modal').set('people', people);
+    this.controllerFor('allocations.modal').set('projects', projects);
   }
 });
 
