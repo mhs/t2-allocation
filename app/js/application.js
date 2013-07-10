@@ -15,7 +15,7 @@
 //= require handlebars
 //= require underscore
 //= require ember
-//= require ember-data
+//= require ember-model
 //= require moment
 //= require_self
 //= require t3
