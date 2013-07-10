@@ -2,9 +2,10 @@ App.Project = DS.Model.extend({
   name: DS.attr('string'),
   notes: DS.attr('string'),
   billable: DS.attr('boolean'),
-  speculative: DS.attr('boolean'),
-  client: DS.belongsTo('App.Client'),
+  binding: DS.attr('boolean'),
+  slug: DS.attr('string'),
+  clientPrincipal: DS.belongsTo('App.Person'),
   slots: DS.hasMany('App.Slot'),
   allocations: DS.hasMany('App.Allocation'),
-  office: DS.belongsTo('App.Office')
+  offices: DS.hasMany('App.Office')
 });

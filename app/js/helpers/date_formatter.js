@@ -24,24 +24,6 @@ makeDate = function(unformatted_date) {
       minutes: date.getUTCMinutes(),
       seconds: date.getUTCSeconds()
     };
-    // var dayOfWeek = days[utcDay];
-    // var dayOfMonth = pad(utcDayOfMonth);
-    // var month = months[utcMonth];
-  
-    // }
-    // var utcYear = date.getUTCFullYear(),
-    //     utcMonth = date.getUTCMonth(),
-    //     utcDayOfMonth = date.getUTCDate(),
-    //     utcDay = date.getUTCDay(),
-    //     utcHours = date.getUTCHours(),
-    //     utcMinutes = date.getUTCMinutes(),
-    //     utcSeconds = date.getUTCSeconds();
-
-    // var dayOfWeek = days[utcDay];
-    // var dayOfMonth = pad(utcDayOfMonth);
-    // var month = months[utcMonth];
-
-    // return month + " " + dayOfMonth;
   } else if (date === undefined) {
     return undefined;
   } else {

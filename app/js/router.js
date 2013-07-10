@@ -3,6 +3,6 @@ App.Router.map(function () {
   });
 });
 
-// App.Router.reopen({
-//   location: 'history'
-// });
+App.Router.reopen({
+  location: 'history'
+});

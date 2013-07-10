@@ -44,26 +44,6 @@ App.ProjectsController = Ember.ArrayController.extend({
 
 });
 
-
-App.ProjectsIndexController = Ember.ArrayController.extend({
-  createClient: function () {
-    // get the name of the client
-    var name = this.get('newName');
-    if(!name.trim()) { return; }
-
-    // create new Client model
-    var client = App.Client.createRecord({
-      name: name
-    });
-
-    // reset input box
-    this.set('newName', '');
-
-    // save client
-    client.save();
-  }
-});
-
 App.ProjectController = Ember.ObjectController.extend({
   content: null,
 
@@ -95,6 +75,7 @@ filterAllocationsByDate = function(allocations, controller) {
              ( moment( item.get('endDate') )   >   moment(controller.get('date') )                                             ) );
   }, controller = controller);
 };
+
 buildAllocationTracks = function(allocations, controller) {
   var people = {}, trackNo = 0;
   trackedAllocations =  allocations.map(

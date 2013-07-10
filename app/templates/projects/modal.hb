@@ -18,10 +18,10 @@
         {{view Ember.Checkbox checkedBinding="billable"}}
         {{#each msg in errors.billable}}{{msg}}{{/each}}
       </div>
-      <div {{bindAttr class="errors.speculative:error :field"}}>
-        <label>Speculative</label>
-        {{view Ember.Checkbox checkedBinding="speculative"}}
-        {{#each msg in errors.speculative}}{{msg}}{{/each}}
+      <div {{bindAttr class="errors.binding:error :field"}}>
+        <label>Binding</label>
+        {{view Ember.Checkbox checkedBinding="binding"}}
+        {{#each msg in errors.binding}}{{msg}}{{/each}}
       </div>
       <div {{bindAttr class="errors.notes:error :field"}}>
         <label>Notes</label>
@@ -35,15 +35,6 @@
                             optionValuePath="content"
                             valueBinding="office"
                             selectionBinding="office"}}
-        {{#each msg in errors.office}}{{msg}}{{/each}}
-      </div>
-      <div {{bindAttr class="errors.office:error :field"}}>
-        <label>Client</label>
-        {{view Ember.Select contentBinding="clients"
-                            optionLabelPath="content.name"
-                            optionValuePath="content"
-                            valueBinding="client"
-                            selectionBinding="client"}}
         {{#each msg in errors.office}}{{msg}}{{/each}}
       </div>
     </div>

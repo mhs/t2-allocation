@@ -4,8 +4,7 @@ App.Store = DS.Store.extend({
 });
 
 DS.RESTAdapter.configure("plurals", {
-  person: "people",
-  residency: "residencies"
+  person: "people"
 });
 
 DS.RESTAdapter.reopen({

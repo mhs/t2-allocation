@@ -2,8 +2,8 @@
 	<div class="title">
 		<h1>Projects</h1>
 	</div>
-	<button style="float: right;" {{action createProject}}>Add Project</button>
-	<button style="float: right;" {{action createAllocation}}>Add Allocation</button>
+	<button class="new-project-button" style="float: right;" {{action createProject}}>Add Project</button>
+	<button class="new-allocation-button" style="float: right;" {{action createAllocation}}>Add Allocation</button>
 </section>
 <section id="timeline">
 	<section id="calendarBar">
