@@ -42,7 +42,6 @@
       <button type="submit" {{bindAttr disabled="shouldDisableSubmit"}}>Save</button>
       <button {{action close}}>Cancel</button>
       {{#if isSaving}}
-        <img src="{{unbound App.AJAX_LOADER_IMG}}" alt="Loading..." class="ajax-loader">
         Saving...
       {{/if}}
     </div>
