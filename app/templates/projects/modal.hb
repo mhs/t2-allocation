@@ -28,14 +28,14 @@
         {{view Ember.TextArea valueBinding="notes"}}
         {{#each msg in errors.notes}}{{msg}}{{/each}}
       </div>
-      <div {{bindAttr class="errors.office:error :field"}}>
-        <label>Office</label>
-        {{view Ember.Select contentBinding="offices"
-                            optionLabelPath="content.name"
-                            optionValuePath="content"
-                            valueBinding="office"
-                            selectionBinding="office"}}
-        {{#each msg in errors.office}}{{msg}}{{/each}}
+      <div {{bindAttr class="errors.offices:error :field"}}>
+        <label>Offices</label>
+        <ul>
+          {{#each office in selectedOffices}}
+            <li {{bindAttr class="office.isSelected"}}{{action selectOffice office}}>{{office.name}}</li>
+          {{/each}}
+        </ul>
+        {{#each msg in errors.offices}}{{msg}}{{/each}}
       </div>
     </div>
     <div class="modal-footer">

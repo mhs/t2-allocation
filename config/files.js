@@ -18,8 +18,15 @@ module.exports = require(process.env['LINEMAN_MAIN']).config.extend('files', {
       "vendor/js/jquery.js",
       "vendor/js/handlebars.js",
       "vendor/js/ember.js",
-      "vendor/js/ember-data.js",
+      "vendor/js/ember-model.js",
       "vendor/js/**/*.js"
+    ]
+  },
+  coffee: {
+    app: [
+      "app/js/t2.coffee",
+      "app/js/t2/**/*.coffee",
+      "app/js/setup.coffee"
     ]
   }
 });

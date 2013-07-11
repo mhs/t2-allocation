@@ -2,7 +2,8 @@ module("/project_test", {
   setup: function() {
     Ember.run(
       App,
-      App.advanceReadiness
+      App.advanceReadiness,
+      App.setup
     );
   },
   teardown: function() {
@@ -13,7 +14,7 @@ module("/project_test", {
 test("/projects existence", function() {
   expect(4);
 
-  App.currentDate.set('date', "6/1/13");
+  App.projectsUI.set('date', "6/1/13");
   visit("/projects").then(function() {
     ok(exists('#projectList'), "Project list was rendered.");
     ok(exists('.project'), "Project was rendered.");
@@ -25,7 +26,7 @@ test("/projects existence", function() {
 test("test updating date field at /projects", function() {
   expect(5);
 
-  App.currentDate.set('date', "6/1/13");
+  App.projectsUI.set('date', "6/1/13");
   visit("/projects").then(function() {
     return click(".selector span");
   }).then(function() {
