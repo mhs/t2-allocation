@@ -9,6 +9,5 @@ App.Slot = Ember.Model.extend(
     key: "allocation_ids"
   )
 )
-App.Slot.url = "/api/v1/slots"
 App.Slot.collectionKey = "slots"
 App.Slot.camelizeKeys = true

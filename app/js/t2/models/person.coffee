@@ -13,6 +13,5 @@ App.Person = Ember.Model.extend(
     key: "allocation_ids"
   )
 )
-App.Person.url = "/api/v1/people"
 App.Person.collectionKey = "people"
 App.Person.camelizeKeys = true

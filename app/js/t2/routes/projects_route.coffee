@@ -21,8 +21,6 @@ App.ProjectsRoute = Ember.Route.extend
       @send "openModal", "confirm.delete"
 
   setupController: (controller) ->
-    
-    # why does this need to be set here?
     people = App.Person.find()
     projects = App.Project.find()
     offices = App.Office.find()

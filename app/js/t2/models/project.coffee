@@ -18,6 +18,5 @@ App.Project = Ember.Model.extend(
     key: "office_ids"
   )
 )
-App.Project.url = "/api/v1/projects"
 App.Project.collectionKey = "projects"
 App.Project.camelizeKeys = true

@@ -20,7 +20,7 @@ App.ProjectController = Ember.ObjectController.extend
   projectHeight: (->
     "height: " + (@get("trackCount") * App.ALLOCATION_HEIGHT + 1) + "px;"
   ).property("trackCount")
-)
+
 filterAllocationsByDate = (allocations, controller) ->
   allocations.filter ((item) ->
     (moment(item.get("startDate")) < (moment(controller.get("date")).add("days", controller.get("daysInWindow")))) and (moment(item.get("endDate")) > moment(controller.get("date")))

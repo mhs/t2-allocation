@@ -54,12 +54,12 @@ unless window.T2Application
                   type.findFromCacheOrLoad(record)
         ).create()
 
-      # api_extention = "/api/v1"
-      # App.Allocation.url = api_extension + "/allocations"
-      # App.Office.url = api_extension + "/offices"
-      # App.Person.url = api_extension + "/people"
-      # App.Project.url = api_extension + "/projects"
-      # App.Slot.url = api_extension + "/slots"
+      api_extension = "/api/v1"
+      App.Allocation.url = api_extension + "/allocations"
+      App.Office.url = api_extension + "/offices"
+      App.Person.url = api_extension + "/people"
+      App.Project.url = api_extension + "/projects"
+      App.Slot.url = api_extension + "/slots"
     )
 
 window.App = window.T2Application.create()

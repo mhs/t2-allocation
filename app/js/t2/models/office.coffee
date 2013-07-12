@@ -11,6 +11,5 @@ App.Office = Ember.Model.extend(
     key: "person_ids"
   )
 )
-App.Office.url = "/api/v1/offices"
 App.Office.collectionKey = "offices"
 App.Office.camelizeKeys = true
