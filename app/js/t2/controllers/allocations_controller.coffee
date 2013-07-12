@@ -3,8 +3,9 @@ TIME_SCALE = 16
 App.AllocationController = Ember.ObjectController.extend
   startOffset: (->
     currentMonday = moment(App.projectsUI.get("date")).startOf("week")
-    moment(@get("startDate")).diff currentMonday, "days"
-  ).property("App.currentDate.date", "startDate")
+    startDate = moment(@get("startDate")) || moment()
+    moment(startDate).diff currentMonday, "days"
+  ).property("App.projectsUI.date", "startDate")
   
   # when the start date is the same as the end date, we need to show one day, not zero.
   duration: (->

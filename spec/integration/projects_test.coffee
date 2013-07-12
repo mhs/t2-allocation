@@ -5,13 +5,15 @@ module "Integration Tests: projects",
     App.reset()
 
 test "/projects existence", ->
-  expect 4
+  expect 5
   App.projectsUI.set "date", "6/1/13"
   visit("/projects").then ->
     ok exists("#projectList"), "Project list was rendered."
     ok exists(".project"), "Project was rendered."
     equal find(".calendar ul li").first().text(), "May 27", "The Date was rendered"
     equal find(".project .descriptor span").first().text(), "Nexia Home", "The Project name was rendered"
+    ok $(".allocationContent").length is 4, "Allocations are present"
+    
 
 test "test updating date field at /projects", ->
   expect 5
@@ -47,14 +49,15 @@ test "test modal interface at /projects", ->
 
 
 test "create an allocation via a  modal", ->
-  expect 3
+  expect 4
   visit("/projects").then(->
+    ok exists("[data-project-id='1']"), "Project was rendered."
     ok $("[data-project-id='1'] .allocationContent").length is 0, "Allocation not present to begin"
     click ".new-allocation-button"
   ).then(->
     ok exists(".modal"), "Modal was rendered."
-    fillIn ".modal-body .start-date", "07/14/13\t"
-    fillIn ".modal-body .end-date", "08/14/13\t"
+    fillIn ".modal-body .start-date", "2013-07-14"
+    fillIn ".modal-body .end-date", "2013-08-14"
     click ".modal button[type='submit']"
   ).then ->
     ok find("[data-project-id='1'] .allocationContent:first").text().indexOf("Dave") isnt -1, "Allocation was created"

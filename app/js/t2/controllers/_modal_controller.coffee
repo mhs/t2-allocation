@@ -4,7 +4,7 @@ App.ModalController = Em.ObjectController.extend
 
   save: ->
     @get("model").save()
-    @send "close"
+    @send "closeModal"
 
   close: ->
     @send "closeModal"
