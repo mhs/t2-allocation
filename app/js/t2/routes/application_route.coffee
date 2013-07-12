@@ -11,6 +11,5 @@ App.ApplicationRoute = Ember.Route.extend
         @render "empty",
           into: "application"
           outlet: "modal"
-
       ).bind(this)
 

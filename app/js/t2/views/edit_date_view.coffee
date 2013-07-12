@@ -10,6 +10,6 @@ App.EditDateView = Ember.TextField.extend(
     @$().focus()
 
   focusIn: (event) ->
-    @set "value", moment(App.currentDate.get("date")).format("L")
+    @set "value", moment(App.projectsUI.get("date")).format("L")
     $(event.target).datepicker()
 )

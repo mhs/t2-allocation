@@ -14,6 +14,4 @@ App.ProjectsModalController = App.ModalController.extend
 
   create: ->
     project = App.Project.create()
-    project.on "didCreate", this, ->
-      @send "close"
     @set "model", project
