@@ -14,6 +14,3 @@ App.Allocation = Ember.Model.extend
     key: 'project_id'
   )
   track: 0
-
-App.Allocation.collectionKey = "allocations"
-App.Allocation.camelizeKeys = true

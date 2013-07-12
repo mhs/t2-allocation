@@ -11,6 +11,3 @@ App.Person = Ember.Model.extend
   allocations: Ember.hasMany("App.Allocation",
     key: "allocation_ids"
   )
-
-App.Person.collectionKey = "people"
-App.Person.camelizeKeys = true

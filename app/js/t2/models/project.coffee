@@ -12,6 +12,3 @@ App.Project = Ember.Model.extend
   offices: Ember.hasMany("App.Office",
     key: "office_ids"
   )
-
-App.Project.collectionKey = "projects"
-App.Project.camelizeKeys = true

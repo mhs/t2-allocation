@@ -7,6 +7,3 @@ App.Office = Ember.Model.extend
   people: Ember.hasMany("App.Person",
     key: "person_ids"
   )
-
-App.Office.collectionKey = "offices"
-App.Office.camelizeKeys = true

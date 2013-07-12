@@ -7,5 +7,3 @@ App.Slot = Ember.Model.extend
   allocations: Ember.hasMany("App.Allocation",
     key: "allocation_ids"
   )
-App.Slot.collectionKey = "slots"
-App.Slot.camelizeKeys = true

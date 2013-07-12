@@ -3,6 +3,19 @@ unless window.T2Application
     setup: ->
       modelClasses = [App.Allocation, App.Office, App.Person, App.Project, App.Slot]
       modelClasses.forEach (klass) ->
+        parts = klass.toString().split('.')
+        name = parts[parts.length - 1].replace(/([A-Z])/g, '_$1').toLowerCase().slice(1)
+        unless name == "person"
+          pluralName = name + "s"
+        else
+          pluralName = "people"
+
+        api_extension = "/api/v1/"
+        klass.collectionKey = pluralName
+        klass.rootKey = name
+        klass.url = api_extension + pluralName
+        klass.camelizeKeys = true
+
         klass.adapter = Ember.RESTAdapter.extend(
           findMany: (klass, records, ids) ->
             console.log "findMany", klass + "", records + "", ids
