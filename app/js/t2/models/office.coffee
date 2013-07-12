@@ -1,15 +1,12 @@
-attr = Ember.attr
-belongsTo = Ember.belongsTo
-hasMany = Ember.hasMany
-App.Office = Ember.Model.extend(
-  name: attr()
-  notes: attr()
-  projects: hasMany("App.Project",
+App.Office = Ember.Model.extend
+  name: Ember.attr()
+  notes: Ember.attr()
+  projects: Ember.hasMany("App.Project",
     key: "project_ids"
   )
-  people: hasMany("App.Person",
+  people: Ember.hasMany("App.Person",
     key: "person_ids"
   )
-)
+
 App.Office.collectionKey = "offices"
 App.Office.camelizeKeys = true

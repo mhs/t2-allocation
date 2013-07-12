@@ -1,17 +1,16 @@
-attr = Ember.attr
-belongsTo = Ember.belongsTo
-hasMany = Ember.hasMany
-App.Person = Ember.Model.extend(
-  name: attr()
-  notes: attr()
-  email: attr()
-  unsellable: attr()
-  startDate: attr(Date)
-  endDate: attr(Date)
-  office: belongsTo("App.Office")
-  allocations: hasMany("App.Allocation",
+App.Person = Ember.Model.extend
+  name: Ember.attr()
+  notes: Ember.attr()
+  email: Ember.attr()
+  unsellable: Ember.attr()
+  startDate: Ember.attr(Date)
+  endDate: Ember.attr(Date)
+  office: Ember.belongsTo("App.Office",
+    key: 'office_id'
+  )
+  allocations: Ember.hasMany("App.Allocation",
     key: "allocation_ids"
   )
-)
+
 App.Person.collectionKey = "people"
 App.Person.camelizeKeys = true

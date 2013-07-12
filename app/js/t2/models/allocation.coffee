@@ -1,16 +1,19 @@
-attr = Ember.attr
-belongsTo = Ember.belongsTo
-hasMany = Ember.hasMany
-App.Allocation = Ember.Model.extend(
-  notes: attr()
-  startDate: attr(Date)
-  endDate: attr(Date)
-  billable: attr()
-  binding: attr()
-  slot: belongsTo("App.Slot")
-  person: belongsTo("App.Person")
-  project: belongsTo("App.Project")
+App.Allocation = Ember.Model.extend
+  notes: Ember.attr()
+  startDate: Ember.attr(Date)
+  endDate: Ember.attr(Date)
+  billable: Ember.attr()
+  binding: Ember.attr()
+  slot: Ember.belongsTo("App.Slot", 
+    key: 'slot_id'
+  )
+  person: Ember.belongsTo("App.Person", 
+    key: 'person_id'
+  )
+  project: Ember.belongsTo("App.Project", 
+    key: 'project_id'
+  )
   track: 0
-)
+
 App.Allocation.collectionKey = "allocations"
 App.Allocation.camelizeKeys = true

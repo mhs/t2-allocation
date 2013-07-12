@@ -1,22 +1,17 @@
-attr = Ember.attr
-belongsTo = Ember.belongsTo
-hasMany = Ember.hasMany
-App.Project = Ember.Model.extend(
-  name: attr()
-  notes: attr()
-  billable: attr()
-  binding: attr()
-  slug: attr()
-  clientPrincipal: belongsTo("App.Person")
-  slots: hasMany("App.Slot",
+App.Project = Ember.Model.extend
+  name: Ember.attr()
+  notes: Ember.attr()
+  billable: Ember.attr()
+  vacation: Ember.attr()
+  slots: Ember.hasMany("App.Slot",
     key: "slot_ids"
   )
-  allocations: hasMany("App.Allocation",
+  allocations: Ember.hasMany("App.Allocation",
     key: "allocation_ids"
   )
-  offices: hasMany("App.Office",
+  offices: Ember.hasMany("App.Office",
     key: "office_ids"
   )
-)
+
 App.Project.collectionKey = "projects"
 App.Project.camelizeKeys = true
