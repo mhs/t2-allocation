@@ -6,3 +6,4 @@
 /dist
 /generated
 .sass-cache/*
+*.log
