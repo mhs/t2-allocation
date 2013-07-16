@@ -24,13 +24,13 @@ App.Office.FIXTURES = [
   {
     id: 1,
     name: "Cincinnati",
-    projects: [2],
-    people: [1, 2, 3]
+    project_ids: [2],
+    person_ids: [1, 2, 3]
   }, {
     id: 2,
     name: "Columbus",
-    projects: [1],
-    people: [4]
+    project_ids: [1],
+    person_ids: [4]
   }, {
     id: 3,
     name: "Monetvideo"
@@ -43,33 +43,33 @@ App.Project.FIXTURES = [
     name: "Nexia Home",
     billable: true,
     vacation: false,
-    offices: [2],
-    slots: [],
-    allocations: []
+    office_ids: [2],
+    slot_ids: [],
+    allocation_ids: []
   }, {
     id: 2,
     name: "T3",
     billable: false,
     vacation: false,
-    offices: [1],
-    slots: [1, 2],
-    allocations: [1, 2, 3, 4]
+    office_ids: [1],
+    slot_ids: [1, 2],
+    allocation_ids: [1, 2, 3, 4]
   }
 ];
 
 App.Slot.FIXTURES = [
   {
     id: 1,
-    startDate: "2013-06-01",
-    endDate: "2013-08-05",
-    project: 2,
-    allocations: []
+    start_date: "2013-06-01",
+    end_date: "2013-08-05",
+    project_id: 2,
+    allocation_ids: []
   }, {
     id: 2,
-    startDate: "2013-07-01",
-    endDate: "2013-08-03",
-    project: 2,
-    allocations: [1, 2, 3, 4]
+    start_date: "2013-07-01",
+    end_date: "2013-08-03",
+    project_id: 2,
+    allocation_ids: [1, 2, 3, 4]
   }
 ];
 
@@ -78,67 +78,67 @@ App.Person.FIXTURES = [
     id: 1,
     name: "Dave Anderson",
     unsellable: false,
-    startDate: new Date("2012-02-02"),
-    office: 1,
-    allocations: [1]
+    start_date: "2012-02-02",
+    office_id: 1,
+    allocation_ids: [1]
   }, {
     id: 2,
     name: "Dan Williams",
     unsellable: false,
-    startDate: new Date("2013-03-11"),
-    office: 1,
-    allocations: []
+    start_date: "2013-03-11",
+    office_id: 1,
+    allocation_ids: []
   }, {
     id: 3,
     name: "Lauren Woodrich",
     unsellable: false,
-    startDate: new Date("2013-04-09"),
-    office: 1,
-    allocations: [3]
+    start_date: "2013-04-09",
+    office_id: 1,
+    allocation_ids: [3]
   }, {
     id: 4,
     name: "Mike Doel",
     unsellable: false,
-    startDate: new Date("2009-01-19"),
-    office: 2,
-    allocations: [2]
+    start_date: "2009-01-19",
+    office_id: 2,
+    allocation_ids: [2]
   }
 ];
 
 App.Allocation.FIXTURES = [
   {
     id: 1,
-    startDate: new Date("2013-06-02"),
-    endDate: new Date("2013-08-05"),
+    start_date: "2013-06-02",
+    end_date: "2013-08-05",
     billable: true,
     binding: false,
-    slot: 1,
-    person: 1,
-    project: 2
+    slot_id: 1,
+    person_id: 1,
+    project_id: 2
   }, {
     id: 2,
-    startDate: new Date("2013-06-01"),
-    endDate: new Date("2013-08-05"),
+    start_date: "2013-06-01",
+    end_date: "2013-08-05",
     billable: true,
     binding: false,
-    slot: 2,
-    person: 4,
-    project: 2
+    slot_id: 2,
+    person_id: 4,
+    project_id: 2
   }, {
     id: 3,
-    startDate: new Date("2013-07-01"),
-    endDate: new Date("2013-08-03"),
+    start_date: "2013-07-01",
+    end_date: "2013-08-03",
     billable: true,
     binding: true,
-    slot: 2,
-    person: 3,
-    project: 2
+    slot_id: 2,
+    person_id: 3,
+    project_id: 2
   }, {
     id: 4,
-    startDate: "2013-07-01",
-    endDate: "2013-08-03",
+    start_date: "2013-07-01",
+    end_date: "2013-08-03",
     billable: true,
     binding: true,
-    project: 2
+    project_id: 2
   }
 ];
