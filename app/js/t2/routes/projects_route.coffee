@@ -1,4 +1,12 @@
 App.ProjectsRoute = Ember.Route.extend
+  model: ->
+    projects = App.Project.find()
+    projects.forEach (project) ->
+      project.people.reload()
+      project.allocations.reload()
+      project.slots.reload()
+      project.offices.reload()
+    return projects
   events:
     createProject: ->
       @controllerFor("projects.modal").create()
