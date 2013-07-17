@@ -1,23 +1,24 @@
 module "Integration Tests: projects",
   setup: ->
-    Ember.run App, App.advanceReadiness, App.setup
+    Ember.run App, App.advanceReadiness
+    App.projectsUI.set "date", "6/1/13"
   teardown: ->
     App.reset()
 
 test "/projects existence", ->
-  expect 5
-  App.projectsUI.set "date", "6/1/13"
+
   visit("/projects").then ->
     ok exists("#projectList"), "Project list was rendered."
     ok exists(".project"), "Project was rendered."
     equal find(".calendar ul li").first().text(), "May 27", "The Date was rendered"
     equal find(".project .descriptor span").first().text(), "Nexia Home", "The Project name was rendered"
-    ok $(".allocationContent").length is 4, "Allocations are present"
+    ok exists(".allocationContent"), "Allocations are present"
+    allocationCnt = $(".allocationContent").length
+    ok allocationCnt is 4, "Allocation count is #{allocationCnt} (should be 4)"
     
-
 test "test updating date field at /projects", ->
   expect 5
-  App.projectsUI.set "date", "6/1/13"
+
   
   # the 'body' context is needed since datepicker is built outside testing div
   visit("/projects").then(->
@@ -49,15 +50,17 @@ test "test modal interface at /projects", ->
 
 
 test "create an allocation via a  modal", ->
-  expect 4
+  expect 5
+  debugger
   visit("/projects").then(->
     ok exists("[data-project-id='1']"), "Project was rendered."
     ok $("[data-project-id='1'] .allocationContent").length is 0, "Allocation not present to begin"
     click ".new-allocation-button"
   ).then(->
     ok exists(".modal"), "Modal was rendered."
-    fillIn ".modal-body .start-date", "2013-07-14"
-    fillIn ".modal-body .end-date", "2013-08-14"
+    fillIn ".modal-body .start-date", "2013-07-14\t"
+    fillIn ".modal-body .end-date", "2013-08-14\t"
     click ".modal button[type='submit']"
   ).then ->
+    ok $("[data-project-id='1'] .allocationContent").length is 1, "Allocation is present after save"
     ok find("[data-project-id='1'] .allocationContent:first").text().indexOf("Dave") isnt -1, "Allocation was created"

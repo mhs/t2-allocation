@@ -53,7 +53,7 @@ App.Project.FIXTURES = [
     vacation: false,
     office_ids: [1],
     slot_ids: [1, 2],
-    allocation_ids: [1, 2, 3, 4]
+    allocation_ids: [1, 2, 3, 4, 5]
   }
 ];
 
@@ -137,6 +137,13 @@ App.Allocation.FIXTURES = [
     id: 4,
     start_date: "2013-07-01",
     end_date: "2013-08-03",
+    billable: true,
+    binding: true,
+    project_id: 2
+  }, {
+    id: 5,
+    start_date: "2012-07-01",
+    end_date: "2012-08-03",
     billable: true,
     binding: true,
     project_id: 2
