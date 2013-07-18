@@ -2,16 +2,15 @@ App.AllocationsModalController = App.ModalController.extend
   offices: []
   people: []
   projects: []
-  create: ->
-    allocation = App.Allocation.create()
-    allocation.on "didCreate", this, ->
-      @send "close"
 
-    @set "model", allocation
-
+  oldProject: null
   selectedProject: null
   updateProject: (->
     model = @get("model")
-    if model and model.get("project") and model.get("project").get("allocations") and not model.get("project").get("allocations").toArray().contains(model)
-      @get("model").get("project").get("allocations").pushObject @get("model")
+    newProject = model?.get('project')
+    newProjectAllocations = newProject?.get('allocations')
+    @get('oldProject')?.get('allocations')?.removeObject(model)
+    if newProjectAllocations and not newProjectAllocations.toArray().contains(model)
+        newProjectAllocations.pushObject model
+        @set "oldProject", newProject
   ).observes("model.project")

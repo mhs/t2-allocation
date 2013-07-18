@@ -8,7 +8,7 @@ App.DateField = Ember.TextField.extend(
       if value
         date = new Date(value)
       else
-        date = null
+        date = new Date(moment())
     date
   ).property("value")
 )

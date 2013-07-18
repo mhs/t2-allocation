@@ -1,27 +1,31 @@
 App.ProjectsRoute = Ember.Route.extend
-  model: ->
-    projects = App.Project.find()
-    projects.forEach (project) ->
-      project.people.reload()
-      project.allocations.reload()
-      project.slots.reload()
-      project.offices.reload()
-    return projects
+  # model: ->
+  #   projects = App.Project.find()
+  #   projects.forEach (project) ->
+  #     project.people.reload()
+  #     project.allocations.reload()
+  #     project.slots.reload()
+  #     project.offices.reload()
+  #   return projects
   events:
     createProject: ->
-      @controllerFor("projects.modal").create()
+      project = App.Project.create()
+      @controllerFor("projects.modal").set('model', project)
       @send "openModal", "projects.modal"
 
     editProject: (project) ->
-      @controllerFor("projects.modal").edit project
+      @controllerFor("projects.modal").set('model', project)
+      @controllerFor("projects.modal").set('model', project)
       @send "openModal", "projects.modal"
 
     createAllocation: ->
-      @controllerFor("allocations.modal").create()
+      allocation = App.Project.create()
+      @controllerFor("allocations.modal").set('model', allocation)
       @send "openModal", "allocations.modal"
 
     editAllocation: (allocation) ->
-      @controllerFor("allocations.modal").edit allocation
+      @controllerFor("allocations.modal").set('model', allocation)
+      @controllerFor("allocations.modal").set('oldProject', allocation.get('project'))
       @send "openModal", "allocations.modal"
 
     confirmDelete: (record) ->
