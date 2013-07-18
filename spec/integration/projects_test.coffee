@@ -14,7 +14,7 @@ test "/projects existence", ->
     equal find(".project .descriptor span").first().text(), "Nexia Home", "The Project name was rendered"
     ok exists(".allocationContent"), "Allocations are present"
     allocationCnt = $(".allocationContent").length
-    ok allocationCnt is 5, "Allocation count is #{allocationCnt} (should be 4)"
+    ok allocationCnt is 4, "Allocation count is #{allocationCnt} (should be 4)"
     
 test "test updating date field at /projects", ->
   expect 5
@@ -44,7 +44,7 @@ test "test updating date field at /projects", ->
 test "test modal interface at /projects", ->
   expect 1
   visit("/projects").then(->
-    click ".project:first .descriptor button:first"
+    click ".project:first .descriptor"
   ).then ->
     ok exists(".modal"), "Modal was rendered."
 
