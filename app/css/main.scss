@@ -4,18 +4,25 @@ $sidebar-width: 192px;
 
 body {
 	margin: 0;
-	background-color: #ffefdf;
-	font-family: sans-serif;
+	background-color: #fff;
+	font-family: "myriad-pro",sans-serif;
+	line-height: 19.2px;
 }
 
 #controls {
 	position: relative;
-	height: 57px;
+	height: 40px;
 	.title {
 		position: absolute;
 		width: $sidebar-width;
 		background-color: #8BDEF6;
 		height: 100%;
+		h1 {
+			padding: 0 15px;
+			color: white;
+			font-size: 14px;
+			font-weight: 400;
+		}
 	}
 	.controls {
 		position: absolute;
@@ -84,7 +91,13 @@ body {
 				height: 100%;
 				width: $sidebar-width;
 				background-color: #ffffff;
-
+				border-right: 1px solid #eee;
+				border-bottom: 1px solid #eee;
+				span {
+					padding: 15px;
+					color: #454848;
+					font-weight: 400;
+				}
 			}
 			.container {
 				position: absolute;
@@ -93,20 +106,31 @@ body {
 					position: relative;
 					height: 100%;
 					div {
+						-webkit-border-radius: 3px;
+						-moz-border-radius: 3px;
+						border-radius: 3px;
 						margin-top: 1px;
-						height: 15px;
-						background-color: rgba(0,127,87,0.3);
+						height: 27px;
+						background-color: #3bcf91;
 						position: absolute;
 						font-size: 11px;
-						//color: #ffffff;
-						//font-weight: bold;
-						color: #666666;
+						color: rgba(255,255,255,0.9);
 						border-radius: 3px;
 						.allocationContent {
 							background-color: transparent;
-							padding-left: 4px;
-							.role {
-								font-style: italic;
+							padding: 5.2px 0 5.2px 8px;
+							text-overflow: ellipsis;
+							white-space: nowrap;
+							overflow: hidden;
+							-webkit-box-sizing: border-box;
+							-moz-box-sizing: border-box;
+							box-sizing: border-box;
+							width: 100%;
+							.identifier {
+								font-weight: 700;
+							}
+							.range {
+								color: rgba(255,255,255,0.7);
 							}
 						}
 					}

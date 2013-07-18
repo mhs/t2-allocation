@@ -6,11 +6,7 @@
 			{{/each}}
 		</div>
 	</div>
-	<div class="descriptor">
+	<div {{action 'editProject' this}} class="descriptor">
 		<span>{{ name }}</span>
-		<td class="actions">
-        	<button {{action editProject this}}>edit</button>
-        	<button {{action confirmDelete this}}>delete</button>
-      	</td>
 	</div>
 </article>
