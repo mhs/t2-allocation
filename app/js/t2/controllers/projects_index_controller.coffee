@@ -2,6 +2,16 @@ App.ProjectsIndexController = Ember.ArrayController.extend
   isEditing: false
   dateBinding: "App.projectsUI.date"
   daysInWindowBinding: "App.projectsUI.daysInWindow"
+
+  createAllocation: ->
+    allocation = App.Allocation.create
+      startDate: new Date()
+      endDate: new Date(moment().add(2,'weeks').format('L'))
+    @send 'editAllocation', allocation
+
+  createProject: ->
+    project = App.Project.create()
+    @send "editProject", project
   
   editDate: ->
     @set "isEditing", true

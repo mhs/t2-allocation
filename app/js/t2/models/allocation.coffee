@@ -1,4 +1,5 @@
 App.Allocation = Ember.Model.extend
+  id: Ember.attr()
   notes: Ember.attr()
   startDate: Ember.attr(Date)
   endDate: Ember.attr(Date)

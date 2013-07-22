@@ -16,11 +16,11 @@
       <div {{bindAttr class="errors.end_date:error :field"}}>
         <label>End Date</label>
         {{view App.DateField class="end-date" dateBinding="endDate"}}
-        {{#each msg in errors.end_date}}{{msg}}{{/each}}
+        {{#each msg in errors.endDate}}{{msg}}{{/each}}
       </div>
       <div {{bindAttr class="errors.billable:error :field"}}>
         <label>Billable</label>
-        {{view Ember.Checkbox checkedBinding="billable"}}
+        {{view Ember.Checkbox checkedBillable="billable"}}
         {{#each msg in errors.billable}}{{msg}}{{/each}}
       </div>
       <div {{bindAttr class="errors.binding:error :field"}}>
@@ -37,9 +37,10 @@
         <label>Person</label>
         {{view Ember.Select contentBinding="people"
                             optionLabelPath="content.name"
-                            optionValuePath="content"
-                            valueBinding="person"
-                            selectionBinding="person"}}
+                            optionValuePath="content.id"
+                            valueBinding="person_id"
+                            selectionBinding="person"
+                            prompt="Select a name"}}
         {{#each msg in errors.person}}{{msg}}{{/each}}
       </div>
       <div {{bindAttr class="errors.project:error :field"}}>
@@ -48,7 +49,8 @@
                             optionLabelPath="content.name"
                             optionValuePath="content"
                             valueBinding="project"
-                            selectionBinding="project"}}
+                            selectionBinding="project"
+                            prompt="Select a project"}}
         {{#each msg in errors.project}}{{msg}}{{/each}}
       </div>
     </div>

@@ -1,7 +1,5 @@
-WIDTH_OF_DAY = 16
-WIDTH_OF_DESCRIPTOR = 192
-App.ProjectsIndexView = Ember.View.extend({})
+App.ProjectsIndexView = Ember.View.extend()
 $(window).resize ->
-  days = Math.ceil((window.innerWidth - WIDTH_OF_DESCRIPTOR) / WIDTH_OF_DAY)
+  days = Math.ceil((window.innerWidth - App.WIDTH_OF_DESCRIPTOR) / App.WIDTH_OF_DAY)
   App.projectsUI.set "daysInWindow", days
 

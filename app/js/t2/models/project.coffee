@@ -1,4 +1,5 @@
 App.Project = Ember.Model.extend
+  id: Ember.attr()
   name: Ember.attr()
   notes: Ember.attr()
   billable: Ember.attr()

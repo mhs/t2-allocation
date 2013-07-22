@@ -1,4 +1,5 @@
 App.Office = Ember.Model.extend
+  id: Ember.attr()
   name: Ember.attr()
   notes: Ember.attr()
   projects: Ember.hasMany("App.Project",

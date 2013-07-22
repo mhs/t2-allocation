@@ -1,4 +1,5 @@
 App.Slot = Ember.Model.extend
+  id: Ember.attr()
   startDate: Ember.attr(Date)
   endDate: Ember.attr(Date)
   project: Ember.belongsTo("App.Project",
