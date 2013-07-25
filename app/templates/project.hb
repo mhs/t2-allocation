@@ -6,7 +6,7 @@
 			{{/each}}
 		</div>
 	</div>
-	<div {{action 'editProject' this}} class="descriptor">
+	{{#view App.ProjectEditView class="descriptor"}}
 		<span>{{ name }}</span>
-	</div>
+	{{/view}}
 </article>
