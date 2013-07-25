@@ -1,3 +1,4 @@
+{{#view App.ProjectAllocationsView}}
 <article class="project" {{bindAttr data-project-id="id"}} {{bindAttr style="projectHeight"}}>
 	<div class="container">
 		<div class="allocations">
@@ -10,3 +11,4 @@
 		<span>{{ name }}</span>
 	{{/view}}
 </article>
+{{/view}}
