@@ -21,7 +21,7 @@ module.exports = require(process.env['LINEMAN_MAIN']).config.extend 'application
     apiProxy: {
       enabled: true,
       host: 'localhost',
-      port: 3000,
+      port: 5000,
       prefix: 'api'
     }
   }
