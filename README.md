@@ -1,4 +1,4 @@
-# T2 - Ember 
+# T2 - Allocation 
 
 A reimplementation of a reimplementation of Teamster, a time tracking and scheduling program used to quantify the essence of our business.  The newest implementation using [lineman](https://github.com/testdouble/lineman) & built in [ember](http://emberjs.com) together.
 
