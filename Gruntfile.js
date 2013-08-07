@@ -1,7 +1,5 @@
 /*global module:false*/
 module.exports = function(grunt) {
-  //require(process.env['LINEMAN_MAIN']).config.grunt.run(grunt);
-
   grunt.loadNpmTasks('grunt-contrib-sass');
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-coffee');
