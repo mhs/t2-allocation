@@ -4,6 +4,7 @@
   "main": "index.html",
   "dependencies": {
     "ember": "1.0.0-rc.6",
+    "ember-model": "0.0.7",
     "momentjs": "2.1.0"
   }
 }
