@@ -7,6 +7,20 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-coffee');
 
   grunt.initConfig({
+    coffee: {
+      compile: {
+        files: {
+          'js/app.js': ['app/coffee/{,*/}*.coffee']
+        }
+      }
+    }, /* coffee */
+    sass: {
+      dist: {
+        files: {
+          'css/app.css': 'app/sass/app.scss'
+        }
+      }
+    }, /*sass */
     connect: {
       server: {
         options: {
@@ -16,18 +30,12 @@ module.exports = function(grunt) {
         }
       }
     }, /* connect */
-    coffee: {
-      compile: {
-        files: {
-          'js/app.js': ['app/coffee/{,*/}*.coffee']
-        }
-      }
-    } /* coffee */
   });
 
   grunt.registerTask('server', 'Does all the grunt work', function () {
     grunt.task.run([
       'coffee',
+      'sass',
       'connect:server'
     ]);
   });
