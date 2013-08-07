@@ -24,7 +24,19 @@ module.exports = function(grunt) {
       server: {
         options: {
           port: 9000,
-          host: '0.0.0.0'
+          host: '0.0.0.0',
+          middleware: function (connect, options) {
+            return [
+              function (req, res, next) {
+                res.setHeader("Access-Control-Allow-Origin", "*");
+                res.setHeader("Access-Control-Allow-Headers", "*");
+                res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+                res.setHeader("Access-Control-Max-Age", "604800");
+                next();
+              },
+              connect.static(__dirname)
+            ];
+          }
         }
       }
     }, /* connect */
