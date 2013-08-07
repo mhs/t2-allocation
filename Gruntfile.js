@@ -33,11 +33,17 @@ module.exports = function(grunt) {
     watch: {
       sass: {
         files: ['app/sass/**/*.scss'],
-        tasks: ['sass']
+        tasks: ['sass'],
+        options: {
+          livereload: true
+        }
       },
       javascript: {
         files: ['app/coffee/**/*.coffee', 'app/js/**/*.js'],
-        tasks: ['coffee']
+        tasks: ['coffee'],
+        options: {
+          livereload: true
+        }
       }
     }
   });
