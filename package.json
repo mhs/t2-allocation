@@ -1,5 +1,5 @@
 {
-  "name": "t2-ember",
+  "name": "t2-allocation",
   "title": "T2 Allocation Ember Client",
   "description": "A client for T2 allocation API written on Ember",
   "version": "0.0.1",
