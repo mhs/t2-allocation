@@ -5,12 +5,13 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-sass');
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-coffee');
+  grunt.loadNpmTasks('grunt-contrib-watch');
 
   grunt.initConfig({
     coffee: {
       compile: {
         files: {
-          'js/app.js': ['app/coffee/{,*/}*.coffee']
+          'js/app.js': ['app/coffee/**/*.coffee', 'app/js/**/*.js']
         }
       }
     }, /* coffee */
@@ -25,18 +26,28 @@ module.exports = function(grunt) {
       server: {
         options: {
           port: 9000,
-          host: '0.0.0.0',
-          keepalive: true
+          host: '0.0.0.0'
         }
       }
     }, /* connect */
+    watch: {
+      sass: {
+        files: ['app/sass/**/*.scss'],
+        tasks: ['sass']
+      },
+      javascript: {
+        files: ['app/coffee/**/*.coffee', 'app/js/**/*.js'],
+        tasks: ['coffee']
+      }
+    }
   });
 
   grunt.registerTask('server', 'Does all the grunt work', function () {
     grunt.task.run([
       'coffee',
       'sass',
-      'connect:server'
+      'connect:server',
+      'watch'
     ]);
   });
 
