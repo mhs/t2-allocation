@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "main": "index.html",
   "dependencies": {
-    "ember": "1.0.0-rc.6"
+    "ember": "1.0.0-rc.6",
+    "momentjs": "2.1.0"
   }
 }
