@@ -1,12 +1,10 @@
 {
-  "name": "ember-template",
-  "title": "An HTML/JS/CSS app",
+  "name": "t2-ember",
+  "title": "T2 Allocation Ember Client",
+  "description": "A client for T2 allocation API written on Ember",
   "version": "0.0.1",
   "private": true,
-  "author": {
-    "name": "John Doe",
-    "company": "ACME, Inc."
-  },
+  "author": "Neo Innovation",
   "dependencies": {
     "grunt-ember-handlebars": "0.6.0",
     "lineman": ">= 0.8.2"
