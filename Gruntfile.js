@@ -29,6 +29,13 @@ module.exports = function(grunt) {
       }
     }, /* connect */
     watch: {
+      html: {
+        files: ['index.html', 'app/templates/**/*.hb'],
+        tasks: [],
+        options: {
+          livereload: true
+        }
+      },
       sass: {
         files: ['app/sass/**/*.scss'],
         tasks: ['sass'],
