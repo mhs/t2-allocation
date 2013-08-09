@@ -9,14 +9,13 @@ Brand new time tracking and scheduling program used to quantify the essence of o
 * Ruby
 * [t2-api](http://github.com/neo/t2-api)
 
-## Install
+## Install & run
 
-Just follow the steps:
 1. Get the code: `git clone git@github.com:neo/t2-allocation`
 2. Change directory: `cd t2-allocation`
 3. Install dependencies: `npm install`
 4. Start: `grunt`
-5. Start t2-api: `cd ~/t2-api && foreman start`
+5. Start [t2-api](https://github.com/neo/t2-api#start-the-server).
 
 ## Getting started with EmberJS
 
