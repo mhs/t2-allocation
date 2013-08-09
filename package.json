@@ -8,6 +8,7 @@
   "dependencies": {
   },
   "devDependencies": {
+    "bower": "1.1.1",
     "grunt": "~0.4.1",
     "grunt-open": "0.2.2",
     "grunt-ember-handlebars": "0.6.0",
