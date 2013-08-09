@@ -9,6 +9,11 @@ module.exports = function(grunt) {
   grunt.initConfig({
     ember_handlebars: {
       compile: {
+        options: {
+          processName: function (filePath) {
+            return filePath.replace(/app\/templates\/(.*)?.hb/, '$1');
+          }
+        },
         files: {
           'js/templates.js': ['app/templates/**/*.hb']
         }
