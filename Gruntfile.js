@@ -1,11 +1,19 @@
 /*global module:false*/
 module.exports = function(grunt) {
+  grunt.loadNpmTasks('grunt-ember-handlebars');
   grunt.loadNpmTasks('grunt-contrib-sass');
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-coffee');
   grunt.loadNpmTasks('grunt-contrib-watch');
 
   grunt.initConfig({
+    ember_handlebars: {
+      compile: {
+        files: {
+          'js/templates.js': ['app/templates/**/*.hb']
+        }
+      }
+    },
     coffee: {
       compile: {
         files: {
@@ -31,7 +39,7 @@ module.exports = function(grunt) {
     watch: {
       html: {
         files: ['index.html', 'app/templates/**/*.hb'],
-        tasks: [],
+        tasks: ['ember_handlebars'],
         options: {
           livereload: true
         }
@@ -57,6 +65,7 @@ module.exports = function(grunt) {
     grunt.task.run([
       'coffee',
       'sass',
+      'ember_handlebars',
       'connect:server',
       'watch'
     ]);
