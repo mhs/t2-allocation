@@ -1,5 +1,6 @@
 /*global module:false*/
 module.exports = function(grunt) {
+  grunt.loadNpmTasks('grunt-open');
   grunt.loadNpmTasks('grunt-ember-handlebars');
   grunt.loadNpmTasks('grunt-contrib-sass');
   grunt.loadNpmTasks('grunt-contrib-connect');
@@ -41,6 +42,11 @@ module.exports = function(grunt) {
         }
       }
     }, /* connect */
+    open: {
+      localhost: {
+        path: 'http://localhost:9000/'
+      }
+    },
     watch: {
       html: {
         files: ['index.html', 'app/templates/**/*.hb'],
@@ -72,6 +78,7 @@ module.exports = function(grunt) {
       'sass',
       'ember_handlebars',
       'connect:server',
+      'open:localhost',
       'watch'
     ]);
   });
