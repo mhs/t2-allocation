@@ -1,6 +1,6 @@
 # T2 - Allocation 
 
-Brand new time tracking and scheduling program used to quantify the essence of our business. Built in [EmberJS](http://emberjs.com).
+Brand new time tracking and scheduling program used to quantify the essence of our business. Built in [EmberJS](http://emberjs.com), using [Grunt](http://gruntjs.com) and [Bower](http://bower.io)
 
 ## Requirements
 
@@ -13,9 +13,10 @@ Brand new time tracking and scheduling program used to quantify the essence of o
 
 1. Get the code: `git clone git@github.com:neo/t2-allocation`
 2. Change directory: `cd t2-allocation`
-3. Install dependencies: `npm install`
-4. Start: `grunt`
-5. Start [t2-api](https://github.com/neo/t2-api#start-the-server).
+3. Install npm dependencies: `npm install`
+4. Install bower dependencies: `bower install`
+5. Start: `grunt`
+6. Start [t2-api](https://github.com/neo/t2-api#start-the-server).
 
 ## Getting started with EmberJS
 
