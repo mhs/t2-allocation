@@ -44,7 +44,13 @@ module.exports = function(grunt) {
     }, /* connect */
     open: {
       localhost: {
-        path: 'http://localhost:9000/'
+        path: 'http://localhost:5000/'
+      }
+    },
+    env: {
+      config: {
+        env: process.env['APP_ENV'] || "dev",
+        apiHost: process.env['API_HOST'] || "http://localhost:5000"
       }
     },
     watch: {
@@ -76,6 +82,7 @@ module.exports = function(grunt) {
     grunt.task.run([
       'coffee',
       'sass',
+      'env',
       'ember_handlebars',
       'connect:server',
       'open:localhost',
@@ -84,4 +91,16 @@ module.exports = function(grunt) {
   });
 
   grunt.registerTask('default', ['server']);
+
+
+  grunt.registerMultiTask("env", "load enviroment variables", function() {
+    var path = "generated/js/env.js";
+    var util = require('util');
+    console.log(util.inspect(this.data));
+    grunt.file.write(path, getENV(this.data));
+  });
+
+  function getENV(data) {
+    return "window.ENV=" + JSON.stringify(data) + ";\n";
+  };
 };

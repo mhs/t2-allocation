@@ -46,3 +46,8 @@ module.exports = require(process.env['LINEMAN_MAIN']).config.extend 'application
   watch:
     handlebars:
       tasks: ["ember_handlebars:compile"]
+
+  env:
+    config:
+      env: process.env['APP_ENV'] || "dev"
+      apiHost: process.env['API_HOST'] || "http://localhost:5000"
