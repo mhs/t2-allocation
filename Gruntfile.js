@@ -85,5 +85,5 @@ module.exports = function(grunt) {
 
   grunt.registerTask('default', ['server']);
 
-  grunt.registerTask('heroku', ['coffee', 'sass', 'ember_handlebars']);
+  grunt.registerTask('heroku', []);
 };
