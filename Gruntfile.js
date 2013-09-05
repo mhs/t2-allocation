@@ -76,7 +76,6 @@ module.exports = function(grunt) {
     grunt.task.run([
       'coffee',
       'sass',
-      'env',
       'ember_handlebars',
       'connect:server',
       'open:localhost',
