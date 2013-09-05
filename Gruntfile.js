@@ -86,15 +86,5 @@ module.exports = function(grunt) {
 
   grunt.registerTask('default', ['server']);
 
-
-  grunt.registerMultiTask("env", "load enviroment variables", function() {
-    var path = "generated/js/env.js";
-    var util = require('util');
-    console.log(util.inspect(this.data));
-    grunt.file.write(path, getENV(this.data));
-  });
-
-  function getENV(data) {
-    return "window.ENV=" + JSON.stringify(data) + ";\n";
-  };
+  grunt.registerTask('heroku', ['coffee', 'sass', 'ember_handlebars']);
 };
