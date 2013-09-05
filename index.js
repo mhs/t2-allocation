@@ -3,6 +3,6 @@ var express = require('express')
 
 app.use(express.static(__dirname));
 
-app.listen(5000, function () {
+app.listen(process.env.PORT || 5000, function () {
   console.log('express server started.');
 });
