@@ -16,21 +16,21 @@ module.exports = function(grunt) {
           }
         },
         files: {
-          'js/templates.js': ['app/templates/**/*.hb']
+          'app/templates.js': ['app/templates/**/*.hb']
         }
       }
     },
     coffee: {
       compile: {
         files: {
-          'js/app.js': ['app/coffee/**/*.coffee', 'app/js/**/*.js']
+          'app/app.js': ['app/coffee/**/*.coffee', 'app/js/**/*.js']
         }
       }
     }, /* coffee */
     sass: {
       dist: {
         files: {
-          'css/app.css': 'app/sass/app.scss'
+          'app/app.css': 'app/sass/app.scss'
         }
       }
     }, /*sass */
