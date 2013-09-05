@@ -10,7 +10,3 @@
 /generated
 .sass-cache/*
 *.log
-
-/app/app.css
-/app/app.js
-/app/templates.js
