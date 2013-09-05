@@ -4,7 +4,11 @@
     window.T2Application = Em.Application.extend(Ember.Evented, {
       setup: function() {
         var api_extension, modelClasses;
-        api_extension = "http://localhost:5000/api/v1/";
+        api_extension = "http://localhost:5000";
+        if (!/localhost/.test(document.location.href)) {
+          api_extension = "http://t2api.herokuapp.com";
+        }
+        api_extension = "" + api_extension + "/api/v1";
         modelClasses = [App.Allocation, App.Office, App.Person, App.Project, App.Slot];
         modelClasses.forEach(function(klass) {
           var name, parts, pluralName;
