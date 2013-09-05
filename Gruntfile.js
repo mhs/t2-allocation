@@ -47,12 +47,6 @@ module.exports = function(grunt) {
         path: 'http://localhost:5000/'
       }
     },
-    env: {
-      config: {
-        env: process.env['APP_ENV'] || "dev",
-        apiHost: process.env['API_HOST'] || "http://localhost:5000"
-      }
-    },
     watch: {
       html: {
         files: ['index.html', 'app/templates/**/*.hb'],
