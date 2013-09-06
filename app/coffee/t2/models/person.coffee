@@ -38,3 +38,4 @@ App.Person = Ember.Model.extend
 
 App.Person.url = "#{App.API_BASEURL}/people"
 App.Person.collectionKey = 'people'
+App.Person.adapter = Ember.RESTAdapter.create()

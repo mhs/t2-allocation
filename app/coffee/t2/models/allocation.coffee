@@ -27,3 +27,4 @@ App.Allocation = Ember.Model.extend
 
 App.Allocation.url = "#{App.API_BASEURL}/allocations"
 App.Allocation.collectionKey = 'allocations'
+App.Allocation.adapter = Ember.RESTAdapter.create();

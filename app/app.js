@@ -1,85 +1,6 @@
 (function() {
 
-  if (!window.T2Application) {
-    window.T2Application = Em.Application.extend(Ember.Evented, {
-      setup: function() {
-        var modelClasses;
-        modelClasses = [App.Allocation, App.Office, App.Person, App.Project, App.Slot];
-        return modelClasses.forEach(function(klass) {
-          klass.rootKey = name;
-          klass.camelizeKeys = true;
-          return klass.adapter = Ember.RESTAdapter.extend({
-            findMany: function(klass, records, ids) {
-              return console.log("findMany", klass + "", records + "", ids);
-            },
-            mappings: {
-              allocation: App.Allocation,
-              allocations: App.Allocation,
-              office: App.Office,
-              offices: App.Office,
-              person: App.Person,
-              people: App.Person,
-              client_principal: App.Person,
-              projects: App.Project,
-              project: App.Project,
-              slots: App.Slot,
-              slot: App.Slot
-            },
-            didFind: function(record, id, data) {
-              this.sideload(record.constructor, data);
-              return this._super(record, id, data);
-            },
-            didFindAll: function(klass, records, data) {
-              this.sideload(klass, data);
-              return this._super(klass, records, data);
-            },
-            didFindQuery: function(klass, records, params, data) {
-              this.sideload(klass, data);
-              return this._super(klass, records, params, data);
-            },
-            didCreateRecord: function(record, data) {
-              this.sideload(record.constructor, data);
-              return this._super(record, data);
-            },
-            didSaveRecord: function(record, data) {
-              this.sideload(record.constructor, data);
-              return this._super(record, data);
-            },
-            didDeleteRecord: function(record, data) {
-              this.sideload(record.constructor, data);
-              return this._super(record, data);
-            },
-            sideload: function(klass, data) {
-              var name, record, records, type, _results;
-              _results = [];
-              for (name in data) {
-                records = data[name];
-                if (!Ember.isArray(records)) {
-                  records = [records];
-                }
-                if ((type = this.mappings[name]) !== klass) {
-                  _results.push((function() {
-                    var _i, _len, _results1;
-                    _results1 = [];
-                    for (_i = 0, _len = records.length; _i < _len; _i++) {
-                      record = records[_i];
-                      _results1.push(type.findFromCacheOrLoad(record));
-                    }
-                    return _results1;
-                  })());
-                } else {
-                  _results.push(void 0);
-                }
-              }
-              return _results;
-            }
-          }).create();
-        });
-      }
-    });
-  }
-
-  window.App = window.T2Application.create();
+  window.App = Ember.Application.create();
 
   window.App.API_BASEURL = (function() {
     var api_extension;
@@ -490,6 +411,8 @@
 
   App.Allocation.collectionKey = 'allocations';
 
+  App.Allocation.adapter = Ember.RESTAdapter.create();
+
 }).call(this);
 
 (function() {
@@ -509,6 +432,8 @@
   App.Office.url = "" + App.API_BASEURL + "/offices";
 
   App.Office.collectionKey = 'offices';
+
+  App.Office.adapter = Ember.RESTAdapter.create();
 
 }).call(this);
 
@@ -567,6 +492,8 @@
 
   App.Person.collectionKey = 'people';
 
+  App.Person.adapter = Ember.RESTAdapter.create();
+
 }).call(this);
 
 (function() {
@@ -592,6 +519,8 @@
 
   App.Project.collectionKey = 'offices';
 
+  App.Project.adapter = Ember.RESTAdapter.create();
+
 }).call(this);
 
 (function() {
@@ -611,6 +540,8 @@
   App.Slot.url = "" + App.API_BASEURL + "/slots";
 
   App.Slot.collectionKey = 'slots';
+
+  App.Slot.adapter = Ember.RESTAdapter.create();
 
 }).call(this);
 
