@@ -1,9 +1,6 @@
 unless window.T2Application
   window.T2Application = Em.Application.extend(Ember.Evented,
     setup: ->
-      api_extension = "http://localhost:5000"
-      api_extension = "http://t2api.herokuapp.com" unless /localhost/.test document.location.href
-      api_extension = "#{api_extension}/api/v1"
 
       modelClasses = [App.Allocation, App.Office, App.Person, App.Project, App.Slot]
       modelClasses.forEach (klass) ->
@@ -16,7 +13,6 @@ unless window.T2Application
 
         klass.collectionKey = pluralName
         klass.rootKey = name
-        klass.url = api_extension + pluralName
         klass.camelizeKeys = true
 
         klass.adapter = Ember.RESTAdapter.extend(
@@ -69,12 +65,12 @@ unless window.T2Application
                 for record in records
                   type.findFromCacheOrLoad(record)
         ).create()
-
-      App.Allocation.url = api_extension + "/allocations"
-      App.Office.url = api_extension + "/offices"
-      App.Person.url = api_extension + "/people"
-      App.Project.url = api_extension + "/projects"
-      App.Slot.url = api_extension + "/slots"
     )
 
 window.App = window.T2Application.create()
+
+window.App.API_BASEURL = (->
+  api_extension = "http://localhost:5000"
+  api_extension = "http://t2api.herokuapp.com" unless /localhost/.test document.location.href
+  "#{api_extension}/api/v1"
+)()

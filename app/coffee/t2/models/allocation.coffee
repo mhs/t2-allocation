@@ -24,3 +24,5 @@ App.Allocation = Ember.Model.extend
     end = moment(@get("endDate")) || moment(@get("startDate")) || moment()
     end.diff(start, "days") + 1
   ).property("startDate", "endDate")
+
+App.Allocation.url = "#{App.API_BASEURL}/allocations"

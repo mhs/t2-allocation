@@ -8,3 +8,5 @@ App.Office = Ember.Model.extend
   people: Ember.hasMany("App.Person",
     key: "person_ids"
   )
+
+App.Office.url = "#{App.API_BASEURL}/offices"

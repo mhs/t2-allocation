@@ -13,3 +13,5 @@ App.Project = Ember.Model.extend
   offices: Ember.hasMany("App.Office",
     key: "office_ids"
   )
+
+App.Project.url = "#{App.API_BASEURL}/projects"

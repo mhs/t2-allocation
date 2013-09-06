@@ -8,3 +8,6 @@ App.Slot = Ember.Model.extend
   allocations: Ember.hasMany("App.Allocation",
     key: "allocation_ids"
   )
+
+App.Slot.url = "#{App.API_BASEURL}/slots"
+

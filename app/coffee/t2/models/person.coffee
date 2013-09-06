@@ -35,3 +35,5 @@ App.Person = Ember.Model.extend
     merged.push {startDate: start, endDate: end}
     merged
   ).property("App.projectsUI.startDate", "App.projectsUI.endDate",'allocation.[]','allocations.@each.current')
+
+App.Person.url = "#{App.API_BASEURL}/people"

@@ -3,14 +3,9 @@
   if (!window.T2Application) {
     window.T2Application = Em.Application.extend(Ember.Evented, {
       setup: function() {
-        var api_extension, modelClasses;
-        api_extension = "http://localhost:5000";
-        if (!/localhost/.test(document.location.href)) {
-          api_extension = "http://t2api.herokuapp.com";
-        }
-        api_extension = "" + api_extension + "/api/v1";
+        var modelClasses;
         modelClasses = [App.Allocation, App.Office, App.Person, App.Project, App.Slot];
-        modelClasses.forEach(function(klass) {
+        return modelClasses.forEach(function(klass) {
           var name, parts, pluralName;
           parts = klass.toString().split('.');
           name = parts[parts.length - 1].replace(/([A-Z])/g, '_$1').toLowerCase().slice(1);
@@ -21,7 +16,6 @@
           }
           klass.collectionKey = pluralName;
           klass.rootKey = name;
-          klass.url = api_extension + pluralName;
           klass.camelizeKeys = true;
           return klass.adapter = Ember.RESTAdapter.extend({
             findMany: function(klass, records, ids) {
@@ -90,16 +84,20 @@
             }
           }).create();
         });
-        App.Allocation.url = api_extension + "/allocations";
-        App.Office.url = api_extension + "/offices";
-        App.Person.url = api_extension + "/people";
-        App.Project.url = api_extension + "/projects";
-        return App.Slot.url = api_extension + "/slots";
       }
     });
   }
 
   window.App = window.T2Application.create();
+
+  window.App.API_BASEURL = (function() {
+    var api_extension;
+    api_extension = "http://localhost:5000";
+    if (!/localhost/.test(document.location.href)) {
+      api_extension = "http://t2api.herokuapp.com";
+    }
+    return "" + api_extension + "/api/v1";
+  })();
 
 }).call(this);
 
@@ -497,6 +495,8 @@
     }).property("startDate", "endDate")
   });
 
+  App.Allocation.url = "" + App.API_BASEURL + "/allocations";
+
 }).call(this);
 
 (function() {
@@ -512,6 +512,8 @@
       key: "person_ids"
     })
   });
+
+  App.Office.url = "" + App.API_BASEURL + "/offices";
 
 }).call(this);
 
@@ -566,6 +568,8 @@
     }).property("App.projectsUI.startDate", "App.projectsUI.endDate", 'allocation.[]', 'allocations.@each.current')
   });
 
+  App.Person.url = "" + App.API_BASEURL + "/people";
+
 }).call(this);
 
 (function() {
@@ -587,6 +591,8 @@
     })
   });
 
+  App.Project.url = "" + App.API_BASEURL + "/projects";
+
 }).call(this);
 
 (function() {
@@ -602,6 +608,8 @@
       key: "allocation_ids"
     })
   });
+
+  App.Slot.url = "" + App.API_BASEURL + "/slots";
 
 }).call(this);
 
