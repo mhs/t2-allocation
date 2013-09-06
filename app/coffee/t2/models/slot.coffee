@@ -10,4 +10,4 @@ App.Slot = Ember.Model.extend
   )
 
 App.Slot.url = "#{App.API_BASEURL}/slots"
-
+App.Slot.collectionKey = 'slots'

@@ -4,14 +4,6 @@ unless window.T2Application
 
       modelClasses = [App.Allocation, App.Office, App.Person, App.Project, App.Slot]
       modelClasses.forEach (klass) ->
-        parts = klass.toString().split('.')
-        name = parts[parts.length - 1].replace(/([A-Z])/g, '_$1').toLowerCase().slice(1)
-        unless name == "person"
-          pluralName = name + "s"
-        else
-          pluralName = "people"
-
-        klass.collectionKey = pluralName
         klass.rootKey = name
         klass.camelizeKeys = true
 

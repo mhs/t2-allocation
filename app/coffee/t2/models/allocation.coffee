@@ -26,3 +26,4 @@ App.Allocation = Ember.Model.extend
   ).property("startDate", "endDate")
 
 App.Allocation.url = "#{App.API_BASEURL}/allocations"
+App.Allocation.collectionKey = 'allocations'

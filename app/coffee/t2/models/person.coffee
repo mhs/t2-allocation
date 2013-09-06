@@ -37,3 +37,4 @@ App.Person = Ember.Model.extend
   ).property("App.projectsUI.startDate", "App.projectsUI.endDate",'allocation.[]','allocations.@each.current')
 
 App.Person.url = "#{App.API_BASEURL}/people"
+App.Person.collectionKey = 'people'

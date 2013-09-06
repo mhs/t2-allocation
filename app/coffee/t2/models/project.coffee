@@ -15,3 +15,4 @@ App.Project = Ember.Model.extend
   )
 
 App.Project.url = "#{App.API_BASEURL}/projects"
+App.Project.collectionKey = 'offices'

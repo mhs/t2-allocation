@@ -6,15 +6,6 @@
         var modelClasses;
         modelClasses = [App.Allocation, App.Office, App.Person, App.Project, App.Slot];
         return modelClasses.forEach(function(klass) {
-          var name, parts, pluralName;
-          parts = klass.toString().split('.');
-          name = parts[parts.length - 1].replace(/([A-Z])/g, '_$1').toLowerCase().slice(1);
-          if (name !== "person") {
-            pluralName = name + "s";
-          } else {
-            pluralName = "people";
-          }
-          klass.collectionKey = pluralName;
           klass.rootKey = name;
           klass.camelizeKeys = true;
           return klass.adapter = Ember.RESTAdapter.extend({
@@ -59,7 +50,7 @@
               return this._super(record, data);
             },
             sideload: function(klass, data) {
-              var record, records, type, _results;
+              var name, record, records, type, _results;
               _results = [];
               for (name in data) {
                 records = data[name];
@@ -497,6 +488,8 @@
 
   App.Allocation.url = "" + App.API_BASEURL + "/allocations";
 
+  App.Allocation.collectionKey = 'allocations';
+
 }).call(this);
 
 (function() {
@@ -514,6 +507,8 @@
   });
 
   App.Office.url = "" + App.API_BASEURL + "/offices";
+
+  App.Office.collectionKey = 'offices';
 
 }).call(this);
 
@@ -570,6 +565,8 @@
 
   App.Person.url = "" + App.API_BASEURL + "/people";
 
+  App.Person.collectionKey = 'people';
+
 }).call(this);
 
 (function() {
@@ -593,6 +590,8 @@
 
   App.Project.url = "" + App.API_BASEURL + "/projects";
 
+  App.Project.collectionKey = 'offices';
+
 }).call(this);
 
 (function() {
@@ -610,6 +609,8 @@
   });
 
   App.Slot.url = "" + App.API_BASEURL + "/slots";
+
+  App.Slot.collectionKey = 'slots';
 
 }).call(this);
 
