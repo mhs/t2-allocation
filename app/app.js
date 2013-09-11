@@ -413,6 +413,8 @@
 
   App.Allocation.adapter = Ember.RESTAdapter.create();
 
+  App.Allocation.camelizeKeys = true;
+
 }).call(this);
 
 (function() {
@@ -434,6 +436,8 @@
   App.Office.collectionKey = 'offices';
 
   App.Office.adapter = Ember.RESTAdapter.create();
+
+  App.Office.camelizeKeys = true;
 
 }).call(this);
 
@@ -494,6 +498,8 @@
 
   App.Person.adapter = Ember.RESTAdapter.create();
 
+  App.Person.camelizeKeys = true;
+
 }).call(this);
 
 (function() {
@@ -517,9 +523,11 @@
 
   App.Project.url = "" + App.API_BASEURL + "/projects";
 
-  App.Project.collectionKey = 'offices';
+  App.Project.collectionKey = 'projects';
 
   App.Project.adapter = Ember.RESTAdapter.create();
+
+  App.Project.camelizeKeys = true;
 
 }).call(this);
 
@@ -542,6 +550,8 @@
   App.Slot.collectionKey = 'slots';
 
   App.Slot.adapter = Ember.RESTAdapter.create();
+
+  App.Slot.camelizeKeys = true;
 
 }).call(this);
 
