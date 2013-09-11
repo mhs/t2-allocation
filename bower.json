@@ -5,6 +5,7 @@
   "dependencies": {
     "ember": "1.0.0-rc.7",
     "ember-model": "0.0.7",
-    "momentjs": "2.1.0"
+    "momentjs": "2.1.0",
+    "jquery-ui": "~1.10.3"
   }
 }
