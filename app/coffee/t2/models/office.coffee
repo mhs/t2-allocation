@@ -12,3 +12,4 @@ App.Office = Ember.Model.extend
 App.Office.url = "#{App.API_BASEURL}/offices"
 App.Office.collectionKey = 'offices'
 App.Office.adapter = Ember.RESTAdapter.create();
+App.Office.camelizeKeys = true
