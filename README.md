@@ -9,6 +9,7 @@ Brand new time tracking and scheduling program used to quantify the essence of o
 * Ruby
 * [t2-api](http://github.com/neo/t2-api)
 
+
 ## Install & run
 
 1. Get the code: `git clone git@github.com:neo/t2-allocation`
@@ -17,6 +18,13 @@ Brand new time tracking and scheduling program used to quantify the essence of o
 4. Install bower dependencies: `bower install`
 5. Start [t2-api](https://github.com/neo/t2-api#start-the-server).
 6. Start: `grunt`
+
+## Running api-mock server
+
+If you don't want or can't install t2-api, you can use **api-mock** server which serves static
+JSON files from ./api-mock/api/v1/ dir. 
+
+Start it in a separate console by `grunt apiMock`
 
 ## Getting started with EmberJS
 

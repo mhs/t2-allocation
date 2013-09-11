@@ -1,4 +1,8 @@
 /*global module:false*/
+function mountFolder(connect, dir){
+  return connect.static(require('path').resolve(dir));
+}
+
 module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-open');
   grunt.loadNpmTasks('grunt-ember-handlebars');
@@ -39,6 +43,25 @@ module.exports = function(grunt) {
         options: {
           port: 9000,
           host: '0.0.0.0'
+        }
+      },
+      apiMock: {
+        options: {
+          port: 5000,
+          keepalive: true,
+          middleware: function(connect){
+            return [
+              function (req, res, next){
+                if ('OPTIONS' == req.method)
+                  req.method = 'GET';
+                res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
+                res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, Authorization, accept, origin');
+                res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
+                next();
+              },
+              mountFolder(connect, 'api-mock')
+            ];
+          }
         }
       }
     }, /* connect */

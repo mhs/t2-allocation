@@ -1,0 +1,10 @@
+{
+  "id": 206,
+  "notes": "Date of the event.",
+  "start_date": "2013-09-16",
+  "end_date": "2013-09-18",
+  "billable": true,
+  "slot_id": null,
+  "person_id": 80,
+  "project_id": 43
+}
