@@ -44,7 +44,7 @@ module.exports = function(grunt) {
     }, /* connect */
     open: {
       localhost: {
-        path: 'http://localhost:5000/'
+        path: 'http://localhost:<%= connect.server.options.port %>/'
       }
     },
     watch: {
