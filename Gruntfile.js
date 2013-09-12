@@ -4,12 +4,7 @@ function mountFolder(connect, dir){
 }
 
 module.exports = function(grunt) {
-  grunt.loadNpmTasks('grunt-open');
-  grunt.loadNpmTasks('grunt-ember-handlebars');
-  grunt.loadNpmTasks('grunt-contrib-sass');
-  grunt.loadNpmTasks('grunt-contrib-connect');
-  grunt.loadNpmTasks('grunt-contrib-coffee');
-  grunt.loadNpmTasks('grunt-contrib-watch');
+  require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks)
 
   grunt.initConfig({
     ember_handlebars: {
@@ -29,6 +24,15 @@ module.exports = function(grunt) {
         files: {
           'app/app.js': ['app/coffee/**/*.coffee', 'app/js/**/*.js']
         }
+      },
+      test: {
+        files: [{
+          expand: true,
+          cwd: 'spec',
+          src: '**/*.coffee',
+          dest: '.tmp/spec',
+          ext: '.js'
+        }]
       }
     }, /* coffee */
     sass: {
@@ -48,7 +52,6 @@ module.exports = function(grunt) {
       apiMock: {
         options: {
           port: 5000,
-          keepalive: true,
           middleware: function(connect){
             return [
               function (req, res, next){
@@ -91,6 +94,10 @@ module.exports = function(grunt) {
         options: {
           livereload: true
         }
+      },
+      test: {
+        files: ['spec/**/*.coffee'],
+        tasks: ['coffee:test']
       }
     }
   });
