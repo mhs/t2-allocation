@@ -93,8 +93,8 @@ feature 'Project list', ->
     form = app.allocationEditor()
     form.isDisplayed().then (isDisplayed)->
       expect(isDisplayed).toEqual(true)
-    form.setStartDate('14/07/2013')
-    form.setEndDate('14/08/2013')
+    form.setStartDate('2013-07-14')
+    form.setEndDate('2013-08-14')
     form.setPerson('Dave Anderson')
     form.setProject('Nexia Home')
 

@@ -49,10 +49,20 @@ createApp = (port)->
       el = dsl.page.element('.modal')
 
       el.setStartDate = (date)->
-        el.element('.start-date').enter(date)
+        dsl.browser.executeScript """
+          (function(){
+            $('.modal .start-date').val('#{date}').trigger('change');
+            return null;
+          })()
+        """
 
       el.setEndDate = (date)->
-        el.element('.end-date').enter(date)
+        dsl.browser.executeScript """
+          (function(){
+            $('.modal .end-date').val('#{date}').trigger('change');
+            return null;
+          })()
+        """
 
       el.setPerson = (person)->
         el.elements('select').then (selects)->

@@ -33,6 +33,9 @@ dsl.browser =
   sleep: (seconds)->
     driver().sleep(seconds * 1000)
 
+  executeScript: (script)->
+    driver().executeScript(script)
+
 createElement = (el)->
   new Element(el)
 
