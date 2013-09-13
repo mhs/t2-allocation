@@ -5,14 +5,21 @@ createApp = (port)->
     url: "http://localhost:#{port}"
     visit: (path)-> dsl.browser.visit "#{@url}/##{path}"
 
-    setCurrentDate: (text)->
-      dateSelector = dsl.page.element('.selector')
-      dateSelector.click()
+    dateSelector: ->
+      dsl.page.element('.selector span')
 
-      datePicker = dsl.page.element('.selector input')
-      datePicker.clear()
-      datePicker.enter(text)
-      datePicker.enter("\n")
+    datePicker: ->
+      el = dsl.page.element('#ui-datepicker-div')
+      el.selectDay = (day)->
+        el.element(linkText: day.toString()).click()
+      el
+
+    setCurrentDate: (text)->
+      @dateSelector().click()
+
+      dateInput = dsl.page.element('.selector input')
+      dateInput.clear()
+      dateInput.enter("#{text}\n")
 
     calendarStartDate: ->
       dsl.page.element('.calendar ul li').text()

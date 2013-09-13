@@ -45,6 +45,29 @@ feature 'Project list', ->
       expect(allocations.length).toEqual(4)
       done()
 
+  scenario 'updating date field', (done)->
+    app.visit('/projects')
+
+    app.dateSelector().click()
+    app.datePicker().isDisplayed().then (isDisplayed)->
+      expect(isDisplayed).toEqual(true)
+    app.datePicker().selectDay(1)
+
+    app.setCurrentDate('07/01/2013')
+    app.calendarStartDate().then (date)->
+      expect(date).toEqual('Jul 1')
+
+    app.setCurrentDate('07/14/2013')
+    app.calendarStartDate().then (date)->
+      expect(date).toEqual('Jul 15')
+
+    app.dateSelector().click()
+    app.datePicker().selectDay(7)
+
+    app.calendarStartDate().then (date)->
+      expect(date).toEqual('Jul 8')
+      done()
+
   scenario 'display projects', (done)->
     page.elements('article.project').then (els)->
       expect(els.length).toEqual(2)

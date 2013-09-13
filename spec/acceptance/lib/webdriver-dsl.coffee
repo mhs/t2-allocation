@@ -29,9 +29,29 @@ dsl.browser =
     driver._instance = null
     d.quit()
 
+createElement = (el)->
+  new Element(el)
+
+locator = (selector)->
+  if selector.linkText
+    By.linkText(selector.linkText)
+  else
+    By.css(selector)
+
 Element = (webElement)->
   @el = webElement
+  extendWithElementFinders(@, -> webElement)
   @
+
+extendWithElementFinders = (obj, root)->
+  obj.element = (selector)->
+    createElement root().findElement(locator(selector))
+
+  obj.elements = (selector)->
+    d = defer()
+    root().findElements(locator(selector)).then (elements)->
+      d.fulfill(elements.map (e)-> createElement(e))
+    d.promise
 
 Element.prototype =
   tagName: ->
@@ -49,23 +69,11 @@ Element.prototype =
   clear: ->
     @el.clear()
 
-dsl.page = (->
-  createElement = (el)->
-    new Element(el)
+  isDisplayed: ->
+    @el.isDisplayed()
 
-  locator = (selector)->
-    By.css(selector)
-
-  page =
-    element: (selector)->
-      createElement driver().findElement(locator(selector))
-
-    elements: (selector)->
-      d = defer()
-      driver().findElements(locator(selector)).then (elements)->
-        d.fulfill(elements.map (e)-> createElement(e))
-      d.promise
-)()
+dsl.page = {}
+extendWithElementFinders(dsl.page, driver)
 
 dsl.driver = driver
 

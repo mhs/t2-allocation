@@ -30,7 +30,7 @@ after = ->
   appServer.stop().then -> console.log 'appServer stopped'
   apiServer.stop().then -> console.log 'appServer stopped'
 
-(->
+test_num_projects = ->
   before()
 
   page.elements('article.project').then (els)->
@@ -38,20 +38,18 @@ after = ->
     assert.equal(els.length, 2)
 
   after()
-)()
 
-(->
+test_project_name = ->
   before()
 
   el = page.element('article.project')
   el.text().then (text)->
     console.log 'project name:', text
-    assert.equal(text, 'Nexia Home', 'first project name')
+    assert.equal(text, 'Nexia Home')
 
   after()
-)()
 
-(->
+test_project_existence = ->
   before()
 
   app.visit('/projects')
@@ -59,16 +57,45 @@ after = ->
 
   app.calendarStartDate().then (date)->
     console.log 'start date:', date
-    assert.equal(date, 'May 27', 'calendar start date')
+    assert.equal(date, 'May 27')
 
   app.firstProjectName().then (name)->
     console.log 'project name:', name
-    assert.equal(name, 'Nexia Home', 'first project name')
+    assert.equal(name, 'Nexia Home')
 
   app.allocations().then (allocations)->
     console.log 'number of allocations:', allocations.length
-    assert.equal(allocations.length, 4, 'number of allocations')
+    assert.equal(allocations.length, 4)
 
   after()
-)()
 
+test_date_field = ->
+  before()
+
+  app.visit('/projects')
+  app.dateSelector().click()
+  app.datePicker().isDisplayed().then (isDisplayed)->
+    console.log 'date picker is displayed:', isDisplayed
+    assert.equal(isDisplayed, true)
+  app.datePicker().selectDay(1)
+
+  app.setCurrentDate('07/01/2013')
+  app.calendarStartDate().then (date)->
+    assert.equal(date, 'Jul 1')
+
+  app.setCurrentDate('07/14/2013')
+  app.calendarStartDate().then (date)->
+    assert.equal(date, 'Jul 15')
+
+  app.dateSelector().click()
+  app.datePicker().selectDay(7)
+
+  app.calendarStartDate().then (date)->
+    assert.equal(date, 'Jul 8')
+
+  after()
+
+test_num_projects()
+test_project_name()
+test_project_existence()
+test_date_field()
