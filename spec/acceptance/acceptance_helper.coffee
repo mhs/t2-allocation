@@ -17,3 +17,6 @@ global.xfeature = xdescribe
 global.xscenario = xit
 
 jasmine.getEnv().defaultTimeoutInterval = 10000
+
+# Start selenium if needed
+require('./support/selenium')

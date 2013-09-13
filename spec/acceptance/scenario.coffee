@@ -18,6 +18,8 @@ apiServer.when.get '/api/v1/allocations/:id.json', (req, res)->
     a.id == +req.params.id
   res.send(a[0])
 
+require('./support/selenium')
+
 before = ->
   apiServer.start().then -> console.log 'apiServer started'
   appServer.start().then -> console.log 'appServer started'
