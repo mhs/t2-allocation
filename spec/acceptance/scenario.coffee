@@ -30,7 +30,6 @@ after = ->
   appServer.stop().then -> console.log 'appServer stopped'
   apiServer.stop().then -> console.log 'appServer stopped'
 
-#1
 (->
   before()
 
@@ -52,5 +51,24 @@ after = ->
   after()
 )()
 
+(->
+  before()
 
+  app.visit('/projects')
+  app.setCurrentDate('06/01/2013')
+
+  app.calendarStartDate().then (date)->
+    console.log 'start date:', date
+    assert.equal(date, 'May 27', 'calendar start date')
+
+  app.firstProjectName().then (name)->
+    console.log 'project name:', name
+    assert.equal(name, 'Nexia Home', 'first project name')
+
+  app.allocations().then (allocations)->
+    console.log 'number of allocations:', allocations.length
+    assert.equal(allocations.length, 4, 'number of allocations')
+
+  after()
+)()
 

@@ -40,6 +40,15 @@ Element.prototype =
   text: ->
     @el.getText()
 
+  click: ->
+    @el.click()
+
+  enter: (text)->
+    @el.sendKeys(text)
+
+  clear: ->
+    @el.clear()
+
 dsl.page = (->
   createElement = (el)->
     new Element(el)

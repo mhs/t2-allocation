@@ -31,6 +31,20 @@ feature 'Project list', ->
     appServer.stop()
     apiServer.stop()
 
+  scenario 'project existence', (done)->
+    app.visit('/projects')
+    app.setCurrentDate('06/01/2013')
+
+    app.calendarStartDate().then (date)->
+      expect(date).toEqual('May 27')
+
+    app.firstProjectName().then (name)->
+      expect(name).toEqual('Nexia Home')
+
+    app.allocations().then (allocations)->
+      expect(allocations.length).toEqual(4)
+      done()
+
   scenario 'display projects', (done)->
     page.elements('article.project').then (els)->
       expect(els.length).toEqual(2)
