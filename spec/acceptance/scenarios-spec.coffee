@@ -72,9 +72,44 @@ feature 'Project list', ->
     app.visit('/projects')
 
     app.firstProject().dblclick()
-    app.projectEditor().isDisplayed().then (isDisplayed)->
+
+    form = app.projectEditor()
+    form.isDisplayed().then (isDisplayed)->
       expect(isDisplayed).toEqual(true)
+
+    form.title().then (title)->
+      expect(title).toEqual('Editing: Nexia Home')
       done()
+
+  scenario 'create allocation', (done)->
+
+    app.visit('/project')
+    app.setCurrentDate('06/01/2013')
+
+    app.firstProject().isDisplayed().then (isDisplayed)->
+      expect(isDisplayed).toEqual(true)
+
+    app.firstProject().allocations().then (allocations)->
+      expect(allocations.length).toEqual(0)
+
+    app.addAllocationBtn().click()
+
+    form = app.allocationEditor()
+    form.isDisplayed().then (isDisplayed)->
+      expect(isDisplayed).toEqual(true)
+    form.setStartDate('14/07/2013')
+    form.setEndDate('14/08/2013')
+    form.setPerson('Dave Anderson')
+    form.setProject('Nexia Home')
+
+    form.save()
+
+    app.firstProject().allocations().then (allocations)->
+      expect(allocations.length).toEqual(1)
+
+      allocations[0].text().then (text)->
+        expect(text).toMatch(/Dave Anderson/)
+        done()
 
   scenario 'display projects', (done)->
     page.elements('article.project').then (els)->

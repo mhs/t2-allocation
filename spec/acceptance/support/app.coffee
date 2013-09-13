@@ -25,16 +25,55 @@ createApp = (port)->
       dsl.page.element('.calendar ul li').text()
 
     firstProject: ->
-      dsl.page.element('.project .descriptor')
+      el = dsl.page.element('.project')
+      el.allocations = ->
+        el.elements('.allocationContent')
+      el
 
     firstProjectName: ->
-      @firstProject().element('span').text()
+      @firstProject().element('.descriptor span').text()
 
     projectEditor: ->
-      dsl.page.element('.modal')
+      el = dsl.page.element('.modal')
+      el.title = ->
+        el.element('.modal-header').text()
+      el
 
     allocations: ->
       dsl.page.elements('.allocationContent')
+
+    addAllocationBtn: ->
+      dsl.page.element('.new-allocation-button')
+
+    allocationEditor: ->
+      el = dsl.page.element('.modal')
+
+      el.setStartDate = (date)->
+        el.element('.start-date').enter(date)
+
+      el.setEndDate = (date)->
+        el.element('.end-date').enter(date)
+
+      el.setPerson = (person)->
+        el.elements('select').then (selects)->
+          select = selects[0]
+          select.elements('option').then (options)->
+            options.forEach (option)->
+              option.text().then (text)->
+                option.click() if text == person
+
+      el.setProject = (project)->
+        el.elements('select').then (selects)->
+          select = selects[1]
+          select.elements('option').then (options)->
+            options.forEach (option)->
+              option.text().then (text)->
+                option.click() if text == project
+
+      el.save = ->
+        el.element('button[type="submit"]').click()
+
+      el
 
 module.exports = createApp
 
