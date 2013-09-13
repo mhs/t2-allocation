@@ -1,4 +1,13 @@
 App.ProjectsModalController = App.ModalController.extend
+  actions:
+    selectOffice: (office) ->
+      toggle = not office.get("isSelected")
+      office.set "isSelected", toggle
+
+    create: ->
+      project = App.Project.create()
+      @set "model", project
+
   offices: []
 
   selectedOffices: (->
@@ -7,11 +16,3 @@ App.ProjectsModalController = App.ModalController.extend
         content: item
         isSelected: false
   ).property("offices")
-
-  selectOffice: (office) ->
-    toggle = not office.get("isSelected")
-    office.set "isSelected", toggle
-
-  create: ->
-    project = App.Project.create()
-    @set "model", project

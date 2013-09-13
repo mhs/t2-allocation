@@ -1,5 +1,5 @@
 App.ProjectsRoute = Ember.Route.extend
-  events:
+  actions:
     editProject: (project) ->
       @controllerFor("projects.modal").set "offices", App.Office.find()
       @controllerFor("projects.modal").set 'model', project

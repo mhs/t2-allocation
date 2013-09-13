@@ -16,12 +16,14 @@
 (function() {
 
   App.ModalController = Em.ObjectController.extend({
-    save: function() {
-      this.get("model").save();
-      return this.send("closeModal");
-    },
-    close: function() {
-      return this.send("closeModal");
+    actions: {
+      save: function() {
+        this.get("model").save();
+        return this.send("closeModal");
+      },
+      close: function() {
+        return this.send("closeModal");
+      }
     },
     shouldDisableSubmit: (function() {
       return !this.get("isDirty");
@@ -175,31 +177,33 @@
     isEditing: false,
     dateBinding: "App.projectsUI.date",
     daysInWindowBinding: "App.projectsUI.daysInWindow",
-    createAllocation: function() {
-      var allocation;
-      allocation = App.Allocation.create({
-        startDate: new Date(),
-        endDate: new Date(moment().add(2, 'weeks').format('L'))
-      });
-      return this.send('editAllocation', allocation);
-    },
-    createProject: function() {
-      var project;
-      project = App.Project.create();
-      return this.send("editProject", project);
-    },
-    editDate: function() {
-      return this.set("isEditing", true);
-    },
-    confirmDate: function(dateValue) {
-      var date, shortDate;
-      date = void 0;
-      if (!moment(dateValue).isValid()) {
-        dateValue = App.projectsUI.get("date");
+    actions: {
+      createAllocation: function() {
+        var allocation;
+        allocation = App.Allocation.create({
+          startDate: new Date(),
+          endDate: new Date(moment().add(2, 'weeks').format('L'))
+        });
+        return this.send('editAllocation', allocation);
+      },
+      createProject: function() {
+        var project;
+        project = App.Project.create();
+        return this.send("editProject", project);
+      },
+      editDate: function() {
+        return this.set("isEditing", true);
+      },
+      confirmDate: function(dateValue) {
+        var date, shortDate;
+        date = void 0;
+        if (!moment(dateValue).isValid()) {
+          dateValue = App.projectsUI.get("date");
+        }
+        shortDate = moment(dateValue).format("L");
+        this.set("isEditing", false);
+        return App.projectsUI.set("date", shortDate);
       }
-      shortDate = moment(dateValue).format("L");
-      this.set("isEditing", false);
-      return App.projectsUI.set("date", shortDate);
     },
     dateRange: (function() {
       var date, dateArray, daysInWindow, i, monday;
@@ -227,6 +231,18 @@
 (function() {
 
   App.ProjectsModalController = App.ModalController.extend({
+    actions: {
+      selectOffice: function(office) {
+        var toggle;
+        toggle = !office.get("isSelected");
+        return office.set("isSelected", toggle);
+      },
+      create: function() {
+        var project;
+        project = App.Project.create();
+        return this.set("model", project);
+      }
+    },
     offices: [],
     selectedOffices: (function() {
       return this.get("offices").map(function(item) {
@@ -235,17 +251,7 @@
           isSelected: false
         });
       });
-    }).property("offices"),
-    selectOffice: function(office) {
-      var toggle;
-      toggle = !office.get("isSelected");
-      return office.set("isSelected", toggle);
-    },
-    create: function() {
-      var project;
-      project = App.Project.create();
-      return this.set("model", project);
-    }
+    }).property("offices")
   });
 
 }).call(this);
@@ -572,7 +578,7 @@
 (function() {
 
   App.ApplicationRoute = Ember.Route.extend({
-    events: {
+    actions: {
       openModal: function(modal) {
         return this.render(modal, {
           into: "application",
@@ -595,7 +601,7 @@
 (function() {
 
   App.ProjectsRoute = Ember.Route.extend({
-    events: {
+    actions: {
       editProject: function(project) {
         this.controllerFor("projects.modal").set("offices", App.Office.find());
         this.controllerFor("projects.modal").set('model', project);
