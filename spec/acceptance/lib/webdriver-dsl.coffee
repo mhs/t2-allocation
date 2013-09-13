@@ -30,8 +30,8 @@ dsl.browser =
     driver._instance = null
     d.quit()
 
-  sleep: (ms)->
-    driver().sleep(ms)
+  sleep: (seconds)->
+    driver().sleep(seconds * 1000)
 
 createElement = (el)->
   new Element(el)
