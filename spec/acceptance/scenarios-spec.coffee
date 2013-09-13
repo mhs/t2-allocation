@@ -15,9 +15,9 @@ feature 'Project list', ->
       res.sendfile('./spec/acceptance/fixtures/people.json')
 
     apiServer.when.get '/api/v1/allocations/:id.json', (req, res)->
-      a = allocations.filter (a)->
+      found = allocations.filter (a)->
         a.id == +req.params.id
-      res.send(a[0])
+      res.send(found[0])
 
   beforeEach ->
     apiServer.start()
@@ -33,7 +33,7 @@ feature 'Project list', ->
 
   scenario 'display projects', (done)->
     page.elements('article.project').then (els)->
-      expect(els.length).toBeGreaterThan(0)
+      expect(els.length).toEqual(2)
       done()
 
   scenario 'projects have names', (done)->

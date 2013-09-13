@@ -52,6 +52,7 @@ module.exports = function(grunt) {
       apiMock: {
         options: {
           port: 5000,
+          keepalive: true,
           middleware: function(connect){
             return [
               function (req, res, next){
