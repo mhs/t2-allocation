@@ -1,4 +1,5 @@
 require('./lib/webdriver-dsl').install(global)
+sync = require('./lib/webdriver-sync')
 
 assert = require('assert')
 webserver = require('./support/webserver')
@@ -27,28 +28,17 @@ after = ->
   appServer.stop().then -> console.log 'appServer stopped'
   apiServer.stop().then -> console.log 'appServer stopped'
 
-test_num_projects = ->
+test = (name, fn)->
+  sync ->console.log "***Test:", name
   before()
+  try
+    fn()
+  finally
+    after()
 
-  page.elements('article.project').then (els)->
-    console.log 'num projects', els.length
-    assert.equal(els.length, 2)
+xtest = ->
 
-  after()
-
-test_project_name = ->
-  before()
-
-  el = page.element('article.project')
-  el.text().then (text)->
-    console.log 'project name:', text
-    assert.equal(text, 'Nexia Home')
-
-  after()
-
-test_project_existence = ->
-  before()
-
+test 'project existence', ->
   app.visit('/projects')
   app.setCurrentDate('06/01/2013')
 
@@ -56,7 +46,7 @@ test_project_existence = ->
     console.log 'start date:', date
     assert.equal(date, 'May 27')
 
-  app.firstProjectName().then (name)->
+  app.firstProject().name().then (name)->
     console.log 'project name:', name
     assert.equal(name, 'Nexia Home')
 
@@ -64,11 +54,7 @@ test_project_existence = ->
     console.log 'number of allocations:', allocations.length
     assert.equal(allocations.length, 4)
 
-  after()
-
-test_date_field = ->
-  before()
-
+test 'date field', ->
   app.visit('/projects')
   app.dateSelector().click()
   app.datePicker().isDisplayed().then (isDisplayed)->
@@ -90,11 +76,7 @@ test_date_field = ->
   app.calendarStartDate().then (date)->
     assert.equal(date, 'Jul 8')
 
-  after()
-
-test_project_editor = ->
-  before()
-
+test 'test project editor', ->
   app.visit('/projects')
   app.firstProject().dblclick()
 
@@ -105,11 +87,7 @@ test_project_editor = ->
   form.title().then (title)->
     assert.equal(title, 'Editing: Nexia Home')
 
-  after()
-
-test_create_allocation = ->
-  before()
-
+test 'create allocation', ->
   app.visit('/project')
   app.setCurrentDate('06/01/2013')
 
@@ -136,12 +114,3 @@ test_create_allocation = ->
 
     allocations[0].text().then (text)->
       assert(text.match /Dave/)
-
-  after()
-
-test_num_projects()
-test_project_name()
-test_project_existence()
-test_date_field()
-test_project_editor()
-test_create_allocation()

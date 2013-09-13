@@ -84,6 +84,9 @@ Element.prototype =
   isDisplayed: ->
     @el.isDisplayed()
 
+  tap: (cb)->
+    cb(@)
+
 dsl.page = {}
 extendWithElementFinders(dsl.page, driver)
 

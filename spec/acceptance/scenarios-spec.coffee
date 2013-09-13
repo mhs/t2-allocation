@@ -20,22 +20,21 @@ feature 'Project list', ->
     apiServer.start()
     appServer.start()
 
-  beforeEach ->
-    app.visit('/')
-
   afterEach ->
     browser.close()
     appServer.stop()
     apiServer.stop()
 
-  scenario 'project existence', (done)->
+  beforeEach ->
     app.visit('/projects')
+
+  scenario 'project existence', (done)->
     app.setCurrentDate('06/01/2013')
 
-    app.calendarStartDate().then (date)->
-      expect(date).toEqual('May 27')
+    app.projects().then (projects)->
+      expect(projects.length).toEqual(2)
 
-    app.firstProjectName().then (name)->
+    app.firstProject().name().then (name)->
       expect(name).toEqual('Nexia Home')
 
     app.allocations().then (allocations)->
@@ -43,8 +42,6 @@ feature 'Project list', ->
       done()
 
   scenario 'updating date field', (done)->
-    app.visit('/projects')
-
     app.dateSelector().click()
     app.datePicker().isDisplayed().then (isDisplayed)->
       expect(isDisplayed).toEqual(true)
@@ -66,8 +63,6 @@ feature 'Project list', ->
       done()
 
   scenario 'display project editor', (done)->
-    app.visit('/projects')
-
     app.firstProject().dblclick()
 
     form = app.projectEditor()
@@ -79,7 +74,6 @@ feature 'Project list', ->
       done()
 
   scenario 'create allocation', (done)->
-    app.visit('/project')
     app.setCurrentDate('06/01/2013')
 
     app.firstProject().isDisplayed().then (isDisplayed)->
@@ -90,15 +84,15 @@ feature 'Project list', ->
 
     app.addAllocationBtn().click()
 
-    form = app.allocationEditor()
-    form.isDisplayed().then (isDisplayed)->
-      expect(isDisplayed).toEqual(true)
-    form.setStartDate('2013-07-14')
-    form.setEndDate('2013-08-14')
-    form.setPerson('Dave Anderson')
-    form.setProject('Nexia Home')
+    app.allocationEditor().tap (form)->
+      form.isDisplayed().then (isDisplayed)->
+        expect(isDisplayed).toEqual(true)
 
-    form.save()
+      form.setStartDate('2013-07-14')
+      form.setEndDate('2013-08-14')
+      form.setPerson('Dave Anderson')
+      form.setProject('Nexia Home')
+      form.save()
 
     app.firstProject().allocations().then (allocations)->
       expect(allocations.length).toEqual(1)
@@ -106,14 +100,3 @@ feature 'Project list', ->
       allocations[0].text().then (text)->
         expect(text).toMatch(/Dave Anderson/)
         done()
-
-  scenario 'display projects', (done)->
-    page.elements('article.project').then (els)->
-      expect(els.length).toEqual(2)
-      done()
-
-  scenario 'projects have names', (done)->
-    el = page.element('article.project')
-    el.text().then (text)->
-      expect(text).toBe('Nexia Home')
-      done()
