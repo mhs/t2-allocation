@@ -9,11 +9,8 @@ appServer = webserver(9001).serveDir('.')
 
 allocations = require('./fixtures/allocations.json').allocations;
 
-apiServer.when.get '/api/v1/projects.json', (_, res)->
-  res.sendfile('./spec/acceptance/fixtures/projects.json')
-
-apiServer.when.get '/api/v1/people.json', (_, res)->
-  res.sendfile('./spec/acceptance/fixtures/people.json')
+apiServer.when.get '/api/v1/:resources.json', (req, res)->
+  res.sendfile("./spec/acceptance/fixtures/#{req.params.resources}.json")
 
 apiServer.when.get '/api/v1/allocations/:id.json', (req, res)->
   a = allocations.filter (a)->
