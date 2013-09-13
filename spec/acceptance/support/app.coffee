@@ -24,8 +24,14 @@ createApp = (port)->
     calendarStartDate: ->
       dsl.page.element('.calendar ul li').text()
 
+    firstProject: ->
+      dsl.page.element('.project .descriptor')
+
     firstProjectName: ->
-      dsl.page.element('.project .descriptor span').text()
+      @firstProject().element('span').text()
+
+    projectEditor: ->
+      dsl.page.element('.modal')
 
     allocations: ->
       dsl.page.elements('.allocationContent')

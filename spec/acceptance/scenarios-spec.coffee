@@ -68,6 +68,14 @@ feature 'Project list', ->
       expect(date).toEqual('Jul 8')
       done()
 
+  scenario 'display project editor', (done)->
+    app.visit('/projects')
+
+    app.firstProject().dblclick()
+    app.projectEditor().isDisplayed().then (isDisplayed)->
+      expect(isDisplayed).toEqual(true)
+      done()
+
   scenario 'display projects', (done)->
     page.elements('article.project').then (els)->
       expect(els.length).toEqual(2)

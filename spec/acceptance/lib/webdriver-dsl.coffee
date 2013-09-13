@@ -4,6 +4,7 @@ webdriver = require('selenium-webdriver')
 
 defer = webdriver.promise.defer
 By = webdriver.By
+ActionSequence = webdriver.ActionSequence
 
 config =
   seleniumAddress: 'http://localhost:4444/wd/hub'
@@ -28,6 +29,9 @@ dsl.browser =
     d = driver()
     driver._instance = null
     d.quit()
+
+  sleep: (ms)->
+    driver().sleep(ms)
 
 createElement = (el)->
   new Element(el)
@@ -62,6 +66,11 @@ Element.prototype =
 
   click: ->
     @el.click()
+
+  dblclick: ->
+    seq = new ActionSequence(driver())
+    seq.doubleClick(@el)
+    seq.perform()
 
   enter: (text)->
     @el.sendKeys(text)

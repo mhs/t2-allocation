@@ -95,7 +95,19 @@ test_date_field = ->
 
   after()
 
+test_project_editor = ->
+  before()
+
+  app.visit('/projects')
+  app.firstProject().dblclick()
+
+  app.projectEditor().isDisplayed().then (isDisplayed)->
+    assert.equal(isDisplayed, true)
+
+  after()
+
 test_num_projects()
 test_project_name()
 test_project_existence()
 test_date_field()
+test_project_editor()
