@@ -1,20 +1,21 @@
-# Install DSL (browser, page, etc.)
-require('./lib/webdriver-dsl').install(global)
+webserver = require('./support/webserver')
 
 APP_PORT = 9001
+# jasmine-node will make these global
+module.exports =
+  app: require('./support/app')(APP_PORT)
+  apiServer: webserver(5000)
+  appServer: webserver(APP_PORT).serveDir('.')
+# jasmine syntax extensions
+  feature: describe
+  scenario: it
+  xfeature: xdescribe
+  xscenario: xit
 
-global.app = require('./support/app')(APP_PORT)
-
-# Create two web servers - the application and the api one.
-webserver = require('./support/webserver')
-global.apiServer = webserver(5000)
-global.appServer = webserver(APP_PORT).serveDir('.')
-
-# jasmine syntax extension
-global.feature = describe
-global.scenario = it
-global.xfeature = xdescribe
-global.xscenario = xit
+# Install DSL (browser, page, etc.)
+dsl = require('./lib/webdriver-dsl').install(global)
+for k,v of dsl
+  module.exports[k] = v
 
 jasmine.getEnv().defaultTimeoutInterval = 10000
 

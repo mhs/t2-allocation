@@ -1,3 +1,7 @@
+#
+# Sometimes it may be difficult to debug specs in jasmine-node context so you can use this file
+# to play with scenarios before including them in the test suite.
+#
 require('./lib/webdriver-dsl').install(global)
 sync = require('./lib/webdriver-sync')
 
