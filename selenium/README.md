@@ -1,4 +1,5 @@
-Install [selenium standalone](https://code.google.com/p/selenium/downloads/list) and [chromedriver](https://code.google.com/p/chromedriver/downloads/list):
+Install in this dir [selenium standalone](https://code.google.com/p/selenium/downloads/list) and
+[chromedriver](https://code.google.com/p/chromedriver/downloads/list):
 
     curl -O https://selenium.googlecode.com/files/selenium-server-standalone-2.35.0.jar
     ln -s selenium-server-standalone-2.35.0.jar selenium-server-standalone.jar
