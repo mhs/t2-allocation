@@ -1,10 +1,12 @@
+'use strict';
 /*global module:false*/
+
 function mountFolder(connect, dir){
   return connect.static(require('path').resolve(dir));
 }
 
 module.exports = function(grunt) {
-  require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks)
+  require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
 
   grunt.initConfig({
     ember_handlebars: {
@@ -56,7 +58,7 @@ module.exports = function(grunt) {
           middleware: function(connect){
             return [
               function (req, res, next){
-                if ('OPTIONS' == req.method)
+                if ('OPTIONS' === req.method)
                   req.method = 'GET';
                 res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
                 res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, Authorization, accept, origin');
@@ -100,6 +102,16 @@ module.exports = function(grunt) {
         files: ['spec/**/*.coffee'],
         tasks: ['coffee:test']
       }
+    },
+    'jasmine-node':{
+      options: {
+        coffee: true,
+        captureExceptions: true
+      },
+      run: {
+        spec: 'spec'
+      },
+      executable: './node_modules/.bin/jasmine-node'
     }
   });
 
@@ -114,7 +126,12 @@ module.exports = function(grunt) {
     ]);
   });
 
-  grunt.registerTask('default', ['server']);
+  grunt.registerTask('test:acceptance', function(){
+    grunt.config.set('jasmine-node.run.spec', 'spec/acceptance');
+    grunt.task.run(['jasmine-node']);
+  });
 
-  grunt.registerTask('heroku', []);
+  grunt.registerTask('test', ['test:acceptance']);
+
+  grunt.registerTask('default', ['server']);
 };
