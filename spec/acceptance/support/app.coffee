@@ -65,20 +65,16 @@ createApp = (port)->
         """
 
       el.setPerson = (person)->
-        el.elements('select').then (selects)->
-          select = selects[0]
-          select.elements('option').then (options)->
-            options.forEach (option)->
-              option.text().then (text)->
-                option.click() if text == person
+        select = el.elements('select').get(0)
+        select.elements('option').forEach (option)->
+          option.text().then (text)->
+            option.click() if text == person
 
       el.setProject = (project)->
-        el.elements('select').then (selects)->
-          select = selects[1]
-          select.elements('option').then (options)->
-            options.forEach (option)->
-              option.text().then (text)->
-                option.click() if text == project
+        select = el.elements('select').get(1)
+        select.elements('option').forEach (option)->
+          option.text().then (text)->
+            option.click() if text == project
 
       el.save = ->
         el.element('button[type="submit"]').click()

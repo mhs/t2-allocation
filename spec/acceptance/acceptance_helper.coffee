@@ -1,4 +1,5 @@
 webserver = require('./support/webserver')
+jasmineWD = require('./support/jasmine-wd')
 
 APP_PORT = 9001
 # jasmine-node will make these global
@@ -8,9 +9,10 @@ module.exports =
   appServer: webserver(APP_PORT).serveDir('.')
 # jasmine syntax extensions
   feature: describe
-  scenario: it
   xfeature: xdescribe
   xscenario: xit
+  scenario: jasmineWD.scenario
+  expect: jasmineWD.expect
 
 # Install DSL (browser, page, etc.)
 dsl = require('./lib/webdriver-dsl').install(global)

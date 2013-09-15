@@ -1,8 +1,9 @@
 'use strict'
 
 webdriver = require('selenium-webdriver')
+promise = webdriver.promise
+defer = promise.defer
 
-defer = webdriver.promise.defer
 By = webdriver.By
 ActionSequence = webdriver.ActionSequence
 
@@ -10,7 +11,6 @@ config =
   seleniumAddress: 'http://localhost:4444/wd/hub'
   capabilities:
     browserName: 'chrome'
-
 
 createDriver = ()->
   new webdriver.Builder()
@@ -36,8 +36,15 @@ dsl.browser =
   executeScript: (script)->
     driver().executeScript(script)
 
-createElement = (el)->
-  new Element(el)
+extendWithElementFinders = (obj, rootPromiseFn)->
+  obj.element = (selector)->
+    createElement(rootPromiseFn().then (root)-> root.findElement(locator(selector)))
+
+  obj.elements = (selector)->
+    new Elements rootPromiseFn().then (root)-> root.findElements(locator(selector))
+
+createElement = (elPromise)->
+  new Element(elPromise)
 
 locator = (selector)->
   if selector.linkText
@@ -45,52 +52,68 @@ locator = (selector)->
   else
     By.css(selector)
 
-Element = (webElement)->
-  @el = webElement
-  extendWithElementFinders(@, -> webElement)
+#
+# Elements
+#
+Elements = (elementsPromise)->
+  @_elementsPromise = elementsPromise
   @
 
-extendWithElementFinders = (obj, root)->
-  obj.element = (selector)->
-    createElement root().findElement(locator(selector))
+Elements.prototype._wrapInPormise = (fn)->
+  d = defer()
+  @_elementsPromise.then (elements)->
+    d.fulfill(fn(elements))
+  d.promise
 
-  obj.elements = (selector)->
-    d = defer()
-    root().findElements(locator(selector)).then (elements)->
-      d.fulfill(elements.map (e)-> createElement(e))
-    d.promise
+Elements.prototype.length = ->
+  @_wrapInPormise (elements)-> elements.length
+
+Elements.prototype.get = (index)->
+  createElement(@_wrapInPormise (elements)-> elements[index])
+
+Elements.prototype.forEach = (iterator)->
+  @_elementsPromise.then (elements)->
+    elements.forEach (el)->
+      iterator createElement(el)
+#
+# Element
+#
+Element = (elementPromise)->
+  extendWithElementFinders(@, -> elementPromise)
+  @_elementPromise = elementPromise
+  @
 
 Element.prototype =
   tagName: ->
-    @el.getTagName()
+    @_elementPromise.then (e)-> e.getTagName()
 
   text: ->
-    @el.getText()
+    @_elementPromise.then (e)-> e.getText()
 
   click: ->
-    @el.click()
+    @_elementPromise.then (e)-> e.click()
 
   dblclick: ->
-    seq = new ActionSequence(driver())
-    seq.doubleClick(@el)
-    seq.perform()
+    _driver = driver()
+    @_elementPromise.then (e)->
+      seq = new ActionSequence(_driver)
+      seq.doubleClick(e)
+      seq.perform()
 
   enter: (text)->
-    @el.sendKeys(text)
+    @_elementPromise.then (e)-> e.sendKeys(text)
 
   clear: ->
-    @el.clear()
+    @_elementPromise.then (e)-> e.clear()
 
   isDisplayed: ->
-    @el.isDisplayed()
+    @_elementPromise.then (e)-> e.isDisplayed()
 
   tap: (cb)->
     cb(@)
 
 dsl.page = {}
-extendWithElementFinders(dsl.page, driver)
-
-dsl.driver = driver
+extendWithElementFinders(dsl.page, -> promise.when(driver()))
 
 module.exports =
   dsl: dsl
