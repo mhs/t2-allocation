@@ -7,10 +7,11 @@ express = require('express')
 createWebServer = (port)->
   app = express()
     #.use(connect.logger('dev'))
+    .use(express.bodyParser())
     .use (req, res, next)->
       res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
-      res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, Authorization, accept, origin');
-      res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
+      res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, Authorization, Accept, Origin, Content-Type');
+      res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS, PUT, POST, DELETE');
       next()
   conn = null
 

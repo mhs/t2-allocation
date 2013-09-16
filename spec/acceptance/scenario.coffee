@@ -4,6 +4,7 @@
 #
 require('./lib/webdriver-dsl').install(global)
 sync = require('./lib/webdriver-sync')
+_ = require('underscore')
 
 process.on 'exit', -> browser.close()
 
@@ -14,15 +15,45 @@ app = require('./support/app')(9001)
 apiServer = webserver(5000)
 appServer = webserver(9001).serveDir('.')
 
-allocations = require('./fixtures/allocations.json').allocations;
+resources = {}
+resources.allocations = require('./fixtures/allocations.json').allocations;
+resources.people = require("./fixtures/people.json").people
+resources.projects = require("./fixtures/projects.json").projects
+resources.offices = require("./fixtures/offices.json").offices
+resources.slots = require('./fixtures/slots.json').slots
 
 apiServer.when.get '/api/v1/:resources.json', (req, res)->
-  res.sendfile("./spec/acceptance/fixtures/#{req.params.resources}.json")
+  resName = req.params.resources
+  obj = {}
+  obj[resName] = resources[resName]
+  res.json obj
 
-apiServer.when.get '/api/v1/allocations/:id.json', (req, res)->
-  a = allocations.filter (a)->
-    a.id == +req.params.id
-  res.send(a[0])
+apiServer.when.get '/api/v1/:resources/:id.json', (req, res)->
+  resName = req.params.resources
+  id = +req.params.id
+  res.send _.findWhere(resources[resName], id: id)
+
+apiServer.when.post '/api/v1/:resources.json', (req, res)->
+  resName = req.params.resources
+  _resources = resources[resName]
+
+  maxId = 0
+  _.each _resources, (r)->
+    maxId = r.id if r.id > maxId
+
+  resource = req.body
+  resource.id = maxId + 1
+
+  _resources.push resource
+
+  res.send(201)
+
+apiServer.when.put '/api/v1/allocations/:id.json', (req, res)->
+  allocation = _.findWhere(resources.allocations, id: +req.params.id)
+  updatedAllocation = req.body
+  for k,v of updatedAllocation
+    allocation[k] = v
+  res.send allocation
 
 require('./support/selenium')
 
@@ -50,17 +81,21 @@ xtest = ->
 expect = (actualPromise)->
   matchers = {}
 
-  matchers.toEqual = (expected)->
+  matchers.toEqual = (expected, msg)->
     actualPromise.then (actual)->
-      assert.equal(actual, expected)
+      assert.equal(actual, expected, "#{msg}: #{actual} == #{expected}")
 
-  matchers.toBe = (expected)->
+  matchers.toBe = (expected, msg)->
     actualPromise.then (actual)->
-      assert(actual == expected, "#{actual} !== #{expected}")
+      assert(actual == expected, "#{msg}: #{actual} !== #{expected}")
 
-  matchers.toMatch = (expected)->
+  matchers.toMatch = (expected, msg)->
     actualPromise.then (actual)->
-      assert(actual.match(expected), "#{actual} does't match #{expected}")
+      assert(actual.match(expected), "#{msg}: #{actual} does't match #{expected}")
+
+  matchers.toBeFalsy = (msg)->
+    actualPromise.then (actual)->
+      assert(!actual, "#{msg}: #{actual} should be falsy")
 
   matchers
 
@@ -104,17 +139,43 @@ test 'create allocation', ->
   expect(app.firstProject().allocations().length()).toEqual(0)
 
   app.addAllocationBtn().click()
-
   app.allocationEditor().tap (form)->
     expect(form.isDisplayed()).toBe(true)
 
-    form.setStartDate('2013-07-14')
-    form.setEndDate('2013-08-14')
-    form.setPerson('Dave Anderson')
-    form.setProject('Nexia Home')
+    form.startDate('2013-07-14')
+    form.endDate('2013-08-14')
+    form.person('Dave Anderson')
+    form.project('Nexia Home')
+    form.notes('Allocation note')
 
     form.save()
 
   expect(app.firstProject().allocations().length()).toEqual(1)
-
   expect(app.firstProject().allocations().get(0).text()).toMatch(/Dave/)
+
+
+test 'edit allocation', ->
+  app.setCurrentDate('06/01/2013')
+
+  app.projects().get(1).allocations().get(0).dblclick()
+  app.allocationEditor().tap (form)->
+    form.startDate('2013-06-03')
+    form.endDate('2013-08-04')
+    form.billable(true)
+    form.binding(true)
+    form.person('Dan Williams')
+
+    form.save()
+
+  browser.close()
+  app.visit('/projects')
+  app.setCurrentDate('06/01/2013')
+
+  app.projects().get(1).allocations().get(0).dblclick()
+  app.allocationEditor().tap (form)->
+    expect(form.startDate()).toEqual('2013-06-03', 'startDate')
+    expect(form.endDate()).toEqual('2013-08-04', 'endDate')
+    expect(form.billable()).toEqual(true, 'billable', 'billable')
+    expect(form.binding()).toEqual(true, 'binding')
+    expect(form.person()).toEqual('Dan Williams', 'person')
+    expect(form.project()).toEqual('T3', 'project')

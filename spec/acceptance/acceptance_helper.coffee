@@ -1,12 +1,13 @@
-webserver = require('./support/webserver')
 jasmineWD = require('./support/jasmine-wd')
 
 APP_PORT = 9001
+API_PORT = 5000
+
 # jasmine-node will make these global
 module.exports =
   app: require('./support/app')(APP_PORT)
-  apiServer: webserver(5000)
-  appServer: webserver(APP_PORT).serveDir('.')
+  appServer: require('./support/webserver')(APP_PORT).serveDir('.')
+  apiServer: require('./support/apiServer')(API_PORT)
 # jasmine syntax extensions
   feature: describe
   xfeature: xdescribe

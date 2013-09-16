@@ -18,17 +18,17 @@
         {{view App.DateField class="end-date" dateBinding="endDate"}}
         {{#each msg in errors.endDate}}{{msg}}{{/each}}
       </div>
-      <div {{bindAttr class="errors.billable:error :field"}}>
+      <div data-test="billable" {{bindAttr class="errors.billable:error :field" }} >
         <label>Billable</label>
-        {{view Ember.Checkbox checkedBillable="billable"}}
+        {{view Ember.Checkbox checkedBinding="billable"}}
         {{#each msg in errors.billable}}{{msg}}{{/each}}
       </div>
-      <div {{bindAttr class="errors.binding:error :field"}}>
+      <div data-test="binding" {{bindAttr class="errors.binding:error :field"}}>
         <label>Binding</label>
         {{view Ember.Checkbox checkedBinding="binding"}}
         {{#each msg in errors.binding}}{{msg}}{{/each}}
       </div>
-      <div {{bindAttr class="errors.notes:error :field"}}>
+      <div data-test="notes" {{bindAttr class="errors.notes:error :field"}}>
         <label>Notes</label>
         {{view Ember.TextArea valueBinding="notes"}}
         {{#each msg in errors.notes}}{{msg}}{{/each}}

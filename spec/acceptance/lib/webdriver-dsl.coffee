@@ -1,8 +1,10 @@
 'use strict'
 
 webdriver = require('selenium-webdriver')
+sync = require('./webdriver-sync')
 promise = webdriver.promise
 defer = promise.defer
+_ = require('underscore')
 
 By = webdriver.By
 ActionSequence = webdriver.ActionSequence
@@ -36,12 +38,31 @@ dsl.browser =
   executeScript: (script)->
     driver().executeScript(script)
 
+  wait: (fn, timeoutInSeconds = 2)->
+    driver().wait(fn, timeoutInSeconds * 1000)
+
 extendWithElementFinders = (obj, rootPromiseFn)->
   obj.element = (selector)->
-    createElement(rootPromiseFn().then (root)-> root.findElement(locator(selector)))
+    loc = locator(selector)
+
+    rootPromise = rootPromiseFn()
+
+    _promise = sync ->
+      rootPromise.then (root)-> root.findElement(loc)
+
+    el = createElement(_promise)
+
+    el.present = ->
+      rootPromise.then (root)-> root.isElementPresent(loc)
+
+    el
 
   obj.elements = (selector)->
-    new Elements rootPromiseFn().then (root)-> root.findElements(locator(selector))
+    rootPromise = rootPromiseFn()
+
+    _promise = sync ->
+      rootPromise.then (root)-> root.findElements(locator(selector))
+    new Elements(_promise)
 
 createElement = (elPromise)->
   new Element(elPromise)
@@ -106,11 +127,43 @@ Element.prototype =
   clear: ->
     @_elementPromise.then (e)-> e.clear()
 
-  isDisplayed: ->
+  displayed: ->
     @_elementPromise.then (e)-> e.isDisplayed()
 
   tap: (cb)->
     cb(@)
+
+  checked: ->
+    @_elementPromise.then (e)-> e.isSelected()
+
+  selected: ->
+    @_elementPromise.then (e)-> e.isSelected()
+
+  selectedOptions: ()->
+    _selected = []
+
+    options = @elements('option')
+
+    checkOption = (option)->
+      _selected.push option.selected().then (selected)->
+        if selected then option else null
+
+    options.forEach(checkOption)
+      .then ()-> promise.fullyResolved(_selected)
+      .then (arr)->
+        _.compact(arr)
+
+  selectedOptionsText: ()->
+    _texts = []
+
+    collectOption = (options)->
+      options.forEach (option)->
+        _texts.push option.text().then (text)-> text
+
+    @selectedOptions().then(collectOption)
+      .then ()-> promise.fullyResolved(_texts)
+      .then (arr)-> arr.join('')
+
 
 dsl.page = {}
 extendWithElementFinders(dsl.page, -> promise.when(driver()))

@@ -142,24 +142,24 @@ function program7(depth0,data) {
   hashContexts = {};
   stack1 = helpers.each.call(depth0, "msg", "in", "errors.endDate", {hash:{},inverse:self.noop,fn:self.program(5, program5, data),contexts:[depth0,depth0,depth0],types:["ID","ID","ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n      </div>\n      <div ");
+  data.buffer.push("\n      </div>\n      <div data-test=\"billable\" ");
   hashContexts = {'class': depth0};
   hashTypes = {'class': "STRING"};
   data.buffer.push(escapeExpression(helpers.bindAttr.call(depth0, {hash:{
     'class': ("errors.billable:error :field")
   },contexts:[],types:[],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push(">\n        <label>Billable</label>\n        ");
-  hashContexts = {'checkedBillable': depth0};
-  hashTypes = {'checkedBillable': "STRING"};
+  data.buffer.push(" >\n        <label>Billable</label>\n        ");
+  hashContexts = {'checkedBinding': depth0};
+  hashTypes = {'checkedBinding': "STRING"};
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "Ember.Checkbox", {hash:{
-    'checkedBillable': ("billable")
+    'checkedBinding': ("billable")
   },contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
   data.buffer.push("\n        ");
   hashTypes = {};
   hashContexts = {};
   stack1 = helpers.each.call(depth0, "msg", "in", "errors.billable", {hash:{},inverse:self.noop,fn:self.program(5, program5, data),contexts:[depth0,depth0,depth0],types:["ID","ID","ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n      </div>\n      <div ");
+  data.buffer.push("\n      </div>\n      <div data-test=\"binding\" ");
   hashContexts = {'class': depth0};
   hashTypes = {'class': "STRING"};
   data.buffer.push(escapeExpression(helpers.bindAttr.call(depth0, {hash:{
@@ -176,7 +176,7 @@ function program7(depth0,data) {
   hashContexts = {};
   stack1 = helpers.each.call(depth0, "msg", "in", "errors.binding", {hash:{},inverse:self.noop,fn:self.program(5, program5, data),contexts:[depth0,depth0,depth0],types:["ID","ID","ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n      </div>\n      <div ");
+  data.buffer.push("\n      </div>\n      <div data-test=\"notes\" ");
   hashContexts = {'class': depth0};
   hashTypes = {'class': "STRING"};
   data.buffer.push(escapeExpression(helpers.bindAttr.call(depth0, {hash:{

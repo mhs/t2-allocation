@@ -7,6 +7,6 @@ App.ModalController = Em.ObjectController.extend
     close: ->
       @send "closeModal"
 
-  shouldDisableSubmit: (-> 
+  shouldDisableSubmit: (->
     not @get("isDirty")
   ).property("isDirty")

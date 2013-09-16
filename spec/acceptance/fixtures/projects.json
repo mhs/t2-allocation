@@ -12,7 +12,7 @@
     {
       "id": 2,
       "name": "T3",
-      "billable": false,
+      "billable": true,
       "vacation": false,
       "office_ids": [1],
       "slot_ids": [1, 2],

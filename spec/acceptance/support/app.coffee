@@ -1,4 +1,10 @@
 dsl = require('../lib/webdriver-dsl').dsl
+sync = require('../lib/webdriver-sync')
+
+decorateProjectElement = (el)->
+  el.name = -> el.element('.descriptor span').text()
+  el.allocations = -> el.elements('.allocationContent')
+  el
 
 createApp = (port)->
   app =
@@ -25,13 +31,15 @@ createApp = (port)->
       dsl.page.element('.calendar ul li').text()
 
     projects: ->
-      dsl.page.elements('.project')
+      elements = dsl.page.elements('.project')
+      oldGet = elements.get
+      elements.get = (index)->
+        el = oldGet.call(elements, index)
+        decorateProjectElement(el)
+      elements
 
     firstProject: ->
-      el = dsl.page.element('.project')
-      el.name = -> el.element('.descriptor span').text()
-      el.allocations = -> el.elements('.allocationContent')
-      el
+      decorateProjectElement(dsl.page.element('.project'))
 
     projectEditor: ->
       el = dsl.page.element('.modal')
@@ -48,33 +56,69 @@ createApp = (port)->
     allocationEditor: ->
       el = dsl.page.element('.modal')
 
-      el.setStartDate = (date)->
+      el.startDate = (value)->
+        if value == undefined
+          return dsl.browser.executeScript "return $('.modal .start-date').val();"
+
         dsl.browser.executeScript """
-          (function(){
-            $('.modal .start-date').val('#{date}').trigger('change');
+            $('.modal .start-date').val('#{value}').trigger('change');
             return null;
-          })()
         """
 
-      el.setEndDate = (date)->
+      el.endDate = (value)->
+        if value == undefined
+          return dsl.browser.executeScript "return $('.modal .end-date').val();"
+
         dsl.browser.executeScript """
-          (function(){
-            $('.modal .end-date').val('#{date}').trigger('change');
+            $('.modal .end-date').val('#{value}').trigger('change');
             return null;
-          })()
         """
 
-      el.setPerson = (person)->
+      el.billable = (value)->
+        input = el.element('[data-test="billable"] input')
+
+        if value == undefined
+          return input.checked()
+
+        input.checked().then (isChecked)->
+          input.click() if isChecked != value
+
+      el.binding = (value)->
+        input = el.element('[data-test="binding"] input')
+
+        if value == undefined
+          return input.checked()
+
+        input.checked().then (isChecked)->
+          input.click() if isChecked != value
+
+      el.person = (value)->
         select = el.elements('select').get(0)
-        select.elements('option').forEach (option)->
-          option.text().then (text)->
-            option.click() if text == person
 
-      el.setProject = (project)->
-        select = el.elements('select').get(1)
+        if value == undefined
+          return select.selectedOptionsText()
+
         select.elements('option').forEach (option)->
           option.text().then (text)->
-            option.click() if text == project
+            option.click() if text == value
+
+      el.project = (value)->
+        select = el.elements('select').get(1)
+
+        if value == undefined
+          return select.selectedOptionsText()
+
+        select.elements('option').forEach (option)->
+          option.text().then (text)->
+            option.click() if text == value
+
+      el.notes = (value)->
+        input = el.element('[data-test="notes"] textarea')
+        if value == undefined
+          return input.text()
+
+        input.clear()
+        input.enter(value)
 
       el.save = ->
         el.element('button[type="submit"]').click()

@@ -4,7 +4,7 @@
       "id": 1,
       "start_date": "2013-06-02",
       "end_date": "2013-08-05",
-      "billable": true,
+      "billable": false,
       "binding": false,
       "slot_id": 1,
       "person_id": 1,
