@@ -35,7 +35,7 @@ feature 'Project list', ->
     expect(app.firstProject().name()).toEqual('Nexia Home')
     expect(app.allocations().length()).toEqual(4)
 
-  scenario 'updating date field', (done)->
+  scenario 'updating date field', ->
     app.dateSelector().click()
     expect(app.datePicker().isDisplayed()).toBe(true)
     app.datePicker().selectDay(1)
@@ -51,14 +51,14 @@ feature 'Project list', ->
 
     expect(app.calendarStartDate()).toEqual('Jul 8')
 
-  scenario 'display project editor', (done)->
+  scenario 'display project editor', ->
     app.firstProject().dblclick()
 
     app.projectEditor().tap (form)->
       expect(form.isDisplayed()).toBe(true)
       expect(form.title()).toEqual('Editing: Nexia Home')
 
-  scenario 'create allocation', (done)->
+  scenario 'create allocation', ->
     app.setCurrentDate('06/01/2013')
 
     expect(app.firstProject().isDisplayed()).toBe(true)
