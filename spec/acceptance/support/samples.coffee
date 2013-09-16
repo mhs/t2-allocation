@@ -2,62 +2,21 @@
 # Sometimes it may be difficult to debug specs in jasmine-node context so you can use this file
 # to play with scenarios before including them in the test suite.
 #
-require('./lib/webdriver-dsl').install(global)
-sync = require('./lib/webdriver-sync')
+require('../lib/webdriver-dsl').install(global)
+sync = require('../lib/webdriver-sync')
 _ = require('underscore')
 
 process.on 'exit', -> browser.close()
 
 assert = require('assert')
-webserver = require('./support/webserver')
+app = require('./app')(9001)
+apiServer = require('./apiServer')(5000)
+appServer = require('./webserver')(9001).serveDir('.')
 
-app = require('./support/app')(9001)
-apiServer = webserver(5000)
-appServer = webserver(9001).serveDir('.')
-
-resources = {}
-resources.allocations = require('./fixtures/allocations.json').allocations;
-resources.people = require("./fixtures/people.json").people
-resources.projects = require("./fixtures/projects.json").projects
-resources.offices = require("./fixtures/offices.json").offices
-resources.slots = require('./fixtures/slots.json').slots
-
-apiServer.when.get '/api/v1/:resources.json', (req, res)->
-  resName = req.params.resources
-  obj = {}
-  obj[resName] = resources[resName]
-  res.json obj
-
-apiServer.when.get '/api/v1/:resources/:id.json', (req, res)->
-  resName = req.params.resources
-  id = +req.params.id
-  res.send _.findWhere(resources[resName], id: id)
-
-apiServer.when.post '/api/v1/:resources.json', (req, res)->
-  resName = req.params.resources
-  _resources = resources[resName]
-
-  maxId = 0
-  _.each _resources, (r)->
-    maxId = r.id if r.id > maxId
-
-  resource = req.body
-  resource.id = maxId + 1
-
-  _resources.push resource
-
-  res.send(201)
-
-apiServer.when.put '/api/v1/allocations/:id.json', (req, res)->
-  allocation = _.findWhere(resources.allocations, id: +req.params.id)
-  updatedAllocation = req.body
-  for k,v of updatedAllocation
-    allocation[k] = v
-  res.send allocation
-
-require('./support/selenium')
+require('./selenium')
 
 before = ->
+  apiServer.loadResources(__dirname + '/../fixtures')
   apiServer.start().then -> console.log 'apiServer started'
   appServer.start().then -> console.log 'appServer started'
   app.visit('/projects')
@@ -110,7 +69,7 @@ test 'project existence', ->
 
 test 'updating date field', ->
   app.dateSelector().click()
-  expect(app.datePicker().isDisplayed()).toBe(true)
+  expect(app.datePicker().displayed()).toBe(true)
   app.datePicker().selectDay(1)
 
   app.setCurrentDate('07/01/2013')
@@ -128,19 +87,19 @@ test 'display project editor', ->
   app.firstProject().dblclick()
 
   app.projectEditor().tap (form)->
-    expect(form.isDisplayed()).toBe(true)
+    expect(form.displayed()).toBe(true)
     expect(form.title()).toEqual('Editing: Nexia Home')
 
 test 'create allocation', ->
   app.setCurrentDate('06/01/2013')
 
-  expect(app.firstProject().isDisplayed()).toBe(true)
+  expect(app.firstProject().displayed()).toBe(true)
 
   expect(app.firstProject().allocations().length()).toEqual(0)
 
   app.addAllocationBtn().click()
   app.allocationEditor().tap (form)->
-    expect(form.isDisplayed()).toBe(true)
+    expect(form.displayed()).toBe(true)
 
     form.startDate('2013-07-14')
     form.endDate('2013-08-14')
@@ -164,18 +123,16 @@ test 'edit allocation', ->
     form.billable(true)
     form.binding(true)
     form.person('Dan Williams')
-
     form.save()
 
-  browser.close()
   app.visit('/projects')
   app.setCurrentDate('06/01/2013')
 
   app.projects().get(1).allocations().get(0).dblclick()
   app.allocationEditor().tap (form)->
-    expect(form.startDate()).toEqual('2013-06-03', 'startDate')
-    expect(form.endDate()).toEqual('2013-08-04', 'endDate')
-    expect(form.billable()).toEqual(true, 'billable', 'billable')
-    expect(form.binding()).toEqual(true, 'binding')
-    expect(form.person()).toEqual('Dan Williams', 'person')
-    expect(form.project()).toEqual('T3', 'project')
+    expect(form.startDate()).toEqual('2013-06-03')
+    expect(form.endDate()).toEqual('2013-08-04')
+    expect(form.billable()).toEqual(true)
+    expect(form.binding()).toEqual(true)
+    expect(form.person()).toEqual('Dan Williams')
+    expect(form.project()).toEqual('T3')
