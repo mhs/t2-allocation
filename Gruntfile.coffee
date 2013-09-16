@@ -1,16 +1,5 @@
 'use strict'
 
-mountFolder = (connect, dir)->
-  connect.static(require('path').resolve(dir))
-
-corsHeaders = (req, res, next)->
-  if 'OPTIONS' == req.method
-    req.method = 'GET'
-  res.setHeader('Access-Control-Allow-Origin', req.headers.origin)
-  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, Authorization, accept, origin')
-  res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS')
-  next()
-
 module.exports = (grunt)->
   require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks)
 
@@ -43,15 +32,6 @@ module.exports = (grunt)->
         options:
           port: 9000
           host: '0.0.0.0'
-      apiMock:
-        options:
-          port: 5000
-          keepalive: true
-          middleware: (connect)->
-            [
-              corsHeaders,
-              mountFolder(connect, 'api-mock')
-            ]
     open:
       localhost:
         path: 'http://localhost:<%= connect.server.options.port %>/'
@@ -81,6 +61,11 @@ module.exports = (grunt)->
       run:
         spec: 'spec'
       executable: './node_modules/.bin/jasmine-node'
+    express:
+      api:
+        options:
+          port: 5000
+          server: './api-mock/server'
 
   grunt.registerTask 'server', 'Does all the grunt work', ()->
     grunt.task.run [
@@ -98,6 +83,6 @@ module.exports = (grunt)->
 
   grunt.registerTask('test', ['test:acceptance'])
 
-  grunt.registerTask('apiMock', ['connect:apiMock'])
+  grunt.registerTask 'apiMock', ['express', 'express-keepalive']
 
   grunt.registerTask('default', ['server'])
