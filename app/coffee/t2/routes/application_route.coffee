@@ -1,5 +1,5 @@
 App.ApplicationRoute = Ember.Route.extend
-  events:
+  actions:
     openModal: (modal) ->
       @render modal,
         into: "application"
