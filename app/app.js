@@ -39,6 +39,7 @@
         return this.send("closeModal");
       },
       close: function() {
+        this.get("model").cancel();
         return this.send("closeModal");
       }
     },
@@ -78,28 +79,7 @@
   App.AllocationsModalController = App.ModalController.extend({
     offices: [],
     people: [],
-    projects: [],
-    currentProject: null,
-    updateProject: (function() {
-      var currentProject, model, newProject, projectAllocations, _ref;
-      model = this.get("model");
-      currentProject = this.get('currentProject');
-      if (model) {
-        newProject = model.get('project');
-        if (currentProject && currentProject !== newProject) {
-          if ((_ref = currentProject.get('allocations')) != null) {
-            _ref.removeObject(model);
-          }
-        }
-        if (newProject) {
-          projectAllocations = newProject.get('allocations');
-          if (projectAllocations && !projectAllocations.toArray().contains(model)) {
-            projectAllocations.pushObject(model);
-            return this.set("currentProject", newProject);
-          }
-        }
-      }
-    }).observes("model.project")
+    projects: []
   });
 
 }).call(this);
@@ -202,7 +182,9 @@
           startDate: new Date(),
           endDate: new Date(moment().add(2, 'weeks').format('L'))
         });
-        return this.send('editAllocation', allocation);
+        return this.send('editAllocation', App.AllocationEditObject.create({
+          model: allocation
+        }));
       },
       createProject: function() {
         var project;
@@ -270,6 +252,48 @@
         });
       });
     }).property("offices")
+  });
+
+}).call(this);
+
+(function() {
+
+  App.AllocationEditObject = Ember.Object.extend({
+    init: function() {
+      var key, _i, _len, _ref;
+      this.set('isDirty', true);
+      this._keys = ['billable', 'binding', 'endDate', 'notes', 'person', 'project', 'slot', 'startDate'];
+      this._initialProject = this.model.get('project');
+      _ref = this._keys;
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        key = _ref[_i];
+        this.set(key, this.model.get(key));
+      }
+      return this;
+    },
+    save: function() {
+      var key, newProject, _i, _len, _ref;
+      _ref = this._keys;
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        key = _ref[_i];
+        this.model.set(key, this.get(key));
+      }
+      newProject = this.get('project');
+      if (this._initialProject !== newProject) {
+        if (this._initialProject != null) {
+          this._initialProject.get('allocations').removeObject(this.model);
+        }
+        if (newProject != null) {
+          newProject.get('allocations').pushObject(this.model);
+        }
+      }
+      return this.model.save();
+    },
+    cancel: function() {
+      if (this.model.isNew) {
+        return this.model.destroy();
+      }
+    }
   });
 
 }).call(this);
@@ -629,7 +653,6 @@
         this.controllerFor("allocations.modal").set("offices", App.Office.find());
         this.controllerFor("allocations.modal").set("people", App.Person.find());
         this.controllerFor("allocations.modal").set("projects", App.Project.find());
-        this.controllerFor("allocations.modal").set("currentProject", allocation.get('project'));
         this.controllerFor("allocations.modal").set('model', allocation);
         return this.send("openModal", "allocations.modal");
       },
@@ -681,7 +704,9 @@
     doubleClick: function(evt) {
       var allocation;
       allocation = this.get('controller').get('model');
-      this.get('controller').send('editAllocation', allocation);
+      this.get('controller').send('editAllocation', App.AllocationEditObject.create({
+        model: allocation
+      }));
       return false;
     }
   });

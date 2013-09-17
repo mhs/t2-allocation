@@ -123,6 +123,9 @@ createApp = (port)->
       el.save = ->
         el.element('button[type="submit"]').click()
 
+      el.cancel = ->
+        el.elements('.modal-footer button').get(1).click()
+
       el
 
 module.exports = createApp

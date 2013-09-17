@@ -52,8 +52,6 @@ feature 'Project list', ->
   scenario 'create allocation', ->
     app.setCurrentDate('06/01/2013')
 
-    expect(app.firstProject().displayed()).toBe(true)
-
     expect(app.firstProject().allocations().length()).toEqual(0)
 
     app.addAllocationBtn().click()
@@ -69,8 +67,26 @@ feature 'Project list', ->
       form.save()
 
     expect(app.firstProject().allocations().length()).toEqual(1)
-
     expect(app.firstProject().allocations().get(0).text()).toMatch(/Dave/)
+
+  scenario 'cancel new allocation editor', ->
+    app.setCurrentDate('06/01/2013')
+
+    expect(app.firstProject().allocations().length()).toEqual(0)
+
+    app.addAllocationBtn().click()
+
+    app.allocationEditor().tap (form)->
+      expect(form.displayed()).toBe(true)
+
+      form.startDate('2013-07-14')
+      form.endDate('2013-08-14')
+      form.person('Dave Anderson')
+      form.project('Nexia Home')
+
+      form.cancel()
+
+    expect(app.firstProject().allocations().length()).toEqual(0)
 
   scenario 'edit allocation', ->
     app.setCurrentDate('06/01/2013')

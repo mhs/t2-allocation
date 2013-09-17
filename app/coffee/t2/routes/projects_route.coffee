@@ -9,7 +9,6 @@ App.ProjectsRoute = Ember.Route.extend
       @controllerFor("allocations.modal").set "offices", App.Office.find()
       @controllerFor("allocations.modal").set "people", App.Person.find()
       @controllerFor("allocations.modal").set "projects", App.Project.find()
-      @controllerFor("allocations.modal").set "currentProject", allocation.get('project')
       @controllerFor("allocations.modal").set 'model', allocation
       @send "openModal", "allocations.modal"
 
@@ -20,4 +19,3 @@ App.ProjectsRoute = Ember.Route.extend
   setupController: (controller) ->
     App.Person.find()
     @controllerFor("projects.index").set "model", App.Project.find()
-    
