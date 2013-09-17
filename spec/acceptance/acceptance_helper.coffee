@@ -7,7 +7,7 @@ API_PORT = 5000
 module.exports =
   app: require('./support/app')(APP_PORT)
   appServer: require('./support/webserver')(APP_PORT).serveDir('.')
-  apiServer: require('./support/apiServer')(API_PORT)
+  apiServer: require('./support/api-server')(API_PORT)
 # jasmine syntax extensions
   feature: describe
   xfeature: xdescribe

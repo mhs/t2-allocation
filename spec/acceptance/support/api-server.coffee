@@ -19,14 +19,14 @@ createApiServer = (port)->
     resName = req.params.resources
     _resources = resources[resName]
 
-    maxId = _.max(_resources, (r)-> r.id)
+    maxId = _.max(_resources, (r)-> r.id).id
 
     resource = req.body
     resource.id = maxId + 1
 
     _resources.push resource
 
-    res.send(201)
+    res.status(201).send(resource)
 
   server.when.put '/api/v1/:resources/:id.json', (req, res)->
     resName = req.params.resources

@@ -10,7 +10,7 @@ process.on 'exit', -> browser.close()
 
 assert = require('assert')
 app = require('./app')(9001)
-apiServer = require('./apiServer')(5000)
+apiServer = require('./api-server')(5000)
 appServer = require('./webserver')(9001).serveDir('.')
 
 require('./selenium')
