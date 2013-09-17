@@ -164,6 +164,10 @@ Element.prototype =
       .then ()-> promise.fullyResolved(_texts)
       .then (arr)-> arr.join('')
 
+  selectOptionByText: (optionText)->
+    @elements('option').forEach (option)->
+      option.text().then (text)->
+        option.click() if text == optionText
 
 dsl.page = {}
 extendWithElementFinders(dsl.page, -> promise.when(driver()))

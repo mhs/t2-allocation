@@ -98,9 +98,7 @@ createApp = (port)->
         if value == undefined
           return select.selectedOptionsText()
 
-        select.elements('option').forEach (option)->
-          option.text().then (text)->
-            option.click() if text == value
+        select.selectOptionByText(value)
 
       el.project = (value)->
         select = el.elements('select').get(1)
@@ -108,9 +106,7 @@ createApp = (port)->
         if value == undefined
           return select.selectedOptionsText()
 
-        select.elements('option').forEach (option)->
-          option.text().then (text)->
-            option.click() if text == value
+        select.selectOptionByText(value)
 
       el.notes = (value)->
         input = el.element('[data-test="notes"] textarea')
