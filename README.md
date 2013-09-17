@@ -9,6 +9,7 @@ in [EmberJS](http://emberjs.com), using [Grunt](http://gruntjs.com) and [Bower](
 * NPM
 * Ruby
 * [t2-api](http://github.com/neo/t2-api)
+* Java (for acceptance tests)
 
 
 ## Install & run
@@ -22,6 +23,8 @@ server. See below)
 6. Start: `grunt`
 
 ## Testing
+  [Install Selenium and Chrome WebDriver](selenium/README.md) into `./selenium` dir.
+
     grunt test
 
 ## Running api-mock server
