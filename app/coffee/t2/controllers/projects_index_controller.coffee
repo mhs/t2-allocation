@@ -5,18 +5,19 @@ App.ProjectsIndexController = Ember.ArrayController.extend
 
   actions:
     createAllocation: ->
+      __hackEmberModel()
       allocation = App.Allocation.create
         startDate: new Date()
         endDate: new Date(moment().add(2,'weeks').format('L'))
       @send 'editAllocation', allocation
-  
+
     createProject: ->
       project = App.Project.create()
       @send "editProject", project
-    
+
     editDate: ->
       @set "isEditing", true
-  
+
     confirmDate: (dateValue) ->
       date = undefined
       dateValue = App.projectsUI.get("date")  unless moment(dateValue).isValid()

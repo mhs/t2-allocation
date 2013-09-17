@@ -1,4 +1,21 @@
 (function() {
+  var __hackEmberModel;
+
+  __hackEmberModel = window.__hackEmberModel = function() {
+    var save_didCreateRecord;
+    if (__hackEmberModel.__hacked) {
+      return;
+    }
+    save_didCreateRecord = Ember.Model.prototype.didCreateRecord;
+    if (save_didCreateRecord != null) {
+      __hackEmberModel.__hacked = true;
+      console.log('applying Ember.Model hack!');
+      return Ember.Model.prototype.didCreateRecord = function() {
+        set(this, '_dirtyAttributes', []);
+        return save_didCreateRecord.call(this);
+      };
+    }
+  };
 
   window.App = Ember.Application.create();
 
@@ -180,6 +197,7 @@
     actions: {
       createAllocation: function() {
         var allocation;
+        __hackEmberModel();
         allocation = App.Allocation.create({
           startDate: new Date(),
           endDate: new Date(moment().add(2, 'weeks').format('L'))
