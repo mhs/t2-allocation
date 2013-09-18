@@ -6,9 +6,9 @@ decorateProjectElement = (el)->
   el.allocations = -> el.elements('.allocationContent')
   el
 
-createApp = (port)->
+createApp = (host, port)->
   app =
-    url: "http://localhost:#{port}"
+    url: "http://#{host}:#{port}"
     visit: (path)-> dsl.browser.visit "#{@url}/##{path}"
 
     dateSelector: ->

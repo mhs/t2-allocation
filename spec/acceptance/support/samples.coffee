@@ -2,6 +2,8 @@
 # Sometimes it may be difficult to debug specs in jasmine-node context so you can use this file
 # to play with scenarios before including them in the test suite.
 #
+# NOTICE: Run `grunt build --test` before running this script!
+#
 require('../lib/webdriver-dsl').install(global)
 sync = require('../lib/webdriver-sync')
 _ = require('underscore')
@@ -9,9 +11,9 @@ _ = require('underscore')
 process.on 'exit', -> browser.close()
 
 assert = require('assert')
-app = require('./app')(9001)
-apiServer = require('./api-server')(5000)
-appServer = require('./webserver')(9001).serveDir('.')
+app = require('./app')('localhost', 9001)
+apiServer = require('./api-server')(5001)
+appServer = require('./webserver')(9001).serveDir('./dist')
 
 require('./selenium')
 
