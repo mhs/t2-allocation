@@ -1,0 +1,46 @@
+{
+  "allocations": [
+    {
+      "id": 1,
+      "start_date": "2013-06-02",
+      "end_date": "2013-08-05",
+      "billable": false,
+      "binding": false,
+      "slot_id": 1,
+      "person_id": 1,
+      "project_id": 2
+    }, {
+      "id": 2,
+      "start_date": "2013-06-01",
+      "end_date": "2013-08-05",
+      "billable": true,
+      "binding": false,
+      "slot_id": 2,
+      "person_id": 4,
+      "project_id": 2
+    }, {
+      "id": 3,
+      "start_date": "2013-07-01",
+      "end_date": "2013-08-03",
+      "billable": true,
+      "binding": true,
+      "slot_id": 2,
+      "person_id": 3,
+      "project_id": 2
+    }, {
+      "id": 4,
+      "start_date": "2013-07-01",
+      "end_date": "2013-08-03",
+      "billable": true,
+      "binding": true,
+      "project_id": 2
+    }, {
+      "id": 5,
+      "start_date": "2012-07-01",
+      "end_date": "2012-08-03",
+      "billable": true,
+      "binding": true,
+      "project_id": 2
+    }
+  ]
+}
