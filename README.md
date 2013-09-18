@@ -41,14 +41,6 @@ Running unit test in development mode (autorun)
 
     grunt test:dev
 
-## Deployment
-
-Build the application with
-
-    grunt build --production
-
-Deploy the contents of `./dist` directory.
-
 ## Running api-mock server
 
 If you don't want or can't install t2-api, you can use **api-mock** server which serves static
