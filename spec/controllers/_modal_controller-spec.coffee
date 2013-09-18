@@ -6,12 +6,12 @@ describe 'App.ModalController', ->
 
   beforeEach ->
     modelSpy = jasmine.createSpyObj('model', ['save', 'cancel'])
-    spyOn(subject, 'send')
+    spyOn(subject, 'send').andCallThrough()
     spyOn(subject, 'get').andReturn(modelSpy)
 
   describe 'saving', ->
 
-    beforeEach -> subject.save()
+    beforeEach -> subject.send('save')
 
     it 'should save the model', ->
       expect(modelSpy.save).toHaveBeenCalled()
@@ -21,7 +21,7 @@ describe 'App.ModalController', ->
 
   describe 'canceling', ->
 
-    beforeEach -> subject.close()
+    beforeEach -> subject.send('close')
 
     it 'should save the model', ->
       expect(modelSpy.cancel).toHaveBeenCalled()

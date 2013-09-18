@@ -7,7 +7,7 @@ describe 'App.ProjectsIndexController', ->
     it 'should create new allocation instance', ->
       spyOn(App.Allocation, 'create').andCallThrough()
 
-      subject().createAllocation()
+      subject().send('createAllocation')
       expect(App.Allocation.create).toHaveBeenCalled()
 
     it 'should use edit object', ->
@@ -16,7 +16,7 @@ describe 'App.ProjectsIndexController', ->
 
       spyOn(App.AllocationEditObject, 'create')
 
-      subject().createAllocation()
+      subject().send('createAllocation')
 
       expect(App.AllocationEditObject.create).toHaveBeenCalledWith(model: modelSpy)
 
@@ -25,6 +25,6 @@ describe 'App.ProjectsIndexController', ->
       spyOn(App.AllocationEditObject, 'create').andReturn(editObject)
 
       withSubject (subject)->
-        spyOn(subject, 'send')
-        subject.createAllocation()
+        spyOn(subject, 'send').andCallThrough()
+        subject.send('createAllocation')
         expect(subject.send).toHaveBeenCalledWith('editAllocation', editObject)
