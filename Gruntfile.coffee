@@ -66,6 +66,15 @@ module.exports = (grunt)->
         options:
           port: 5000
           server: './api-mock/server'
+    karma:
+      options:
+        configFile: 'karma.conf.coffee'
+      unit:
+        singleRun: true
+        browsers: ['PhantomJS']
+      dev:
+        browsers: ['Chrome']
+
 
   grunt.registerTask 'server', 'Does all the grunt work', ()->
     grunt.task.run [
@@ -77,11 +86,16 @@ module.exports = (grunt)->
       'watch'
     ]
 
+
+  grunt.registerTask 'test:unit', ['karma:unit']
+
+  grunt.registerTask 'test:dev', ['karma:dev']
+
   grunt.registerTask 'test:acceptance', ()->
     grunt.config.set('jasmine-node.run.spec', 'spec/acceptance')
     grunt.task.run(['jasmine-node'])
 
-  grunt.registerTask('test', ['test:acceptance'])
+  grunt.registerTask('test', ['test:unit', 'test:acceptance'])
 
   grunt.registerTask 'apiMock', ['express', 'express-keepalive']
 

@@ -25,7 +25,29 @@ server. See below)
 ## Testing
   [Install Selenium and Chrome WebDriver](selenium/README.md) into `./selenium` dir.
 
+Running all tests:
+
     grunt test
+
+Running unit tests:
+
+    grunt test:unit
+
+Running acceptance tests:
+
+    grunt test:acceptance
+
+Running unit test in development mode (autorun)
+
+    grunt test:dev
+
+## Deployment
+
+Build the application with
+
+    grunt build --production
+
+Deploy the contents of `./dist` directory.
 
 ## Running api-mock server
 
