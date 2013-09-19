@@ -9,7 +9,7 @@
   <section id="calendarBar">
     <div class="selector">
       {{#if isEditing}}
-        {{view App.EditDateView id='datepicker'}}
+        {{edit-date class="datepicker" action="confirmDate" escape-press="confirmDate"}}
       {{else}}
         <span {{action "editDate" on="click"}}>{{firstDate}}</span>
       {{/if}}

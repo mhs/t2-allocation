@@ -378,17 +378,20 @@ function program4(depth0,data) {
 this["Ember"]["TEMPLATES"]["projects/index"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
-  var buffer = '', stack1, hashTypes, hashContexts, escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing, self=this;
+  var buffer = '', stack1, hashTypes, hashContexts, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, self=this;
 
 function program1(depth0,data) {
   
-  var buffer = '', hashContexts, hashTypes;
+  var buffer = '', stack1, hashContexts, hashTypes, options;
   data.buffer.push("\n        ");
-  hashContexts = {'id': depth0};
-  hashTypes = {'id': "STRING"};
-  data.buffer.push(escapeExpression(helpers.view.call(depth0, "App.EditDateView", {hash:{
-    'id': ("datepicker")
-  },contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
+  hashContexts = {'class': depth0,'action': depth0,'escape-press': depth0};
+  hashTypes = {'class': "STRING",'action': "STRING",'escape-press': "STRING"};
+  options = {hash:{
+    'class': ("datepicker"),
+    'action': ("confirmDate"),
+    'escape-press': ("confirmDate")
+  },contexts:[],types:[],hashContexts:hashContexts,hashTypes:hashTypes,data:data};
+  data.buffer.push(escapeExpression(((stack1 = helpers['edit-date'] || depth0['edit-date']),stack1 ? stack1.call(depth0, options) : helperMissing.call(depth0, "edit-date", options))));
   data.buffer.push("\n      ");
   return buffer;
   }

@@ -1,15 +1,12 @@
-App.EditDateView = Ember.TextField.extend(
-  classNames: ["edit"]
-  insertNewline: ->
-    @get("controller").confirmDate event.target.value
-
-  change: (event) ->
-    @get("controller").confirmDate event.target.value  if @value isnt ""
-
+App.EditDateView = Ember.TextField.extend
   didInsertElement: ->
     @$().focus()
 
   focusIn: (event) ->
+    self = @
     @set "value", moment(App.projectsUI.get("date")).format("L")
-    $(event.target).datepicker()
-)
+    @$().datepicker
+      onClose: (date)->
+        self.triggerAction(actionContext: date)
+
+Ember.Handlebars.helper('edit-date', App.EditDateView)

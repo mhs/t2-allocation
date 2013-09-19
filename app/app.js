@@ -195,8 +195,7 @@
         return this.set("isEditing", true);
       },
       confirmDate: function(dateValue) {
-        var date, shortDate;
-        date = void 0;
+        var shortDate;
         if (!moment(dateValue).isValid()) {
           dateValue = App.projectsUI.get("date");
         }
@@ -716,23 +715,24 @@
 (function() {
 
   App.EditDateView = Ember.TextField.extend({
-    classNames: ["edit"],
-    insertNewline: function() {
-      return this.get("controller").confirmDate(event.target.value);
-    },
-    change: function(event) {
-      if (this.value !== "") {
-        return this.get("controller").confirmDate(event.target.value);
-      }
-    },
     didInsertElement: function() {
       return this.$().focus();
     },
     focusIn: function(event) {
+      var self;
+      self = this;
       this.set("value", moment(App.projectsUI.get("date")).format("L"));
-      return $(event.target).datepicker();
+      return this.$().datepicker({
+        onClose: function(date) {
+          return self.triggerAction({
+            actionContext: date
+          });
+        }
+      });
     }
   });
+
+  Ember.Handlebars.helper('edit-date', App.EditDateView);
 
 }).call(this);
 

@@ -21,7 +21,6 @@ App.ProjectsIndexController = Ember.ArrayController.extend
       @set "isEditing", true
 
     confirmDate: (dateValue) ->
-      date = undefined
       dateValue = App.projectsUI.get("date")  unless moment(dateValue).isValid()
       shortDate = moment(dateValue).format("L")
       @set "isEditing", false
