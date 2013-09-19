@@ -45,14 +45,6 @@ module.exports = (grunt)->
       dist:
         files:
           '.tmp/scripts/app.js': ['app/scripts/**/*.coffee']
-      test:
-        files: [
-          expand: true
-          cwd: 'spec/'
-          src: '**/*.coffee'
-          dest: '.tmp/spec'
-          ext: '.js'
-        ]
     sass:
       dist:
         files:
@@ -175,13 +167,10 @@ module.exports = (grunt)->
         options:
           livereload: true
       javascript:
-        files: ['app/coffee/**/*.coffee', 'app/js/**/*.js']
-        tasks: ['coffee']
+        files: ['app/scripts/**/*.coffee', 'app/js/**/*.js']
+        tasks: ['coffee', 'set-environment', 'replace']
         options:
           livereload: true
-      test:
-        files: ['spec/**/*.coffee']
-        tasks: ['coffee:test']
     'jasmine-node':
       options:
         coffee: true
@@ -231,7 +220,7 @@ module.exports = (grunt)->
     grunt.config.set('replace.dist.options.patterns', _patterns)
 
   grunt.registerTask 'set-environment', () ->
-    env = 'development'
+    env = process.env.T2_ENV or 'development'
     env = 'production' if grunt.option('production')
     env = 'test'       if grunt.option('test')
     grunt.task.run ["environment:#{env}"]
