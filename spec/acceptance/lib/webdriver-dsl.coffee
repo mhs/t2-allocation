@@ -112,7 +112,36 @@ Elements.prototype.forEach = (iterator)->
   @_withElements (elements)->
     elements.forEach (el)->
       iterator createElement(-> el)
-#
+
+# @return promise of Array
+Elements.prototype.map = (fn)->
+  _result = []
+
+  mapElement = (el)->
+    _result.push fn(el)
+
+  @forEach(mapElement)
+    .then -> promise.fullyResolved(_result)
+
+# @return Elements
+Elements.prototype.filter = (check)->
+  self = @
+  _filtered = []
+
+  filter = ->
+    self._withElements (webElements)->
+      webElements.forEach (webElement)->
+        el = createElement(-> webElement)
+        _filtered.push check(el).then (ok)->
+          if ok then webElement else null
+
+  f = filter()
+    .then -> promise.fullyResolved(_filtered)
+    .then (arr)->
+      _.compact(arr)
+
+  new Elements -> f
+
 # Element
 #
 Element = (elementPromiseFn)->
