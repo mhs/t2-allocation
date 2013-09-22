@@ -16,8 +16,9 @@ module.exports =
   expect: jasmineWD.expect
 
 # Install DSL (browser, page, etc.)
-dsl = require('./lib/webdriver-dsl').install(global)
-for k,v of dsl
+webDriverDsl = require('./lib/webdriver-dsl')
+webDriverDsl.logging false
+for k,v of webDriverDsl.dsl
   module.exports[k] = v
 
 jasmine.getEnv().defaultTimeoutInterval = 10000

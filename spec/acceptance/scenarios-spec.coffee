@@ -87,10 +87,22 @@ feature 'Project list', ->
     expect(app.firstProject().allocations().length()).toEqual(0)
 
   scenario 'edit allocation', ->
+    editAllocation = (element, cb)->
+      allocation.dblclick()
+
+      form = app.allocationEditor()
+      form.present().then (present)->
+        # sometimes the first dblclick doesn't work, so try again
+        allocation.dblclick() unless present
+
+      form.present().then (present)->
+        throw new Error('Failed to activate allocation editor') unless present
+        cb(form)
+
     app.setCurrentDate('06/01/2013')
 
-    app.projects().get(1).allocations().get(0).dblclick()
-    app.allocationEditor().tap (form)->
+    allocation = app.projects().get(1).allocations().get(0)
+    editAllocation allocation, (form)->
       form.startDate('2013-06-03')
       form.endDate('2013-08-04')
       form.billable(true)
@@ -101,8 +113,8 @@ feature 'Project list', ->
     app.visit('/projects')
     app.setCurrentDate('06/01/2013')
 
-    app.projects().get(1).allocations().get(0).dblclick()
-    app.allocationEditor().tap (form)->
+    allocation = app.projects().get(1).allocations().get(0)
+    editAllocation allocation, (form)->
       expect(form.startDate()).toEqual('2013-06-03')
       expect(form.endDate()).toEqual('2013-08-04')
       expect(form.billable()).toEqual(true)

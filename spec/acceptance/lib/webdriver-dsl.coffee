@@ -1,10 +1,12 @@
 'use strict'
 
 webdriver = require('selenium-webdriver')
-sync = require('./webdriver-sync')
 promise = webdriver.promise
-defer = promise.defer
 _ = require('underscore')
+
+CONSOLE_LOG = console.log.bind(null, 'DSL:')
+NULL_LOG = ->
+log = NULL_LOG
 
 By = webdriver.By
 ActionSequence = webdriver.ActionSequence
@@ -15,6 +17,7 @@ config =
     browserName: 'chrome'
 
 createDriver = ()->
+  log '## new session ##'
   new webdriver.Builder()
     .usingServer(config.seleniumAddress)
     .withCapabilities(config.capabilities).build();
@@ -25,9 +28,11 @@ driver = ()->
 dsl = {}
 dsl.browser =
   visit: (url)->
+    log 'visit', url
     driver().get(url)
 
   close: ->
+    log 'closing browser'
     d = driver()
     driver._instance = null
     d.quit()
@@ -41,28 +46,35 @@ dsl.browser =
   wait: (fn, timeoutInSeconds = 2)->
     driver().wait(fn, timeoutInSeconds * 1000)
 
+  screenshot: ->
+    driver().takeScreenshot()
+
 extendWithElementFinders = (obj, rootPromiseFn)->
   obj.element = (selector)->
     loc = locator(selector)
 
-    rootPromise = rootPromiseFn()
+    _findElement = ->
+      rootPromiseFn().then (root)->
+        log 'root.findElement()', selector
+        root.findElement(loc)
 
-    _promise = sync ->
-      rootPromise.then (root)-> root.findElement(loc)
-
-    el = createElement(_promise)
+    el = createElement(_findElement)
 
     el.present = ->
-      rootPromise.then (root)-> root.isElementPresent(loc)
+      log 'present()'
+      rootPromiseFn().then (root)->
+        log 'root.isElementPresent', selector
+        root.isElementPresent(loc)
 
     el
 
   obj.elements = (selector)->
-    rootPromise = rootPromiseFn()
+    _findElements = ->
+      rootPromiseFn().then (root)->
+        log 'root.findElements', selector
+        root.findElements(locator(selector))
 
-    _promise = sync ->
-      rootPromise.then (root)-> root.findElements(locator(selector))
-    new Elements(_promise)
+    new Elements(_findElements)
 
 createElement = (elPromise)->
   new Element(elPromise)
@@ -76,68 +88,67 @@ locator = (selector)->
 #
 # Elements
 #
-Elements = (elementsPromise)->
-  @_elementsPromise = elementsPromise
-  @
-
-Elements.prototype._wrapInPormise = (fn)->
-  d = defer()
-  @_elementsPromise.then (elements)->
-    d.fulfill(fn(elements))
-  d.promise
+Elements = (elementsPromiseFn)->
+  self = @
+  self._withElements = (cb)->
+    elementsPromiseFn().then cb
+  self
 
 Elements.prototype.length = ->
-  @_wrapInPormise (elements)-> elements.length
+  @_withElements (elements)-> elements.length
 
 Elements.prototype.get = (index)->
-  createElement(@_wrapInPormise (elements)-> elements[index])
+  self = @
+  _findElement = ->
+    self._withElements (elements)-> elements[index]
+
+  el = createElement(_findElement)
+  el.present = ->
+    self._withElements (elements)->
+      index >= 0 and index < elements.length
+  el
 
 Elements.prototype.forEach = (iterator)->
-  @_elementsPromise.then (elements)->
+  @_withElements (elements)->
     elements.forEach (el)->
-      iterator createElement(el)
+      iterator createElement(-> el)
 #
 # Element
 #
-Element = (elementPromise)->
-  extendWithElementFinders(@, -> elementPromise)
-  @_elementPromise = elementPromise
+Element = (elementPromiseFn)->
+  self = @
+
+  extendWithElementFinders(self, elementPromiseFn)
+
+  self._exec = (name, args)->
+    self._withElement (e)->
+      log "--executing: #{name}(#{if args == undefined then '' else args})"
+      e[name].apply(e, args)
+
+  self._withElement = (cb)->
+    elementPromiseFn().then cb
+
   @
 
 Element.prototype =
-  tagName: ->
-    @_elementPromise.then (e)-> e.getTagName()
-
-  text: ->
-    @_elementPromise.then (e)-> e.getText()
-
-  click: ->
-    @_elementPromise.then (e)-> e.click()
+  tagName:   -> @_exec('getTagName')
+  text:      -> @_exec('getText')
+  click:     -> @_exec('click')
+  clear:     -> @_exec('clear')
+  displayed: -> @_exec('isDisplayed')
+  checked:   -> @_exec('isSelected')
+  selected:  -> @_exec('isSelected')
+  enter: (text)-> @_exec('sendKeys', arguments)
 
   dblclick: ->
-    _driver = driver()
-    @_elementPromise.then (e)->
-      seq = new ActionSequence(_driver)
+    log '-- doubleClick()'
+    @_withElement (e)->
+      log 'executing: doubleClick()'
+      seq = e.getDriver().actions()
       seq.doubleClick(e)
       seq.perform()
 
-  enter: (text)->
-    @_elementPromise.then (e)-> e.sendKeys(text)
-
-  clear: ->
-    @_elementPromise.then (e)-> e.clear()
-
-  displayed: ->
-    @_elementPromise.then (e)-> e.isDisplayed()
-
-  tap: (cb)->
-    cb(@)
-
-  checked: ->
-    @_elementPromise.then (e)-> e.isSelected()
-
-  selected: ->
-    @_elementPromise.then (e)-> e.isSelected()
+  tap: (cb)-> cb(@)
 
   selectedOptions: ()->
     _selected = []
@@ -174,6 +185,8 @@ extendWithElementFinders(dsl.page, -> promise.when(driver()))
 
 module.exports =
   dsl: dsl
+  logging: (enable)->
+    log = if enable then CONSOLE_LOG else NULL_LOG
   install: (scope)->
     require('util')._extend(scope, dsl)
     null
