@@ -9,11 +9,9 @@ feature 'Project list', ->
 
   beforeEach ->
     apiServer.start()
-    appServer.start()
 
   afterEach ->
     browser.close()
-    appServer.stop()
     apiServer.stop()
 
   beforeEach ->

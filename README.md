@@ -15,12 +15,13 @@ in [EmberJS](http://emberjs.com), using [Grunt](http://gruntjs.com) and [Bower](
 ## Install & run
 
 1. Get the code: `git clone git@github.com:neo/t2-allocation`
-2. Change directory: `cd t2-allocation`
-3. Install npm dependencies: `npm install`
-4. Install bower dependencies: `bower install`
-5. Start [t2-api](https://github.com/neo/t2-api#start-the-server). (Alternatively use api-mock
+1. Change directory: `cd t2-allocation`
+1. Install npm dependencies: `npm install`
+1. Install bower dependencies: `bower install`
+1. `cp config.json.sample config.json` and check the default configuration
+1. Start [t2-api](https://github.com/neo/t2-api#start-the-server). (Alternatively use api-mock
 server. See below)
-6. Start: `grunt`
+1. Start: `grunt`
 
 ## Testing
   [Install Selenium and Chrome WebDriver](selenium/README.md) into `./selenium` dir.
@@ -40,6 +41,14 @@ Running acceptance tests:
 Running unit test in development mode (autorun)
 
     grunt test:dev
+
+## Deployment
+
+Build the application with
+
+    grunt build --production
+
+Deploy the contents of `./dist` directory.
 
 ## Running api-mock server
 

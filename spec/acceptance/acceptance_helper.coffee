@@ -1,12 +1,12 @@
 jasmineWD = require('./support/jasmine-wd')
 
-APP_PORT = 9001
-API_PORT = 5000
+APP_HOST = process.env['TEST_APP_HOST'] or 'localhost'
+APP_PORT = process.env['TEST_APP_PORT'] or 9001
+API_PORT = 5001
 
 # jasmine-node will make these global
 module.exports =
-  app: require('./support/app')(APP_PORT)
-  appServer: require('./support/webserver')(APP_PORT).serveDir('.')
+  app: require('./support/app')(APP_HOST, APP_PORT)
   apiServer: require('./support/api-server')(API_PORT)
 # jasmine syntax extensions
   feature: describe

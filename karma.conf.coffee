@@ -19,7 +19,7 @@ module.exports = (config)->
       'app/bower_components/handlebars/handlebars.js'
       'app/bower_components/ember/ember.js'
       'app/bower_components/ember-model/ember-model.js'
-      'app/coffee/**/*.coffee'
+      'app/scripts/**/*.coffee'
       'spec/spec_helper.coffee'
       'spec/**/*.coffee'
     ]

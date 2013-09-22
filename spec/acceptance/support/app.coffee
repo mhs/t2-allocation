@@ -6,9 +6,9 @@ decorateProjectElement = (el)->
   el.allocations = -> el.elements('.allocationContent')
   el
 
-createApp = (port)->
+createApp = (host, port)->
   app =
-    url: "http://localhost:#{port}"
+    url: "http://#{host}:#{port}"
     visit: (path)-> dsl.browser.visit "#{@url}/##{path}"
 
     dateSelector: ->
@@ -23,9 +23,14 @@ createApp = (port)->
     setCurrentDate: (text)->
       @dateSelector().click()
 
-      dateInput = dsl.page.element('.selector input')
-      dateInput.clear()
-      dateInput.enter("#{text}\n")
+      selector = '.selector input'
+
+      # This seems to be the most reliable way of setting the date
+      dsl.browser.executeScript """
+          $('#{selector}').datepicker('setDate', '#{text}');
+          $('#{selector}').datepicker('hide');
+          return null;
+      """
 
     calendarStartDate: ->
       dsl.page.element('.calendar ul li').text()
