@@ -98,6 +98,10 @@ module.exports = (grunt)->
           ]
         ,
           expand: true
+          dest: '<%= t2Config.dist %>'
+          src: [ 'index.js', 'procfile' ]
+        ,
+          expand: true
           dot: true
           cwd: '<%= t2Config.app %>/bower_components/jquery-ui/themes/base/images'
           dest: '<%= t2Config.dist %>/styles/images'
