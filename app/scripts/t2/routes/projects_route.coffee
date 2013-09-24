@@ -17,5 +17,7 @@ App.ProjectsRoute = Ember.Route.extend
       @send "openModal", "confirm.delete"
 
   setupController: (controller) ->
+    App.Office.find()
     App.Person.find()
+    App.Allocation.find()
     @controllerFor("projects.index").set "model", App.Project.find()
