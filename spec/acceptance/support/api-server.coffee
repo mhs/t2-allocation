@@ -1,7 +1,19 @@
 _ = require('underscore')
 
+resourceNameMap =
+  people: 'person'
+  allocations: 'allocation'
+  projects: 'project'
+  offices: 'office'
+  slots: 'slot'
+
 createApiServer = (port)->
   resources = {}
+
+  updateRelations = (resourcesName, resource)->
+    if resourcesName == 'allocations'
+      _project = _.findWhere resources.projects, id: resource.project_id
+      _project.allocation_ids.push resource.id
 
   server = require('./webserver')(port)
 
@@ -16,25 +28,39 @@ createApiServer = (port)->
     res.json _.findWhere(resources[resName], id: +req.params.id)
 
   server.when.post '/api/v1/:resources.json', (req, res)->
-    resName = req.params.resources
-    _resources = resources[resName]
+    resourcesName = req.params.resources
+    resourceName = resourceNameMap[resourcesName]
+
+    _resources = resources[resourcesName]
 
     maxId = _.max(_resources, (r)-> r.id).id
 
-    resource = req.body
+    resource = req.body[resourceName]
     resource.id = maxId + 1
 
     _resources.push resource
 
-    res.status(201).send(resource)
+    updateRelations(resourcesName, resource)
+
+    _response = {}
+    _response[resourceName] = resource
+
+    res.status(201).send(_response)
 
   server.when.put '/api/v1/:resources/:id.json', (req, res)->
-    resName = req.params.resources
-    resource = _.findWhere(resources[resName], id: +req.params.id)
-    updates = req.body
+    resourcesName = req.params.resources
+    resourceName = resourceNameMap[resourcesName]
+
+    resource = _.findWhere(resources[resourcesName], id: +req.params.id)
+
+    updates = req.body[resourceName]
     for k,v of updates
       resource[k] = v
-    res.json resource
+
+    _response = {}
+    _response[resourceName] = resource
+
+    res.json _response
 
   server.useResources = (_resources)->
     resources = _resources
