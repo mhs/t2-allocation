@@ -61,7 +61,10 @@ You can create a staging version of you current branch by executing:
 It will build the application with staging environment settings (`config.json`) into `./dist` folder,
 and push it to [gh-pages](https://github.com/neo/t2-allocation/tree/gh-pages) branch.
 
-Your branch will be hosted in its own directory at [t2-allocations-staging](http://neo.github.io/t2-allocation/).
+Your branch will be hosted in its own directory at
+[t2-allocations-staging](http://neo.github.io/t2-allocation/index.html).
+
+Here is the [master branch version](http://neo.github.io/t2-allocation/master/) of the application.
 
 ## Running api-mock server
 
