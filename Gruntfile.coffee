@@ -48,7 +48,7 @@ module.exports = (grunt)->
     sass:
       dist:
         files:
-          '.tmp/styles/app.css': 'app/sass/app.scss'
+          '.tmp/styles/app.css': 'app/styles/app.scss'
     connect:
       options:
         port: 9000
@@ -93,7 +93,7 @@ module.exports = (grunt)->
           dest: '<%= t2Config.dist %>'
           src: [
             '*.{ico,png,txt}'
-            'img/{,*/}*.{gif,png}'
+            'styles/images/{,*/}*.{gif,png}'
             'styles/fonts/*'
           ]
         ,
@@ -166,7 +166,7 @@ module.exports = (grunt)->
         options:
           livereload: true
       sass:
-        files: ['app/sass/**/*.scss']
+        files: ['app/styles/**/*.scss']
         tasks: ['sass']
         options:
           livereload: true
