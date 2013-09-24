@@ -226,6 +226,7 @@ module.exports = (grunt)->
   grunt.registerTask 'set-environment', () ->
     env = process.env.T2_ENV or 'development'
     env = 'production' if grunt.option('production')
+    env = 'staging'    if grunt.option('staging')
     env = 'test'       if grunt.option('test')
     grunt.task.run ["environment:#{env}"]
 
