@@ -1,4 +1,4 @@
-App.Project = Ember.Model.extend
+App.Project = App.defineModel 'projects', 'project',
   id: Ember.attr()
   name: Ember.attr()
   notes: Ember.attr()
@@ -13,9 +13,3 @@ App.Project = Ember.Model.extend
   offices: Ember.hasMany("App.Office",
     key: "office_ids"
   )
-
-App.Project.url = "#{App.API_BASEURL}/projects"
-App.Project.collectionKey = 'projects'
-App.Project.rootKey = 'project'
-App.Project.adapter = Ember.RESTAdapter.create()
-App.Project.camelizeKeys = true

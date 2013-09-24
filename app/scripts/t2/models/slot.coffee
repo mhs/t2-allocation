@@ -1,4 +1,4 @@
-App.Slot = Ember.Model.extend
+App.Slot = App.defineModel 'slots', 'slot',
   id: Ember.attr()
   startDate: Ember.attr(Date)
   endDate: Ember.attr(Date)
@@ -8,8 +8,3 @@ App.Slot = Ember.Model.extend
   allocations: Ember.hasMany("App.Allocation",
     key: "allocation_ids"
   )
-
-App.Slot.url = "#{App.API_BASEURL}/slots"
-App.Slot.collectionKey = 'slots'
-App.Slot.adapter = Ember.RESTAdapter.create()
-App.Slot.camelizeKeys = true

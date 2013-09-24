@@ -1,17 +1,17 @@
-App.Allocation = Ember.Model.extend
+App.Allocation = App.defineModel 'allocations', 'allocation',
   id: Ember.attr()
   notes: Ember.attr()
   startDate: Ember.attr(Date)
   endDate: Ember.attr(Date)
   billable: Ember.attr()
   binding: Ember.attr()
-  slot: Ember.belongsTo("App.Slot", 
+  slot: Ember.belongsTo("App.Slot",
     key: 'slot_id'
   )
-  person: Ember.belongsTo("App.Person", 
+  person: Ember.belongsTo("App.Person",
     key: 'person_id'
   )
-  project: Ember.belongsTo("App.Project", 
+  project: Ember.belongsTo("App.Project",
     key: 'project_id'
   )
 
@@ -24,9 +24,3 @@ App.Allocation = Ember.Model.extend
     end = moment(@get("endDate")) || moment(@get("startDate")) || moment()
     end.diff(start, "days") + 1
   ).property("startDate", "endDate")
-
-App.Allocation.url = "#{App.API_BASEURL}/allocations"
-App.Allocation.collectionKey = 'allocations'
-App.Allocation.rootKey = 'allocation'
-App.Allocation.adapter = Ember.RESTAdapter.create();
-App.Allocation.camelizeKeys = true
