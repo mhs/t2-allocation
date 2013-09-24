@@ -82,6 +82,8 @@ createElement = (elPromise)->
 locator = (selector)->
   if selector.linkText
     By.linkText(selector.linkText)
+  else if selector.xpath
+    By.xpath(selector.xpath)
   else
     By.css(selector)
 
@@ -142,6 +144,7 @@ Elements.prototype.filter = (check)->
 
   new Elements -> f
 
+#
 # Element
 #
 Element = (elementPromiseFn)->
@@ -167,6 +170,7 @@ Element.prototype =
   displayed: -> @_exec('isDisplayed')
   checked:   -> @_exec('isSelected')
   selected:  -> @_exec('isSelected')
+  value:     -> @_exec('getAttribute', ['value'])
   enter: (text)-> @_exec('sendKeys', arguments)
 
   dblclick: ->

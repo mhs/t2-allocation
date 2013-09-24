@@ -121,3 +121,28 @@ feature 'Project list', ->
       expect(form.binding()).toEqual(true)
       expect(form.person()).toEqual('Dan Williams')
       expect(form.project()).toEqual('T3')
+
+  scenario 'create project', ->
+    expect(app.projects().length()).toEqual(2)
+
+    app.createProject (form)->
+      expect(form.displayed()).toBe(true)
+
+      form.name('My Project')
+      form.billable(true)
+      form.offices(['Montevideo', 'Singapore'])
+      form.notes('my project note')
+      form.save()
+
+    expect(app.projects().length()).toEqual(3)
+    expect(app.projects().get(2).name()).toEqual('My Project')
+
+    app.projects().get(2).dblclick()
+    app.projectEditor().tap (form)->
+
+      expect(form.present()).toBe(true)
+      expect(form.displayed()).toBe(true)
+      expect(form.name()).toEqual('My Project')
+      expect(form.billable()).toEqual(true)
+      expect(form.offices()).toEqual(['Montevideo', 'Singapore'])
+      expect(form.notes()).toEqual('my project note')

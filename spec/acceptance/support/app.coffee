@@ -1,9 +1,70 @@
 dsl = require('../lib/webdriver-dsl').dsl
-sync = require('../lib/webdriver-sync')
 
 decorateProjectElement = (el)->
   el.name = -> el.element('.descriptor span').text()
   el.allocations = -> el.elements('.allocationContent')
+  el
+
+projectEditor = (el)->
+  xpath = (selector) -> el.element(xpath: selector)
+
+  el_by_label = (label, element = 'input')-> xpath("""//label[contains(., "#{label}")]/following-sibling::#{element}""")
+
+  el_by_text = (text, element)-> xpath("""//#{element}[contains(., "#{text}")]""")
+
+  checkbox = (label)-> xpath("""//label[contains(., "#{label}")]/input[@type="checkbox"]""")
+  button = (text)-> el_by_text(text, 'button')
+
+  el.title = -> el.element('.modal-header').text()
+
+  el.name = (value)->
+    input = el_by_label('Name')
+    if value == undefined
+      return input.value()
+    else
+      input.clear()
+      input.enter(value)
+
+  el.billable = (value)->
+    input = checkbox('Billable')
+
+    if value == undefined
+      return input.checked()
+    else
+      input.checked().then (isChecked)->
+        input.click() if isChecked != value
+
+  el.offices = (value)->
+    offices = el.elements('[data-test="office"]')
+
+    if value == undefined
+      checked = offices.filter (el)->
+        el.element('input').checked()
+      checked.map (el) -> el.text()
+    else
+      # uncheck all
+      offices.forEach (o)->
+        o.element('input').checked().then (v)->
+          e.click() if v
+
+      for office in value
+        checkbox(office).click()
+
+  el.notes = (value)->
+    input = el_by_label('Notes', 'textarea')
+
+    if value == undefined
+      return input.value()
+    else
+      input.clear()
+      input.enter(value)
+
+  el.save = ->
+    button('Save').click()
+
+  el.cancel = ->
+    button('Cancel').click()
+
   el
 
 createApp = (host, port)->
@@ -47,10 +108,7 @@ createApp = (host, port)->
       decorateProjectElement(dsl.page.element('.project'))
 
     projectEditor: ->
-      el = dsl.page.element('.modal')
-      el.title = ->
-        el.element('.modal-header').text()
-      el
+      projectEditor(dsl.page.element('.modal'))
 
     allocations: ->
       dsl.page.elements('.allocationContent')
@@ -128,5 +186,10 @@ createApp = (host, port)->
         el.elements('.modal-footer button').get(1).click()
 
       el
+
+    createProject: (cb)->
+      dsl.page.element('.new-project-button').click()
+      form = @projectEditor()
+      cb(form)
 
 module.exports = createApp

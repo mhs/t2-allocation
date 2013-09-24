@@ -10,21 +10,28 @@ describe 'App.ProjectsIndexController', ->
       subject().send('createAllocation')
       expect(App.Allocation.create).toHaveBeenCalled()
 
-    it 'should use edit object', ->
-      modelSpy = jasmine.createSpyObj('allocation', ['get'])
-      spyOn(App.Allocation, 'create').andReturn(modelSpy)
-
-      spyOn(App.AllocationEditObject, 'create')
-
-      subject().send('createAllocation')
-
-      expect(App.AllocationEditObject.create).toHaveBeenCalledWith(model: modelSpy)
-
     it 'should send the appropriate action', ->
       editObject = {}
-      spyOn(App.AllocationEditObject, 'create').andReturn(editObject)
+      spyOn(App.Allocation, 'create').andReturn(editObject)
 
       withSubject (subject)->
         spyOn(subject, 'send').andCallThrough()
         subject.send('createAllocation')
         expect(subject.send).toHaveBeenCalledWith('editAllocation', editObject)
+
+  describe 'creating projects', ->
+    it 'should create new project instance', ->
+      spyOn(App.Project, 'create').andCallThrough()
+
+      subject().send('createProject')
+      expect(App.Project.create).toHaveBeenCalled()
+
+
+    it 'should send the appropriate action', ->
+      editObject = {}
+      spyOn(App.Project, 'create').andReturn(editObject)
+
+      withSubject (subject)->
+        spyOn(subject, 'send').andCallThrough()
+        subject.send('createProject')
+        expect(subject.send).toHaveBeenCalledWith('editProject', editObject)

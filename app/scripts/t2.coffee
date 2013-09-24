@@ -14,9 +14,16 @@ __hackEmberModel = window.__hackEmberModel = ->
     console.log('applying Ember.Model hack!')
 
     Ember.Model.prototype.didCreateRecord = ->
-      set(this, '_dirtyAttributes', []);
+      @set('_dirtyAttributes', []);
       save_didCreateRecord.call(@)
 
-window.App = Ember.Application.create()
+emberDebug = '@@EMBER_DEBUG' != 'false'
+window.App = Ember.Application.create
+  LOG_TRANSITIONS: emberDebug
+  LOG_TRANSITIONS_INTERNAL: emberDebug
+  LOG_VIEW_LOOKUPS: emberDebug
+  LOG_ACTIVE_GENERATION: emberDebug
+
+#Ember.LOG_BINDINGS = true
 
 window.App.API_BASEURL = "@@API_BASEURL"
