@@ -21,6 +21,7 @@ module.exports = (grunt)->
   t2Config =
     app: 'app'
     dist: 'dist'
+    staging: '.staging'
 
   grunt.initConfig
     t2Config: t2Config
@@ -196,6 +197,48 @@ module.exports = (grunt)->
       dev:
         browsers: ['Chrome']
 
+    shell:
+      staging:
+        options:
+          stdout: true
+          stderr: true
+          failOnError: true
+        command: [
+          # Prepares the commit message
+          'GRUNT_COMMIT_MSG=$(git log HEAD -1 --format=medium)'
+
+          'BRANCH=$(git rev-parse --abbrev-ref HEAD)'
+
+
+          # Clones the repo into clean .staging folder
+         'rm -rf <%= t2Config.staging %>',
+         'git clone git@github.com:neo/t2-allocation.git --branch gh-pages <%= t2Config.staging %>'
+
+          'cd <%= t2Config.staging %>/'
+
+          # Removes all tracked items and copies the latest dist files
+          'mkdir -p "$BRANCH"'
+          'git ls-files "$BRANCH" | xargs rm'
+          'cp -r ../dist/ "$BRANCH"'
+
+          # Update directory listing
+          """
+          (
+            echo "<html>\n<body>\n<h1>T2-allocation staging</h1>\n<hr/>\n<pre>"
+            for DIR in $(find . -type d -d 1|grep -v .git|sed s:./::); do
+              echo "<a href=\"$DIR\">$DIR</a>"
+            done
+            echo "</pre>\n</body>\n</html>"
+
+          ) > index.html
+          """
+
+          # Commits the changes and pushes to origin/gh-pages branch
+          'git add -A'
+          'git commit -m "$GRUNT_COMMIT_MSG"'
+          'git push origin gh-pages'
+        ].join '&&'
+
 
   grunt.registerTask 'server', (target) ->
     if target == 'dist'
@@ -230,20 +273,23 @@ module.exports = (grunt)->
     env = 'test'       if grunt.option('test')
     grunt.task.run ["environment:#{env}"]
 
-  grunt.registerTask 'build', [
-    'set-environment',
-    'clean:dist',
-    'concurrent:dist',
-    'replace',
-    'useminPrepare',
-    'htmlmin',
-    'concat',
-    'copy',
-    'cssmin',
-    'uglify',
-    'rev',
-    'usemin'
-  ]
+  grunt.registerTask 'build', (target)->
+    grunt.log.writeln("build target: #{target}")
+    grunt.option(target, true) if target
+    grunt.task.run [
+      'set-environment',
+      'clean:dist',
+      'concurrent:dist',
+      'replace',
+      'useminPrepare',
+      'htmlmin',
+      'concat',
+      'copy',
+      'cssmin',
+      'uglify',
+      'rev',
+      'usemin'
+    ]
 
 
   grunt.registerTask 'test:unit', ['karma:unit']
@@ -260,7 +306,12 @@ module.exports = (grunt)->
       'jasmine-node'
     ])
 
-  grunt.registerTask('test', ['test:unit', 'test:acceptance'])
+  grunt.registerTask 'test', ['test:unit', 'test:acceptance']
+
+  grunt.registerTask 'deploy:staging', [
+    'build:staging'
+    'shell:staging'
+  ]
 
   grunt.registerTask 'apiMock', ['express', 'express-keepalive']
 

@@ -50,6 +50,19 @@ Build the application with
 
 Deploy the contents of `./dist` directory.
 
+### Staging
+
+We host our staging environment as github pages.
+
+You can create a staging version of you current branch by executing:
+
+    grunt deploy:staging
+
+It will build the application with staging environment settings (`config.json`) into `./dist` folder,
+and push it to [gh-pages](https://github.com/neo/t2-allocation/tree/gh-pages) branch.
+
+Your branch will be hosted in its own directory at [t2-allocations-staging](http://neo.github.io/t2-allocation/).
+
 ## Running api-mock server
 
 If you don't want or can't install t2-api, you can use **api-mock** server which serves static
