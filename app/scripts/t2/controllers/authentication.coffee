@@ -1,6 +1,6 @@
 _redirectTo = (url)->
   uri = url
-  uri += "?return_url=" + escape(location.protocol + "//" + location.host)
+  uri += "?return_url=" + escape(location.href)
   location.href = uri
 
 App.AuthenticationController = Ember.ObjectController.extend
