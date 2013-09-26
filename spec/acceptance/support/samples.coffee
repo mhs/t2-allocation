@@ -11,7 +11,9 @@
 # :@"
 #
 require('../lib/webdriver-dsl').install(global)
-require('../lib/webdriver-dsl').logging(false)
+require('../lib/webdriver-dsl').logging(true)
+
+Error.stackTraceLimit = Infinity;
 
 sync = require('../lib/webdriver-sync')
 _ = require('underscore')
@@ -26,8 +28,8 @@ process.once 'exit', ->
 assert = require('assert')
 app = require('./app')('localhost', 9001)
 apiServer = require('./api-server')(5001)
-#appServer = require('./webserver')(9001).serveDir('./dist')
-appServer = require('./webserver')(9001).serveDir('./.tmp').serveDir('./app')
+appServer = require('./webserver')(9001).serveDir('./dist')
+#appServer = require('./webserver')(9001).serveDir('./.tmp').serveDir('./app')
 
 require('./selenium')
 
@@ -35,7 +37,7 @@ before = ->
   apiServer.loadResources(__dirname + '/../fixtures')
   apiServer.start().then -> console.log 'apiServer started'
   appServer.start().then -> console.log 'appServer started'
-  app.visit('/projects')
+  app.signIn('MyAccessToken')
 
 after = ->
   browser.close().then -> console.log 'browser closed'
@@ -84,9 +86,7 @@ test 'project existence', ->
   app.setCurrentDate('06/01/2013')
 
   expect(app.calendarStartDate()).toEqual('May 27')
-
   expect(app.firstProject().name()).toEqual('Nexia Home')
-
   expect(app.allocations().length()).toEqual(4)
 
 test 'updating date field', ->
@@ -217,3 +217,13 @@ test 'delete project', ->
   app.setCurrentDate('06/01/2013')
   expect(app.projects().length()).toEqual(1)
   expect(app.allocations().length()).toEqual(0)
+
+test 'signing in', ->
+  app.signOut()
+  expect(browser.currentUrl()).toMatch(/http:\/\/localhost:5001\/sign_out\?return_url=.+/)
+
+  app.visit('/')
+  expect(browser.currentUrl()).toMatch(/http:\/\/localhost:5001\/sign_in\?return_url=.+/)
+
+  app.signIn('abc')
+  expect(browser.currentUrl()).toMatch(/#\/projects/)

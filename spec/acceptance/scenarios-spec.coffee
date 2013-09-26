@@ -15,7 +15,7 @@ feature 'Project list', ->
     apiServer.stop()
 
   beforeEach ->
-    app.visit('/projects')
+    app.signIn('MyAccessToken')
 
   scenario 'project existence', ->
     app.setCurrentDate('06/01/2013')
@@ -179,3 +179,13 @@ feature 'Project list', ->
     app.setCurrentDate('06/01/2013')
     expect(app.projects().length()).toEqual(1)
     expect(app.allocations().length()).toEqual(0)
+
+  scenario 'signing in', ->
+    app.signOut()
+    expect(browser.currentUrl()).toMatch(/http:\/\/localhost:5001\/sign_out\?return_url=.+/)
+
+    app.visit('/')
+    expect(browser.currentUrl()).toMatch(/http:\/\/localhost:5001\/sign_in\?return_url=.+/)
+
+    app.signIn('abc')
+    expect(browser.currentUrl()).toMatch(/#\/projects/)
