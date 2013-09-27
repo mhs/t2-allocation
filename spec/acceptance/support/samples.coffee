@@ -12,6 +12,11 @@ _ = require('underscore')
 
 process.on 'exit', -> browser.close()
 
+process.once 'exit', ->
+  if failures.length
+    console.log '*** Failures ***'
+    console.log f for f in failures
+
 assert = require('assert')
 app = require('./app')('localhost', 9001)
 apiServer = require('./api-server')(5001)
@@ -42,24 +47,30 @@ test = (name, fn)->
 
 xtest = ->
 
+failures = []
+
 expect = (actualPromise)->
   matchers = {}
 
   matchers.toEqual = (expected, msg)->
     actualPromise.then (actual)->
-      assert.deepEqual(actual, expected, "#{msg}: #{actual} == #{expected}")
+      if not _.isEqual(actual, expected)
+        failures.push("#{actual} != #{expected}")
 
   matchers.toBe = (expected, msg)->
     actualPromise.then (actual)->
-      assert(actual == expected, "#{msg}: #{actual} !== #{expected}")
+      if actual isnt expected
+        failures.push("#{actual} !== #{expected}")
 
   matchers.toMatch = (expected, msg)->
     actualPromise.then (actual)->
-      assert(actual.match(expected), "#{msg}: #{actual} does't match #{expected}")
+      if not actual.match(expected)
+        failures.push("#{actual} does't match #{expected}")
 
   matchers.toBeFalsy = (msg)->
     actualPromise.then (actual)->
-      assert(!actual, "#{msg}: #{actual} should be falsy")
+      if actual
+        failures.push("#{actual} should be falsy")
 
   matchers
 
