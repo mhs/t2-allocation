@@ -1,7 +1,10 @@
 App.ModalController = Em.ObjectController.extend
+  canDelete: null
+
   _editedModel: null
 
   edit: (model)->
+    @set('canDelete', not model.isNew)
     @_editedModel = model
     @_initForm(model)
 
@@ -10,6 +13,9 @@ App.ModalController = Em.ObjectController.extend
 
   # override me!
   _applyChanges: (editedModel) ->
+
+  # override me!
+  _beforeDelete: (editedModel)->
 
   _cancelChanges: (editedModel)->
     editedModel.destroy() if editedModel.isNew
@@ -22,6 +28,11 @@ App.ModalController = Em.ObjectController.extend
     save: ->
       @_applyChanges(@_editedModel)
       @_editedModel.save()
+      @send "closeModal"
+
+    delete: ->
+      @_beforeDelete(@_editedModel)
+      @_editedModel.deleteRecord()
       @send "closeModal"
 
     close: ->

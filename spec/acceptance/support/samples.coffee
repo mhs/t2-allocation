@@ -129,22 +129,10 @@ test 'create allocation', ->
   expect(app.firstProject().allocations().get(0).text()).toMatch(/Dave/)
 
 test 'edit allocation', ->
-
-  editAllocation = (element, cb)->
-
-    allocation.dblclick()
-    form = app.allocationEditor()
-
-    form.present().then (present)->
-      allocation.dblclick() unless present
-    form.present().then (present)->
-      throw new Error('Failed to activate allocation editor') unless present
-      cb(form)
-
   app.setCurrentDate('06/01/2013')
 
   allocation = app.projects().get(1).allocations().get(0)
-  editAllocation allocation, (form)->
+  app.editAllocation allocation, (form)->
     form.startDate('2013-06-03')
     form.endDate('2013-08-04')
     form.billable(true)
@@ -157,7 +145,7 @@ test 'edit allocation', ->
   app.setCurrentDate('06/01/2013')
 
   allocation = app.projects().get(1).allocations().get(0)
-  editAllocation allocation, (form)->
+  app.editAllocation allocation, (form)->
     expect(form.startDate()).toEqual('2013-06-03')
     expect(form.endDate()).toEqual('2013-08-04')
     expect(form.billable()).toEqual(true)
@@ -190,3 +178,17 @@ test 'create project', ->
     expect(form.billable()).toEqual(true)
     expect(form.offices()).toEqual(['Montevideo', 'Singapore'])
     expect(form.notes()).toEqual('my project note')
+
+test 'delete allocation', ->
+  app.setCurrentDate('06/01/2013')
+  expect(app.projects().get(1).allocations().length()).toEqual(4)
+
+  allocation = app.projects().get(1).allocations().get(0)
+  app.editAllocation allocation, (form)->
+    form.delete()
+
+  expect(app.projects().get(1).allocations().length()).toEqual(3)
+
+  app.visit('/projects')
+  app.setCurrentDate('06/01/2013')
+  expect(app.projects().get(1).allocations().length()).toEqual(3)

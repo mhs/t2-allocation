@@ -25,7 +25,7 @@ describe 'App.AllocationsModalController', ->
     projectSpy = jasmine.createSpyObj('project', ['get'])
     projectSpy.get.andReturn(projectAllocationsSpy)
 
-    allocationSpy = jasmine.createSpyObj('allocation', ['get', 'set', 'save', 'destroy'])
+    allocationSpy = jasmine.createSpyObj('allocation', ['get', 'set', 'save', 'destroy', 'deleteRecord'])
     allocationSpy.get.andCallFake (name)->
       properties[name]
 
@@ -64,7 +64,6 @@ describe 'App.AllocationsModalController', ->
 
       new_properties['project'] = null
 
-
     it 'should assign the properties', ->
       withSubject (subject)->
         assignAllocationTo subject
@@ -76,7 +75,6 @@ describe 'App.AllocationsModalController', ->
 
         for k, v of new_properties
           expect(allocationSpy.set).toHaveBeenCalledWith(k, v)
-
 
     describe 'changing project', ->
       it 'should remove the allocation from initial project', ->
@@ -108,3 +106,18 @@ describe 'App.AllocationsModalController', ->
           save subject
 
         expect(projectAllocationsSpy.pushObject).toHaveBeenCalledWith(allocationSpy)
+
+  describe 'deleting', ->
+    doDelete = (subject)-> subject.send('delete')
+
+    it 'should remove the allocation from its assigned project', ->
+      allocationSpy.get.andCallFake (name)->
+        return projectSpy if name == 'project'
+        return properties[name]
+
+      withSubject (subject)->
+        assignAllocationTo subject
+
+        doDelete subject
+
+      expect(projectAllocationsSpy.removeObject).toHaveBeenCalledWith(allocationSpy)

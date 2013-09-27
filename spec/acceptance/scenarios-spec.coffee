@@ -146,3 +146,17 @@ feature 'Project list', ->
       expect(form.billable()).toEqual(true)
       expect(form.offices()).toEqual(['Montevideo', 'Singapore'])
       expect(form.notes()).toEqual('my project note')
+
+  scenario 'delete allocation', ->
+    app.setCurrentDate('06/01/2013')
+    expect(app.projects().get(1).allocations().length()).toEqual(4)
+
+    allocation = app.projects().get(1).allocations().get(0)
+    app.editAllocation allocation, (form)->
+      form.delete()
+
+    expect(app.projects().get(1).allocations().length()).toEqual(3)
+
+    app.visit('/projects')
+    app.setCurrentDate('06/01/2013')
+    expect(app.projects().get(1).allocations().length()).toEqual(3)

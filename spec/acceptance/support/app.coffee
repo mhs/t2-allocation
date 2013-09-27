@@ -116,6 +116,17 @@ createApp = (host, port)->
     addAllocationBtn: ->
       dsl.page.element('.new-allocation-button')
 
+    editAllocation: (allocationElement, cb)->
+      allocationElement.dblclick()
+      form = @allocationEditor()
+
+      form.present().then (present)->
+        allocationElement.dblclick() unless present
+
+      form.present().then (present)->
+        throw new Error('Failed to activate allocation editor') unless present
+        cb(form)
+
     allocationEditor: ->
       el = dsl.page.element('.modal')
 
@@ -174,13 +185,16 @@ createApp = (host, port)->
       el.notes = (value)->
         input = el.element('[data-test="notes"] textarea')
         if value == undefined
-          return input.text()
+          return input.value()
 
         input.clear()
         input.enter(value)
 
       el.save = ->
         el.element('button[type="submit"]').click()
+
+      el.delete = ->
+        el.element(linkText: 'Delete').click()
 
       el.cancel = ->
         el.elements('.modal-footer button').get(1).click()

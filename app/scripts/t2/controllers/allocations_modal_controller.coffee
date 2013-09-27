@@ -36,3 +36,6 @@ App.AllocationsModalController.reopen
     if newProject != @_initialProject
       @_initialProject.get('allocations').removeObject(allocation) if @_initialProject
       newProject.get('allocations').pushObject(allocation) if newProject
+
+  _beforeDelete: (allocation)->
+    @_initialProject.get('allocations').removeObject(allocation) if @_initialProject
