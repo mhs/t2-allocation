@@ -150,6 +150,7 @@ test 'edit allocation', ->
     form.billable(true)
     form.binding(true)
     form.person('Dan Williams')
+    form.notes('my allocation note')
     form.save()
 
   app.visit('/projects')
@@ -163,6 +164,7 @@ test 'edit allocation', ->
     expect(form.binding()).toEqual(true)
     expect(form.person()).toEqual('Dan Williams')
     expect(form.project()).toEqual('T3')
+    expect(form.notes()).toEqual('my allocation note')
 
 test 'create project', ->
   expect(app.projects().length()).toEqual(2)
