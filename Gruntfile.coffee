@@ -313,6 +313,23 @@ module.exports = (grunt)->
     'shell:staging'
   ]
 
+  grunt.registerTask 'compile-samples', ->
+    grunt.config.set 'coffee.samples',
+      expand: true
+      flatten: false
+      src: ['spec/acceptance/**/*.coffee']
+      dest: '.tmp/'
+      ext: '.js'
+
+    grunt.config.set 'copy.fixtures',
+      files: [
+        expand: true
+        cwd: 'spec/acceptance/fixtures/'
+        src: '*'
+        dest: '.tmp/spec/acceptance/fixtures/'
+      ]
+    grunt.task.run ['coffee:samples', 'copy:fixtures']
+
   grunt.registerTask 'apiMock', ['express', 'express-keepalive']
 
   grunt.registerTask('default', ['server'])

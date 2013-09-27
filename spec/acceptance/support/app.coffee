@@ -16,6 +16,7 @@ projectEditor = (el)->
   button = (text)-> el_by_text(text, 'button')
 
   el.title = -> el.element('.modal-header').text()
+  el.deleteLink = el.element(linkText: 'Delete')
 
   el.name = (value)->
     input = el_by_label('Name')
@@ -62,6 +63,9 @@ projectEditor = (el)->
   el.save = ->
     button('Save').click()
 
+  el.delete = ->
+    @deleteLink.click()
+
   el.cancel = ->
     button('Cancel').click()
 
@@ -107,6 +111,14 @@ createApp = (host, port)->
     firstProject: ->
       decorateProjectElement(dsl.page.element('.project'))
 
+    editProject: (projectElement, cb)->
+      projectElement.dblclick()
+      form = @projectEditor()
+
+      form.present().then (present)->
+        throw new Error('Failed to activate project editor') unless present
+        cb(form)
+
     projectEditor: ->
       projectEditor(dsl.page.element('.modal'))
 
@@ -115,6 +127,17 @@ createApp = (host, port)->
 
     addAllocationBtn: ->
       dsl.page.element('.new-allocation-button')
+
+    editAllocation: (allocationElement, cb)->
+      allocationElement.dblclick()
+      form = @allocationEditor()
+
+      form.present().then (present)->
+        allocationElement.dblclick() unless present
+
+      form.present().then (present)->
+        throw new Error('Failed to activate allocation editor') unless present
+        cb(form)
 
     allocationEditor: ->
       el = dsl.page.element('.modal')
@@ -174,13 +197,16 @@ createApp = (host, port)->
       el.notes = (value)->
         input = el.element('[data-test="notes"] textarea')
         if value == undefined
-          return input.text()
+          return input.value()
 
         input.clear()
         input.enter(value)
 
       el.save = ->
         el.element('button[type="submit"]').click()
+
+      el.delete = ->
+        el.element(linkText: 'Delete').click()
 
       el.cancel = ->
         el.elements('.modal-footer button').get(1).click()

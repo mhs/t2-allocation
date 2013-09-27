@@ -4,6 +4,12 @@
 #
 # NOTICE: Run `grunt build --test` before running this script!
 #
+#
+# %s/^test '/xtest '/g
+# %s/^xtest '/test '/g
+#
+# :@"
+#
 require('../lib/webdriver-dsl').install(global)
 require('../lib/webdriver-dsl').logging(false)
 
@@ -11,6 +17,11 @@ sync = require('../lib/webdriver-sync')
 _ = require('underscore')
 
 process.on 'exit', -> browser.close()
+
+process.once 'exit', ->
+  if failures.length
+    console.log '*** Failures ***'
+    console.log f for f in failures
 
 assert = require('assert')
 app = require('./app')('localhost', 9001)
@@ -42,24 +53,30 @@ test = (name, fn)->
 
 xtest = ->
 
+failures = []
+
 expect = (actualPromise)->
   matchers = {}
 
   matchers.toEqual = (expected, msg)->
     actualPromise.then (actual)->
-      assert.deepEqual(actual, expected, "#{msg}: #{actual} == #{expected}")
+      if not _.isEqual(actual, expected)
+        failures.push("#{actual} != #{expected}")
 
   matchers.toBe = (expected, msg)->
     actualPromise.then (actual)->
-      assert(actual == expected, "#{msg}: #{actual} !== #{expected}")
+      if actual isnt expected
+        failures.push("#{actual} !== #{expected}")
 
   matchers.toMatch = (expected, msg)->
     actualPromise.then (actual)->
-      assert(actual.match(expected), "#{msg}: #{actual} does't match #{expected}")
+      if not actual.match(expected)
+        failures.push("#{actual} does't match #{expected}")
 
   matchers.toBeFalsy = (msg)->
     actualPromise.then (actual)->
-      assert(!actual, "#{msg}: #{actual} should be falsy")
+      if actual
+        failures.push("#{actual} should be falsy")
 
   matchers
 
@@ -118,46 +135,51 @@ test 'create allocation', ->
   expect(app.firstProject().allocations().get(0).text()).toMatch(/Dave/)
 
 test 'edit allocation', ->
-
-  editAllocation = (element, cb)->
-
-    allocation.dblclick()
-    form = app.allocationEditor()
-
-    form.present().then (present)->
-      allocation.dblclick() unless present
-    form.present().then (present)->
-      throw new Error('Failed to activate allocation editor') unless present
-      cb(form)
-
   app.setCurrentDate('06/01/2013')
 
   allocation = app.projects().get(1).allocations().get(0)
-  editAllocation allocation, (form)->
+  app.editAllocation allocation, (form)->
     form.startDate('2013-06-03')
     form.endDate('2013-08-04')
     form.billable(true)
     form.binding(true)
     form.person('Dan Williams')
+    form.notes('my allocation note')
     form.save()
 
   app.visit('/projects')
   app.setCurrentDate('06/01/2013')
 
   allocation = app.projects().get(1).allocations().get(0)
-  editAllocation allocation, (form)->
+  app.editAllocation allocation, (form)->
     expect(form.startDate()).toEqual('2013-06-03')
     expect(form.endDate()).toEqual('2013-08-04')
     expect(form.billable()).toEqual(true)
     expect(form.binding()).toEqual(true)
     expect(form.person()).toEqual('Dan Williams')
     expect(form.project()).toEqual('T3')
+    expect(form.notes()).toEqual('my allocation note')
+
+test 'delete allocation', ->
+  app.setCurrentDate('06/01/2013')
+  expect(app.projects().get(1).allocations().length()).toEqual(4)
+
+  allocation = app.projects().get(1).allocations().get(0)
+  app.editAllocation allocation, (form)->
+    form.delete()
+
+  expect(app.projects().get(1).allocations().length()).toEqual(3)
+
+  app.visit('/projects')
+  app.setCurrentDate('06/01/2013')
+  expect(app.projects().get(1).allocations().length()).toEqual(3)
 
 test 'create project', ->
   expect(app.projects().length()).toEqual(2)
 
   app.createProject (form)->
     expect(form.displayed()).toBe(true)
+    expect(form.deleteLink.present()).toBe(false)
 
     form.name('My Project')
     form.billable(true)
@@ -177,3 +199,21 @@ test 'create project', ->
     expect(form.billable()).toEqual(true)
     expect(form.offices()).toEqual(['Montevideo', 'Singapore'])
     expect(form.notes()).toEqual('my project note')
+
+test 'delete project', ->
+  app.setCurrentDate('06/01/2013')
+
+  expect(app.projects().length()).toEqual(2)
+  expect(app.allocations().length()).toEqual(4)
+
+  project = app.projects().get(1)
+  app.editProject project, (form)->
+    form.delete()
+
+  expect(app.projects().length()).toEqual(1)
+  expect(app.allocations().length()).toEqual(0)
+
+  app.visit('/projects')
+  app.setCurrentDate('06/01/2013')
+  expect(app.projects().length()).toEqual(1)
+  expect(app.allocations().length()).toEqual(0)
