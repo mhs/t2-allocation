@@ -1,1 +1,1 @@
-context = describe
+window.context = describe

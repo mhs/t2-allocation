@@ -72,5 +72,9 @@ module.exports = (config)->
     # if true, it capture browsers, run tests and exit
     singleRun: false
 
+    coffeePreprocessor:
+      options:
+        bare: false
+
     preporcessors:
       '**/*.coffee': ['coffee']

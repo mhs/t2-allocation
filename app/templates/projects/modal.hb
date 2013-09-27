@@ -10,32 +10,26 @@
     <div class="modal-body">
       <div {{bindAttr class="errors.name:error :field"}}>
         <label>Name</label>
-        {{view Ember.TextField valueBinding="name"}}
+        {{input type="text" value=name}}
         {{#each msg in errors.name}}{{msg}}{{/each}}
       </div>
       <div {{bindAttr class="errors.billable:error :field"}}>
-        <label>Billable</label>
-        {{view Ember.Checkbox checkedBinding="billable"}}
+        <label>
+        {{input type="checkbox" checked=billable}}Billable</label>
         {{#each msg in errors.billable}}{{msg}}{{/each}}
-      </div>
-      <div {{bindAttr class="errors.binding:error :field"}}>
-        <label>Binding</label>
-        {{view Ember.Checkbox checkedBinding="binding"}}
-        {{#each msg in errors.binding}}{{msg}}{{/each}}
       </div>
       <div {{bindAttr class="errors.notes:error :field"}}>
         <label>Notes</label>
-        {{view Ember.TextArea valueBinding="notes"}}
+        {{textarea value=notes}}
         {{#each msg in errors.notes}}{{msg}}{{/each}}
       </div>
-      <div {{bindAttr class="errors.offices:error :field"}}>
-        <label>Offices</label>
-        <ul>
-          {{#each office in selectedOffices}}
-            <li {{bindAttr class="office.isSelected"}}{{action selectOffice office}}>{{office.name}}</li>
-          {{/each}}
-        </ul>
-        {{#each msg in errors.offices}}{{msg}}{{/each}}
+      <div>
+        Offices
+        {{#each offices}}
+          <div data-test="office">
+            <label>{{input type="checkbox" checked=isSelected}}{{name}}</label>
+          </div>
+        {{/each}}
       </div>
     </div>
     <div class="modal-footer">

@@ -4,5 +4,5 @@ App.AllocationView = Ember.View.extend
   styleBinding: "controller.style"
   doubleClick: (evt) ->
     allocation = @get('controller').get('model')
-    @get('controller').send 'editAllocation', App.AllocationEditObject.create(model: allocation)
+    @get('controller').send 'editAllocation', allocation
     false # to keep from bubbling up

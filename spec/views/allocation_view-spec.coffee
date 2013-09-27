@@ -20,19 +20,9 @@ describe 'App.AllocationView', ->
         subject.doubleClick()
         expect(controllerSpy.get).toHaveBeenCalledWith('model')
 
-    it 'should use edit object', ->
-      withSubject (subject)->
-        spyOn(subject, 'get').andReturn(controllerSpy)
-        spyOn(App.AllocationEditObject, 'create')
-
-        subject.doubleClick()
-        expect(App.AllocationEditObject.create).toHaveBeenCalledWith(model: modelSpy)
-
     it 'should use appropriate action', ->
       withSubject (subject)->
         spyOn(subject, 'get').andReturn(controllerSpy)
-        editObjectSpy = {}
-        spyOn(App.AllocationEditObject, 'create').andReturn(editObjectSpy)
 
         subject.doubleClick()
-        expect(controllerSpy.send).toHaveBeenCalledWith('editAllocation', editObjectSpy)
+        expect(controllerSpy.send).toHaveBeenCalledWith('editAllocation', modelSpy)

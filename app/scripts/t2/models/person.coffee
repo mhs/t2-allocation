@@ -1,4 +1,4 @@
-App.Person = Ember.Model.extend
+App.Person = App.defineModel 'people', 'person',
   id: Ember.attr()
   name: Ember.attr()
   notes: Ember.attr()
@@ -35,8 +35,3 @@ App.Person = Ember.Model.extend
     merged.push {startDate: start, endDate: end}
     merged
   ).property("App.projectsUI.startDate", "App.projectsUI.endDate",'allocation.[]','allocations.@each.current')
-
-App.Person.url = "#{App.API_BASEURL}/people"
-App.Person.collectionKey = 'people'
-App.Person.adapter = Ember.RESTAdapter.create()
-App.Person.camelizeKeys = true

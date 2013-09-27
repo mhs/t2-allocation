@@ -11,7 +11,7 @@
 .sass-cache/*
 *.log
 .tmp
+.vimrc
 selenium
-
 config.json
 .staging

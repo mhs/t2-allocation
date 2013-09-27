@@ -5,7 +5,7 @@
 # NOTICE: Run `grunt build --test` before running this script!
 #
 require('../lib/webdriver-dsl').install(global)
-require('../lib/webdriver-dsl').logging(true)
+require('../lib/webdriver-dsl').logging(false)
 
 sync = require('../lib/webdriver-sync')
 _ = require('underscore')
@@ -15,7 +15,8 @@ process.on 'exit', -> browser.close()
 assert = require('assert')
 app = require('./app')('localhost', 9001)
 apiServer = require('./api-server')(5001)
-appServer = require('./webserver')(9001).serveDir('./dist')
+#appServer = require('./webserver')(9001).serveDir('./dist')
+appServer = require('./webserver')(9001).serveDir('./.tmp').serveDir('./app')
 
 require('./selenium')
 
@@ -46,7 +47,7 @@ expect = (actualPromise)->
 
   matchers.toEqual = (expected, msg)->
     actualPromise.then (actual)->
-      assert.equal(actual, expected, "#{msg}: #{actual} == #{expected}")
+      assert.deepEqual(actual, expected, "#{msg}: #{actual} == #{expected}")
 
   matchers.toBe = (expected, msg)->
     actualPromise.then (actual)->
@@ -132,7 +133,6 @@ test 'edit allocation', ->
   app.setCurrentDate('06/01/2013')
 
   allocation = app.projects().get(1).allocations().get(0)
-
   editAllocation allocation, (form)->
     form.startDate('2013-06-03')
     form.endDate('2013-08-04')
@@ -152,3 +152,28 @@ test 'edit allocation', ->
     expect(form.binding()).toEqual(true)
     expect(form.person()).toEqual('Dan Williams')
     expect(form.project()).toEqual('T3')
+
+test 'create project', ->
+  expect(app.projects().length()).toEqual(2)
+
+  app.createProject (form)->
+    expect(form.displayed()).toBe(true)
+
+    form.name('My Project')
+    form.billable(true)
+    form.offices(['Montevideo', 'Singapore'])
+    form.notes('my project note')
+    form.save()
+
+  expect(app.projects().length()).toEqual(3)
+  expect(app.projects().get(2).name()).toEqual('My Project')
+
+  app.projects().get(2).dblclick()
+  app.projectEditor().tap (form)->
+
+    expect(form.present()).toBe(true)
+    expect(form.displayed()).toBe(true)
+    expect(form.name()).toEqual('My Project')
+    expect(form.billable()).toEqual(true)
+    expect(form.offices()).toEqual(['Montevideo', 'Singapore'])
+    expect(form.notes()).toEqual('my project note')

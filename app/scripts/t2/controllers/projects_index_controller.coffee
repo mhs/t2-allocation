@@ -7,15 +7,14 @@ App.ProjectsIndexController = Ember.ArrayController.extend
     createAllocation: ->
       __hackEmberModel()
 
-      allocation = App.Allocation.create
+      @send 'editAllocation', App.Allocation.create
         startDate: new Date()
         endDate: new Date(moment().add(2,'weeks').format('L'))
 
-      @send 'editAllocation', App.AllocationEditObject.create(model: allocation)
-
     createProject: ->
-      project = App.Project.create()
-      @send "editProject", project
+      __hackEmberModel()
+
+      @send "editProject", App.Project.create()
 
     editDate: ->
       @set "isEditing", true

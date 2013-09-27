@@ -37,8 +37,8 @@
         <label>Person</label>
         {{view Ember.Select contentBinding="people"
                             optionLabelPath="content.name"
-                            optionValuePath="content.id"
-                            valueBinding="person_id"
+                            optionValuePath="content"
+                            valueBinding="person"
                             selectionBinding="person"
                             prompt="Select a name"}}
         {{#each msg in errors.person}}{{msg}}{{/each}}
