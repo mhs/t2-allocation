@@ -24,8 +24,13 @@ createApiServer = (port)->
     res.json obj
 
   server.when.get '/api/v1/:resources/:id.json', (req, res)->
-    resName = req.params.resources
-    res.json _.findWhere(resources[resName], id: +req.params.id)
+    resourcesName = req.params.resources
+    resourceName = resourceNameMap[resourcesName]
+
+    _response = {}
+    _response[resourceName] = _.findWhere(resources[resourcesName], id: +req.params.id)
+
+    res.json _response
 
   server.when.post '/api/v1/:resources.json', (req, res)->
     resourcesName = req.params.resources
@@ -61,6 +66,16 @@ createApiServer = (port)->
     _response[resourceName] = resource
 
     res.json _response
+
+  server.when.delete '/api/v1/:resources/:id.json', (req, res)->
+    resourcesName = req.params.resources
+    resourceName = resourceNameMap[resourcesName]
+
+    _resources = resources[resourcesName]
+    resources[resourcesName] = _.reject _resources, (resource)->
+      resource.id == +req.params.id
+
+    res.json null
 
   server.useResources = (_resources)->
     resources = _resources
