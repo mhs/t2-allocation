@@ -122,11 +122,26 @@ feature 'Project list', ->
       expect(form.person()).toEqual('Dan Williams')
       expect(form.project()).toEqual('T3')
 
+  scenario 'delete allocation', ->
+    app.setCurrentDate('06/01/2013')
+    expect(app.projects().get(1).allocations().length()).toEqual(4)
+
+    allocation = app.projects().get(1).allocations().get(0)
+    app.editAllocation allocation, (form)->
+      form.delete()
+
+    expect(app.projects().get(1).allocations().length()).toEqual(3)
+
+    app.visit('/projects')
+    app.setCurrentDate('06/01/2013')
+    expect(app.projects().get(1).allocations().length()).toEqual(3)
+
   scenario 'create project', ->
     expect(app.projects().length()).toEqual(2)
 
     app.createProject (form)->
       expect(form.displayed()).toBe(true)
+      expect(form.deleteLink.present()).toBe(false)
 
       form.name('My Project')
       form.billable(true)
@@ -147,16 +162,20 @@ feature 'Project list', ->
       expect(form.offices()).toEqual(['Montevideo', 'Singapore'])
       expect(form.notes()).toEqual('my project note')
 
-  scenario 'delete allocation', ->
+  scenario 'delete project', ->
     app.setCurrentDate('06/01/2013')
-    expect(app.projects().get(1).allocations().length()).toEqual(4)
 
-    allocation = app.projects().get(1).allocations().get(0)
-    app.editAllocation allocation, (form)->
+    expect(app.projects().length()).toEqual(2)
+    expect(app.allocations().length()).toEqual(4)
+
+    project = app.projects().get(1)
+    app.editProject project, (form)->
       form.delete()
 
-    expect(app.projects().get(1).allocations().length()).toEqual(3)
+    expect(app.projects().length()).toEqual(1)
+    expect(app.allocations().length()).toEqual(0)
 
     app.visit('/projects')
     app.setCurrentDate('06/01/2013')
-    expect(app.projects().get(1).allocations().length()).toEqual(3)
+    expect(app.projects().length()).toEqual(1)
+    expect(app.allocations().length()).toEqual(0)

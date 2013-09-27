@@ -4,6 +4,12 @@
 #
 # NOTICE: Run `grunt build --test` before running this script!
 #
+#
+# %s/^test '/xtest '/g
+# %s/^xtest '/test '/g
+#
+# :@"
+#
 require('../lib/webdriver-dsl').install(global)
 require('../lib/webdriver-dsl').logging(false)
 
@@ -154,11 +160,26 @@ test 'edit allocation', ->
     expect(form.project()).toEqual('T3')
     expect(form.notes()).toEqual('my allocation note')
 
+test 'delete allocation', ->
+  app.setCurrentDate('06/01/2013')
+  expect(app.projects().get(1).allocations().length()).toEqual(4)
+
+  allocation = app.projects().get(1).allocations().get(0)
+  app.editAllocation allocation, (form)->
+    form.delete()
+
+  expect(app.projects().get(1).allocations().length()).toEqual(3)
+
+  app.visit('/projects')
+  app.setCurrentDate('06/01/2013')
+  expect(app.projects().get(1).allocations().length()).toEqual(3)
+
 test 'create project', ->
   expect(app.projects().length()).toEqual(2)
 
   app.createProject (form)->
     expect(form.displayed()).toBe(true)
+    expect(form.deleteLink.present()).toBe(false)
 
     form.name('My Project')
     form.billable(true)
@@ -179,16 +200,20 @@ test 'create project', ->
     expect(form.offices()).toEqual(['Montevideo', 'Singapore'])
     expect(form.notes()).toEqual('my project note')
 
-test 'delete allocation', ->
+test 'delete project', ->
   app.setCurrentDate('06/01/2013')
-  expect(app.projects().get(1).allocations().length()).toEqual(4)
 
-  allocation = app.projects().get(1).allocations().get(0)
-  app.editAllocation allocation, (form)->
+  expect(app.projects().length()).toEqual(2)
+  expect(app.allocations().length()).toEqual(4)
+
+  project = app.projects().get(1)
+  app.editProject project, (form)->
     form.delete()
 
-  expect(app.projects().get(1).allocations().length()).toEqual(3)
+  expect(app.projects().length()).toEqual(1)
+  expect(app.allocations().length()).toEqual(0)
 
   app.visit('/projects')
   app.setCurrentDate('06/01/2013')
-  expect(app.projects().get(1).allocations().length()).toEqual(3)
+  expect(app.projects().length()).toEqual(1)
+  expect(app.allocations().length()).toEqual(0)

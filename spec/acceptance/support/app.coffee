@@ -16,6 +16,7 @@ projectEditor = (el)->
   button = (text)-> el_by_text(text, 'button')
 
   el.title = -> el.element('.modal-header').text()
+  el.deleteLink = el.element(linkText: 'Delete')
 
   el.name = (value)->
     input = el_by_label('Name')
@@ -62,6 +63,9 @@ projectEditor = (el)->
   el.save = ->
     button('Save').click()
 
+  el.delete = ->
+    @deleteLink.click()
+
   el.cancel = ->
     button('Cancel').click()
 
@@ -106,6 +110,14 @@ createApp = (host, port)->
 
     firstProject: ->
       decorateProjectElement(dsl.page.element('.project'))
+
+    editProject: (projectElement, cb)->
+      projectElement.dblclick()
+      form = @projectEditor()
+
+      form.present().then (present)->
+        throw new Error('Failed to activate project editor') unless present
+        cb(form)
 
     projectEditor: ->
       projectEditor(dsl.page.element('.modal'))
