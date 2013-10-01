@@ -27,3 +27,5 @@ window.App = Ember.Application.create
 #Ember.LOG_BINDINGS = true
 
 window.App.API_BASEURL = "@@API_BASEURL"
+window.App.SIGN_IN_URL = "@@SIGN_IN_URL"
+window.App.SIGN_OUT_URL = "@@SIGN_OUT_URL"

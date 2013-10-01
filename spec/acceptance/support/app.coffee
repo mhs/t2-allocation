@@ -74,7 +74,10 @@ projectEditor = (el)->
 createApp = (host, port)->
   app =
     url: "http://#{host}:#{port}"
-    visit: (path)-> dsl.browser.visit "#{@url}/##{path}"
+
+    visit: (path, accessToken)->
+      _auth = if accessToken then "?authentication_token=#{accessToken}" else ""
+      dsl.browser.visit "#{@url}/#{_auth}##{path}"
 
     dateSelector: ->
       dsl.page.element('.selector span')
@@ -217,5 +220,12 @@ createApp = (host, port)->
       dsl.page.element('.new-project-button').click()
       form = @projectEditor()
       cb(form)
+
+    signOut: ->
+      el = dsl.page.element(linkText: 'Sign out')
+      el.click()
+
+    signIn: (accessToken)->
+      @visit('/', accessToken)
 
 module.exports = createApp

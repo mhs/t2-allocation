@@ -27,6 +27,10 @@ driver = ()->
 
 dsl = {}
 dsl.browser =
+  currentUrl: ->
+    log 'currentUrl'
+    driver().getCurrentUrl()
+
   visit: (url)->
     log 'visit', url
     driver().get(url)
