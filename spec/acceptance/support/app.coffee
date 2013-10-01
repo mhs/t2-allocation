@@ -135,12 +135,16 @@ createApp = (host, port)->
       allocationElement.dblclick()
       form = @allocationEditor()
 
-      form.present().then (present)->
-        allocationElement.dblclick() unless present
+      browser.wait ->
+        form.present().then (isPresent)->
+          allocationElement.dblclick() unless isPresent
+          isPresent
 
-      form.present().then (present)->
-        throw new Error('Failed to activate allocation editor') unless present
-        cb(form)
+      cb(form)
+
+      browser.wait ->
+        form.present().then (isPresent)->
+          not isPresent
 
     allocationEditor: ->
       el = dsl.page.element('.modal')

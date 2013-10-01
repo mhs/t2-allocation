@@ -2,11 +2,11 @@
 # Sometimes it may be difficult to debug specs in jasmine-node context so you can use this file
 # to play with scenarios before including them in the test suite.
 #
-# NOTICE: Run `grunt build --test` before running this script!
+# NOTICE: Run `grunt run-samples` to execute samples in this file
 #
 #
-# %s/^test '/xtest '/g
-# %s/^xtest '/test '/g
+# %s/^scenario '/xscenario '/g
+# %s/^xscenario '/scenario '/g
 #
 # :@"
 #
@@ -22,8 +22,10 @@ process.on 'exit', -> browser.close()
 
 process.once 'exit', ->
   if failures.length
+    console.log ''
     console.log '*** Failures ***'
     console.log f for f in failures
+    process.exit(1)
 
 assert = require('assert')
 app = require('./app')('localhost', 9001)
@@ -44,8 +46,8 @@ after = ->
   appServer.stop().then -> console.log 'appServer stopped'
   apiServer.stop().then -> console.log 'appServer stopped'
 
-test = (name, fn)->
-  sync ->console.log "***Test:", name
+scenario = (name, fn)->
+  sync ->console.log "***scenario:", name
 
   sync before
 
@@ -53,7 +55,7 @@ test = (name, fn)->
 
   sync after
 
-xtest = ->
+xscenario = ->
 
 failures = []
 
@@ -82,14 +84,7 @@ expect = (actualPromise)->
 
   matchers
 
-test 'project existence', ->
-  app.setCurrentDate('06/01/2013')
-
-  expect(app.calendarStartDate()).toEqual('May 27')
-  expect(app.firstProject().name()).toEqual('Nexia Home')
-  expect(app.allocations().length()).toEqual(4)
-
-test 'updating date field', ->
+scenario 'updating date field', ->
   app.dateSelector().click()
   expect(app.datePicker().displayed()).toBe(true)
   app.datePicker().selectDay(1)
@@ -105,14 +100,7 @@ test 'updating date field', ->
 
   expect(app.calendarStartDate()).toEqual('Jul 8')
 
-test 'display project editor', ->
-  app.firstProject().dblclick()
-
-  app.projectEditor().tap (form)->
-    expect(form.displayed()).toBe(true)
-    expect(form.title()).toEqual('Editing: Nexia Home')
-
-test 'create allocation', ->
+scenario 'create allocation', ->
   app.setCurrentDate('06/01/2013')
 
   expect(app.firstProject().displayed()).toBe(true)
@@ -134,7 +122,7 @@ test 'create allocation', ->
   expect(app.firstProject().allocations().length()).toEqual(1)
   expect(app.firstProject().allocations().get(0).text()).toMatch(/Dave/)
 
-test 'edit allocation', ->
+scenario 'edit allocation', ->
   app.setCurrentDate('06/01/2013')
 
   allocation = app.projects().get(1).allocations().get(0)
@@ -159,8 +147,9 @@ test 'edit allocation', ->
     expect(form.person()).toEqual('Dan Williams')
     expect(form.project()).toEqual('T3')
     expect(form.notes()).toEqual('my allocation note')
+    form.cancel()
 
-test 'delete allocation', ->
+scenario 'delete allocation', ->
   app.setCurrentDate('06/01/2013')
   expect(app.projects().get(1).allocations().length()).toEqual(4)
 
@@ -174,7 +163,7 @@ test 'delete allocation', ->
   app.setCurrentDate('06/01/2013')
   expect(app.projects().get(1).allocations().length()).toEqual(3)
 
-test 'create project', ->
+scenario 'create project', ->
   expect(app.projects().length()).toEqual(2)
 
   app.createProject (form)->
@@ -200,7 +189,7 @@ test 'create project', ->
     expect(form.offices()).toEqual(['Montevideo', 'Singapore'])
     expect(form.notes()).toEqual('my project note')
 
-test 'delete project', ->
+scenario 'delete project', ->
   app.setCurrentDate('06/01/2013')
 
   expect(app.projects().length()).toEqual(2)
@@ -218,7 +207,7 @@ test 'delete project', ->
   expect(app.projects().length()).toEqual(1)
   expect(app.allocations().length()).toEqual(0)
 
-test 'signing in', ->
+scenario 'signing in', ->
   app.signOut()
   expect(browser.currentUrl()).toMatch(/http:\/\/localhost:5001\/sign_out\?return_url=.+/)
 
