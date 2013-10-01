@@ -7,6 +7,9 @@ App.ApplicationRoute = Ember.Route.extend
       auth.login()
 
   actions:
+    selectOffice: (office)->
+      @transitionTo('offices.projects', office)
+
     openModal: (modal) ->
       @render modal,
         into: "application"

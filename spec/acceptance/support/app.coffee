@@ -103,6 +103,10 @@ createApp = (host, port)->
     calendarStartDate: ->
       dsl.page.element('.calendar ul li').text()
 
+    selectOffice: (office)->
+      select = dsl.page.element('[data-test="offices"]')
+      select.selectOptionByText(office)
+
     projects: ->
       elements = dsl.page.elements('.project')
       oldGet = elements.get

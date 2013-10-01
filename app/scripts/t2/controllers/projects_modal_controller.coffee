@@ -35,12 +35,31 @@ App.ProjectsModalController.reopen
     selected.clear()
     selected.addEach(project.get('offices'))
 
+  _updateOffices: (project)->
+    @_removeFromItsOffices(project)
+    @_addToSelectedOffices(project)
+
+  _removeFromItsOffices: (project)->
+    offices = project.get('offices')
+    offices.forEach (office)->
+      office.get('projects').removeObject(project)
+    offices.clear()
+
+  _addToSelectedOffices: (project)->
+    offices = project.get('offices')
+    @_selectedOffices.forEach (office)->
+      _projects = office.get('projects')
+      _projects.pushObject(project)
+      offices.pushObject(office)
+
   _applyChanges: (project)->
     for n in EDITABLE_PROPERTIES
       project.set(n, @get(n))
-    offices = project.get('offices')
-    offices.clear()
-    offices.pushObjects(@_selectedOffices)
+
+    @_updateOffices(project)
+
+  _beforeDelete: (project)->
+    @_removeFromItsOffices(project)
 
   offices: (->
     self = @

@@ -32,6 +32,10 @@ body {
 		position: absolute;
 		left: $sidebar-width;
 	}
+
+  button, select {
+    float: right;
+  }
 	background-color: #73d7f4;
 }
 
