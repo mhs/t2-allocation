@@ -10,10 +10,31 @@ resourceNameMap =
 createApiServer = (port)->
   resources = {}
 
-  updateRelations = (resourcesName, resource)->
-    if resourcesName == 'allocations'
-      _project = _.findWhere resources.projects, id: resource.project_id
-      _project.allocation_ids.push resource.id
+  updateRelations = (action, resourceName, resource)->
+    switch resourceName
+      when 'allocation'
+        switch action
+          when 'create'
+            _project = _.findWhere resources.projects, id: resource.project_id
+            _project.allocation_ids.push resource.id
+
+      when 'project'
+        switch action
+          when 'create'
+            _offices = _.filter resources.offices, (o)->
+              _.contains resource.office_ids, o.id
+
+            _.each _offices, (o)->
+              o.project_ids.push resource.id
+
+          when 'delete'
+            _offices = _.filter resources.offices, (office)->
+              _.contains(office.project_ids, resource.id)
+
+            _.each _offices, (o)->
+              o.project_ids = _.reject o.project_ids, (id)->
+                id == resource.id
+
 
   server = require('./webserver')(port)
 
@@ -45,7 +66,7 @@ createApiServer = (port)->
 
     _resources.push resource
 
-    updateRelations(resourcesName, resource)
+    updateRelations('create', resourceName, resource)
 
     _response = {}
     _response[resourceName] = resource
@@ -72,8 +93,14 @@ createApiServer = (port)->
     resourceName = resourceNameMap[resourcesName]
 
     _resources = resources[resourcesName]
-    resources[resourcesName] = _.reject _resources, (resource)->
-      resource.id == +req.params.id
+
+    resource = null
+    resources[resourcesName] = _.reject _resources, (r)->
+      if r.id == +req.params.id
+        resource = r
+        true
+
+    updateRelations('delete', resourceName, resource)
 
     res.json null
 

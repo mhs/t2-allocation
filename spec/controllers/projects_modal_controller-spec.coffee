@@ -13,12 +13,22 @@ describe 'App.ProjectsModalController', ->
   assignAvailableOffices = (subject)->
     subject.set('availableOffices', availableOffices)
 
-  selectOfficeAt = (form, idx)->
-    form.get('offices').objectAt(idx).set('isSelected', true)
+  selectOfficeAt = (form, idx, select = true)->
+    form.get('offices').objectAt(idx).set('isSelected', select)
+
+  addProjectToOffice = (project, office)->
+    office.get('projects').pushObject(project)
+    project.get('offices').pushObject(office)
 
   makeOffice = (name)->
     Ember.Object.create
       name: name
+      projects: []
+
+  beforeEach ->
+    @addMatchers
+      toContainProject: (expected)->
+        @actual.get('projects').contains(expected)
 
   beforeEach ->
     availableOffices = [
@@ -31,10 +41,10 @@ describe 'App.ProjectsModalController', ->
     properties = {}
     for n in ['name', 'billable', 'notes']
       properties[n] = "property: '#{n}'"
-    officesSpy = properties['offices'] = jasmine.createSpyObj('project.offices', ['clear', 'pushObjects'])
+    officesSpy = properties['offices'] = []
 
   beforeEach ->
-    projectSpy = jasmine.createSpyObj('project', ['get', 'set', 'save', 'destroy'])
+    projectSpy = jasmine.createSpyObj('project', ['get', 'set', 'save', 'destroy', 'deleteRecord'])
 
     projectSpy.get = (n)-> properties[n]
 
@@ -108,17 +118,47 @@ describe 'App.ProjectsModalController', ->
         for k,v of new_properties
           expect(projectSpy.set).toHaveBeenCalledWith(k, v)
 
-    it 'should update the offices', ->
+    describe 'changing offices', ->
+      beforeEach ->
+        addProjectToOffice projectSpy, availableOffices[0]
+        addProjectToOffice projectSpy, availableOffices[2]
+
+      it 'should remove the project from initial offices', ->
+        expect(officesSpy.length).toEqual(2)
+        expect(availableOffices[0]).toContainProject(projectSpy)
+        expect(availableOffices[1]).not.toContainProject(projectSpy)
+        expect(availableOffices[2]).toContainProject(projectSpy)
+
+        withSubject (subject)->
+          editProject subject
+          assignAvailableOffices subject
+
+          selectOfficeAt(subject, 0, false)
+          selectOfficeAt(subject, 1, true)
+          selectOfficeAt(subject, 2, false)
+
+          subject.send('save')
+
+          expect(officesSpy.length).toEqual(1)
+          expect(availableOffices[0]).not.toContainProject(projectSpy)
+          expect(availableOffices[1]).toContainProject(projectSpy)
+          expect(availableOffices[2]).not.toContainProject(projectSpy)
+
+
+  describe 'deleting', ->
+    beforeEach ->
+      addProjectToOffice projectSpy, availableOffices[0]
+      addProjectToOffice projectSpy, availableOffices[1]
+
+    it 'should remove project from offices', ->
+      expect(availableOffices[0]).toContainProject(projectSpy)
+      expect(availableOffices[1]).toContainProject(projectSpy)
+
       withSubject (subject)->
         editProject subject
-        assignAvailableOffices(subject)
+        assignAvailableOffices subject
 
-        selectOfficeAt(subject, 0)
-        selectOfficeAt(subject, 2)
+        subject.send('delete')
 
-        subject.send('save')
-        expect(officesSpy.clear).toHaveBeenCalled()
-        expect(officesSpy.pushObjects).toHaveBeenCalled()
-
-        setOffices = officesSpy.pushObjects.mostRecentCall.args[0]
-        expect(setOffices.length).toEqual(2)
+        expect(availableOffices[0]).not.toContainProject(projectSpy)
+        expect(availableOffices[1]).not.toContainProject(projectSpy)

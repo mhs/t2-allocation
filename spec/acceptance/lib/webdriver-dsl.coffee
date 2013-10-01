@@ -45,9 +45,11 @@ dsl.browser =
     driver().sleep(seconds * 1000)
 
   executeScript: (script)->
+    log '--executing: script'
     driver().executeScript(script)
 
   wait: (fn, timeoutInSeconds = 2)->
+    log '--executing: wait'
     driver().wait(fn, timeoutInSeconds * 1000)
 
   screenshot: ->
@@ -59,7 +61,7 @@ extendWithElementFinders = (obj, rootPromiseFn)->
 
     _findElement = ->
       rootPromiseFn().then (root)->
-        log 'root.findElement()', selector
+        log '--executing: root.findElement()', selector
         root.findElement(loc)
 
     el = createElement(_findElement)
@@ -67,7 +69,7 @@ extendWithElementFinders = (obj, rootPromiseFn)->
     el.present = ->
       log 'present()'
       rootPromiseFn().then (root)->
-        log 'root.isElementPresent', selector
+        log '--executing: root.isElementPresent', selector
         root.isElementPresent(loc)
 
     el
@@ -75,10 +77,10 @@ extendWithElementFinders = (obj, rootPromiseFn)->
   obj.elements = (selector)->
     _findElements = ->
       rootPromiseFn().then (root)->
-        log 'root.findElements', selector
+        log '--executing: root.findElements', selector
         root.findElements(locator(selector))
 
-    new Elements(_findElements)
+    new Elements(_findElements, selector)
 
 createElement = (elPromise)->
   new Element(elPromise)
@@ -94,8 +96,10 @@ locator = (selector)->
 #
 # Elements
 #
-Elements = (elementsPromiseFn)->
+Elements = (elementsPromiseFn, selector = '?')->
   self = @
+  self._selector = selector
+
   self._withElements = (cb)->
     elementsPromiseFn().then cb
   self
@@ -104,14 +108,26 @@ Elements.prototype.length = ->
   @_withElements (elements)-> elements.length
 
 Elements.prototype.get = (index)->
+  log "elements('#{@_selector}').get(#{index})"
   self = @
+
+  _elementPresent = (elements)->
+    index >= 0 and index < elements.length
+
+  _assertElementPresent = (elements)->
+    if not _elementPresent(elements)
+      msg = "Invalid element index: #{index}, range: [0:#{elements.length - 1}] in #{@_selector}!!!"
+      log(msg)
+      throw new Error(msg)
+
   _findElement = ->
-    self._withElements (elements)-> elements[index]
+    self._withElements (elements)->
+      _assertElementPresent(elements)
+      elements[index]
 
   el = createElement(_findElement)
   el.present = ->
-    self._withElements (elements)->
-      index >= 0 and index < elements.length
+    self._withElements _elementPresent
   el
 
 Elements.prototype.forEach = (iterator)->
@@ -146,13 +162,14 @@ Elements.prototype.filter = (check)->
     .then (arr)->
       _.compact(arr)
 
-  new Elements -> f
+  new Elements((-> f), "[filtered]#{@_selector}")
 
 #
 # Element
 #
-Element = (elementPromiseFn)->
+Element = (elementPromiseFn, selector = "?")->
   self = @
+  self._selector = selector
 
   extendWithElementFinders(self, elementPromiseFn)
 
@@ -178,11 +195,11 @@ Element.prototype =
   enter: (text)-> @_exec('sendKeys', arguments)
 
   dblclick: ->
-    log '-- doubleClick()'
+    log 'doubleClick()'
     @_withElement (e)->
-      log 'executing: doubleClick()'
       seq = e.getDriver().actions()
       seq.doubleClick(e)
+      log '--executing: doubleClick()'
       seq.perform()
 
   tap: (cb)-> cb(@)

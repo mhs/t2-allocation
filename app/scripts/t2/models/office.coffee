@@ -8,3 +8,6 @@ App.Office = App.defineModel 'offices', 'office',
   people: Ember.hasMany("App.Person",
     key: "person_ids"
   )
+  slug: (->
+    @get('name').replace(/\s+/, '-').toLowerCase()
+  ).property('name')

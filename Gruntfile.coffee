@@ -198,6 +198,13 @@ module.exports = (grunt)->
         browsers: ['Chrome']
 
     shell:
+      runSamples:
+        options:
+          stdout: true
+          stderr: true
+          failOnError: true
+
+        command: 'node .tmp/spec/acceptance/support/samples.js'
       staging:
         options:
           stdout: true
@@ -329,6 +336,16 @@ module.exports = (grunt)->
         dest: '.tmp/spec/acceptance/fixtures/'
       ]
     grunt.task.run ['coffee:samples', 'copy:fixtures']
+
+  grunt.registerTask 'run-samples', ->
+    grunt.option('test', true)
+    grunt.task.run [
+      'set-environment'
+      'coffee'
+      'replace'
+      'compile-samples'
+      'shell:runSamples'
+    ]
 
   grunt.registerTask 'apiMock', ['express', 'express-keepalive']
 

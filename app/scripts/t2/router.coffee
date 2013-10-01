@@ -1,7 +1,8 @@
 App.Router.map ->
-  @resource "projects", ->
   @route('sign_out')
+  @resource "offices", path: '/office', ->
+    @route 'projects', path: '/:office/projects'
 
 App.IndexRoute = Ember.Route.extend
   redirect: ->
-    @transitionTo('projects')
+    @transitionTo('offices')

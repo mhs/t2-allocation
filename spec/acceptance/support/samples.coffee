@@ -2,11 +2,11 @@
 # Sometimes it may be difficult to debug specs in jasmine-node context so you can use this file
 # to play with scenarios before including them in the test suite.
 #
-# NOTICE: Run `grunt build --test` before running this script!
+# NOTICE: Run `grunt run-samples` to execute samples in this file
 #
 #
-# %s/^test '/xtest '/g
-# %s/^xtest '/test '/g
+# %s/^scenario '/xscenario '/g
+# %s/^xscenario '/scenario '/g
 #
 # :@"
 #
@@ -22,14 +22,16 @@ process.on 'exit', -> browser.close()
 
 process.once 'exit', ->
   if failures.length
+    console.log ''
     console.log '*** Failures ***'
     console.log f for f in failures
+    process.exit(1)
 
 assert = require('assert')
 app = require('./app')('localhost', 9001)
 apiServer = require('./api-server')(5001)
-appServer = require('./webserver')(9001).serveDir('./dist')
-#appServer = require('./webserver')(9001).serveDir('./.tmp').serveDir('./app')
+#appServer = require('./webserver')(9001).serveDir('./dist')
+appServer = require('./webserver')(9001).serveDir('./.tmp').serveDir('./app')
 
 require('./selenium')
 
@@ -44,8 +46,8 @@ after = ->
   appServer.stop().then -> console.log 'appServer stopped'
   apiServer.stop().then -> console.log 'appServer stopped'
 
-test = (name, fn)->
-  sync ->console.log "***Test:", name
+scenario = (name, fn)->
+  sync ->console.log "***scenario:", name
 
   sync before
 
@@ -53,9 +55,13 @@ test = (name, fn)->
 
   sync after
 
-xtest = ->
+xscenario = ->
 
 failures = []
+
+reportFailure = (msg)->
+  console.log '--F--'
+  failures.push(msg)
 
 expect = (actualPromise)->
   matchers = {}
@@ -63,33 +69,26 @@ expect = (actualPromise)->
   matchers.toEqual = (expected, msg)->
     actualPromise.then (actual)->
       if not _.isEqual(actual, expected)
-        failures.push("#{actual} != #{expected}")
+        reportFailure "#{actual} != #{expected}"
 
   matchers.toBe = (expected, msg)->
     actualPromise.then (actual)->
       if actual isnt expected
-        failures.push("#{actual} !== #{expected}")
+        reportFailure "#{actual} !== #{expected}"
 
   matchers.toMatch = (expected, msg)->
     actualPromise.then (actual)->
       if not actual.match(expected)
-        failures.push("#{actual} does't match #{expected}")
+        reportFailure "#{actual} does't match #{expected}"
 
   matchers.toBeFalsy = (msg)->
     actualPromise.then (actual)->
       if actual
-        failures.push("#{actual} should be falsy")
+        reportFailure "#{actual} should be falsy"
 
   matchers
 
-test 'project existence', ->
-  app.setCurrentDate('06/01/2013')
-
-  expect(app.calendarStartDate()).toEqual('May 27')
-  expect(app.firstProject().name()).toEqual('Nexia Home')
-  expect(app.allocations().length()).toEqual(4)
-
-test 'updating date field', ->
+scenario 'updating date field', ->
   app.dateSelector().click()
   expect(app.datePicker().displayed()).toBe(true)
   app.datePicker().selectDay(1)
@@ -105,15 +104,9 @@ test 'updating date field', ->
 
   expect(app.calendarStartDate()).toEqual('Jul 8')
 
-test 'display project editor', ->
-  app.firstProject().dblclick()
-
-  app.projectEditor().tap (form)->
-    expect(form.displayed()).toBe(true)
-    expect(form.title()).toEqual('Editing: Nexia Home')
-
-test 'create allocation', ->
+scenario 'create allocation', ->
   app.setCurrentDate('06/01/2013')
+  app.selectOffice 'Columbus'
 
   expect(app.firstProject().displayed()).toBe(true)
 
@@ -134,10 +127,10 @@ test 'create allocation', ->
   expect(app.firstProject().allocations().length()).toEqual(1)
   expect(app.firstProject().allocations().get(0).text()).toMatch(/Dave/)
 
-test 'edit allocation', ->
+scenario 'edit allocation', ->
   app.setCurrentDate('06/01/2013')
 
-  allocation = app.projects().get(1).allocations().get(0)
+  allocation = app.projects().get(0).allocations().get(0)
   app.editAllocation allocation, (form)->
     form.startDate('2013-06-03')
     form.endDate('2013-08-04')
@@ -147,10 +140,10 @@ test 'edit allocation', ->
     form.notes('my allocation note')
     form.save()
 
-  app.visit('/projects')
+  app.visit('/')
   app.setCurrentDate('06/01/2013')
 
-  allocation = app.projects().get(1).allocations().get(0)
+  allocation = app.projects().get(0).allocations().get(0)
   app.editAllocation allocation, (form)->
     expect(form.startDate()).toEqual('2013-06-03')
     expect(form.endDate()).toEqual('2013-08-04')
@@ -159,23 +152,25 @@ test 'edit allocation', ->
     expect(form.person()).toEqual('Dan Williams')
     expect(form.project()).toEqual('T3')
     expect(form.notes()).toEqual('my allocation note')
+    form.cancel()
 
-test 'delete allocation', ->
+scenario 'delete allocation', ->
   app.setCurrentDate('06/01/2013')
-  expect(app.projects().get(1).allocations().length()).toEqual(4)
+  project = app.projects().get(0)
+  expect(project.allocations().length()).toEqual(4)
 
-  allocation = app.projects().get(1).allocations().get(0)
+  allocation = project.allocations().get(0)
   app.editAllocation allocation, (form)->
     form.delete()
 
-  expect(app.projects().get(1).allocations().length()).toEqual(3)
+  expect(project.allocations().length()).toEqual(3)
 
-  app.visit('/projects')
+  app.visit('/')
   app.setCurrentDate('06/01/2013')
-  expect(app.projects().get(1).allocations().length()).toEqual(3)
+  expect(app.projects().get(0).allocations().length()).toEqual(3)
 
-test 'create project', ->
-  expect(app.projects().length()).toEqual(2)
+scenario 'create project', ->
+  expect(app.projects().length()).toEqual(1)
 
   app.createProject (form)->
     expect(form.displayed()).toBe(true)
@@ -183,42 +178,43 @@ test 'create project', ->
 
     form.name('My Project')
     form.billable(true)
-    form.offices(['Montevideo', 'Singapore'])
+    form.offices(['Cincinnati', 'Singapore'])
     form.notes('my project note')
     form.save()
 
-  expect(app.projects().length()).toEqual(3)
-  expect(app.projects().get(2).name()).toEqual('My Project')
+  expect(app.projects().length()).toEqual(2)
+  expect(app.projects().get(1).name()).toEqual('My Project')
 
-  app.projects().get(2).dblclick()
+  app.projects().get(1).dblclick()
   app.projectEditor().tap (form)->
-
     expect(form.present()).toBe(true)
     expect(form.displayed()).toBe(true)
     expect(form.name()).toEqual('My Project')
     expect(form.billable()).toEqual(true)
-    expect(form.offices()).toEqual(['Montevideo', 'Singapore'])
+    expect(form.offices()).toEqual(['Cincinnati', 'Singapore'])
     expect(form.notes()).toEqual('my project note')
 
-test 'delete project', ->
+scenario 'delete project', ->
+  app.selectOffice 'Cincinnati'
   app.setCurrentDate('06/01/2013')
 
-  expect(app.projects().length()).toEqual(2)
+  expect(app.projects().length()).toEqual(1)
   expect(app.allocations().length()).toEqual(4)
 
-  project = app.projects().get(1)
+  project = app.projects().get(0)
   app.editProject project, (form)->
     form.delete()
 
-  expect(app.projects().length()).toEqual(1)
+  expect(app.projects().length()).toEqual(0)
   expect(app.allocations().length()).toEqual(0)
 
-  app.visit('/projects')
+  app.visit('/')
+  app.selectOffice 'Cincinnati'
   app.setCurrentDate('06/01/2013')
-  expect(app.projects().length()).toEqual(1)
+  expect(app.projects().length()).toEqual(0)
   expect(app.allocations().length()).toEqual(0)
 
-test 'signing in', ->
+scenario 'signing in', ->
   app.signOut()
   expect(browser.currentUrl()).toMatch(/http:\/\/localhost:5001\/sign_out\?return_url=.+/)
 
@@ -226,4 +222,15 @@ test 'signing in', ->
   expect(browser.currentUrl()).toMatch(/http:\/\/localhost:5001\/sign_in\?return_url=.+/)
 
   app.signIn('abc')
-  expect(browser.currentUrl()).toMatch(/#\/projects/)
+  expect(browser.currentUrl()).toMatch(/#\/office\/.+\/projects/)
+
+scenario 'filter by office', ->
+  app.setCurrentDate('06/01/2013')
+
+  app.selectOffice 'Columbus'
+  expect(app.projects().length()).toEqual(1)
+  expect(app.firstProject().name()).toEqual('Nexia Home')
+
+  app.selectOffice 'Cincinnati'
+  expect(app.projects().length()).toEqual(1)
+  expect(app.firstProject().name()).toEqual('T3')

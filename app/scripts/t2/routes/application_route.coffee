@@ -6,7 +6,18 @@ App.ApplicationRoute = Ember.Route.extend
       transition.abort()
       auth.login()
 
+  model: ->
+    Ember.RSVP.all([
+      App.Office.fetch(),
+      App.Project.fetch(),
+      App.Allocation.fetch(),
+      App.Person.fetch()
+    ])
+
   actions:
+    selectOffice: (office)->
+      @transitionTo('offices.projects', office)
+
     openModal: (modal) ->
       @render modal,
         into: "application"

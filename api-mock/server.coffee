@@ -12,5 +12,6 @@ resources = require('./api/v1/projects.json')
 resources.people = require('./api/v1/people.json').people
 
 apiServer.useResources resources
+#apiServer.loadResources(__dirname + '/../spec/acceptance/fixtures')
 
 module.exports = apiServer.when
