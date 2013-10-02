@@ -1,8 +1,12 @@
 App.AllocationView = Ember.View.extend
-  templateName: "allocation"
-  attributeBindings: ["style"]
+  attributeBindings: ['style']
   styleBinding: "controller.style"
+  classNames: ['allocation']
+  classNameBindings: ['isExternal:external']
+
+  isExternal: Ember.computed.alias('controller.isExternal')
+  allocation: Ember.computed.alias('controller.model')
+
   doubleClick: (evt) ->
-    allocation = @get('controller').get('model')
-    @get('controller').send 'editAllocation', allocation
+    @get('controller').send 'editAllocation', @get('allocation')
     false # to keep from bubbling up
