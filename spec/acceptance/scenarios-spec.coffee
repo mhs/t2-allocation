@@ -168,7 +168,7 @@ feature 'Project list', ->
     expect(browser.currentUrl()).toMatch(/http:\/\/localhost:5001\/sign_in\?return_url=.+/)
 
     app.signIn('abc')
-    expect(browser.currentUrl()).toMatch(/#\/office\/.+\/projects/)
+    expect(browser.currentUrl()).toMatch(/#\/offices\/cincinnati\/projects/)
 
   scenario 'filter by office', ->
     app.setCurrentDate('06/01/2013')
