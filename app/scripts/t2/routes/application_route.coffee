@@ -16,7 +16,7 @@ App.ApplicationRoute = Ember.Route.extend
 
   actions:
     selectOffice: (office)->
-      @transitionTo('offices.projects', office)
+      @transitionTo('office.projects', office)
 
     openModal: (modal) ->
       @render modal,

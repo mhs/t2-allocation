@@ -5,9 +5,18 @@ App.OfficesRoute = Ember.Route.extend
 App.OfficesIndexRoute = Ember.Route.extend
   redirect: ->
     offices = @modelFor('offices')
-    @transitionTo 'offices.projects', offices.get('firstObject')
+    d = moment(App.projectsUI.get('date')).format('YYYY-MM-DD')
+    @transitionTo 'office.projects', offices.get('firstObject'), d
 
-App.OfficesProjectsRoute = Ember.Route.extend
+App.OfficeRoute = Ember.Route.extend
+  model: (params)->
+    console.log '-- office - #model', params
+    @modelFor('offices').findProperty('slug', params.office_slug)
+
+  serialize: (model)->
+    office_slug: model.get('slug')
+
+App.OfficeProjectsRoute = Ember.Route.extend
   actions:
     createProject: ->
       __hackEmberModel()
@@ -33,8 +42,12 @@ App.OfficesProjectsRoute = Ember.Route.extend
       @send "openModal", "allocations.modal"
 
   model: (params)->
-    offices = @modelFor('offices')
-    offices.findProperty('slug', params.office)
+    @modelFor('office')
+
+  setupController: (controller, model)->
+    console.log '-------- setupController', model
+    controller.set('model', model)
 
   serialize: (model)->
-    office: model.get('slug')
+    d = moment(App.projectsUI.get('date')).format('YYYY-MM-DD')
+    start_date: d

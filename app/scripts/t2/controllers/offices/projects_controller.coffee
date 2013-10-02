@@ -1,4 +1,4 @@
-App.OfficesProjectsController = Ember.ObjectController.extend
+App.OfficeProjectsController = Ember.ObjectController.extend
   needs: ['offices']
 
   isEditingDate: false
