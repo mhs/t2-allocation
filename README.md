@@ -54,7 +54,7 @@ Deploy the contents of `./dist` directory.
 
 We host our staging environment as github pages.
 
-You can create a staging version of you current branch by executing:
+You can create a staging version of your current branch by executing:
 
     grunt deploy:staging
 
@@ -65,6 +65,23 @@ Your branch will be hosted in its own directory at
 [t2-allocations-staging](http://neo.github.io/t2-allocation/index.html).
 
 Here is the [master branch version](http://neo.github.io/t2-allocation/master/) of the application.
+
+### Production
+
+The production app is hosted on Heroku. Because t2-allocation consists of only static files,
+we will use the hack from this [site](http://kennethreitz.org/static-sites-on-heroku-cedar/). This
+adds an empty index.php and a .htaccess file.
+
+The current production version of the app is in [production](https://github.com/neo/t2-allocation/tree/production)
+branch. During the deployment process we first build the application into the `./dist` directory,
+then we clone the **production** branch into `.production` directory, update it with the contents of
+`./dist` directory, commit the changes, and push to heroku and github.
+
+You can create a production version of your current branch by executing:
+
+    grunt deploy:production
+
+The app can be accessed [here](http://t2-allocation.herokuapp.com).
 
 ## Running api-mock server
 

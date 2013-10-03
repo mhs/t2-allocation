@@ -22,6 +22,7 @@ module.exports = (grunt)->
     app: 'app'
     dist: 'dist'
     staging: '.staging'
+    production: '.production'
 
   grunt.initConfig
     t2Config: t2Config
@@ -97,10 +98,6 @@ module.exports = (grunt)->
             'styles/images/{,*/}*.{gif,png}'
             'styles/fonts/*'
           ]
-        ,
-          expand: true
-          dest: '<%= t2Config.dist %>'
-          src: [ 'index.js', 'procfile' ]
         ,
           expand: true
           dot: true
@@ -216,10 +213,9 @@ module.exports = (grunt)->
 
           'BRANCH=$(git rev-parse --abbrev-ref HEAD)'
 
-
           # Clones the repo into clean .staging folder
-         'rm -rf <%= t2Config.staging %>',
-         'git clone git@github.com:neo/t2-allocation.git --branch gh-pages <%= t2Config.staging %>'
+          'rm -rf <%= t2Config.staging %>',
+          'git clone git@github.com:neo/t2-allocation.git --branch gh-pages <%= t2Config.staging %>'
 
           'cd <%= t2Config.staging %>/'
 
@@ -244,6 +240,38 @@ module.exports = (grunt)->
           'git add -A'
           'git commit -m "$GRUNT_COMMIT_MSG"'
           'git push origin gh-pages'
+        ].join '&&'
+      production:
+        options:
+          stdout: true
+          stderr: true
+          failOnError: true
+        command: [
+          # Prepares the commit message
+          'GRUNT_COMMIT_MSG=$(git log HEAD -1 --format=medium)'
+
+          # Clones the repo into clean .production folder
+          'rm -rf <%= t2Config.production %>',
+          'git clone git@github.com:neo/t2-allocation.git --branch production <%= t2Config.production %>'
+
+          'cd <%= t2Config.production %>/'
+
+          # Removes all tracked items and copies the latest dist files
+          'git ls-files | xargs rm'
+          'git checkout .gitignore index.php .htaccess'
+          'cp -r ../dist/ .'
+
+          # Commits the changes
+          'git add -A'
+          'git commit -m "$GRUNT_COMMIT_MSG"'
+
+          # Add heroku remote
+          'heroku git:remote -a t2-allocation'
+
+          # Push to heroku and github
+          'git push heroku production:master -f'
+          'git push origin production'
+
         ].join '&&'
 
 
@@ -318,6 +346,11 @@ module.exports = (grunt)->
   grunt.registerTask 'deploy:staging', [
     'build:staging'
     'shell:staging'
+  ]
+
+  grunt.registerTask 'deploy:production', [
+    'build:production'
+    'shell:production'
   ]
 
   grunt.registerTask 'compile-samples', ->
