@@ -3,6 +3,11 @@
 LIVERELOAD_PORT = 35729
 lrSnippet = require('connect-livereload')(port: LIVERELOAD_PORT)
 
+runApiMockForAcceptance = (port)->
+  apiServer = require('./api-mock/api-server.coffee')(port)
+  apiServer.loadResources(__dirname + '/spec/acceptance/fixtures')
+  apiServer.start()
+
 mountFolder = (connect, dir) ->
   connect.static(require('path').resolve(dir))
 
@@ -156,7 +161,6 @@ module.exports = (grunt)->
             '<%= t2Config.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
             '<%= t2Config.dist %>/styles/fonts/*'
           ]
-
     watch:
       html:
         files: ['index.html', 'app/templates/**/*.hb']
@@ -193,15 +197,19 @@ module.exports = (grunt)->
         browsers: ['PhantomJS']
       dev:
         browsers: ['Chrome']
-
     shell:
       runSamples:
         options:
           stdout: true
           stderr: true
           failOnError: true
-
         command: 'node .tmp/spec/acceptance/support/samples.js'
+      acceptanceTests:
+        options:
+          stdout: true
+          stderr: true
+          failOnError: true
+        command: 'PATH=./spec/acceptance/chromedriver:$PATH bundle exec rspec spec/acceptance/*-spec.rb'
       staging:
         options:
           stdout: true
@@ -274,7 +282,6 @@ module.exports = (grunt)->
 
         ].join '&&'
 
-
   grunt.registerTask 'server', (target) ->
     if target == 'dist'
       grunt.task.run([
@@ -282,6 +289,10 @@ module.exports = (grunt)->
         'open:dist',
         'connect:dist:keepalive'
       ])
+    else if target == 'acceptance'
+      grunt.task.run [
+        'connect:dist:keepalive'
+      ]
     else
       grunt.task.run [
         'set-environment',
@@ -327,19 +338,20 @@ module.exports = (grunt)->
     ]
 
 
-  grunt.registerTask 'test:unit', ['karma:unit']
-
   grunt.registerTask 'test:dev', ['karma:dev']
 
-  grunt.registerTask 'test:acceptance', ()->
+  grunt.registerTask 'test:unit', ['karma:unit']
+
+  grunt.registerTask 'test:acceptance', (target)->
+    driver = 'selenium_chrome'
+    driver = 'poltergeist' if grunt.option('phantomjs')
+    process.env['CAPYBARA_DRIVER'] = driver
+
     grunt.option('test', true)
-    process.env['TEST_APP_PORT'] = grunt.config.get('connect.dist.options.port')
-    grunt.config.set('jasmine-node.run.spec', 'spec/acceptance')
-    grunt.task.run([
+    grunt.task.run [
       'build'
-      'connect:dist'
-      'jasmine-node'
-    ])
+      'shell:acceptanceTests'
+    ]
 
   grunt.registerTask 'test', ['test:unit', 'test:acceptance']
 
@@ -353,33 +365,12 @@ module.exports = (grunt)->
     'shell:production'
   ]
 
-  grunt.registerTask 'compile-samples', ->
-    grunt.config.set 'coffee.samples',
-      expand: true
-      flatten: false
-      src: ['spec/acceptance/**/*.coffee']
-      dest: '.tmp/'
-      ext: '.js'
-
-    grunt.config.set 'copy.fixtures',
-      files: [
-        expand: true
-        cwd: 'spec/acceptance/fixtures/'
-        src: '*'
-        dest: '.tmp/spec/acceptance/fixtures/'
-      ]
-    grunt.task.run ['coffee:samples', 'copy:fixtures']
-
-  grunt.registerTask 'run-samples', ->
-    grunt.option('test', true)
-    grunt.task.run [
-      'set-environment'
-      'coffee'
-      'replace'
-      'compile-samples'
-      'shell:runSamples'
-    ]
-
-  grunt.registerTask 'apiMock', ['express', 'express-keepalive']
+  grunt.registerTask 'apiMock', (target)->
+    if target == 'acceptance'
+      port = grunt.option('port')
+      runApiMockForAcceptance(port)
+      @async()
+    else
+      grunt.task.run ['express', 'express-keepalive']
 
   grunt.registerTask('default', ['server'])

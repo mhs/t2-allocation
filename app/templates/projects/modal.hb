@@ -14,8 +14,7 @@
         {{#each msg in errors.name}}{{msg}}{{/each}}
       </div>
       <div {{bindAttr class="errors.billable:error :field"}}>
-        <label>
-        {{input type="checkbox" checked=billable}}Billable</label>
+        <label>{{input type="checkbox" checked=billable}}Billable</label>
         {{#each msg in errors.billable}}{{msg}}{{/each}}
       </div>
       <div {{bindAttr class="errors.notes:error :field"}}>

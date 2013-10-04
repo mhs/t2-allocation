@@ -24,9 +24,9 @@ App.ApplicationRoute = Ember.Route.extend
         outlet: "modal"
 
     closeModal: ->
-      App.animateModalClose().then (->
-        @render "empty",
+      self = @
+      App.animateModalClose().then ->
+        self.render "empty",
           into: "application"
           outlet: "modal"
-      ).bind(this)
 
