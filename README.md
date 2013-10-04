@@ -1,3 +1,4 @@
+[![Build Status](https://magnum.travis-ci.com/neo/t2-allocation.png?token=cbFumu6XwVNSbYuFchBc)](https://magnum.travis-ci.com/neo/t2-allocation)
 # T2 - Allocation 
 
 Brand new time tracking and scheduling program used to quantify the essence of our business. Built

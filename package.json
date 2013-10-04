@@ -6,10 +6,11 @@
   "private": true,
   "author": "Neo Innovation",
   "scripts": {
-    "postinstall": "./node_modules/bower/bin/bower install"
+    "postinstall": "./node_modules/bower/bin/bower install",
+    "test": "grunt test --phantomjs"
   },
   "devDependencies": {
-    "bower": "~1.2.6",
+    "bower": "~1.2.7",
     "grunt": "~0.4.1",
     "grunt-open": "0.2.2",
     "grunt-ember-handlebars": "0.7.0",
@@ -47,6 +48,7 @@
     "karma": "~0.10.2",
     "grunt-karma": "~0.6.2",
     "grunt-shell": "~0.4.0",
-    "phantomjs": "~1.9.2-2"
+    "phantomjs": "~1.9.2-2",
+    "grunt-cli": "~0.1.9"
   }
 }

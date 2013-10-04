@@ -1,0 +1,11 @@
+language: node_js
+node_js:
+  - "0.10"
+rvm:
+  - 2.0.0
+branches:
+  only:
+    - master
+    - travis-ci
+    - /^issue-.*$/
+before_script: 'bundle install'
