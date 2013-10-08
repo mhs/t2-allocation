@@ -19,13 +19,11 @@
         {{#each msg in errors.endDate}}{{msg}}{{/each}}
       </div>
       <div data-test="billable" {{bindAttr class="errors.billable:error :field" }} >
-        <label>Billable</label>
-        {{view Ember.Checkbox checkedBinding="billable"}}
+        <label>{{input type="checkbox" checked=billable}}Billable</label>
         {{#each msg in errors.billable}}{{msg}}{{/each}}
       </div>
       <div data-test="binding" {{bindAttr class="errors.binding:error :field"}}>
-        <label>Binding</label>
-        {{view Ember.Checkbox checkedBinding="binding"}}
+        <label>{{input type="checkbox" checked=binding}}Binding</label>
         {{#each msg in errors.binding}}{{msg}}{{/each}}
       </div>
       <div data-test="notes" {{bindAttr class="errors.notes:error :field"}}>

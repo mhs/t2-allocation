@@ -1,3 +1,4 @@
+[![Build Status](https://magnum.travis-ci.com/neo/t2-allocation.png?token=cbFumu6XwVNSbYuFchBc)](https://magnum.travis-ci.com/neo/t2-allocation)
 # T2 - Allocation 
 
 Brand new time tracking and scheduling program used to quantify the essence of our business. Built
@@ -18,13 +19,12 @@ in [EmberJS](http://emberjs.com), using [Grunt](http://gruntjs.com) and [Bower](
 1. Change directory: `cd t2-allocation`
 1. Install npm dependencies: `npm install`
 1. Install bower dependencies: `bower install`
-1. `cp config.json.sample config.json` and check the default configuration
+1. Install ruby dependencies:  `bundle install`
 1. Start [t2-api](https://github.com/neo/t2-api#start-the-server). (Alternatively use api-mock
 server. See below)
 1. Start: `grunt`
 
 ## Testing
-  [Install Selenium and Chrome WebDriver](selenium/README.md) into `./selenium` dir.
 
 Running all tests:
 
@@ -37,6 +37,10 @@ Running unit tests:
 Running acceptance tests:
 
     grunt test:acceptance
+
+To run acceptance tests in headless mode (using PhantomJS):
+
+    grunt test:acceptance --phantomjs
 
 Running unit test in development mode (autorun)
 

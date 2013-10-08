@@ -1,7 +1,5 @@
-_ = require('underscore')
-
 PORT = 5000
-apiServer = require('../spec/acceptance/support/api-server')(PORT)
+apiServer = require('./api-server')(PORT)
 
 apiServer.when.get '/sign_in', (req, res)->
   return_url = req.query.return_url
