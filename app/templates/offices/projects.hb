@@ -28,7 +28,7 @@
     </div>
   </section>
   <section id="projectList">
-  {{#each project in projects}}
+  {{#each project in sortedProjects}}
     {{ render 'project' project }}
   {{/each}}
   </section>

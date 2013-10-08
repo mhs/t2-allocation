@@ -7,6 +7,14 @@ App.OfficesProjectsController = Ember.ObjectController.extend
 
   offices: Ember.computed.alias('controllers.offices')
 
+  sortedProjects: (->
+    sortByName =
+      sortProperties: ['name']
+      content: @get('projects')
+    Ember.ArrayProxy.
+      createWithMixins(Ember.SortableMixin,sortByName)).
+      property('projects')
+
   firstDate: (->
     moment(App.projectsUI.get("date")).format "MMMM D, YYYY"
   ).property("date")
