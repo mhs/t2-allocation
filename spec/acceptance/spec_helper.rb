@@ -64,7 +64,7 @@ class Grunt
     }
     @pid = spawn(env, *command,
                  in: "/dev/null",
-                 #out: "/dev/null",
+                 out: "/dev/null",
                  err: "/dev/null")
   end
 

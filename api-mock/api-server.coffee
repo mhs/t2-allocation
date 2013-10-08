@@ -74,9 +74,6 @@ createApiServer = (port)->
     res.status(201).send(_response)
 
   server.when.put '/api/v1/:resources/:id.json', (req, res)->
-    console.log '========================================'
-    console.log req.body
-    console.log '========================================'
     resourcesName = req.params.resources
     resourceName = resourceNameMap[resourcesName]
 
