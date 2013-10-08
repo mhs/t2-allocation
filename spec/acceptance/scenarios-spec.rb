@@ -2,6 +2,7 @@ require_relative 'spec_helper'
 
 feature 'Projects' do
   background do
+    page.driver.browser.manage.window.resize_to(1024, 768) if page.driver.browser.respond_to? :manage
     app.sign_in 'MyAccessToken'
   end
 
