@@ -8,4 +8,6 @@ branches:
     - master
     - travis-ci
     - /^issue-.*$/
-before_script: 'bundle install'
+before_script:
+  - 'npm install -g grunt-cli'
+  - 'bundle install'

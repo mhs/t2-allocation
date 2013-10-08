@@ -48,7 +48,6 @@
     "karma": "~0.10.2",
     "grunt-karma": "~0.6.2",
     "grunt-shell": "~0.4.0",
-    "phantomjs": "~1.9.2-2",
-    "grunt-cli": "~0.1.9"
+    "phantomjs": "~1.9.2-2"
   }
 }
