@@ -149,9 +149,13 @@ feature 'Projects' do
     end
 
     expect(app).to have(2).projects
-    expect(app.projects[1].name).to eql('My Project')
+    myProjectIndex = 0
+    if app.projects[myProjectIndex].name != 'My Project'
+      myProjectIndex = 1
+    end
+    expect(app.projects[myProjectIndex].name).to eql('My Project')
 
-    app.edit_project(app.projects[1]).tap do |form|
+    app.edit_project(app.projects[myProjectIndex]).tap do |form|
       expect(form).to be_visible
       expect(form.name).to eql('My Project')
       expect(form.billable).to be_true
