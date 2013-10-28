@@ -1,9 +1,11 @@
-<div class = "allocationContent" {{bind-attr title="hint"}}>
+<div class="allocation-content" {{bind-attr title="hint"}}>
   {{#if person}}
-    <span class="identifier">{{ person.name }}</span>
+    <span class="allocation-identifier">{{ person.name }}</span>
   {{/if}}
+
   {{#if isExternal}}
     <em>({{office.name}})</em>
   {{/if}}
-  <span class="range">{{ shortDate startDate }} - {{ shortDate endDate }}</span>
+
+  <span class="allocation-range">{{ shortDate startDate }} - {{ shortDate endDate }}</span>
 </div>

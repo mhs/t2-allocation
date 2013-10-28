@@ -1,14 +1,13 @@
 {{#view App.ProjectAllocationsView}}
-<article class="project" {{bindAttr data-project-id="id"}} {{bindAttr style="projectHeight"}}>
-	<div class="container">
-		<div class="allocations">
-			{{#each allocation in currentAllocations}}
-				{{ render "allocation" allocation }}
-			{{/each}}
-		</div>
-	</div>
-	{{#view App.ProjectEditView class="descriptor"}}
-		<span>{{ name }}</span>
-	{{/view}}
-</article>
+  <article class="project" {{bindAttr data-project-id="id"}} {{bindAttr style="projectHeight"}}>
+    <div class="project-allocations">
+      {{#each allocation in currentAllocations}}
+        {{ render "allocation" allocation }}
+      {{/each}}
+    </div>
+
+    {{#view App.ProjectEditView class="project-descriptor"}}
+      {{ name }}
+    {{/view}}
+  </article>
 {{/view}}

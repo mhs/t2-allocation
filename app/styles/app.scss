@@ -1,151 +1,27 @@
-@import "modal";
+@import 'helpers';
+@import 'calendar';
+@import 'controls';
+@import 'modal';
+@import 'projects';
 
-$sidebar-width: 192px;
 
 body {
-	margin: 0;
-	background-color: #fff;
-	font-family: "myriad-pro",sans-serif;
-	line-height: 19.2px;
+  margin: 0;
+  font-family: 'Myriad Pro', 'Gill Sans', 'Gill Sans MT', Calibri, sans-serif;
+  background-color: #fff;
 }
 
-.sign-out-link{
-  font-size: 9pt;
-}
+.sign-out-link { font-size: 9pt; }
 
-#controls {
-	position: relative;
-	height: 40px;
-	.title {
-		position: absolute;
-		width: $sidebar-width;
-		background-color: #8BDEF6;
-		height: 100%;
-		h1 {
-			padding: 0 15px;
-			color: white;
-			font-size: 14px;
-			font-weight: 400;
-		}
-	}
-	.controls {
-		position: absolute;
-		left: $sidebar-width;
-	}
-
-  button, select {
-    float: right;
-  }
-	background-color: #73d7f4;
-}
-
-#timeline {
-	#calendarBar {
-		height: 24px;
-		background-color: #fff8f0;
-		position: relative;
-		overflow: hidden;
-		border-bottom: 1px solid #aaa;
-		.selector {
-			position: absolute;
-			height: 100%;
-			width: $sidebar-width - 4px;
-			font-size: 14px;
-			padding: 4px 0 0 4px;
-			color: #888888;
-			background-color: #f8f0f0;
-			.datepicker {
-				width: 95%;
-			}
-		}
-		.calendar {
-			position: absolute;
-			left: $sidebar-width+2;
-			width: 100%;
-			height: 24px;
-			background-image: url('images/days.png');
-			background-position: 0px 12px;
-			background-repeat: repeat-x;
-			ul {
-				font-size: 10px;
-				color: #888;
-				margin: 0;
-				padding: 0;
-				li {
-					display: inline-block;
-					width: 107px;
-					height: 24px;
-					border-right: 2px solid rgba(0,0,0,0.09);
-				}
-			}
-		}
-	}
-	#projectList {
-
-		overflow: hidden;
-		.project {
-			display:block;
-			width: 100%;
-			min-height: 42px;
-			position: relative;
-			border-bottom: 1px solid #aaa;
-			background-color: rgba(255,255,255,0.5);
-			background-image: url('images/calendar.png');
-			background-position: $sidebar-width;
-			.descriptor {
-				position: absolute;
-				display:block;
-				height: 100%;
-				width: $sidebar-width;
-				background-color: #ffffff;
-				border-right: 1px solid #eee;
-				border-bottom: 1px solid #eee;
-				span {
-					padding: 15px;
-					color: #454848;
-					font-weight: 400;
-				}
-			}
-			.container {
-				position: absolute;
-				left: $sidebar-width;
-				.allocations {
-					position: relative;
-					height: 100%;
-					.allocation {
-						-webkit-border-radius: 3px;
-						-moz-border-radius: 3px;
-						border-radius: 3px;
-						margin-top: 1px;
-						height: 27px;
-						background-color: #3bcf91;
-						position: absolute;
-						font-size: 11px;
-						color: rgba(255,255,255,0.9);
-						border-radius: 3px;
-						&.external{
-							opacity: 0.5;
-						}
-						.allocationContent {
-							background-color: transparent;
-							padding: 5.2px 0 5.2px 8px;
-							text-overflow: ellipsis;
-							white-space: nowrap;
-							overflow: hidden;
-							-webkit-box-sizing: border-box;
-							-moz-box-sizing: border-box;
-							box-sizing: border-box;
-							width: 100%;
-							.identifier {
-								font-weight: 700;
-							}
-							.range {
-								color: rgba(255,255,255,0.7);
-							}
-						}
-					}
-				}
-			}
-		}
-	}
+.loading {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 64px;
+  height: 64px;
+  margin: -32px 0 0 -32px;
+  background: transparent url(images/spinner.png) center center no-repeat;
+  background-size: 100% auto;
+  z-index: 1000;
+  -webkit-animation: rotating 2s linear infinite;
 }

@@ -1,0 +1,60 @@
+#projectList {
+  overflow: hidden;
+}
+
+.project {
+  position: relative;
+  display: block;
+  width: 100%;
+  min-height: 42px;
+  padding-left: $sidebar-width;
+  border-bottom: 1px solid #cecfcf;
+  background-color: rgba(255,255,255, 0.5);
+  background-image: url('images/calendar.png');
+  background-position: $sidebar-width;
+}
+
+.project-descriptor {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  display: block;
+  width: $sidebar-width - 15;
+  border-right: 1px solid #eee;
+  padding: 5px 0 0 15px;
+  color: #454848;
+  font-weight: 400;
+  background-color: #fff;
+}
+
+.project-allocations {
+  position: relative;
+  height: 100%;
+}
+
+.allocation {
+  margin-top: 1px;
+  height: 28px;
+  background-color: #3bcf91;
+  position: absolute;
+  font-size: 14px;
+  color: rgba(255,255,255,0.9);
+  border-radius: 3px;
+  line-height: 29px;
+
+  &.external { opacity: 0.5; }
+}
+
+.allocation-content {
+  background-color: transparent;
+  padding: 0 0 0 8px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.allocation-identifier { font-weight: 700; }
+.allocation-range { color: rgba(255,255,255,0.7); }

@@ -1,0 +1,42 @@
+#calendarBar {
+  overflow: hidden;
+  position: relative;
+  height: $calendar-height;
+  border-bottom: 1px solid #aaa;
+  background-color: #fdfdfd;
+}
+
+.calendar-date-selector {
+  position: absolute;
+  height: 100%;
+  width: $sidebar-width - 4px;
+  font-size: 14px;
+  padding: 4px 0 0 4px;
+  color: #888;
+  background-color: #f8f0f0;
+
+  .datepicker { width: 95%; }
+}
+
+.calendar {
+  position: absolute;
+  left: $sidebar-width;
+  right: 0;
+  height: $calendar-height;
+  margin: 0;
+  padding: 0;
+  background: url('images/days.png') 0 19px repeat-x;
+  background-size: 112px 12px;
+}
+
+.week {
+  display: block;
+  float: left;
+  width: 108px;
+  height: $calendar-height;
+  border-right: 1px solid #ebebeb;
+  padding-left: 3px;
+  color: #888;
+  font-size: 12px;
+  line-height: 150%;
+}

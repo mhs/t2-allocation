@@ -1,4 +1,4 @@
-$width: 600px;
+$modal-width: 600px;
 
 .modal {
   background: white;
@@ -7,10 +7,9 @@ $width: 600px;
   top: 10%;
   left: 50%;
   z-index: 1050;
-  width: $width;
-  margin-left: -($width/2);
+  width: $modal-width;
+  margin-left: -($modal-width/2);
   box-shadow: 0px 0px 5px rgba(0,0,0,.4);
-
   opacity: 0;
   -webkit-transform: scale(0.6);
   -webkit-transition: all .250s ease-out;

@@ -149,11 +149,11 @@ module T2
 
   class ProjectView < Element
     def name
-      find('.descriptor span').text
+      find('.project-descriptor').text
     end
 
     def allocations
-      all('.allocationContent')
+      all('.allocation-content')
     end
   end
 
@@ -170,7 +170,7 @@ module T2
     end
 
     def date_selector
-      page.find('.selector span')
+      page.find('.calendar-date-selector span')
     end
 
     def has_date_picker?
@@ -189,7 +189,7 @@ module T2
     def set_current_date(text)
       date_selector.click
 
-      selector = '.selector input'
+      selector = '.calendar-date-selector input'
 
       # This seems to be the most reliable way of setting the date
       page.execute_script """
@@ -201,7 +201,7 @@ module T2
     end
 
     def calendar_start_date
-      page.find('.calendar ul li', match: :first).text
+      page.find('.calendar li', match: :first).text
     end
 
     def select_office(office)
@@ -226,11 +226,11 @@ module T2
     end
 
     def edit_project(project_el)
-      double_click project_el.find('.descriptor')
+      double_click project_el.find('.project-descriptor')
 
       if not has_editor?
         wait_for do
-          double_click project_el.find('.descriptor')
+          double_click project_el.find('.project-descriptor')
           has_editor?
         end
       end
