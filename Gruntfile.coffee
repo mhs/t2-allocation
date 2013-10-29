@@ -70,7 +70,7 @@ module.exports = (grunt)->
             ]
       dist:
         options:
-          port: 9000
+          port: 9001
           middleware: (connect) ->
             [
               mountFolder(connect, t2Config.dist)
