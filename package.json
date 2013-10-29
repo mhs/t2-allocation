@@ -23,7 +23,7 @@
     "jasmine-node": "~1.11.0",
     "matchdep": "~0.1.2",
     "connect": "~2.9.0",
-    "grunt-contrib-jasmine-node": "~0.1.1",
+    "grunt-jasmine-node": "~0.1.0",
     "underscore": "~1.5.2",
     "grunt-express": "~1.2.0",
     "grunt-contrib-clean": "~0.5.0",
