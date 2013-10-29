@@ -25,3 +25,23 @@ body {
   z-index: 1000;
   -webkit-animation: rotating 2s linear infinite;
 }
+
+.content-wrapper {
+  margin-left: 48px;
+  height: 100%;
+}
+
+.navigation-frame {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 99;
+  width: 48px;
+
+  iframe {
+    height: 100%;
+    width: 100%;
+  }
+}
+

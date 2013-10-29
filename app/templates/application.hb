@@ -1,8 +1,9 @@
-<div class="header">
-  {{#link-to 'sign_out' class="sign-out-link"}}Sign out{{/link-to}}
+<div class="navigation-frame">
+  <iframe {{bindAttr src='navUrl'}}></iframe>
 </div>
+<div class="container content-wrapper">
 
-<div class="main">
+<div class="main content-wrapper">
   {{outlet}}
 </div>
 
