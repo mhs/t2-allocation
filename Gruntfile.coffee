@@ -70,7 +70,7 @@ module.exports = (grunt)->
             ]
       dist:
         options:
-          port: 9001
+          port: 9000
           middleware: (connect) ->
             [
               mountFolder(connect, t2Config.dist)
@@ -300,7 +300,6 @@ module.exports = (grunt)->
         'concurrent:server',
         'replace',
         'connect:livereload',
-        'open:localhost',
         'watch'
       ]
 
