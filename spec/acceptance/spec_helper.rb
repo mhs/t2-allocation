@@ -20,6 +20,15 @@ Capybara.default_driver = driver.to_sym
 
 Capybara.app_host = "http://localhost:#{APP_PORT}"
 
+class Selenium::WebDriver::Chrome::Bridge
+  def extract_service_args(opts)
+    args = ['--verbose']
+    if opts.has_key?(:service_log_path)
+      args << "--log-path=#{opts.delete(:service_log_path)}"
+    end
+    args
+  end
+end
 
 # hack fix for: https://github.com/jnicklas/capybara/issues/1035
 class Selenium::WebDriver::Navigation
