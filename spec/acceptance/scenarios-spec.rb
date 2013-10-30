@@ -8,7 +8,7 @@ feature 'Projects' do
 
   scenario 'signing in' do
     app.sign_out
-    expect(current_url).to match(/http:\/\/localhost:5001\/sign_out\?return_url=.+/)
+    expect(current_url).to match(/sign_out/)
 
     app.visit('/')
     wait_for { current_url.match(/sign_in/) }
