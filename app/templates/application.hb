@@ -1,7 +1,5 @@
-<div class="navigation-frame">
-  <iframe {{bindAttr src='navUrl'}}></iframe>
-</div>
 <div class="container content-wrapper">
+</div>
 
 <div class="main content-wrapper">
   {{outlet}}

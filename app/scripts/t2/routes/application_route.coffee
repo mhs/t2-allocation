@@ -18,6 +18,10 @@ App.ApplicationRoute = Ember.Route.extend
     selectOffice: (office)->
       @transitionTo('offices.projects', office)
 
+    error: (err) ->
+      auth = @controllerFor('authentication')
+      auth.login()
+
     openModal: (modal) ->
       @render modal,
         into: "application"

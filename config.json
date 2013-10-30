@@ -5,14 +5,14 @@
     "API_BASEURL":  "http://t2api.herokuapp.com/api/v1",
     "SIGN_IN_URL":  "http://t2api.herokuapp.com/sign_in",
     "SIGN_OUT_URL": "http://t2api.herokuapp.com/sign_out",
-    "NAVBAR_URL":   "http://t2api.herokuapp.com/navbar",
+    "NAVBAR_URL":   "http://t2api.herokuapp.com/api/v1/navbar",
     "EMBER_DEBUG":  false
   },
   "development": {
     "SIGN_IN_URL":  "http://localhost:5000/sign_in",
     "SIGN_OUT_URL": "http://localhost:5000/sign_out",
     "API_BASEURL":  "http://localhost:5000/api/v1",
-    "NAVBAR_URL":   "http://localhost:5000/navbar",
+    "NAVBAR_URL":   "http://localhost:5000/api/v1/navbar",
     "EMBER_DEBUG":  true
   },
   "production": {
@@ -23,7 +23,7 @@
     "SIGN_IN_URL":  "http://localhost:5001/sign_in",
     "SIGN_OUT_URL": "http://localhost:5001/sign_out",
     "API_BASEURL":  "http://localhost:5001/api/v1",
-    "NAVBAR_URL":   "http://localhost:5001/navbar",
+    "NAVBAR_URL":   "http://localhost:5001/api/v1/navbar",
     "EMBER_DEBUG":  true
   }
 }
