@@ -262,7 +262,7 @@ module T2
     end
 
     def sign_out
-      page.click_link 'Sign out'
+      page.click_link 'q sign out'
     end
 
     def sign_in(token)

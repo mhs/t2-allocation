@@ -6,3 +6,5 @@ Ember.Application.initializer
       auth = container.lookup("controller:authentication")
       xhr.setRequestHeader("Authorization", auth.get('accessToken'))
       xhr.setRequestHeader("x-Requested-With", "XMLHTTPRequest")
+
+    $(document).ajaxError( -> App.AuthenticationController.logout())

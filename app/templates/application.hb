@@ -1,8 +1,7 @@
-<div class="header">
-  {{#link-to 'sign_out' class="sign-out-link"}}Sign out{{/link-to}}
+<div class="container content-wrapper">
 </div>
 
-<div class="main">
+<div class="main content-wrapper">
   {{outlet}}
 </div>
 
