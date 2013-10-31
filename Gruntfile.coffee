@@ -300,7 +300,6 @@ module.exports = (grunt)->
         'concurrent:server',
         'replace',
         'connect:livereload',
-        'open:localhost',
         'watch'
       ]
 
