@@ -27,6 +27,10 @@
 
 <section id="projectList">
   {{#each project in sortedProjects}}
-    {{ render 'project' project }}
+    {{#if project.availableProject}}
+      {{ render 'availableProject' project }}
+    {{else}}
+      {{ render 'project' project }}
+    {{/if}}
   {{/each}}
 </section>

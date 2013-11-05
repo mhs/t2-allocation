@@ -27,7 +27,7 @@ App.ApplicationRoute = Ember.Route.extend
       App.Office.fetch(),
       App.Project.fetch(),
       App.Allocation.fetch(),
-      App.Person.fetch()
+      App.Person.fetch(),
       App.Availability.fetch({start_date: '2013-10-1', end_date: '2013-10-31'})
     ])
 
