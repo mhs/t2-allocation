@@ -8,9 +8,12 @@ App.OfficesProjectsController = Ember.ObjectController.extend
   offices: Ember.computed.alias('controllers.offices')
 
   sortedProjects: (->
+    projects = @get('projects')
+    projects.pushObject(App.Project.create(name: "Available"))
     sortByName =
       sortProperties: ['name']
-      content: @get('projects')
+      content: projects
+
     Ember.ArrayProxy.
       createWithMixins(Ember.SortableMixin,sortByName)).
       property('projects')
