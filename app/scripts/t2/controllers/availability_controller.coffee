@@ -10,7 +10,7 @@ App.AvailabilityController = Ember.ObjectController.extend
   #).property('currentOffice', 'office')
 
   startOffset: (->
-    currentMonday = moment(App.projectsUI.get("date")).startOf("week")
+    currentMonday = moment(App.projectsUI.get("date"))
     startDate = moment(@get("startDate")) || moment()
     startDate.diff currentMonday, "days"
   ).property("App.projectsUI.date", "startDate")
