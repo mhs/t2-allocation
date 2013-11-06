@@ -1,5 +1,5 @@
 App.AvailableProjectController  = Ember.ObjectController.extend
-  needs: ['application']
+  needs: ['application', 'officesProjects']
   trackCount: 0
 
   projectHeight: (->
@@ -15,3 +15,7 @@ App.AvailableProjectController  = Ember.ObjectController.extend
     @set "trackCount", trackNo
     availabilities
   ).property('availabilities.isLoaded')
+
+  availabilities: (->
+    App.Availability.find({start_date: '2013-11-4', office_id: @get('controllers.officesProjects.id'), end_date: '2013-12-31'})
+  ).property('controllers.officesProjects.id')
