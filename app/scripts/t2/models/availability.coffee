@@ -1,7 +1,7 @@
 App.Availability = App.defineModel 'availabilities', 'availability',
   url: "#{App.API_BASEURL}/availabilities"
-  startDate: Ember.attr(Date)
-  endDate: Ember.attr(Date)
+  startDate: Ember.attr(App.TextDate)
+  endDate: Ember.attr(App.TextDate)
   duration: (->
     start = moment(@get("startDate")) || moment(@get("endDate")) || moment()
     end = moment(@get("endDate")) || moment(@get("startDate")) || moment()
