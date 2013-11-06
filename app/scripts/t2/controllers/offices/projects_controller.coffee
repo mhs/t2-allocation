@@ -22,7 +22,7 @@ App.OfficesProjectsController = Ember.ObjectController.extend
       property('projects')
 
   firstDate: (->
-    moment(App.projectsUI.get("date")).format "MMMM D, YYYY"
+    moment(@get("date")).format "MMMM D, YYYY"
   ).property("date")
 
   dateRange: (->
@@ -30,7 +30,7 @@ App.OfficesProjectsController = Ember.ObjectController.extend
     daysInWindow = @get("daysInWindow")
     date = moment()  unless date.isValid()
     dateArray = []
-    monday = moment(date).startOf("week").add("days", 1)
+    monday = moment(date)
     i = 0
 
     while i <= (daysInWindow / 7)
