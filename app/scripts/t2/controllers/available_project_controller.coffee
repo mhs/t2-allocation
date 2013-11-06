@@ -8,14 +8,25 @@ App.AvailableProjectController  = Ember.ObjectController.extend
 
   currentAvailabilities: (->
     availabilities = @get("availabilities")
+
     trackNo = 0
-    # TODO: this puts each availability on its own line. It is wrong.
-    availabilities.forEach (availability) ->
-      availability.set "track", trackNo++
+    App.group_by_sorted_name(availabilities, (avs, person) ->
+      avs.forEach (av) ->
+        av.set("track", trackNo)
+      trackNo++
+    )
     @set "trackCount", trackNo
     availabilities
   ).property('availabilities.isLoaded')
 
+  availabilityStart: (->
+    moment(App.projectsUI.get('startDate')).format("YYYY-MM-DD")
+  ).property('App.projectsUI.startDate')
+
+  availabilityEnd: (->
+    moment(App.projectsUI.get('endDate')).format("YYYY-MM-DD")
+  ).property('App.projectsUI.endDate')
+
   availabilities: (->
-    App.Availability.find({start_date: '2013-11-4', office_id: @get('controllers.officesProjects.id'), end_date: '2013-12-31'})
-  ).property('controllers.officesProjects.id')
+    App.Availability.find({start_date: @get('availabilityStart'), office_id: @get('controllers.officesProjects.id'), end_date: @get('availabilityEnd')})
+  ).property('controllers.officesProjects.id', 'availabilityStart', 'availabilityEnd')
