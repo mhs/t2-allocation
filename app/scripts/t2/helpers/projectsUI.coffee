@@ -11,6 +11,7 @@ App.DateUI = Ember.Object.extend
 
 
 App.projectsUI = App.DateUI.create
-  date: moment().format("L")
+  # initialize on the Monday of the current week
+  date: moment().startOf("week").add('d', 1).format("L")
   daysInWindow: Math.ceil((window.innerWidth - App.WIDTH_OF_DESCRIPTOR) / App.WIDTH_OF_DAY)
 # TODO: add tests for window resize, and date change
