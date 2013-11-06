@@ -1,7 +1,7 @@
 App.AvailabilityView = Ember.View.extend
   attributeBindings: ['style']
   styleBinding: "controller.style"
-  classNames: ['allocation'] # TODO: change this
+  classNames: ['allocation', 'available']
   classNameBindings: ['isExternal:external']
 
   isExternal: Ember.computed.alias('controller.isExternal')
