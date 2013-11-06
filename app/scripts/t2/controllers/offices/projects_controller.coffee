@@ -10,8 +10,9 @@ App.OfficesProjectsController = Ember.ObjectController.extend
   sortedProjects: (->
     projects = @get('projects')
     people = @get('people')
-    availableProject = App.AvailableProject.create(people: people, office: @content, name: "Available")
-    projects.pushObject(availableProject)
+    unless projects.findBy('name', 'Available')
+      availableProject = App.AvailableProject.create(people: people, office: @content, name: "Available")
+      projects.pushObject(availableProject)
     sortByName =
       sortProperties: ['name']
       content: projects
