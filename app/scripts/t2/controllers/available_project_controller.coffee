@@ -28,5 +28,12 @@ App.AvailableProjectController  = Ember.ObjectController.extend
   ).property('App.projectsUI.endDate')
 
   availabilities: (->
-    App.Availability.find({start_date: @get('availabilityStart'), office_id: @get('controllers.officesProjects.id'), end_date: @get('availabilityEnd')})
-  ).property('controllers.officesProjects.id', 'availabilityStart', 'availabilityEnd')
+    criteria =
+      start_date: @get('availabilityStart')
+      office_id: @get('controllers.officesProjects.id')
+      end_date: @get('availabilityEnd')
+    App.Availability.find(criteria)
+  ).property('controllers.officesProjects.id',
+    'availabilityStart',
+    'availabilityEnd',
+    'App.projectsUI.allocationUpdates')
