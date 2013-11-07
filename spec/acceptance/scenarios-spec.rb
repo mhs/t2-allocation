@@ -133,7 +133,7 @@ feature 'Projects' do
 
   scenario 'create project' do
     app.set_current_date('06/01/2013')
-    expect(app).to have(1).projects
+    expect(app).to have(2).projects
 
     app.create_project.tap do |form|
       expect(form).to be_visible
@@ -148,7 +148,7 @@ feature 'Projects' do
       wait_for { form.is_hidden_or_gone? }
     end
 
-    expect(app).to have(2).projects
+    expect(app).to have(3).projects
     myProjectIndex = 0
     if app.projects[myProjectIndex].name != 'My Project'
       myProjectIndex = 1
@@ -168,7 +168,7 @@ feature 'Projects' do
     app.select_office 'Cincinnati'
     app.set_current_date('06/01/2013')
 
-    expect(app).to have(1).projects
+    expect(app).to have(2).projects
     expect(app).to have(4).allocations
 
     first_project = app.projects.first
@@ -179,13 +179,13 @@ feature 'Projects' do
       wait_for { form.is_hidden_or_gone? }
     end
 
-    expect(app.projects).to be_empty
+    expect(app).to have(1).projects
     expect(app.allocations).to be_empty
 
     app.visit('/')
     app.set_current_date('06/01/2013')
     app.select_office 'Cincinnati'
-    expect(app.projects).to be_empty
+    expect(app).to have(1).projects
     expect(app.allocations).to be_empty
   end
 
@@ -193,11 +193,11 @@ feature 'Projects' do
     app.select_office 'Columbus'
     app.set_current_date('06/01/2013')
 
-    expect(app).to have(1).projects
+    expect(app).to have(2).projects
     expect(app.projects.first.name).to eql('Nexia Home')
 
     app.select_office 'Cincinnati'
-    expect(app).to have(1).projects
+    expect(app).to have(2).projects
     expect(app.projects.first.name).to eql('T3')
   end
 end

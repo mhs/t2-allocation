@@ -4,6 +4,8 @@ App.Project = App.defineModel 'projects', 'project',
   notes: Ember.attr()
   billable: Ember.attr()
   vacation: Ember.attr()
+
+  sortOrder: 0
   slots: Ember.hasMany("App.Slot",
     key: "slot_ids"
   )
