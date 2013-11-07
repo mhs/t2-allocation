@@ -15,6 +15,14 @@ App.Allocation = App.defineModel 'allocations', 'allocation',
     key: 'project_id'
   )
 
+  init: ->
+    @_super()
+    @on('didDeleteRecord', ->
+      App.projectsUI.incrementProperty('allocationUpdates')
+    ).on('didSaveRecord', ->
+      App.projectsUI.incrementProperty('allocationUpdates')
+    )
+
   track: 0
   current: (->
     @get("startDate") < App.projectsUI.get("endDate") and @get("endDate") > App.projectsUI.get("startDate")

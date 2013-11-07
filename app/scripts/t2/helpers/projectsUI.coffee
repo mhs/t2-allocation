@@ -11,6 +11,7 @@ App.DateUI = Ember.Object.extend
   calculateWindow: (->
     Math.ceil((window.innerWidth - App.WIDTH_OF_DESCRIPTOR) / App.WIDTH_OF_DAY)
   )
+  allocationUpdates: 0
 
 
 App.projectsUI = App.DateUI.create
