@@ -14,12 +14,12 @@ App.OfficesProjectsController = Ember.ObjectController.extend
       availableProject = App.AvailableProject.create(people: people, office: @content, name: "Available")
       projects.pushObject(availableProject)
     sortByName =
-      sortProperties: ['name']
+      sortProperties: ['sortOrder', 'name']
       content: projects
 
     Ember.ArrayProxy.
-      createWithMixins(Ember.SortableMixin,sortByName)).
-      property('projects')
+      createWithMixins(Ember.SortableMixin,sortByName)
+  ).property('projects')
 
   firstDate: (->
     moment(@get("date")).format "MMMM D, YYYY"
