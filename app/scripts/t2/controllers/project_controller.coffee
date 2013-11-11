@@ -1,10 +1,21 @@
 App.ProjectController = Ember.ObjectController.extend
+  needs: ['officesProjects']
+  currentOffice: Ember.computed.alias('controllers.officesProjects.model')
+
   content: null
 
   trackCount: 0
 
+  selectedAllocations: (->
+    allocations = @get('allocations')
+    if @get('vacation')
+      allocations.filterBy('person.office.id', @get('currentOffice.id'))
+    else
+      allocations
+  ).property("currentOffice", "allocations.[]", "allocations.@each.current")
+
   currentAllocations: (->
-    allocations = @get("allocations").filterProperty("current")
+    allocations = @get("selectedAllocations").filterProperty("current")
 
     trackNo = 0
     App.group_by_sorted_name(allocations, (allocs, person) ->
@@ -14,7 +25,7 @@ App.ProjectController = Ember.ObjectController.extend
     )
     @set "trackCount", trackNo
     allocations
-  ).property("allocations.[]", "allocations.@each.current")
+  ).property("selectedAllocations")
 
   projectHeight: (->
     "height: " + (@get("trackCount") * App.ALLOCATION_HEIGHT + 1) + "px;"
