@@ -5,7 +5,7 @@ App.OfficesRoute = Ember.Route.extend
 App.OfficesIndexRoute = Ember.Route.extend
   redirect: ->
     offices = @modelFor('offices')
-    office = offices.findProperty('slug', @controllerFor('authentication').get('currentUser').office.slug)
+    office = offices.findProperty('slug', @controllerFor('authentication').get('currentUser').office_slug)
     @transitionTo 'offices.projects', office
 
 App.OfficesProjectsRoute = Ember.Route.extend

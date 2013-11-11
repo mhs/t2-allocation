@@ -26,8 +26,8 @@ App.ApplicationRoute = Ember.Route.extend
     Ember.RSVP.all([
       App.Office.fetch(),
       App.Project.fetch(),
-      App.Allocation.fetch(),
-      App.Person.fetch()
+      App.Person.fetch(),
+      App.Allocation.fetch()
     ])
 
   actions:
