@@ -42,7 +42,7 @@ App.AuthenticationController = Ember.ObjectController.extend
     Ember.$.ajax({
       # ASYNC MY BALLS
       async: false,
-      url: "#{App.API_BASEURL}/profile",
+      url: "#{App.API_BASEURL}/profile.json",
       dataType: 'json',
       data: {},
       success: (data) ->

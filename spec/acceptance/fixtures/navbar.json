@@ -1,4 +1,6 @@
 {
-  "top": [],
-  "bottom": []
+  "navbar": {
+    "top": [],
+    "bottom": []
+  }
 }

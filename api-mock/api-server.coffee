@@ -6,6 +6,8 @@ resourceNameMap =
   projects: 'project'
   offices: 'office'
   slots: 'slot'
+  navbar: 'navbar'
+  profile: 'profile'
 
 createApiServer = (port)->
   resources = {}
@@ -37,6 +39,14 @@ createApiServer = (port)->
 
 
   server = require('./webserver')(port)
+
+  server.when.get '/api/v1/profile.json', (req, res)->
+    result = resources['profile']
+    res.json { "person": result }
+
+  server.when.get '/api/v1/navbar.json', (req, res)->
+    result = resources['navbar']
+    res.json result
 
   server.when.get '/api/v1/:resources.json', (req, res)->
     resName = req.params.resources
@@ -110,7 +120,7 @@ createApiServer = (port)->
   server.loadResources = (dir)->
     fs = require('fs')
     dir = require('path').resolve(dir)
-    known_resources = ['allocations', 'people', 'projects', 'offices', 'slots', 'navbar']
+    known_resources = ['allocations', 'people', 'projects', 'offices', 'slots', 'navbar', 'profile']
     resources = known_resources.reduce (resources, name)->
       fixturePath = "#{dir}/#{name}.json"
 
