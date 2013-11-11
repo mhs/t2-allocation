@@ -8,6 +8,10 @@ App.AllocationController = Ember.ObjectController.extend
     @get('office') != @get('currentOffice')
   ).property('currentOffice', 'office')
 
+  isNonbilling: (->
+    !@get('billable')
+  ).property('billable')
+
   startOffset: (->
     currentMonday = moment(App.projectsUI.get("date"))
     startDate = moment(@get("startDate")) || moment()

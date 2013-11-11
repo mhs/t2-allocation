@@ -44,6 +44,7 @@
   line-height: 29px;
 
   &.available { background-color: rgb(245, 100, 100); }
+  &.nonbilling { background-color: rgb(245, 100, 100); }
   &.external { opacity: 0.5; }
 }
 
