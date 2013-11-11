@@ -5,7 +5,15 @@ App.Project = App.defineModel 'projects', 'project',
   billable: Ember.attr()
   vacation: Ember.attr()
 
-  sortOrder: 0
+  sortOrder: (->
+    val = 0
+    if !@get('billable')
+      val += 1
+    if @get('vacation')
+      val += 2
+    val
+  ).property('billable', 'vacation')
+
   slots: Ember.hasMany("App.Slot",
     key: "slot_ids"
   )

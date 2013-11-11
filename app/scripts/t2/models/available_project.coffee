@@ -1,4 +1,4 @@
 App.AvailableProject = Ember.Model.extend
   availableProject: true
 
-  sortOrder: 1
+  sortOrder: 4
