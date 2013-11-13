@@ -1,6 +1,7 @@
 #calendarBar {
   overflow: hidden;
   position: relative;
+  width: 100%;
   height: $calendar-height;
   border-bottom: 1px solid #aaa;
   background-color: #fdfdfd;
@@ -9,11 +10,12 @@
 .calendar-date-selector {
   position: absolute;
   height: 100%;
-  width: $sidebar-width - 4px;
+  width: $sidebar-width;
   font-size: 14px;
-  padding: 4px 0 0 4px;
+  padding: 7px 0 0;
   color: #888;
-  background-color: #f8f0f0;
+  border-right: 1px solid #e6e6e6;
+  text-align: center;
 
   .datepicker { width: 95%; }
 }
@@ -32,11 +34,10 @@
 .week {
   display: block;
   float: left;
-  width: 108px;
+  width: 112px;
   height: $calendar-height;
   border-right: 1px solid #ebebeb;
-  padding-left: 3px;
+  padding: 3px 0 0 3px;
   color: #888;
   font-size: 12px;
-  line-height: 150%;
 }
