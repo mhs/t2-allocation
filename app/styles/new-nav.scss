@@ -1,0 +1,172 @@
+$blue: $blue_accent;
+$white: white;
+
+header {
+  width: 100%;
+  box-shadow: 0 1px 2px rgba(0,0,0,.2);
+  position: fixed;
+  z-index: 1;
+}
+
+nav {
+  float: right;
+  color: $white;
+  font-weight: bold;
+  text-shadow: 0 1px 1px rgba(0,0,0,.15);
+
+  ul {
+    padding: 0;
+    margin: 7px 20px 0 0;
+    float: right;
+    list-style-type: none;
+  }
+
+  li {
+    @include transition(all .3s);
+    cursor: pointer;
+    margin: -14px 0px 0 0;
+    padding: 12px 20px;
+    height: 44px;
+    float: left;
+    border-right: 1px solid transparent;
+    border-left: 1px solid transparent;
+
+    &:hover {
+      background: rgba($white, .15);
+      border-right: 1px solid rgba($white, .05);
+      border-left: 1px solid rgba($white, .05);
+    }
+
+    &.selected-application {
+      background: #68CFED;
+      border-right: 1px solid #5AC5E7;
+      border-left: 1px solid #5AC5E7;
+    }
+
+    &.pto i {
+      @include transform(rotate(-45deg));
+      text-shadow: -1px 1px 1px rgba(0,0,0,.15);
+
+    }
+
+    &.allocations i {
+      @include transform(rotate(90deg));
+      text-shadow: 1px 0 1px rgba(0,0,0,.15);
+    }
+
+    i {
+      display: inline-block;
+      margin: 0 6px 0 0;
+    }
+  }
+  a {
+    color: white;
+    text-decoration: none;
+  }
+}
+
+.user-actions {
+  margin: 10px 3px 0 0;
+  float: right;
+}
+
+.global-logout, .global-settings {
+  cursor: pointer;
+  margin: 0 10px 0 0;
+  float: right;
+
+  i {
+    font-size: 44px;
+  }
+}
+
+.logo {
+  @include retina-image(/styles/images/logo, 100%);
+  @include size(60 22);
+  display: block;
+  margin: 5px 6px 0 0;
+  float: right;
+}
+
+.nav-bar {
+  @include size(100% 44);
+  padding: 7px 8px;
+  background: $blue;
+  box-shadow: inset 0 -1px 2px rgba(0,0,0,.05);
+
+  button, select {
+    border: 1px solid #66C5E0;
+    border-bottom: 1px solid #5FBAD3;
+  }
+
+  select {
+    @include appearance(none);
+    cursor: pointer;
+  }
+}
+
+.date-timeline {
+  height: 32px;
+}
+
+.office-select, .project-person-toggle {
+  margin: 0 8px 0 0;
+  float: left;
+
+  i {
+    position: relative;
+    top: 1px;
+  }
+}
+
+i {
+  line-height: 0;
+  font-size: 24px;
+  font-weight: normal;
+  font-style: normal;
+  font-family: entypo;
+}
+
+button, select {
+  @include transition(all .05s);
+  @include size(176 29);
+  text-align: center;
+  padding: 1px 0 0;
+  outline: none;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 700;
+
+  i {
+    margin: 0 0 0 5px;
+  }
+
+  &.blue-button {
+    @include linear-gradient(#76DCF9, #6FD2EE);
+    text-shadow: 0 1px 1px rgba(0,0,0,.15);
+    color: $white;
+
+    &:active {
+      @include linear-gradient(#64C1DC, #76DCF9);
+      border: 1px solid darken(#66C5E0, 20%);
+      border-bottom: 1px solid #5FBAD3;
+      box-shadow: inset 0 1px 3px rgba(0,0,0, .3),
+                        0 1px 0 rgba($white, .2);
+    }
+  }
+
+  &.white-button {
+    @include linear-gradient(#FFFFFF, #EFEFEF);
+    text-shadow: 0 1px 0 $white;
+    color: #8A8A8A;
+    padding: 0 0 0 44px;
+
+    &:active {
+      @include linear-gradient(#D2D2D2, #FFFFFF);
+      border: 1px solid darken(#66C5E0, 20%);
+      border-bottom: 1px solid #5FBAD3;
+      box-shadow: inset 0 1px 2px rgba(0,0,0, .4),
+                        0 1px 0 rgba($white, .2);
+    }
+  }
+}

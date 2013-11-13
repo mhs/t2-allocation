@@ -1,16 +1,26 @@
+@import "bourbon/bourbon";
+@import url(http://fonts.googleapis.com/css?family=Montserrat:400,700);
+@include font-face(entypo, '/styles/fonts/entypo');
+
 @import 'helpers';
 @import 'calendar';
 @import 'controls';
 @import 'modal';
 @import 'projects';
 @import 'colors';
-@import 'nav';
+@import 'new-nav';
 
+
+* {
+  @include box-sizing(border-box);
+}
 
 body {
   margin: 0;
-  font-family: 'Myriad Pro', 'Gill Sans', 'Gill Sans MT', Calibri, sans-serif;
+  font-family:'Montserrat', sans-serif;
+  font-weight: 400;
   background-color: #fff;
+  -webkit-font-smoothing: antialiased;
 }
 
 .sign-out-link { font-size: 9pt; }
@@ -29,21 +39,6 @@ body {
 }
 
 .content-wrapper {
-  margin-left: 48px;
   height: 100%;
-}
-
-.navigation-frame {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 99;
-  width: 48px;
-
-  iframe {
-    height: 100%;
-    width: 100%;
-  }
 }
 
