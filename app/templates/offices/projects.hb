@@ -8,10 +8,6 @@
                             class="white-button office-select"}}
     <button class="blue-button project-person-toggle"> Projects<i>&#59215;</i></button>
     {{view App.NavView}}
-    <!--
-    <button class="new-project-button" {{action createProject}}>Add Project</button>
-    <button class="new-allocation-button" {{action createAllocation}}>Add Allocation</button>
-    -->
   </section>
 
   <section id="calendarBar">
@@ -36,7 +32,11 @@
     {{#if project.availableProject}}
       {{ render 'availableProject' project }}
     {{else}}
-      {{ render 'project' project }}
+      {{#if project.dummyProject}}
+        {{ render 'dummyProject' project }}
+      {{else}}
+        {{ render 'project' project }}
+      {{/if}}
     {{/if}}
   {{/each}}
 </section>

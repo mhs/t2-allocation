@@ -10,6 +10,9 @@ App.OfficesProjectsController = Ember.ObjectController.extend
   sortedProjects: (->
     projects = @get('projects')
     people = @get('people')
+    unless projects.findBy('dummyProject', true)
+      dummyProject = App.DummyProject.create()
+      projects.pushObject(dummyProject)
     unless projects.findBy('name', 'Available')
       availableProject = App.AvailableProject.create(people: people, office: @content, name: "Available")
       projects.pushObject(availableProject)

@@ -30,3 +30,7 @@ App.ProjectController = Ember.ObjectController.extend
   projectHeight: (->
     "height: " + (@get("trackCount") * App.ALLOCATION_HEIGHT + 1) + "px;"
   ).property("trackCount")
+
+  actions:
+    addAllocation: ->
+      @send 'createAllocation', { project: @get('model') }
