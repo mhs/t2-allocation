@@ -26,6 +26,7 @@ App.AllocationsModalController.reopen
   _initForm: (allocation)->
     for n in EDITABLE_PROPERTIES
       @set(n, allocation.get(n))
+    @_wasNew = allocation.get('isNew')
     @_initialProject = allocation.get('project')
 
   _applyChanges: (allocation)->
@@ -33,7 +34,7 @@ App.AllocationsModalController.reopen
       allocation.set(n, @get(n))
 
     newProject = @get('project')
-    if newProject != @_initialProject
+    if newProject != @_initialProject || @_wasNew
       @_initialProject.get('allocations').removeObject(allocation) if @_initialProject
       newProject.get('allocations').pushObject(allocation) if newProject
 

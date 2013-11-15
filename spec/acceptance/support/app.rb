@@ -209,11 +209,14 @@ module T2
     end
 
     def projects
-      page.all('.project').map { |el| ProjectView.new(el, page) }
+      page.all('.project').map do |el|
+        next if el['class'] && el['class'].include?('dummy-project')
+        ProjectView.new(el, page)
+      end.compact
     end
 
     def create_project
-      page.find('.new-project-button').click
+      page.find('.dummy-project .project-descriptor .white-button').click
       project_editor
     end
 
@@ -253,7 +256,7 @@ module T2
     end
 
     def add_allocation_button
-      page.find('.new-allocation-button')
+      page.find('.add-allocation')
     end
 
     def visit(path, access_token = nil)
@@ -262,7 +265,7 @@ module T2
     end
 
     def sign_out
-      page.click_link 'q sign out'
+      visit '/sign_out'
     end
 
     def sign_in(token)

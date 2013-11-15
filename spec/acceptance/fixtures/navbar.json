@@ -1,6 +1,12 @@
 {
   "navbar": {
-    "top": [],
+    "top": [
+      {
+        "url": "http://localhost:9001",
+        "title": "Dummy",
+        "icon": "X"
+      }
+    ],
     "bottom": []
   }
 }

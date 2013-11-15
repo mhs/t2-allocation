@@ -8,7 +8,6 @@ feature 'Projects' do
 
   scenario 'signing in' do
     app.sign_out
-    expect(current_url).to match(/sign_out/)
 
     app.visit('/')
     wait_for { current_url.match(/sign_in/) }
@@ -49,14 +48,14 @@ feature 'Projects' do
 
       form.start_date('2013-07-14')
       form.end_date('2013-08-14')
-      form.person('Dave Anderson')
+      form.person('Mike Doel')
       form.project('Nexia Home')
       form.notes('Allocation note')
       form.save()
     end
 
     expect(app.projects.first.allocations).to have(1).allocation
-    expect(app.projects.first.allocations.first.text).to match(/Dave/)
+    expect(app.projects.first.allocations.first.text).to match(/Mike/)
   end
 
   scenario 'cancel new allocation editor' do
@@ -69,8 +68,8 @@ feature 'Projects' do
     app.allocation_editor.tap  do |form|
       expect(form).to be_visible
 
-      form.start_date('2013-07-14')
-      form.end_date('2013-08-14')
+      form.start_date('2013-06-14')
+      form.end_date('2013-06-21')
       form.person('Dave Anderson')
       form.project('Nexia Home')
       form.cancel()
@@ -81,6 +80,7 @@ feature 'Projects' do
 
   scenario 'edit allocation' do
     app.set_current_date('06/01/2013')
+    app.select_office 'Cincinnati'
 
     allocation = app.projects.first.allocations.first
     app.edit_allocation(allocation).tap do |form|
@@ -113,6 +113,7 @@ feature 'Projects' do
 
   scenario 'delete allocation' do
     app.set_current_date('06/01/2013')
+    app.select_office 'Cincinnati'
 
     first_project = app.projects.first
     expect(first_project).to have(4).allocations
@@ -133,6 +134,7 @@ feature 'Projects' do
 
   scenario 'create project' do
     app.set_current_date('06/01/2013')
+    app.select_office 'Cincinnati'
     expect(app).to have(2).projects
 
     app.create_project.tap do |form|
@@ -150,14 +152,14 @@ feature 'Projects' do
 
     expect(app).to have(3).projects
     myProjectIndex = 0
-    if app.projects[myProjectIndex].name != 'My Project'
+    if app.projects[myProjectIndex].name !~ /My Project/
       myProjectIndex = 1
     end
-    expect(app.projects[myProjectIndex].name).to eql('My Project')
+    expect(app.projects[myProjectIndex].name).to match(/My Project/)
 
     app.edit_project(app.projects[myProjectIndex]).tap do |form|
       expect(form).to be_visible
-      expect(form.name).to eql('My Project')
+      expect(form.name).to match(/My Project/)
       expect(form.billable).to be_true
       expect(form.offices).to eql(['Cincinnati', 'Singapore'])
       expect(form.notes).to eql('my project note')
@@ -172,7 +174,7 @@ feature 'Projects' do
     expect(app).to have(4).allocations
 
     first_project = app.projects.first
-    expect(first_project.name).to eql('T3')
+    expect(first_project.name).to match(/T3/)
 
     app.edit_project(first_project).tap do |form|
       form.delete()
@@ -194,10 +196,10 @@ feature 'Projects' do
     app.set_current_date('06/01/2013')
 
     expect(app).to have(2).projects
-    expect(app.projects.first.name).to eql('Nexia Home')
+    expect(app.projects.first.name).to match(/Nexia Home/)
 
     app.select_office 'Cincinnati'
     expect(app).to have(2).projects
-    expect(app.projects.first.name).to eql('T3')
+    expect(app.projects.first.name).to match(/T3/)
   end
 end
