@@ -28,21 +28,6 @@ App.OfficesProjectsRoute = Ember.Route.extend
       @send 'editAllocation', App.Allocation.create(Ember.merge(defaults, allocationAttrs))
 
     editAllocation: (allocation) ->
-      # TODO: filter by people in the current office
-      sortByName =
-        sortProperties: ['name']
-        content: App.Person.find()
-
-      people = Ember.ArrayProxy.createWithMixins(Ember.SortableMixin, sortByName)
-      @controllerFor("allocations.modal").set "people", people
-
-      # TODO: filter by projects in the current office
-      sortByName =
-        sortProperties: ['sortOrder', 'name']
-        content: App.Project.find()
-
-      projects = Ember.ArrayProxy.createWithMixins(Ember.SortableMixin, sortByName)
-      @controllerFor("allocations.modal").set "projects", projects
       @controllerFor("allocations.modal").edit allocation
       @send "openModal", "allocations.modal"
 

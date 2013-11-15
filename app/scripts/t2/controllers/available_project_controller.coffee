@@ -37,3 +37,8 @@ App.AvailableProjectController  = Ember.ObjectController.extend
     'availabilityStart',
     'availabilityEnd',
     'App.projectsUI.allocationUpdates')
+
+  actions:
+    addAllocation: ->
+      @send 'createAllocation', {}
+
