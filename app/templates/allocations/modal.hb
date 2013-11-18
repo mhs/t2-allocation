@@ -31,16 +31,6 @@
         {{view Ember.TextArea valueBinding="notes"}}
         {{#each msg in errors.notes}}{{msg}}{{/each}}
       </div>
-      <div {{bindAttr class="errors.person:error :field"}}>
-        <label>Person</label>
-        {{view Ember.Select contentBinding="people"
-                            optionLabelPath="content.name"
-                            optionValuePath="content"
-                            valueBinding="person"
-                            selectionBinding="person"
-                            prompt="Select a name"}}
-        {{#each msg in errors.person}}{{msg}}{{/each}}
-      </div>
       <div {{bindAttr class="errors.project:error :field"}}>
         <label>Project</label>
         {{view Ember.Select contentBinding="projects"
@@ -50,6 +40,16 @@
                             selectionBinding="project"
                             prompt="Select a project"}}
         {{#each msg in errors.project}}{{msg}}{{/each}}
+      </div>
+      <div {{bindAttr class="errors.person:error :field"}}>
+        <label>Person</label>
+        {{view Ember.Select contentBinding="people"
+                            optionLabelPath="content.name"
+                            optionValuePath="content"
+                            valueBinding="person"
+                            selectionBinding="person"
+                            prompt="Select a name"}}
+        {{#each msg in errors.person}}{{msg}}{{/each}}
       </div>
     </div>
     <div class="modal-footer">

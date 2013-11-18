@@ -16,12 +16,33 @@ editableProps = EDITABLE_PROPERTIES.reduce (props, name)->
 App.AllocationsModalController = App.ModalController.extend editableProps
 
 App.AllocationsModalController.reopen
+  needs: ['officesProjects'],
+  currentOffice: Ember.computed.alias('controllers.officesProjects.model'),
+
   isDirty: true
 
   _initialProject: null
 
-  people: []
-  projects: []
+  people: (->
+    project = @get('project')
+    if !project
+      return []
+    sortByName =
+      sortProperties: ['name']
+      content: []
+    people = Ember.ArrayProxy.createWithMixins(Ember.SortableMixin, sortByName)
+    for office in project.get('offices').toArray()
+      people.pushObjects(office.get('people').toArray())
+    people
+  ).property('project')
+
+  projects: (->
+    projects = @get('currentOffice.projects')
+    sortByName =
+      sortProperties: ['sortOrder', 'name']
+      content: projects
+    Ember.ArrayProxy.createWithMixins(Ember.SortableMixin, sortByName)
+  ).property('currentOffice')
 
   _initForm: (allocation)->
     for n in EDITABLE_PROPERTIES
