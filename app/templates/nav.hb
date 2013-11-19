@@ -7,7 +7,7 @@
       </a>
     </div>
   {{/each}}
-  <div class="global-logout"><i>&#59201;</i></div>
+  <div class="global-logout"><a href="/#/sign_out"><i>&#59201;</i></a></div>
 </div>
 <ul>
   {{#each link in view.top_links}}
