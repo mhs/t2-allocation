@@ -36,6 +36,12 @@ App.AllocationsModalController.reopen
     people
   ).property('project')
 
+  billableObserver: (->
+    project = @get('project')
+    return if !project
+    @set('billable', project.get('billable')) if @_wasNew
+  ).observes('project')
+
   projects: (->
     projects = @get('currentOffice.projects')
     sortByName =
@@ -45,10 +51,11 @@ App.AllocationsModalController.reopen
   ).property('currentOffice')
 
   _initForm: (allocation)->
-    for n in EDITABLE_PROPERTIES
-      @set(n, allocation.get(n))
     @_wasNew = allocation.get('isNew')
     @_initialProject = allocation.get('project')
+    @set('project', null)
+    for n in EDITABLE_PROPERTIES
+      @set(n, allocation.get(n))
 
   _applyChanges: (allocation)->
     for n in EDITABLE_PROPERTIES
