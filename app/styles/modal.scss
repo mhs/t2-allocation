@@ -1,5 +1,6 @@
 $modal-width: 600px;
 
+
 .modal {
   background: white;
   z-index: 1;
@@ -13,6 +14,20 @@ $modal-width: 600px;
   opacity: 0;
   -webkit-transform: scale(0.6);
   -webkit-transition: all .250s ease-out;
+
+  i {
+    position: absolute;
+    left: -30px;
+    top: 10px;
+    font-size: 36px;
+    font-family: "entypo";
+    }
+
+  label {
+    display: block;
+    margin: 0 0 5px 0;
+    font-size: 20px;
+  }
 }
 
 .modal.in {
@@ -21,20 +36,85 @@ $modal-width: 600px;
 }
 
 .modal-header {
+  font-size: 22px;
   padding: 20px;
   font-weight: bold;
-  border-bottom: 1px solid #efefef;
+  background: $blue;
+  color: white;
+}
+
+.close-x {
+  font-family: "entypo";
+  font-size: 56px;
+  float: right;
+  position: relative;
+  bottom: 14px;
 }
 
 .modal-body {
   padding: 20px;
+  margin: 0 0 0 30px;
 
-  .field label {
+  .field label, select {
     display: block;
   }
 
   .error {
     color: red;
+  }
+}
+
+.modal-project, .modal-person {
+  margin: 0 0 20px 0;
+  position: relative;
+}
+
+
+.dates, .options, .notes {
+  @include clearfix;
+  position: relative;
+
+input, textarea {
+  padding: 3px;
+  font-size: 14px;
+  display: block;
+  }
+}
+
+.dates span {
+  float: left;
+  position: relative;
+  top: 18px;
+  font-size: 28px;
+  }
+
+.start, .end {
+  float: left;
+}
+
+.start {
+  margin: 0 10px 20px 0;
+}
+
+.end {
+  margin: 0 0 20px 10px;
+}
+
+.billable, .exclusive {
+  float: left;
+
+  label:before {
+    font-family: "entypo";
+    position: relative;
+    content: "";
+    width: 18px;
+    height: 18px;
+    border: 1px solid black;
+    background: white
+  }
+
+  input[type=checkbox] {
+    display: none;
   }
 }
 
