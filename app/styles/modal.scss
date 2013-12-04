@@ -36,6 +36,27 @@ $modal-width: 600px;
     padding: 10px;
     border: none;
   }
+
+input, textarea {
+  padding: 3px;
+  font-size: 14px;
+  display: block;
+  color: gray;
+  }
+
+textarea {
+  font-weight: bold;
+  height: 60px;
+  resize: none;
+  padding: 10px;
+  width: 100%;
+  border: 1px solid $dark-gray;
+  font-weight: bold;
+
+  &:focus {
+    outline: 2px solid $dark-gray;
+  }
+}
 }
 
 .modal.in {
@@ -73,31 +94,42 @@ $modal-width: 600px;
   }
 }
 
-.modal-project, .modal-person {
+.project-name {
+
+  input {
+    border: 1px solid $dark-gray;
+    font-weight: bold;
+
+    &:focus {
+      outline: 2px solid $dark-gray;
+    }
+  }
+}
+.modal-project, .modal-person, .project-name, .modal-offices {
   margin: 0 0 20px 0;
   position: relative;
+}
+
+.modal-offices {
+  margin: 20px 0;
+}
+
+.start-date, .end-date {
+  border: 1px solid $dark-gray;
+  font-weight: bold;
+
+  &:focus {
+    outline: 2px solid $dark-gray;
+  }
 }
 
 .options {
   margin: 0 0 10px 0;
 }
 
-.dates, .options, .notes {
+.dates, .options, .notes, .project-name, .offices {
   @include clearfix;
   position: relative;
-
-input, textarea {
-  padding: 3px;
-  font-size: 14px;
-  display: block;
-  }
-
-  textarea {
-    height: 60px;
-    resize: none;
-    padding: 10px;
-    width: 100%
-  }
 }
 
 .dates span {
@@ -119,20 +151,22 @@ input, textarea {
   margin: 0 0 20px 10px;
 }
 
-.start-date, .end-date, textarea {
-  border: 1px solid $dark-gray;
-  font-weight: bold;
-
-  &:focus {
-    outline: 2px solid $dark-gray;
-  }
-}
-
 .billable, .exclusive {
-  @include user-select(none);
   float: left;
   margin: 0 20px 0 0;
 
+  &.project-modal {
+    float: none;
+    margin: 0 0 15px 0;
+  }
+}
+
+.modal-offices {
+  margin: 20px 0 0 0;
+}
+
+.billable, .exclusive, .modal-offices, .modal-office {
+  @include user-select(none);
 
 span::before {
   font-family: "entypo";
@@ -150,7 +184,7 @@ input[type=checkbox] {
   display: none;
 }
 
-input[type=checkbox]:checked + span::before {
+input[type=checkbox]:checked ~ span::before {
   font-family: "entypo";
   content: '\2713';
   font-size: 60px;
