@@ -5,6 +5,7 @@ $modal-width: 600px;
   background: white;
   z-index: 1;
   position: fixed;
+  color: gray;
   top: 10%;
   left: 50%;
   z-index: 1050;
@@ -17,9 +18,9 @@ $modal-width: 600px;
 
   i {
     position: absolute;
-    left: -30px;
+    left: -35px;
     top: 10px;
-    font-size: 36px;
+    font-size: 46px;
     font-family: "entypo";
     }
 
@@ -27,6 +28,13 @@ $modal-width: 600px;
     display: block;
     margin: 0 0 5px 0;
     font-size: 20px;
+  }
+
+  button {
+    width: auto;
+    height: auto;
+    padding: 10px;
+    border: none;
   }
 }
 
@@ -49,10 +57,11 @@ $modal-width: 600px;
   float: right;
   position: relative;
   bottom: 14px;
+  cursor: pointer;
 }
 
 .modal-body {
-  padding: 20px;
+  padding: 20px 50px 20px 20px;
   margin: 0 0 0 30px;
 
   .field label, select {
@@ -69,6 +78,9 @@ $modal-width: 600px;
   position: relative;
 }
 
+.options {
+  margin: 0 0 10px 0;
+}
 
 .dates, .options, .notes {
   @include clearfix;
@@ -79,12 +91,19 @@ input, textarea {
   font-size: 14px;
   display: block;
   }
+
+  textarea {
+    height: 60px;
+    resize: none;
+    padding: 10px;
+    width: 100%
+  }
 }
 
 .dates span {
   float: left;
   position: relative;
-  top: 18px;
+  top: 27px;
   font-size: 28px;
   }
 
@@ -100,27 +119,60 @@ input, textarea {
   margin: 0 0 20px 10px;
 }
 
-.billable, .exclusive {
-  float: left;
+.start-date, .end-date, textarea {
+  border: 1px solid $dark-gray;
+  font-weight: bold;
 
-  label:before {
-    font-family: "entypo";
-    position: relative;
-    content: "";
-    width: 18px;
-    height: 18px;
-    border: 1px solid black;
-    background: white
-  }
-
-  input[type=checkbox] {
-    display: none;
+  &:focus {
+    outline: 2px solid $dark-gray;
   }
 }
 
+.billable, .exclusive {
+  @include user-select(none);
+  float: left;
+  margin: 0 20px 0 0;
+
+
+span::before {
+  font-family: "entypo";
+  position: relative;
+  content: "";
+  width: 18px;
+  height: 18px;
+  border: 1px solid $dark-gray;
+  background: white;
+  margin: 0 10px 0 0;
+  float: left;
+}
+
+input[type=checkbox] {
+  display: none;
+}
+
+input[type=checkbox]:checked + span::before {
+  font-family: "entypo";
+  content: '\2713';
+  font-size: 60px;
+  text-align: center;
+  line-height: .1;
+  float: left;
+  color: gray;
+  z-index: 2;
+}
+}
+
 .modal-footer {
-  padding: 20px;
-  border-top: 1px solid #efefef;
+  padding: 0 20px 20px 20px;
+
+  a {
+    float: right;
+    position: relative;
+    top: 13px;
+    text-decoration: none;
+    color: gray;
+    margin: 0 0 0 10px;
+  }
 }
 
 .modal-backdrop {

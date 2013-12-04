@@ -5,13 +5,13 @@
     {{else}}
       Editing Allocation
     {{/if}}
-    <span class="close-x">&#10060;</span>
+    <span class="close-x" {{action close}}>&#10060;</span>
   </div>
   <div class="modal-body">
     <div class="modal-project" {{bindAttr class="errors.project:error :field"}}>
       <i>&#128710;</i>
       <label>Project</label>
-      {{view Ember.Select contentBinding="projects"
+      {{view Ember.Select class="white-button" contentBinding="projects"
                           optionLabelPath="content.name"
                           optionValuePath="content"
                           valueBinding="project"
@@ -22,7 +22,7 @@
     <div class="modal-person" {{bindAttr class="errors.person:error :field"}}>
       <i>&#128100;</i>
       <label>Person</label>
-      {{view Ember.Select contentBinding="people"
+      {{view Ember.Select class="white-button" contentBinding="people"
                           optionLabelPath="content.name"
                           optionValuePath="content"
                           valueBinding="person"
@@ -47,11 +47,11 @@
     </div>
     <div class="options">
       <div class="billable" data-test="billable" {{bindAttr class="errors.billable:error :field" }} >
-        <label>{{input type="checkbox" checked=billable}}Billable</label>
+        <label>{{input type="checkbox" checked=billable}}Billable<span></span></label>
         {{#each msg in errors.billable}}{{msg}}{{/each}}
       </div>
       <div class="exclusive" data-test="binding" {{bindAttr class="errors.binding:error :field"}}>
-        <label>{{input type="checkbox" checked=binding}}Binding</label>
+        <label>{{input type="checkbox" checked=binding}}Binding<span></span></label>
         {{#each msg in errors.binding}}{{msg}}{{/each}}
       </div>
     </div>
@@ -63,8 +63,8 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button class="submit" type="submit" {{bindAttr disabled="shouldDisableSubmit"}}>Save</button>
-    <button class="cancel" {{action close}}>Cancel</button>
+    <button class="blue-button" type="submit" {{bindAttr disabled="shouldDisableSubmit"}}>Save</button>
+    <button class="white-button" {{action close}}>Cancel</button>
     {{#if canDelete}}
       <a href="#" {{action delete}}>Delete</a>
     {{/if}}
