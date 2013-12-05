@@ -181,7 +181,7 @@ span::before {
 }
 
 input[type=checkbox] {
-  display: none;
+  position: absolute;
 }
 
 input[type=checkbox]:checked ~ span::before {

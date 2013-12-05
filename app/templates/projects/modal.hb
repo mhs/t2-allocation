@@ -15,7 +15,7 @@
         {{#each msg in errors.name}}{{msg}}{{/each}}
       </div>
       <div class="billable project-modal" {{bindAttr class="errors.billable:error :field"}}>
-        <label>{{input type="checkbox" checked=billable}}Billable<span></span></label>
+        <label>{{input type="checkbox" checked=billable}}Billable<span id="billable-check"></span></label>
         {{#each msg in errors.billable}}{{msg}}{{/each}}
       </div>
       <div class="notes" {{bindAttr class="errors.notes:error :field"}}>
@@ -27,7 +27,7 @@
         <label>Offices</label>
         {{#each offices}}
           <div class="modal-office" data-test="office">
-            <label>{{input type="checkbox" checked=isSelected}}{{name}}<span></span></label>
+            <label {{bind-attr class="name"}}>{{input type="checkbox" checked=isSelected}}{{name}}<span></span></label>
           </div>
         {{/each}}
       </div>
