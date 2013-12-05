@@ -70,7 +70,7 @@ feature 'Projects' do
 
       form.start_date('2013-06-14')
       form.end_date('2013-06-21')
-      form.person('Dave Anderson')
+      form.person('Mike Doel')
       form.project('Nexia Home')
       form.cancel()
     end

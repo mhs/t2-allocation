@@ -1,15 +1,14 @@
 @import "bourbon/bourbon";
 @import url(http://fonts.googleapis.com/css?family=Montserrat:400,700);
 @include font-face(entypo, '/styles/fonts/entypo');
+@import 'colors';
 
 @import 'helpers';
 @import 'calendar';
 @import 'controls';
-@import 'modal';
 @import 'projects';
-@import 'colors';
+@import 'modal';
 @import 'new-nav';
-
 
 * {
   @include box-sizing(border-box);

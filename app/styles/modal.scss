@@ -1,9 +1,11 @@
 $modal-width: 600px;
 
+
 .modal {
   background: white;
   z-index: 1;
   position: fixed;
+  color: gray;
   top: 10%;
   left: 50%;
   z-index: 1050;
@@ -13,6 +15,48 @@ $modal-width: 600px;
   opacity: 0;
   -webkit-transform: scale(0.6);
   -webkit-transition: all .250s ease-out;
+
+  i {
+    position: absolute;
+    left: -35px;
+    top: 10px;
+    font-size: 46px;
+    font-family: "entypo";
+    }
+
+  label {
+    display: block;
+    margin: 0 0 5px 0;
+    font-size: 20px;
+  }
+
+  button {
+    width: auto;
+    height: auto;
+    padding: 10px;
+    border: none;
+  }
+
+input, textarea {
+  padding: 3px;
+  font-size: 14px;
+  display: block;
+  color: gray;
+  }
+
+textarea {
+  font-weight: bold;
+  height: 60px;
+  resize: none;
+  padding: 10px;
+  width: 100%;
+  border: 1px solid $dark-gray;
+  font-weight: bold;
+
+  &:focus {
+    outline: 2px solid $dark-gray;
+  }
+}
 }
 
 .modal.in {
@@ -21,15 +65,27 @@ $modal-width: 600px;
 }
 
 .modal-header {
+  font-size: 22px;
   padding: 20px;
   font-weight: bold;
-  border-bottom: 1px solid #efefef;
+  background: $blue;
+  color: white;
+}
+
+.close-x {
+  font-family: "entypo";
+  font-size: 56px;
+  float: right;
+  position: relative;
+  bottom: 14px;
+  cursor: pointer;
 }
 
 .modal-body {
-  padding: 20px;
+  padding: 20px 50px 20px 20px;
+  margin: 0 0 0 30px;
 
-  .field label {
+  .field label, select {
     display: block;
   }
 
@@ -38,9 +94,119 @@ $modal-width: 600px;
   }
 }
 
+.project-name {
+
+  input {
+    border: 1px solid $dark-gray;
+    font-weight: bold;
+
+    &:focus {
+      outline: 2px solid $dark-gray;
+    }
+  }
+}
+.modal-project, .modal-person, .project-name, .modal-offices {
+  margin: 0 0 20px 0;
+  position: relative;
+}
+
+.modal-offices {
+  margin: 20px 0;
+}
+
+.start-date, .end-date {
+  border: 1px solid $dark-gray;
+  font-weight: bold;
+
+  &:focus {
+    outline: 2px solid $dark-gray;
+  }
+}
+
+.options {
+  margin: 0 0 10px 0;
+}
+
+.dates, .options, .notes, .project-name, .offices {
+  @include clearfix;
+  position: relative;
+}
+
+.dates span {
+  float: left;
+  position: relative;
+  top: 27px;
+  font-size: 28px;
+  }
+
+.start, .end {
+  float: left;
+}
+
+.start {
+  margin: 0 10px 20px 0;
+}
+
+.end {
+  margin: 0 0 20px 10px;
+}
+
+.billable, .exclusive {
+  float: left;
+  margin: 0 20px 0 0;
+
+  &.project-modal {
+    float: none;
+    margin: 0 0 15px 0;
+  }
+}
+
+.modal-offices {
+  margin: 20px 0 0 0;
+}
+
+.billable, .exclusive, .modal-offices, .modal-office {
+  @include user-select(none);
+
+span::before {
+  font-family: "entypo";
+  position: relative;
+  content: "";
+  width: 18px;
+  height: 18px;
+  border: 1px solid $dark-gray;
+  background: white;
+  margin: 0 10px 0 0;
+  float: left;
+}
+
+input[type=checkbox] {
+  position: absolute;
+}
+
+input[type=checkbox]:checked ~ span::before {
+  font-family: "entypo";
+  content: '\2713';
+  font-size: 60px;
+  text-align: center;
+  line-height: .1;
+  float: left;
+  color: gray;
+  z-index: 2;
+}
+}
+
 .modal-footer {
-  padding: 20px;
-  border-top: 1px solid #efefef;
+  padding: 0 20px 20px 20px;
+
+  a {
+    float: right;
+    position: relative;
+    top: 13px;
+    text-decoration: none;
+    color: gray;
+    margin: 0 0 0 10px;
+  }
 }
 
 .modal-backdrop {

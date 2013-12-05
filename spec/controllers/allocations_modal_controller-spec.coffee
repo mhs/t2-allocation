@@ -14,8 +14,14 @@ describe 'App.AllocationsModalController', ->
   projectSpy = null
   projectAllocationsSpy = null
 
+  setupTestStuff = ->
+    container = new Ember.Container()
+    container.register 'controller:officesProjects', {}
+    App.AllocationsModalController.create
+      container: container
+
   withSubject = (cb)->
-    cb(App.AllocationsModalController.create())
+    cb(setupTestStuff())
 
   assignAllocationTo = (subject)->
     subject.edit(allocationSpy)

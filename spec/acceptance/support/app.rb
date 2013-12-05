@@ -55,13 +55,11 @@ module T2
     end
 
     def billable(value=nil)
-      input = find_field('Billable')
+      input = find_field('Billable', visible: false)
       return input.checked? if value.nil?
-
-      if value
-        input.set(true)
-      else
-        input.set(false)
+      if input.checked? != value
+        # can't click on our pseudo element using capybara.
+        page.execute_script "$('#billable-check').click()"
       end
     end
   end
@@ -85,7 +83,7 @@ module T2
         end
 
         values.each do |name|
-          check(name)
+          page.execute_script "$('label.#{name} input').click();"
         end
       else
         offices.select{|o| o.find('input').checked?}.map(&:text)
@@ -118,18 +116,14 @@ module T2
     end
 
     def binding(value=nil)
-      input = find('[data-test="binding"] input')
+      input = find('[data-test="binding"] input', visible: false)
       return input.checked? if value.nil?
-
-      if value
-        input.set(true)
-      else
-        input.set(false)
-      end
+      # can't click on our pseudo element using capybara.
+      page.execute_script "$('#binding-check').click()" if input.checked? != value
     end
 
     def person(value=nil)
-      el = all('select')[0]
+      el = all('.modal-person select')[0]
       if value
         el.select(value)
       else
@@ -138,7 +132,7 @@ module T2
     end
 
     def project(value=nil)
-      el = all('select')[1]
+      el = all('.modal-project select')[0]
       if value
         el.select(value)
       else
