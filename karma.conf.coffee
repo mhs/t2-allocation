@@ -76,5 +76,5 @@ module.exports = (config)->
       options:
         bare: false
 
-    preporcessors:
+    preprocessors:
       '**/*.coffee': ['coffee']
