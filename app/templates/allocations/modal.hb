@@ -65,6 +65,9 @@
   <div class="modal-footer">
     <button class="blue-button" type="submit" {{bindAttr disabled="shouldDisableSubmit"}}>Save</button>
     <button class="white-button" {{action close}}>Cancel</button>
+    {{#if canDelete}}
+      <a href="#" {{action delete}}>Delete</a>
+    {{/if}}
     {{#if isSaving}}
       Saving...
     {{/if}}
