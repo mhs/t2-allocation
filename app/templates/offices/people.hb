@@ -6,7 +6,7 @@
                             selectionBinding="model"
                             data-test="offices"
                             class="white-button office-select"}}
-    <button class="blue-button project-person-toggle" {{action "switchToPeople"}}> Projects<i>&#59215;</i></button>
+    <button class="blue-button project-person-toggle" {{action "switchToProjects"}}> People<i>&#59215;</i></button>
     {{view App.NavView}}
   </section>
 
@@ -27,16 +27,8 @@
   </section>
 </header>
 
-<section id="projectList">
-  {{#each project in sortedProjects}}
-    {{#if project.availableProject}}
-      {{ render 'availableProject' project }}
-    {{else}}
-      {{#if project.dummyProject}}
-        {{ render 'dummyProject' project }}
-      {{else}}
-        {{ render 'project' project }}
-      {{/if}}
-    {{/if}}
+<section id="peopleList">
+  {{#each person in sortedPeople}}
+    {{ render 'person' person }}
   {{/each}}
 </section>

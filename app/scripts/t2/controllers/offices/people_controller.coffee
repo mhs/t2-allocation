@@ -1,4 +1,4 @@
-App.OfficesPeopleController = Ember.ObjectController.extend
+App.OfficesProjectsController = Ember.ObjectController.extend
   needs: ['offices']
 
   isEditingDate: false
@@ -7,15 +7,22 @@ App.OfficesPeopleController = Ember.ObjectController.extend
 
   offices: Ember.computed.alias('controllers.offices')
 
-  sortedPeople: (->
+  sortedProjects: (->
+    projects = @get('projects')
     people = @get('people')
+    unless projects.findBy('dummyProject', true)
+      dummyProject = App.DummyProject.create()
+      projects.pushObject(dummyProject)
+    unless projects.findBy('name', 'Available')
+      availableProject = App.AvailableProject.create(people: people, office: @content, name: "Available")
+      projects.pushObject(availableProject)
     sortByName =
       sortProperties: ['sortOrder', 'name']
-      content: people
+      content: projects
 
     Ember.ArrayProxy.
       createWithMixins(Ember.SortableMixin,sortByName)
-  ).property('people')
+  ).property('projects')
 
   firstDate: (->
     moment(@get("date")).format "MMMM D, YYYY"
@@ -47,6 +54,3 @@ App.OfficesPeopleController = Ember.ObjectController.extend
       dateValue = @get("date") unless moment(dateValue).isValid()
       @set "isEditingDate", false
       @set "date", moment(dateValue).format("L")
-
-    switchToPeople: ->
-      @transitionToRoute 'offices.people'
