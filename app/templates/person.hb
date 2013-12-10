@@ -9,8 +9,8 @@
     {{#view App.PersonEditView class="person-descriptor"}}
       {{ name }}
       <div class="person-controls">
-        <i class="edit-person" {{action editPerson model}}>&#9874;</i>
-        <i class="add-allocation" {{action addAllocation}}>&#10133;</i>
+        <a target="_blank" {{bind-attr href="editUrl"}}><i class="edit-person" >&#9874;</i></a>
+        <a target="_blank" {{bind-attr href="newUrl"}}><i class="add-allocation" >&#10133;</i></a>
       </div>
     {{/view}}
   </article>

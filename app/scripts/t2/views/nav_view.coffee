@@ -19,5 +19,6 @@ App.NavView = Ember.View.extend
         current_link.classes = ''
       current_link.classes += ' selected-application'
       self.set('top_links', top_links)
+      App.projectsUI.set 'peopleUrl', (data.top.findBy('link_text', 'profile').url.split('?')[0] + '/#/people/')
       self.set('bottom_links', Ember.ArrayProxy.create({content: data.bottom}))
     )

@@ -35,3 +35,12 @@ App.Person = App.defineModel 'people', 'person',
     merged.push {startDate: start, endDate: end}
     merged
   ).property("App.projectsUI.startDate", "App.projectsUI.endDate",'allocation.[]','allocations.@each.current')
+
+  editUrl:(->
+    App.projectsUI.get('peopleUrl') + @get('id') + '/edit'
+  ).property("App.projectsUI.peopleUrl")
+
+  newUrl:(->
+    App.projectsUI.get('peopleUrl') + 'new'
+  ).property("App.projectsUI.peopleUrl")
+
