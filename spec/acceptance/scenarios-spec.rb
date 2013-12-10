@@ -166,31 +166,6 @@ feature 'Projects' do
     end
   end
 
-  scenario 'delete project' do
-    app.select_office 'Cincinnati'
-    app.set_current_date('06/01/2013')
-
-    expect(app).to have(2).projects
-    expect(app).to have(4).allocations
-
-    first_project = app.projects.first
-    expect(first_project.name).to match(/T3/)
-
-    app.edit_project(first_project).tap do |form|
-      form.delete()
-      wait_for { form.is_hidden_or_gone? }
-    end
-
-    expect(app).to have(1).projects
-    expect(app.allocations).to be_empty
-
-    app.visit('/')
-    app.set_current_date('06/01/2013')
-    app.select_office 'Cincinnati'
-    expect(app).to have(1).projects
-    expect(app.allocations).to be_empty
-  end
-
   scenario 'filter by office' do
     app.select_office 'Columbus'
     app.set_current_date('06/01/2013')
