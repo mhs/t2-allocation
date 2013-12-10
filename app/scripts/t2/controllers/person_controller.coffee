@@ -1,6 +1,6 @@
 App.PersonController = Ember.ObjectController.extend
-  needs: ['officesPeople']
-  currentOffice: Ember.computed.alias('controllers.officesPeople.model')
+  needs: ['people']
+  currentOffice: Ember.computed.alias('controllers.people.model')
 
   content: null
 

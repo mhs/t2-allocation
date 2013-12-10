@@ -1,8 +1,8 @@
 App.AvailabilityController = Ember.ObjectController.extend
-  # needs: ['officesProjects']
+  # needs: ['projects']
 
   #office: Ember.computed.alias('person.office')
-  #currentOffice: Ember.computed.alias('controllers.officesProjects.model')
+  #currentOffice: Ember.computed.alias('controllers.projects.model')
 
   isExternal: (-> false).property()
   #isExternal: (->

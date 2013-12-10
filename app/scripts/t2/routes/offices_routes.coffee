@@ -1,14 +1,4 @@
-App.OfficesRoute = Ember.Route.extend
-  model: ->
-    App.Office.fetch()
-
-App.OfficesIndexRoute = Ember.Route.extend
-  redirect: ->
-    offices = @modelFor('offices')
-    office = offices.findProperty('slug', @controllerFor('authentication').get('currentUser').office_slug)
-    @transitionTo 'offices.projects', office
-
-App.OfficesProjectsRoute = Ember.Route.extend
+App.ProjectsRoute = Ember.Route.extend
   actions:
     createProject: ->
       __hackEmberModel()
@@ -16,7 +6,7 @@ App.OfficesProjectsRoute = Ember.Route.extend
       @send 'editProject', App.Project.create()
 
     editProject: (project) ->
-      @controllerFor("projects.modal").set "availableOffices", @modelFor('offices')
+      @controllerFor("projects.modal").set "availableOffices", @controllerFor('application').get('offices')
       @controllerFor("projects.modal").edit project
       @send "openModal", "projects.modal"
 
@@ -32,19 +22,14 @@ App.OfficesProjectsRoute = Ember.Route.extend
       @send "openModal", "allocations.modal"
 
   model: (params)->
-    offices = @modelFor('offices')
-    offices.findProperty('slug', params.office)
+    offices = @modelFor('application').get('firstObject')
+    offices.findProperty('slug', params.slug)
 
-  serialize: (model)->
-    office: model.get('slug')
+  serialize: (model) ->
+    {slug: model.get('slug')}
 
-App.OfficesPeopleRoute = Ember.Route.extend
+App.PeopleRoute = Ember.Route.extend
   actions:
-    # editProject: (project) ->
-    #   @controllerFor("projects.modal").set "availableOffices", @modelFor('offices')
-    #   @controllerFor("projects.modal").edit project
-    #   @send "openModal", "projects.modal"
-
     createAllocation: (allocationAttrs={}) ->
       __hackEmberModel()
       defaults =
@@ -57,8 +42,8 @@ App.OfficesPeopleRoute = Ember.Route.extend
       @send "openModal", "allocations.modal"
 
   model: (params)->
-    offices = @modelFor('offices')
-    offices.findProperty('slug', params.office)
+    offices = @modelFor('application').get('firstObject')
+    offices.findProperty('slug', params.slug)
 
-  serialize: (model)->
-    office: model.get('slug')
+  serialize: (model) ->
+    {slug: model.get('slug')}

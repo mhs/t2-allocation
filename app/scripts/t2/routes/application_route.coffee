@@ -14,6 +14,10 @@ App.ApplicationRoute = Ember.Route.extend
       App.Allocation.fetch()
     ])
 
+  setupController: (controller, model) ->
+    controller.set 'model', model
+    controller.set 'offices', model.get('firstObject')
+
   actions:
     selectOffice: (office, routeName)->
       @transitionTo(routeName, office)
@@ -33,4 +37,3 @@ App.ApplicationRoute = Ember.Route.extend
         self.render "empty",
           into: "application"
           outlet: "modal"
-

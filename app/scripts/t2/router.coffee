@@ -1,9 +1,13 @@
 App.Router.map ->
   @route('sign_out')
-  @resource "offices",  ->
-    @route 'projects', path: ':office/projects'
-    @route 'people', path: ':office/people'
+  @route 'projects', path: 'projects/:slug'
+  @route 'people', path: 'people/:slug'
 
 App.IndexRoute = Ember.Route.extend
-  redirect: ->
-    @transitionTo('offices')
+  model: ->
+    @modelFor('application')
+  afterModel: (model, transition) ->
+    office_slug = @controllerFor('authentication').get('currentUser').office_slug
+    offices = @modelFor('application').get('firstObject')
+    office = offices.findProperty 'slug', office_slug
+    @transitionTo('projects', office)

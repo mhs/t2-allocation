@@ -1,8 +1,8 @@
 App.PersonAllocationController = Ember.ObjectController.extend
-  needs: ['officesPeople']
+  needs: ['people']
 
   office: Ember.computed.alias('project.office')
-  currentOffice: Ember.computed.alias('controllers.officesPeople.model')
+  currentOffice: Ember.computed.alias('controllers.people.model')
 
   isNonbilling: (->
     !@get('billable')

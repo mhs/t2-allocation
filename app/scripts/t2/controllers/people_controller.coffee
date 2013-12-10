@@ -1,11 +1,11 @@
-App.OfficesPeopleController = Ember.ObjectController.extend
-  needs: ['offices']
+App.PeopleController = Ember.ObjectController.extend
+  needs: ['application']
 
   isEditingDate: false
   dateBinding: "App.projectsUI.date"
   daysInWindowBinding: "App.projectsUI.daysInWindow"
 
-  offices: Ember.computed.alias('controllers.offices')
+  offices: Ember.computed.alias('controllers.application.offices')
 
   sortedPeople: (->
     people = @get('people')
@@ -36,7 +36,7 @@ App.OfficesPeopleController = Ember.ObjectController.extend
   ).property("date", "daysInWindow")
 
   modelChanged: (->
-    @send 'selectOffice', @get('model'), 'offices.people'
+    @send 'selectOffice', @get('model'), 'people'
   ).observes('model')
 
   actions:
@@ -49,4 +49,4 @@ App.OfficesPeopleController = Ember.ObjectController.extend
       @set "date", moment(dateValue).format("L")
 
     switchToProjects: ->
-      @transitionToRoute 'offices.projects', @get('model')
+      @transitionToRoute 'projects', @get('model')
