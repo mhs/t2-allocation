@@ -10,7 +10,7 @@
       {{ name }}
       <div class="person-controls">
         <a target="_blank" {{bind-attr href="editUrl"}}><i class="edit-person" >&#9874;</i></a>
-        <a target="_blank" {{bind-attr href="newUrl"}}><i class="add-allocation" >&#10133;</i></a>
+        <i class="add-allocation" {{action addAllocation}}>&#10133;</i>
       </div>
     {{/view}}
   </article>

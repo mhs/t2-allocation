@@ -37,10 +37,6 @@ App.Person = App.defineModel 'people', 'person',
   ).property("App.projectsUI.startDate", "App.projectsUI.endDate",'allocation.[]','allocations.@each.current')
 
   editUrl:(->
-    App.projectsUI.get('peopleUrl') + @get('id') + '/edit'
-  ).property("App.projectsUI.peopleUrl")
-
-  newUrl:(->
-    App.projectsUI.get('peopleUrl') + 'new'
-  ).property("App.projectsUI.peopleUrl")
+    App.PEOPLE_URL + @get('id') + '/edit'
+  ).property()
 
