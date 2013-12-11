@@ -42,6 +42,14 @@ App.AllocationsModalController.reopen
     @set('billable', project.get('billable')) if @_wasNew
   ).observes('project')
 
+  startDateDidChange: (->
+    startDate = @get('startDate')
+    endDate = @get('endDate')
+
+    if endDate && endDate < startDate
+      @set('endDate', startDate)
+  ).observes('startDate')
+
   projects: (->
     projects = @get('currentOffice.projects')
     sortByName =
