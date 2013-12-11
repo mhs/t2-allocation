@@ -1,4 +1,4 @@
-App.OfficesRoute = Ember.Route.extend
+App.OfficeRoute = Ember.Route.extend
 
   model: (params) ->
     offices = @modelFor('application').get('firstObject')
@@ -10,7 +10,7 @@ App.OfficesRoute = Ember.Route.extend
 App.ProjectsRoute = Ember.Route.extend
 
   model: ->
-    @modelFor('offices').get('projects')
+    @modelFor('office').get('projects')
 
   actions:
     createProject: ->
@@ -19,7 +19,7 @@ App.ProjectsRoute = Ember.Route.extend
       @send 'editProject', App.Project.create()
 
     editProject: (project) ->
-      @controllerFor("projects.modal").set "availableOffices", @controllerFor('offices').get('all')
+      @controllerFor("projects.modal").set "availableOffices", @controllerFor('office').get('all')
       @controllerFor("projects.modal").edit project
       @send "openModal", "projects.modal"
 
@@ -37,7 +37,7 @@ App.ProjectsRoute = Ember.Route.extend
 
 App.PeopleRoute = Ember.Route.extend
   model: ->
-    @modelFor('offices').get('people')
+    @modelFor('office').get('people')
 
   actions:
     createAllocation: (allocationAttrs={}) ->

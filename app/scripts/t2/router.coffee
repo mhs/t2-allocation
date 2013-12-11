@@ -1,6 +1,6 @@
 App.Router.map ->
   @route('sign_out')
-  @resource 'offices', path: 'offices/:slug', ->
+  @resource 'office', path: 'offices/:slug', ->
     @resource 'projects'
     @resource 'people'
 

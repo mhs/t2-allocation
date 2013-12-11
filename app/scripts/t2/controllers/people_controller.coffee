@@ -1,7 +1,7 @@
 App.PeopleController = Ember.ArrayController.extend
-  needs: ['offices']
+  needs: ['office']
 
-  office: Ember.computed.alias('controllers.offices.model')
+  office: Ember.computed.alias('controllers.office.model')
 
   sortedPeople: (->
     people = @get('model')

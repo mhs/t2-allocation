@@ -1,7 +1,7 @@
 App.ProjectsController = Ember.ArrayController.extend
-  needs: ['offices']
+  needs: ['office']
 
-  office: Ember.computed.alias('controllers.offices.model')
+  office: Ember.computed.alias('controllers.office.model')
 
   people: Ember.computed.alias('office.people')
 

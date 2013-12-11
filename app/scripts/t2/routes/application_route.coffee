@@ -14,10 +14,6 @@ App.ApplicationRoute = Ember.Route.extend
       App.Allocation.fetch()
     ])
 
-  setupController: (controller, model) ->
-    controller.set 'model', model
-    controller.set 'offices', model.get('firstObject')
-
   actions:
     error: (err) ->
       auth = @controllerFor('authentication')
