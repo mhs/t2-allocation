@@ -21,8 +21,3 @@ App.ProjectsController = Ember.ArrayController.extend
     Ember.ArrayProxy.
       createWithMixins(Ember.SortableMixin,sortByName)
   ).property('office')
-
-  actions:
-    switchToPeople: ->
-      @transitionToRoute 'offices.people', @get('office')
-

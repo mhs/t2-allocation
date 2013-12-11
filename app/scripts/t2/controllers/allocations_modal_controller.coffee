@@ -16,8 +16,8 @@ editableProps = EDITABLE_PROPERTIES.reduce (props, name)->
 App.AllocationsModalController = App.ModalController.extend editableProps
 
 App.AllocationsModalController.reopen
-  needs: ['projects'],
-  currentOffice: Ember.computed.alias('controllers.projects.model'),
+  needs: ['offices'],
+  currentOffice: Ember.computed.alias('controllers.offices.model'),
 
   isDirty: true
 

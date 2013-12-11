@@ -1,6 +1,10 @@
-App.PeopleController = App.ChartController.extend
+App.PeopleController = Ember.ArrayController.extend
+  needs: ['offices']
+
+  office: Ember.computed.alias('controllers.offices.model')
+
   sortedPeople: (->
-    people = @get('people')
+    people = @get('model')
     sortByName =
       sortProperties: ['sortOrder', 'name']
       content: people
@@ -8,11 +12,3 @@ App.PeopleController = App.ChartController.extend
     Ember.ArrayProxy.
       createWithMixins(Ember.SortableMixin,sortByName)
   ).property('people')
-
-  modelChanged: (->
-    @send 'selectOffice', @get('model'), 'people'
-  ).observes('model')
-
-  actions:
-    switchToProjects: ->
-      @transitionToRoute 'projects', @get('model')
