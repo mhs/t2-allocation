@@ -11,4 +11,4 @@ App.PeopleController = Ember.ArrayController.extend
 
     Ember.ArrayProxy.
       createWithMixins(Ember.SortableMixin,sortByName)
-  ).property('people')
+  ).property('office', 'model')

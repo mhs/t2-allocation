@@ -20,4 +20,4 @@ App.ProjectsController = Ember.ArrayController.extend
 
     Ember.ArrayProxy.
       createWithMixins(Ember.SortableMixin,sortByName)
-  ).property('office')
+  ).property('office', 'model')

@@ -12,9 +12,14 @@ App.OfficeController = Ember.ObjectController.extend
     @get('controllers.application.currentRouteName') == 'people'
   ).property('controllers.application.currentRouteName')
 
+  modelChanged: (->
+    route = @get('controllers.application.currentRouteName')
+    @transitionToRoute route, @get('model')
+  ).observes('model')
+
   actions:
     switchToPeople: ->
-      @transitionToRoute 'people', @get('office')
+      @transitionToRoute 'people', @get('model')
 
     switchToProjects: ->
-      @transitionToRoute 'projects', @get('office')
+      @transitionToRoute 'projects', @get('model')
