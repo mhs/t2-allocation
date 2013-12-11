@@ -14,7 +14,7 @@ App.AllocationController = Ember.ObjectController.extend
 
   startOffset: (->
     currentMonday = moment(App.projectsUI.get("date"))
-    startDate = moment(@get("startDate")) || moment()
+    startDate = moment(App.dateMunge(@get('startDate')))
     startDate.diff currentMonday, "days"
   ).property("App.projectsUI.date", "startDate")
 

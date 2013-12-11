@@ -9,4 +9,4 @@ App.TextDate =
   serialize: (date) ->
     if !date
       return null
-    moment(date).format('YYYY-MM-DD')
+    App.dateMunge(date)
