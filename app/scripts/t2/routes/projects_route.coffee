@@ -1,12 +1,3 @@
-App.OfficeRoute = Ember.Route.extend
-
-  model: (params) ->
-    offices = @modelFor('application').get('firstObject')
-    offices.findProperty 'slug', params.slug
-
-  serialize: (model) ->
-    {slug: model.get('slug')}
-
 App.ProjectsRoute = Ember.Route.extend
 
   model: ->
@@ -33,21 +24,3 @@ App.ProjectsRoute = Ember.Route.extend
     editAllocation: (allocation) ->
       @controllerFor("allocations.modal").edit allocation
       @send "openModal", "allocations.modal"
-
-
-App.PeopleRoute = Ember.Route.extend
-  model: ->
-    @modelFor('office').get('people')
-
-  actions:
-    createAllocation: (allocationAttrs={}) ->
-      __hackEmberModel()
-      defaults =
-        startDate: new Date()
-        endDate: new Date(moment().add(2,'weeks').format('L'))
-      @send 'editAllocation', App.Allocation.create(Ember.merge(defaults, allocationAttrs))
-
-    editAllocation: (allocation) ->
-      @controllerFor("allocations.modal").edit allocation
-      @send "openModal", "allocations.modal"
-
