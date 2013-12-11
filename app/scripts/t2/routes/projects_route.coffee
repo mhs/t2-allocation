@@ -1,5 +1,4 @@
 App.ProjectsRoute = Ember.Route.extend
-
   model: ->
     @modelFor('office').get('projects')
 
@@ -13,14 +12,3 @@ App.ProjectsRoute = Ember.Route.extend
       @controllerFor("projects.modal").set "availableOffices", @controllerFor('office').get('all')
       @controllerFor("projects.modal").edit project
       @send "openModal", "projects.modal"
-
-    createAllocation: (allocationAttrs={}) ->
-      __hackEmberModel()
-      defaults =
-        startDate: new Date()
-        endDate: new Date(moment().add(2,'weeks').format('L'))
-      @send 'editAllocation', App.Allocation.create(Ember.merge(defaults, allocationAttrs))
-
-    editAllocation: (allocation) ->
-      @controllerFor("allocations.modal").edit allocation
-      @send "openModal", "allocations.modal"
