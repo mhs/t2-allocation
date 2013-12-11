@@ -1,8 +1,8 @@
 App.AllocationController = Ember.ObjectController.extend
-  needs: ['projects']
+  needs: ['projects', 'offices']
 
   office: Ember.computed.alias('person.office')
-  currentOffice: Ember.computed.alias('controllers.projects.model')
+  currentOffice: Ember.computed.alias('controllers.offices.model')
 
   isExternal: (->
     @get('office') != @get('currentOffice')

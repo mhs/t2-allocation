@@ -1,12 +1,18 @@
-App.ProjectsController = App.ChartController.extend
+App.ProjectsController = Ember.ArrayController.extend
+  needs: ['offices']
+
+  office: Ember.computed.alias('controllers.offices.model')
+
+  people: Ember.computed.alias('office.people')
+
   sortedProjects: (->
-    projects = @get('projects')
+    projects = @get('model')
     people = @get('people')
     unless projects.findBy('dummyProject', true)
       dummyProject = App.DummyProject.create()
       projects.pushObject(dummyProject)
     unless projects.findBy('name', 'Available')
-      availableProject = App.AvailableProject.create(people: people, office: @content, name: "Available")
+      availableProject = App.AvailableProject.create(people: people, office: @get('office'), name: "Available")
       projects.pushObject(availableProject)
     sortByName =
       sortProperties: ['sortOrder', 'name']
@@ -14,13 +20,9 @@ App.ProjectsController = App.ChartController.extend
 
     Ember.ArrayProxy.
       createWithMixins(Ember.SortableMixin,sortByName)
-  ).property('projects')
-
-  modelChanged: (->
-    @send 'selectOffice', @get('model'), 'projects'
-  ).observes('model')
+  ).property('office')
 
   actions:
     switchToPeople: ->
-      @transitionToRoute 'people', @get('model')
+      @transitionToRoute 'offices.people', @get('office')
 

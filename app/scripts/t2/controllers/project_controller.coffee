@@ -1,6 +1,6 @@
 App.ProjectController = Ember.ObjectController.extend
-  needs: ['projects']
-  currentOffice: Ember.computed.alias('controllers.projects.model')
+  needs: ['offices']
+  currentOffice: Ember.computed.alias('controllers.offices.model')
 
   content: null
 

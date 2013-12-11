@@ -19,9 +19,6 @@ App.ApplicationRoute = Ember.Route.extend
     controller.set 'offices', model.get('firstObject')
 
   actions:
-    selectOffice: (office, routeName)->
-      @transitionTo(routeName, office)
-
     error: (err) ->
       auth = @controllerFor('authentication')
       auth.login()

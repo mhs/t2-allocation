@@ -10,6 +10,8 @@ App.AuthenticationController = Ember.ObjectController.extend
   isAuthenticated: Ember.computed.notEmpty('accessToken')
 
   _redirectToSignIn: ->
+    debugger
+    return
     _redirectTo App.SIGN_IN_URL
 
   _redirectToSignOut: ->

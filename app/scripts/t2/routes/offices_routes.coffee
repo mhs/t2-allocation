@@ -1,4 +1,17 @@
+App.OfficesRoute = Ember.Route.extend
+
+  model: (params) ->
+    offices = @modelFor('application').get('firstObject')
+    offices.findProperty 'slug', params.slug
+
+  serialize: (model) ->
+    {slug: model.get('slug')}
+
 App.ProjectsRoute = Ember.Route.extend
+
+  model: ->
+    @modelFor('offices').get('projects')
+
   actions:
     createProject: ->
       __hackEmberModel()
@@ -6,7 +19,7 @@ App.ProjectsRoute = Ember.Route.extend
       @send 'editProject', App.Project.create()
 
     editProject: (project) ->
-      @controllerFor("projects.modal").set "availableOffices", @controllerFor('application').get('offices')
+      @controllerFor("projects.modal").set "availableOffices", @controllerFor('offices').get('all')
       @controllerFor("projects.modal").edit project
       @send "openModal", "projects.modal"
 
@@ -21,14 +34,11 @@ App.ProjectsRoute = Ember.Route.extend
       @controllerFor("allocations.modal").edit allocation
       @send "openModal", "allocations.modal"
 
-  model: (params)->
-    offices = @modelFor('application').get('firstObject')
-    offices.findProperty('slug', params.slug)
-
-  serialize: (model) ->
-    {slug: model.get('slug')}
 
 App.PeopleRoute = Ember.Route.extend
+  model: ->
+    @modelFor('offices').get('people')
+
   actions:
     createAllocation: (allocationAttrs={}) ->
       __hackEmberModel()
@@ -41,9 +51,3 @@ App.PeopleRoute = Ember.Route.extend
       @controllerFor("allocations.modal").edit allocation
       @send "openModal", "allocations.modal"
 
-  model: (params)->
-    offices = @modelFor('application').get('firstObject')
-    offices.findProperty('slug', params.slug)
-
-  serialize: (model) ->
-    {slug: model.get('slug')}

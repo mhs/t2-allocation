@@ -1,7 +1,8 @@
 App.Router.map ->
   @route('sign_out')
-  @route 'projects', path: 'projects/:slug'
-  @route 'people', path: 'people/:slug'
+  @resource 'offices', path: 'offices/:slug', ->
+    @resource 'projects'
+    @resource 'people'
 
 App.IndexRoute = Ember.Route.extend
   model: ->
