@@ -16,7 +16,7 @@ describe 'App.AllocationsModalController', ->
 
   setupTestStuff = ->
     container = new Ember.Container()
-    container.register 'controller:officesProjects', {}
+    container.register 'controller:projects', {}
     App.AllocationsModalController.create
       container: container
 

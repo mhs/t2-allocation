@@ -16,8 +16,8 @@ editableProps = EDITABLE_PROPERTIES.reduce (props, name)->
 App.AllocationsModalController = App.ModalController.extend editableProps
 
 App.AllocationsModalController.reopen
-  needs: ['officesProjects'],
-  currentOffice: Ember.computed.alias('controllers.officesProjects.model'),
+  needs: ['office'],
+  currentOffice: Ember.computed.alias('controllers.office.model'),
 
   isDirty: true
 
@@ -41,6 +41,14 @@ App.AllocationsModalController.reopen
     return if !project
     @set('billable', project.get('billable')) if @_wasNew
   ).observes('project')
+
+  startDateDidChange: (->
+    startDate = @get('startDate')
+    endDate = @get('endDate')
+
+    if endDate && endDate < startDate
+      @set('endDate', startDate)
+  ).observes('startDate')
 
   projects: (->
     projects = @get('currentOffice.projects')

@@ -1,5 +1,5 @@
 App.DummyProjectController  = Ember.ObjectController.extend
-  needs: ['application', 'officesProjects']
+  needs: ['application', 'projects']
   trackCount: 1
 
   projectHeight: (->

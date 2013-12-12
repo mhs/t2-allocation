@@ -1,13 +1,12 @@
-App.AvailabilityController = Ember.ObjectController.extend
-  # needs: ['officesProjects']
+App.PersonAllocationController = Ember.ObjectController.extend
+  needs: ['people']
 
-  #office: Ember.computed.alias('person.office')
-  #currentOffice: Ember.computed.alias('controllers.officesProjects.model')
+  office: Ember.computed.alias('project.office')
+  currentOffice: Ember.computed.alias('controllers.people.model')
 
-  isExternal: (-> false).property()
-  #isExternal: (->
-  #  @get('office') != @get('currentOffice')
-  #).property('currentOffice', 'office')
+  isNonbilling: (->
+    !@get('billable')
+  ).property('billable')
 
   startOffset: (->
     currentMonday = moment(App.projectsUI.get("date"))
@@ -16,9 +15,8 @@ App.AvailabilityController = Ember.ObjectController.extend
   ).property("App.projectsUI.date", "startDate")
 
   hint: (->
-    _external = if @get('isExternal') then " (#{@get('office.name')})" else ''
-    "#{@get('person.name')}#{_external}"
-  ).property('office', 'isExternal', 'person')
+    "#{@get('project.name')}"
+  ).property('office', 'person')
 
   # to offset zero, an 'extra' day will be removed
   style: (->

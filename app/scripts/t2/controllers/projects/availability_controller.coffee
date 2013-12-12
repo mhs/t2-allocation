@@ -1,16 +1,13 @@
-App.AllocationController = Ember.ObjectController.extend
-  needs: ['officesProjects']
+App.AvailabilityController = Ember.ObjectController.extend
+  # needs: ['projects']
 
-  office: Ember.computed.alias('person.office')
-  currentOffice: Ember.computed.alias('controllers.officesProjects.model')
+  #office: Ember.computed.alias('person.office')
+  #currentOffice: Ember.computed.alias('controllers.projects.model')
 
-  isExternal: (->
-    @get('office') != @get('currentOffice')
-  ).property('currentOffice', 'office')
-
-  isNonbilling: (->
-    !@get('billable')
-  ).property('billable')
+  isExternal: (-> false).property()
+  #isExternal: (->
+  #  @get('office') != @get('currentOffice')
+  #).property('currentOffice', 'office')
 
   startOffset: (->
     currentMonday = moment(App.projectsUI.get("date"))
