@@ -14,6 +14,7 @@ App.OfficeController = Ember.ObjectController.extend
 
   modelChanged: (->
     route = @get('controllers.application.currentRouteName')
+    return unless route
     @transitionToRoute route, @get('model')
   ).observes('model')
 
