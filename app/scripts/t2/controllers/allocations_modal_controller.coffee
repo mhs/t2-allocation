@@ -32,7 +32,7 @@ App.AllocationsModalController.reopen
       content: []
     people = Ember.ArrayProxy.createWithMixins(Ember.SortableMixin, sortByName)
     for office in project.get('offices').toArray()
-      people.pushObjects(office.get('people').toArray())
+      people.pushObjects(office.get('activePeople').toArray())
     people
   ).property('project')
 

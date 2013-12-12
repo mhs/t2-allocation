@@ -3,7 +3,7 @@ App.ProjectsController = Ember.ArrayController.extend
 
   office: Ember.computed.alias('controllers.office.model')
 
-  people: Ember.computed.alias('office.people')
+  people: Ember.computed.alias('office.activePeople')
 
   sortedProjects: (->
     projects = @get('model')
