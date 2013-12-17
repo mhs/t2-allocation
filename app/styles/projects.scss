@@ -113,3 +113,59 @@
 .add-allocation {
   float: right;
 }
+
+// Loading
+
+.loader {
+  max-width: 960px;
+  width: 96%;
+  margin: auto;
+  text-align: center;
+  font-size: 70px;
+  color: $dark-gray;
+  text-align: left;
+}
+
+.gears {
+  @include size(500);
+  position: relative;
+  margin: auto;
+  position: relative;
+}
+
+.lg-gear, .sm-gear, .largest-gear {
+  position: absolute;
+  color: $dark-gray;
+  font-family: "entypo";
+  @include animation(rotate 2s infinite);
+}
+
+.largest-gear {
+  top: 155px;
+  left: 110px;
+  font-size: 400px;
+  @include transform-origin (104px 200px);
+  @include animation-direction(reverse);
+}
+
+.lg-gear {
+  top: 146px;
+  left: 229px;
+  font-size: 200px;
+  @include transform-origin (52px 100px);
+}
+
+.sm-gear {
+  top: 139px;
+  left: 224px;
+  font-size: 100px;
+  @include transform-origin (26px 50px);
+  @include animation-direction(reverse);
+}
+
+@include keyframes (rotate) {
+
+  0% {
+    @include transform(rotate(360deg))
+  }
+}
