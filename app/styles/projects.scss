@@ -128,9 +128,10 @@
 
 .gears {
   @include size (500);
-  position: relative;
-  margin: auto;
-  position: relative;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -300px -250px;
 }
 
 .lg-gear, .sm-gear, .largest-gear {
