@@ -18,7 +18,7 @@ App.ModalController = Em.ObjectController.extend
   _beforeDelete: (editedModel)->
 
   _cancelChanges: (editedModel)->
-    editedModel.destroy() if editedModel.isNew
+    editedModel.deleteRecord() if editedModel.isNew || editedModel.isInvalid
 
   modelChanged: ( ->
     throw new Error("This controller should not use 'model'! We don't want the object to be autoupdated while editing. Use edit() instead")
@@ -26,9 +26,10 @@ App.ModalController = Em.ObjectController.extend
 
   actions:
     save: ->
+      if @_editedModel.get('errors')
+        @_editedModel.send('becameValid')
       @_applyChanges(@_editedModel)
-      @_editedModel.save()
-      @send "closeModal"
+      @_editedModel.save().then (=> @send "closeModal"), ((error) -> )
 
     delete: ->
       @_beforeDelete(@_editedModel)

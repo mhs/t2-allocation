@@ -4,7 +4,7 @@ App.ProjectsRoute = Ember.Route.extend
 
   actions:
     createProject: ->
-      @send 'editProject', App.Project.create()
+      @send 'editProject', @store.createRecord('project')
 
     editProject: (project) ->
       @controllerFor("projects.modal").set "availableOffices", @controllerFor('office').get('all')
