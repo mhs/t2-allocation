@@ -32,7 +32,7 @@ App.ModalController = Em.ObjectController.extend
 
     delete: ->
       @_beforeDelete(@_editedModel)
-      @_editedModel.deleteRecord()
+      @_editedModel.destroyRecord()
       @send "closeModal"
 
     close: ->

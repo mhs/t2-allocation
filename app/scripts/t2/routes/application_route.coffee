@@ -19,7 +19,7 @@ App.ApplicationRoute = Ember.Route.extend
       defaults =
         startDate: new Date()
         endDate: new Date(moment().add(2,'weeks').format('L'))
-      @send 'editAllocation', App.Allocation.create(Ember.merge(defaults, allocationAttrs))
+      @send 'editAllocation', @store.createRecord('allocation', Ember.merge(defaults, allocationAttrs))
 
     editAllocation: (allocation) ->
       @controllerFor("allocations.modal").edit allocation

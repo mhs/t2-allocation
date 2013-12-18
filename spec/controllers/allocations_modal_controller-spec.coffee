@@ -31,7 +31,7 @@ describe 'App.AllocationsModalController', ->
     projectSpy = jasmine.createSpyObj('project', ['get'])
     projectSpy.get.andReturn(projectAllocationsSpy)
 
-    allocationSpy = jasmine.createSpyObj('allocation', ['get', 'set', 'save', 'destroy', 'deleteRecord'])
+    allocationSpy = jasmine.createSpyObj('allocation', ['get', 'set', 'save', 'destroy', 'destroyRecord'])
     allocationSpy.get.andCallFake (name)->
       properties[name]
 
