@@ -3,8 +3,8 @@
   "version": "0.0.1",
   "main": "index.html",
   "dependencies": {
-    "ember": "*",
-    "ember-model": "*",
+    "ember-13-beta": "http://builds.emberjs.com/beta/ember.js",
+    "ember-data-canary": "http://builds.emberjs.com/canary/ember-data.js",
     "momentjs": "2.1.0",
     "jquery-ui": "~1.10.3"
   }

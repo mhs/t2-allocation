@@ -9,10 +9,14 @@ App.ProjectsController = Ember.ArrayController.extend
     projects = @get('model')
     people = @get('people')
     unless projects.findBy('dummyProject', true)
-      dummyProject = App.DummyProject.create()
+      dummyProject = @store.createRecord('dummyProject')
       projects.pushObject(dummyProject)
     unless projects.findBy('name', 'Available')
-      availableProject = App.AvailableProject.create(people: people, office: @get('office'), name: "Available")
+      availableProject = @store.createRecord('availableProject',
+        people: people
+        office: @get('office')
+        name: "Available"
+      )
       projects.pushObject(availableProject)
     sortByName =
       sortProperties: ['sortOrder', 'name']

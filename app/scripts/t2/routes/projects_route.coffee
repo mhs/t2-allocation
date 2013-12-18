@@ -4,8 +4,6 @@ App.ProjectsRoute = Ember.Route.extend
 
   actions:
     createProject: ->
-      __hackEmberModel()
-
       @send 'editProject', App.Project.create()
 
     editProject: (project) ->

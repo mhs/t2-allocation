@@ -8,15 +8,14 @@ App.ApplicationRoute = Ember.Route.extend
 
   model: ->
     Ember.RSVP.all([
-      App.Office.fetch(),
-      App.Project.fetch(),
-      App.Person.fetch(),
-      App.Allocation.fetch()
+      @store.find('office'),
+      @store.find('project'),
+      @store.find('person'),
+      @store.find('allocation')
     ])
 
   actions:
     createAllocation: (allocationAttrs={}) ->
-      __hackEmberModel()
       defaults =
         startDate: new Date()
         endDate: new Date(moment().add(2,'weeks').format('L'))

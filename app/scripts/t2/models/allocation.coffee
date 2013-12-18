@@ -1,27 +1,20 @@
-App.Allocation = App.defineModel 'allocations', 'allocation',
-  id: Ember.attr()
-  notes: Ember.attr()
-  startDate: Ember.attr(App.TextDate)
-  endDate: Ember.attr(App.TextDate)
-  billable: Ember.attr()
-  binding: Ember.attr()
-  slot: Ember.belongsTo("App.Slot",
-    key: 'slot_id'
-  )
-  person: Ember.belongsTo("App.Person",
-    key: 'person_id'
-  )
-  project: Ember.belongsTo("App.Project",
-    key: 'project_id'
-  )
+App.Allocation = DS.Model.extend
+  startDate: DS.attr('date')
+  endDate: DS.attr('date')
+  project: DS.belongsTo('project')
+  person: DS.belongsTo('person')
+  billable: DS.attr('boolean')
+  binding: DS.attr('boolean')
+  notes: DS.attr('string')
+  person: DS.belongsTo('person')
+  project: DS.belongsTo('project')
+  slot: DS.belongsTo('slot')
 
+  #TODO: confirm that didCommit will fire correctly
   init: ->
     @_super()
-    @on('didDeleteRecord', ->
+    @on 'didDelete','didCommit', ->
       App.projectsUI.incrementProperty('allocationUpdates')
-    ).on('didSaveRecord', ->
-      App.projectsUI.incrementProperty('allocationUpdates')
-    )
 
   track: 0
   current: (->
