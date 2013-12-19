@@ -58,6 +58,10 @@ App.AllocationsModalController.reopen
     Ember.ArrayProxy.createWithMixins(Ember.SortableMixin, sortByName)
   ).property('currentOffice')
 
+  isNew: (->
+    @_editedModel.get('isNew')
+  ).property('_editedModel')
+
   _initForm: (allocation)->
     @_wasNew = allocation.get('isNew')
     @_initialProject = allocation.get('project')

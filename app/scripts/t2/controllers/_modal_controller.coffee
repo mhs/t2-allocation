@@ -5,7 +5,7 @@ App.ModalController = Em.ObjectController.extend
 
   edit: (model)->
     @set('canDelete', not model.isNew)
-    @_editedModel = model
+    @set('_editedModel', model)
     @_initForm(model)
 
   # override me!
