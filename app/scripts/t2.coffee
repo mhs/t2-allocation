@@ -7,6 +7,7 @@
 #
 
 emberDebug = '@@EMBER_DEBUG' != 'false'
+Ember.FEATURES["query-params"] = true
 window.App = Ember.Application.create
   LOG_TRANSITIONS: emberDebug
   LOG_TRANSITIONS_INTERNAL: emberDebug
