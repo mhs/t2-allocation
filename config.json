@@ -20,11 +20,11 @@
   "production": {
   },
   "staging": {
-    "API_BASEURL":  "http://t2api-staging.herokuapp.com/api/v1",
-    "SIGN_IN_URL":  "http://t2api-staging.herokuapp.com/sign_in",
-    "PEOPLE_URL":   "http://t2-people-staging.herokuapp.com/#/people/",
-    "SIGN_OUT_URL": "http://t2api-staging.herokuapp.com/sign_out",
-    "NAVBAR_URL":   "http://t2api-staging.herokuapp.com/api/v1/navbar"
+    "API_BASEURL":  "http://t2api-staging.neo.com/api/v1",
+    "SIGN_IN_URL":  "http://t2api-staging.neo.com/sign_in",
+    "PEOPLE_URL":   "http://t2people-staging.neo.com/#/people/",
+    "SIGN_OUT_URL": "http://t2api-staging.neo.com/sign_out",
+    "NAVBAR_URL":   "http://t2api-staging.neo.com/api/v1/navbar"
   },
   "test": {
     "SIGN_IN_URL":  "http://localhost:5001/sign_in",
