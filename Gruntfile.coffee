@@ -223,31 +223,26 @@ module.exports = (grunt)->
 
           # Clones the repo into clean .staging folder
           'rm -rf <%= t2Config.staging %>',
-          'git clone git@github.com:neo/t2-allocation.git --branch gh-pages <%= t2Config.staging %>'
+          'git clone git@github.com:neo/t2-allocation.git --branch staging <%= t2Config.staging %>'
 
           'cd <%= t2Config.staging %>/'
 
           # Removes all tracked items and copies the latest dist files
-          'mkdir -p "$BRANCH"'
-          'git ls-files "$BRANCH" | xargs rm'
-          'cp -r ../dist/ "$BRANCH"'
+          'git ls-files | xargs rm'
+          'git checkout .gitignore index.php .htaccess'
+          'cp -r ../dist/ .'
 
-          # Update directory listing
-          """
-          (
-            echo "<html>\n<body>\n<h1>T2-allocation staging</h1>\n<hr/>\n<pre>"
-            for DIR in $(find . -type d -d 1|grep -v .git|sed s:./::); do
-              echo "<a href=\"$DIR\">$DIR</a>"
-            done
-            echo "</pre>\n</body>\n</html>"
-
-          ) > index.html
-          """
-
-          # Commits the changes and pushes to origin/gh-pages branch
+          # Commits the change
           'git add -A'
           'git commit -m "$GRUNT_COMMIT_MSG"'
-          'git push origin gh-pages'
+
+          # Add heroku remote
+          'heroku git:remote -a t2-allocation-staging'
+
+          # Push to heroku and github
+          'git push heroku staging:master -f'
+          'git push origin staging'
+
         ].join '&&'
       production:
         options:
