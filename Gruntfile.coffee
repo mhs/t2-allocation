@@ -237,7 +237,7 @@ module.exports = (grunt)->
           'git commit -m "$GRUNT_COMMIT_MSG"'
 
           # Add heroku remote
-          'heroku git:remote -a t2-allocation-staging'
+          'heroku git:remote -a t2allocation-staging'
 
           # Push to heroku and github
           'git push heroku staging:master -f'
