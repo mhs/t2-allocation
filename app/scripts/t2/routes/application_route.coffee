@@ -5,6 +5,9 @@ App.ApplicationRoute = Ember.Route.extend
     if not auth.get('isAuthenticated')
       transition.abort()
       auth.login()
+    @store.find 'allocationBundle',
+      start_date: @get('startDate')
+      end_date: @get('endDate')
 
   startDate:(->
     moment(App.projectsUI.get('startDate')).format "YYYY-MM-DD"
@@ -15,15 +18,7 @@ App.ApplicationRoute = Ember.Route.extend
   ).property('App.projectsUI.endDate')
 
   model: ->
-    @store.find 'allocationBundle',
-      start_date: @get('startDate')
-      end_date: @get('endDate')
-    Ember.RSVP.all([
-      @store.find('office'),
-      @store.find('project'),
-      @store.find('person'),
-      @store.find('allocation')
-    ])
+    @store.all('allocationBundle').get('firstObject')
 
   actions:
     createAllocation: (allocationAttrs={}) ->

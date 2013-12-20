@@ -9,6 +9,6 @@ App.IndexRoute = Ember.Route.extend
     @modelFor('application')
   afterModel: (model, transition) ->
     office_slug = @controllerFor('authentication').get('currentUser').office_slug
-    offices = @modelFor('application').get('firstObject')
+    offices = @modelFor('application').get('offices')
     office = offices.findProperty 'slug', office_slug
     @transitionTo('projects', office)
