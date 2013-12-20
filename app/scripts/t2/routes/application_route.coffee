@@ -6,7 +6,18 @@ App.ApplicationRoute = Ember.Route.extend
       transition.abort()
       auth.login()
 
+  startDate:(->
+    moment(App.projectsUI.get('startDate')).format "YYYY-MM-DD"
+  ).property('App.projectsUI.startDate')
+
+  endDate:(->
+    moment(App.projectsUI.get('endDate')).format "YYYY-MM-DD"
+  ).property('App.projectsUI.endDate')
+
   model: ->
+    @store.find 'allocationBundle',
+      start_date: @get('startDate')
+      end_date: @get('endDate')
     Ember.RSVP.all([
       @store.find('office'),
       @store.find('project'),
