@@ -127,45 +127,59 @@
 }
 
 .gears {
-  @include size(500);
-  position: relative;
-  margin: auto;
-  position: relative;
+  @include size (500);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -300px -250px;
 }
 
 .lg-gear, .sm-gear, .largest-gear {
-  position: absolute;
-  color: $dark-gray;
-  font-family: "entypo";
-  @include animation(rotate 2s infinite);
+
+  span {
+    line-height: 1;
+    position: absolute;
+    color: $dark-gray;
+    font-family: "entypo";
+    @include animation (rotate 6s linear infinite);
+  }
 }
 
 .largest-gear {
-  top: 155px;
-  left: 110px;
-  font-size: 400px;
-  @include transform-origin (104px 200px);
-  @include animation-direction(reverse);
+
+  span {
+    top: 155px;
+    left: 110px;
+    font-size: 400px;
+    @include transform-origin (104px 200px);
+    @include animation-direction (reverse);
+  }
 }
 
 .lg-gear {
-  top: 146px;
-  left: 229px;
-  font-size: 200px;
-  @include transform-origin (52px 100px);
+
+  span {
+    top: 146px;
+    left: 229px;
+    font-size: 200px;
+    @include transform-origin (52px 100px);
+  }
 }
 
 .sm-gear {
-  top: 139px;
-  left: 224px;
-  font-size: 100px;
-  @include transform-origin (26px 50px);
-  @include animation-direction(reverse);
+
+  span {
+    top: 139px;
+    left: 224px;
+    font-size: 100px;
+    @include transform-origin (26px 50px);
+    @include animation-direction (reverse);
+  }
 }
 
 @include keyframes (rotate) {
 
   0% {
-    @include transform(rotate(360deg))
+    @include transform (rotate(360deg));
   }
 }
