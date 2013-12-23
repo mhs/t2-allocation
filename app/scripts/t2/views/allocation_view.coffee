@@ -8,6 +8,10 @@ App.AllocationView = Ember.View.extend
   isNonbilling: Ember.computed.alias('controller.isNonbilling')
   allocation: Ember.computed.alias('controller.model')
 
+  click: (evt) ->
+    @get('controller').send 'quickView', @get('allocation')
+    false # to keep from bubbling up
+
   doubleClick: (evt) ->
     @get('controller').send 'editAllocation', @get('allocation')
     false # to keep from bubbling up

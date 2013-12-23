@@ -26,6 +26,14 @@ App.ApplicationRoute = Ember.Route.extend
       @controllerFor("allocations.modal").edit allocation
       @send "openModal", "allocations.modal"
 
+    quickView: (allocation) ->
+      @send "quickViewModal", "allocations.quickViewModal"
+
+    quickViewModal: (modal) ->
+      @render modal,
+        into: "application"
+        outlet: "quickView"
+
     error: (err) ->
       auth = @controllerFor('authentication')
       auth.login()
