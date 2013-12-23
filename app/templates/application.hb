@@ -6,4 +6,4 @@
 </div>
 
 {{outlet modal}}
-{{outlet quickView}}
+{{outlet quickLook}}

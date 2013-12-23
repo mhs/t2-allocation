@@ -1,7 +1,7 @@
 $modal-width: 600px;
 
 
-.modal {
+.modal, .quick-view-modal {
   background: white;
   z-index: 1;
   position: fixed;
@@ -57,6 +57,10 @@ textarea {
     outline: 2px solid $dark-gray;
   }
 }
+}
+
+.quick-view-modal.in {
+  opacity: 1;
 }
 
 .modal.in {
