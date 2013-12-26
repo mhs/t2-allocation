@@ -10,6 +10,7 @@ App.AllocationView = Ember.View.extend
 
   click: (evt) ->
     @get('controller').send 'quickView', @get('allocation')
+    console.log  "click"
     false # to keep from bubbling up
 
   doubleClick: (evt) ->

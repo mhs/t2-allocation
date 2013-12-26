@@ -4,42 +4,15 @@
     <span class="close-x" {{action close}}>&#10060;</span>
   </div>
   <div class="modal-body">
-    <div class="modal-project" {{bindAttr class="errors.project:error :field"}}>
-      <i>&#128710;</i>
-      <label>Project</label>
-      {{view Ember.Select class="white-button" contentBinding="projects"
-                          optionLabelPath="content.name"
-                          optionValuePath="content"
-                          valueBinding="project"
-                          selectionBinding="project"
-                          prompt="Select a project"}}
-      {{#each msg in errors.project}}{{msg}}{{/each}}
-    </div>
     <div class="modal-person" {{bindAttr class="errors.person:error :field"}}>
       <i>&#128100;</i>
       <label>Person</label>
-      {{view Ember.Select class="white-button" contentBinding="people"
-                          optionLabelPath="content.name"
-                          optionValuePath="content"
-                          valueBinding="person"
-                          selectionBinding="person"
-                          prompt="Select a name"}}
-      {{#each msg in errors.person}}{{msg}}{{/each}}
     </div>
   <form {{action save on="submit"}}>
     <div class="dates">
-      <div class="start" {{bindAttr class="errors.startDate:error :field"}}>
-        <i>&#128197;</i>
-        <label>Start Date</label>
-        {{date-picker name="startDate" class="start-date" value=formStartDate}}
-        {{#each msg in errors.startDate}}{{msg}}{{/each}}
-      </div>
+      {{startDate}}
       <span>-</span>
-      <div class="end" {{bindAttr class="errors.end_date:error :field"}}>
-        <label>End Date</label>
-        {{date-picker name="endDate" class="end-date" value=formEndDate}}
-        {{#each msg in errors.endDate}}{{msg}}{{/each}}
-      </div>
+      {{endDate}}
     </div>
     <div class="options">
       <div class="billable" data-test="billable" {{bindAttr class="errors.billable:error :field" }} >
