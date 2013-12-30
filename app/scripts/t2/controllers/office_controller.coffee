@@ -1,7 +1,9 @@
 App.OfficeController = Ember.ObjectController.extend
   needs: ['application']
 
-  all: Ember.computed.alias('controllers.application.model.offices')
+  all: (->
+    @store.all('office')
+  ).property()
 
 
   showPeopleToggle: (->
