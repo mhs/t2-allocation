@@ -5,20 +5,6 @@ App.ApplicationRoute = Ember.Route.extend
     if not auth.get('isAuthenticated')
       transition.abort()
       auth.login()
-    @store.find 'allocationBundle',
-      start_date: @get('startDate')
-      end_date: @get('endDate')
-
-  startDate:(->
-    moment(App.projectsUI.get('startDate')).format "YYYY-MM-DD"
-  ).property('App.projectsUI.startDate')
-
-  endDate:(->
-    moment(App.projectsUI.get('endDate')).format "YYYY-MM-DD"
-  ).property('App.projectsUI.endDate')
-
-  model: ->
-    @store.all('allocationBundle').get('firstObject')
 
   actions:
     createAllocation: (allocationAttrs={}) ->
@@ -46,3 +32,12 @@ App.ApplicationRoute = Ember.Route.extend
         self.render "empty",
           into: "application"
           outlet: "modal"
+
+    loading: ->
+      unless @get('loadingView')
+        view = @container.lookup('view:loading').append()
+        @set('loadingView', view)
+
+      @router.one('didTransition', =>
+        @get('loadingView').destroy()
+      )
