@@ -30,7 +30,6 @@ App.ApplicationRoute = Ember.Route.extend
       @send "quickViewModal", "quickLookModal"
 
     quickViewModal: (modal) ->
-      debugger
       @render modal,
         into: "application"
         outlet: "quickLook"

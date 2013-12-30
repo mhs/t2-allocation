@@ -2,7 +2,6 @@ App.ModalView = Em.View.extend(
   layout: Em.Handlebars.compile("{{yield}}<div class=modal-backdrop></div>")
   didInsertElement: ->
     self = @
-    debugger
     App.animateModalOpen()
     $("body").on "keyup.modal", (event) ->
       self.get("controller").send "close"  if event.keyCode is 27
