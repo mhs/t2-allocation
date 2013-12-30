@@ -2,7 +2,7 @@
   {{#if isEditingDate}}
     {{edit-date class="datepicker" action="confirmDate" escape-press="confirmDate"}}
   {{else}}
-    <span {{action "editDate" on="click"}}>{{firstDate}}</span>
+    <span {{action "editDate" on="click"}}>View more dates</span>
   {{/if}}
 </div>
 

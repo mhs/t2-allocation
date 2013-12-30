@@ -4,7 +4,6 @@
   width: 100%;
   height: $calendar-height;
   border-bottom: 1px solid #aaa;
-  background-color: #fdfdfd;
 }
 
 .calendar-date-selector {
@@ -13,10 +12,16 @@
   width: $sidebar-width;
   font-size: 14px;
   padding: 7px 0 0;
-  color: #888;
+  background: $dark-gray;
+  color: white;
   border-right: 1px solid #e6e6e6;
   text-align: center;
   cursor: pointer;
+
+  &:hover {
+    background: gray;
+    color: white;
+  }
 
   .datepicker { width: 95%; }
 }
