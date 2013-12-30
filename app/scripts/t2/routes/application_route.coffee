@@ -34,6 +34,9 @@ App.ApplicationRoute = Ember.Route.extend
         into: "application"
         outlet: "quickLook"
 
+    close: (modal) ->
+      @send "closeModal"
+
     error: (err) ->
       auth = @controllerFor('authentication')
       auth.login()
@@ -44,6 +47,7 @@ App.ApplicationRoute = Ember.Route.extend
         outlet: "modal"
 
     closeModal: ->
+      debugger
       self = @
       App.animateModalClose().then ->
         self.render "empty",

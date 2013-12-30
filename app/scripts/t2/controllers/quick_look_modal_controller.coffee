@@ -1,10 +1,10 @@
 App.QuickLookModalController = App.ModalController.extend
 
-actions:
+# actions:
+#   close: ->
+#     self = @
+#     App.animateModalClose().then ->
+#       self.render "empty",
+#       into: "application"
+#       outlet: "quickLook"
 
-  close: ->
-    self = @
-    App.animateModalClose().then ->
-      self.render "empty",
-      into: "application"
-      outlet: "quickLook"
