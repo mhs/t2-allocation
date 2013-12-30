@@ -59,7 +59,7 @@ textarea {
 }
 }
 
-.quick-view-modal.in {
+.quick-look-modal {
   opacity: 1;
 }
 
@@ -115,6 +115,12 @@ textarea {
   position: relative;
 }
 
+.modal-person{
+
+  h3 {
+    margin: 0;
+  }
+}
 .modal-offices {
   margin: 20px 0;
 }
@@ -130,9 +136,17 @@ textarea {
 
 .options {
   margin: 0 0 10px 0;
+
+  span {
+    float: left;
+    margin: 0 5px 0 0;
+    font-size: 20px;
+    position: relative;
+    bottom: 1px;
+  }
 }
 
-.dates, .options, .notes, .project-name, .offices {
+.dates, .options, .notes, .project-name, .offices, .percent-allocated {
   @include clearfix;
   position: relative;
 }
@@ -142,10 +156,18 @@ textarea {
   position: relative;
   top: 27px;
   font-size: 28px;
-  }
+}
 
-.start, .end {
+.dates .dash {
+  top: -7px;
+}
+
+.start, .end, {
   float: left;
+
+  h3 {
+  margin: 0
+  }
 }
 
 .start {
@@ -164,8 +186,23 @@ textarea {
     float: none;
     margin: 0 0 15px 0;
   }
+
+  &.preview {
+    margin: 0 5px 0 0;
+  }
+
+  h3 {
+  margin: 0
+  }
 }
 
+.percent-allocated, .options, .notes {
+  margin: 0 0 20px 0;
+
+  h3 {
+    margin: 0;
+  }
+}
 .modal-offices {
   margin: 20px 0 0 0;
 }

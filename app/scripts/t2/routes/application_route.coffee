@@ -27,7 +27,7 @@ App.ApplicationRoute = Ember.Route.extend
       @send "openModal", "allocations.modal"
 
     quickView: (allocation) ->
-      @send "quickViewModal", "quickLookModal"
+      @send "quickViewModal", "allocations/quickLookModal"
 
     quickViewModal: (modal) ->
       @render modal,
