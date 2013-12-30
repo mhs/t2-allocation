@@ -24,7 +24,7 @@
       <div class="billable preview" data-test="billable">
         <h3>Billable</h3>
       </div>
-      <span>&amp;</span>
+      <span>/</span>
       <div class="exclusive" data-test="binding" {{bindAttr class="errors.binding:error :field"}}>
         <h3>Exclusive</h3>
       </div>
