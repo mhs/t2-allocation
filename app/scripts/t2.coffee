@@ -1,13 +1,5 @@
-#
-# This function fixes the issue when we create allocation and the end date
-# property is cleared after we click Save.
-#
-# See below url for the fix (will wait for official release to patch this)
-# https://github.com/ebryn/ember-model/commit/c11d3bd302547d6d1fa30efb5dec0b1ddfc0fca7
-#
 
 emberDebug = '@@EMBER_DEBUG' != 'false'
-Ember.FEATURES["query-params"] = true
 window.App = Ember.Application.create
   LOG_TRANSITIONS: emberDebug
   LOG_TRANSITIONS_INTERNAL: emberDebug

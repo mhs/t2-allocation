@@ -3,13 +3,16 @@ App.DateUI = Ember.Object.extend
   startDate: (->
     new Date @date
   ).property("date")
+
   endDate: (->
     end = moment(@get('date')).add "days", @get('daysInWindow')
     new Date end
   ).property("date","daysInWindow")
+
   calculateWindow: (->
     Math.ceil((window.innerWidth - App.WIDTH_OF_DESCRIPTOR) / App.WIDTH_OF_DAY)
   )
+
   allocationUpdates: 0
 
   init: ->

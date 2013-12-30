@@ -1,15 +1,21 @@
 App.OfficeRoute = Ember.Route.extend
-  beforeModel: (queryParams) ->
+  beforeModel: (transition) ->
+    startDate = transition.params.startDate
+
+    debugger
+    App.projectsUI.set('date', moment(startDate).format("L")) if startDate
+
     @store.find 'allocationBundle',
       start_date: @get('startDate')
       end_date: @get('endDate')
 
-  model: (params, queryParams) ->
+  model: (params) ->
     offices = @store.all('allocationBundle').get('firstObject.offices')
     offices.findProperty 'slug', params.slug
 
   serialize: (model) ->
-    {slug: model.get('slug')}
+    debugger
+    {slug: model.get('slug'), startDate: @get('startDate')}
 
   startDate:(->
     moment(App.projectsUI.get('startDate')).format "YYYY-MM-DD"
