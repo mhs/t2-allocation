@@ -10,6 +10,13 @@ App.CalendarBarComponent = Ember.Component.extend
     moment(@get("date")).format "MMMM D, YYYY"
   ).property("date")
 
+  didInsertElement: ->
+    $(window).resize ->
+      Ember.run.debounce @, ->
+        days = App.projectsUI.calculateWindow()
+        App.projectsUI.set "daysInWindow", days
+      , 300
+
   dateRange: (->
     date = moment(@get("date"))
     daysInWindow = @get("daysInWindow")
@@ -23,6 +30,10 @@ App.CalendarBarComponent = Ember.Component.extend
       i++
     dateArray
   ).property("date", "daysInWindow")
+
+  dateRangeDidChange: (->
+    @sendAction('resize')
+  ).observes('dateRange')
 
   actions:
     editDate: ->

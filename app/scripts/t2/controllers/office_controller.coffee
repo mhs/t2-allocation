@@ -30,3 +30,7 @@ App.OfficeController = Ember.ObjectController.extend
     selectDate: (newDate) ->
       route = @get('controllers.application.currentRouteName')
       @transitionToRoute route, newDate, @get('model.slug')
+
+    resize: ->
+      route = @get('controllers.application.currentRouteName')
+      @transitionToRoute route, App.projectsUI.get('date'), @get('model.slug')
