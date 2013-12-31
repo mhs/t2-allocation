@@ -1,5 +1,5 @@
 <section id="projectList">
-  {{#each project in sortedProjects}}
+  {{#each project in model}}
     {{#if project.availableProject}}
       {{ render 'availableProject' project }}
     {{else}}
