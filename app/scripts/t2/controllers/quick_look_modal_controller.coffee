@@ -5,7 +5,9 @@ App.QuickLookModalController = Ember.ObjectController.extend
 
     edit: ->
       @send "closeQuickLook"
-      @send "editAllocation", @get "model"
+      Ember.run.later @, ( =>
+        @send "editAllocation", @get "model")
+      , 200
 
   billableStatus: (->
     if @get('billable') then "Billable" else "Non-billing"
