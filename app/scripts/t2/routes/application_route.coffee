@@ -53,8 +53,12 @@ App.ApplicationRoute = Ember.Route.extend
       self = @
       App.animateModalClose().then =>
         @disconnectOutlet
-          outlet: "quickLook"
-          parentView: "application"
-        @disconnectOutlet
           outlet: "modal"
+          parentView: "application"
+
+    closeQuickLook: ->
+      self = @
+      App.animateModalClose().then =>
+        @disconnectOutlet
+          outlet: "quickLook"
           parentView: "application"

@@ -1,8 +1,11 @@
 App.QuickLookModalController = Ember.ObjectController.extend
-  editedModel: null
   actions:
     close: ->
-      @send "closeModal"
+      @send "closeQuickLook"
+
+    edit: ->
+      @send "closeQuickLook"
+      @send "editAllocation", @get "model"
 
   billableStatus: (->
     if @get('billable') then "Billable" else "Non-billing"
@@ -19,4 +22,5 @@ App.QuickLookModalController = Ember.ObjectController.extend
   endDate: (->
     moment(@get('model.endDate')).format "MMM DD"
   ).property('model.endDate')
+
 

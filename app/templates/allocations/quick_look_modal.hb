@@ -1,7 +1,6 @@
 <div class="modal">
   <div class="modal-header">
-    Allocation: Project Name
-    {{project.name}}
+    Allocation: {{project.name}}
     <span class="close-x" {{action close}}>&#10060;</span>
   </div>
   <div class="modal-body">
@@ -23,11 +22,11 @@
     <div class="options">
       <i>&#59249;</i>
       <div class="billable preview" data-test="billable">
-        <h3>{{billable}}</h3>
+        <h3>{{billableStatus}}</h3>
       </div>
       <span>/</span>
       <div class="exclusive" data-test="binding" {{bindAttr class="errors.binding:error :field"}}>
-        <h3>{{binding}}</h3>
+        <h3>{{bindingStatus}}</h3>
       </div>
     </div>
     <div class="percent-allocated">
@@ -40,7 +39,7 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button class="blue-button" {{action openModal}}>Edit</button>
+    <button class="blue-button" {{action edit model}}>Edit</button>
     <button class="white-button" {{action close}}>Cancel</button>
   </div>
   </form>
