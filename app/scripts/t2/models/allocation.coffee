@@ -13,8 +13,12 @@ App.Allocation = DS.Model.extend
   #TODO: confirm that didCommit will fire correctly
   init: ->
     @_super()
-    @on 'didDelete','didCommit', ->
-      App.projectsUI.incrementProperty('allocationUpdates')
+    @on 'didDelete', @, @pokeAllocations
+    @on 'didCreate', @, @pokeAllocations
+    @on 'didUpdate', @, @pokeAllocations
+
+  pokeAllocations: ->
+    App.projectsUI.incrementProperty('allocationUpdates')
 
   track: 0
   current: (->

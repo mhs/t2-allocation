@@ -17,7 +17,7 @@ App.AvailableProjectController  = Ember.ObjectController.extend
     )
     @set "trackCount", trackNo
     availabilities
-  ).property('availabilities.isLoaded')
+  ).property('availabilities.[]')
 
   availabilityStart: (->
     moment(App.projectsUI.get('startDate')).format("YYYY-MM-DD")
