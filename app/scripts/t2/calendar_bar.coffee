@@ -31,5 +31,5 @@ App.CalendarBarComponent = Ember.Component.extend
     confirmDate: (dateValue) ->
       dateValue = @get("date") unless moment(dateValue).isValid()
       @set "isEditingDate", false
-      @set "date", moment(dateValue).format("L")
+      @triggerAction(actionContext: dateValue)
 

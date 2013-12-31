@@ -10,7 +10,7 @@ App.ApplicationRoute = Ember.Route.extend
     createAllocation: (allocationAttrs={}) ->
       defaults =
         startDate: new Date()
-        endDate: new Date(moment().add(2,'weeks').format('L'))
+        endDate: new Date(moment().add(2,'weeks').format('YYYY-MM-DD'))
       @send 'editAllocation', @store.createRecord('allocation', Ember.merge(defaults, allocationAttrs))
 
     editAllocation: (allocation) ->

@@ -4,10 +4,10 @@ App.EditDateView = Ember.TextField.extend
 
   focusIn: (event) ->
     self = @
-    @set "value", moment(App.projectsUI.get("date")).format("L")
+    @set "value", moment(App.projectsUI.get("date")).format("YYYY-MM-DD")
     @$().datepicker
+      dateFormat: "yy-mm-dd"
       onClose: (date)->
-        closestMonday = moment(date).startOf("week").add('d', 1)
-        self.triggerAction(actionContext: closestMonday)
+        self.triggerAction(actionContext: date)
 
 Ember.Handlebars.helper('edit-date', App.EditDateView)

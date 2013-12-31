@@ -14,7 +14,7 @@
     </button>
     {{view App.NavView}}
   </section>
-  {{calendar-bar}}
+  {{calendar-bar action="selectDate"}}
 </header>
 
 {{outlet}}

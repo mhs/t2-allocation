@@ -22,4 +22,4 @@ App.DateUI = Ember.Object.extend
 
 App.projectsUI = App.DateUI.create
   # initialize on the Monday of the current week
-  date: moment().startOf("week").add('d', 1).format("L")
+  date: moment().startOf("week").add('d', 1).format("YYYY-MM-DD")

@@ -22,7 +22,11 @@ App.OfficeController = Ember.ObjectController.extend
 
   actions:
     switchToPeople: ->
-      @transitionToRoute 'people', @get('model')
+      @transitionToRoute 'people', App.projectsUI.get('date'), @get('model.slug')
 
     switchToProjects: ->
-      @transitionToRoute 'projects', @get('model')
+      @transitionToRoute 'projects', App.projectsUI.get('date'), @get('model.slug')
+
+    selectDate: (newDate) ->
+      route = @get('controllers.application.currentRouteName')
+      @transitionToRoute route, newDate, @get('model.slug')
