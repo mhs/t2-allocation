@@ -16,7 +16,7 @@ App.AuthenticationController = Ember.ObjectController.extend
     _redirectTo App.SIGN_OUT_URL
 
   extractAccessToken: ->
-    match = location.href.match(/authentication_token=([a-zA-Z0-9]+)/)
+    match = location.href.match(/authentication_token=([a-zA-Z0-9_]+)/)
     if (match)
       @set('accessToken', match[1])
       location.href = location.origin
