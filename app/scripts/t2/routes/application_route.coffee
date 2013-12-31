@@ -27,12 +27,15 @@ App.ApplicationRoute = Ember.Route.extend
       @send "openModal", "allocations.modal"
 
     quickView: (allocation) ->
-      @send "quickViewModal", "allocations/quickLookModal"
+      @send "quickViewModal", allocation
 
-    quickViewModal: (modal) ->
-      @render modal,
+    quickViewModal: (allocation) ->
+      @controllerFor("QuickLookModal").set "model", allocation
+      @render "allocations/quick_look_modal",
         into: "application"
         outlet: "quickLook"
+        view: "QuickLookModal"
+        controller: "QuickLookModal"
 
     close: (modal) ->
       @send "closeModal"
@@ -47,9 +50,11 @@ App.ApplicationRoute = Ember.Route.extend
         outlet: "modal"
 
     closeModal: ->
-      debugger
       self = @
-      App.animateModalClose().then ->
-        self.render "empty",
-          into: "application"
+      App.animateModalClose().then =>
+        @disconnectOutlet
+          outlet: "quickLook"
+          parentView: "application"
+        @disconnectOutlet
           outlet: "modal"
+          parentView: "application"

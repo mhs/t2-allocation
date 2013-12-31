@@ -13,5 +13,4 @@ App.ModalView = Em.View.extend(
 App.ProjectsModalView = App.ModalView.extend({})
 App.AllocationsModalView = App.ModalView.extend({})
 App.ConfirmDeleteView = App.ModalView.extend()
-App.QuickLookModalView = App.ModalView.extend
-  templateName: 'allocations/quick_look_modal'
+App.QuickLookModalView = App.ModalView.extend()
