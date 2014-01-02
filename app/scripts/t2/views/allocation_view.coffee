@@ -12,7 +12,7 @@ App.AllocationView = Ember.View.extend
   click: (evt) ->
     @clicks.push Ember.run.later @, ->
       @get('controller').send 'quickView', @get('allocation')
-    , 300
+    , 250
 
     false # to keep from bubbling up
 

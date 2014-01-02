@@ -33,10 +33,12 @@
       <i>&#9716;</i>
       <h3>100% Allocated</h3>
     </div>
-    <div class="notes" data-test="notes">
-      <i>&#9998;</i>
-      <h3>{{notes}}</h3>
-    </div>
+    {{#if notes}}
+      <div class="notes" data-test="notes">
+        <i>&#9998;</i>
+        <h3>{{notes}}</h3>
+      </div>
+    {{/if}}
   </div>
   <div class="modal-footer">
     <button class="blue-button" {{action edit model}}>Edit</button>

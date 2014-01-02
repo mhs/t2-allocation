@@ -6,15 +6,14 @@ $modal-width: 600px;
   z-index: 1;
   position: fixed;
   color: gray;
-  top: 10%;
+  top: 25%;
   left: 50%;
   z-index: 1050;
   width: $modal-width;
   margin-left: -($modal-width/2);
   box-shadow: 0px 0px 5px rgba(0,0,0,.4);
   opacity: 0;
-  -webkit-transform: scale(0.6);
-  -webkit-transition: all .250s ease-out;
+  @include transition (all .25s);
 
   i {
     position: absolute;
@@ -57,15 +56,10 @@ textarea {
     outline: 2px solid $dark-gray;
   }
 }
-}
 
-.quick-look-modal {
-  opacity: 1;
-}
-
-.modal.in {
-  opacity: 1;
-  -webkit-transform: scale(1.0);
+  &.in {
+    opacity: 1;
+  }
 }
 
 .modal-header {
@@ -154,7 +148,7 @@ textarea {
 .dates span {
   float: left;
   position: relative;
-  top: 27px;
+  top: 23px;
   font-size: 28px;
 }
 
@@ -245,13 +239,14 @@ input[type=checkbox]:checked ~ span::before {
 .modal-footer {
   padding: 0 20px 20px 20px;
 
-  a {
+  a.delete {
     float: right;
     position: relative;
     top: 13px;
     text-decoration: none;
     color: gray;
     margin: 0 0 0 10px;
+    color: $red;
   }
 }
 
@@ -261,12 +256,12 @@ input[type=checkbox]:checked ~ span::before {
   bottom: 0px;
   left: 0px;
   right: 0px;
-
   background: rgba(255,255,255,0.7);
   opacity: 0;
-  -webkit-transition: all .250s ease-out;
+  @include transition (all .25s);
+
+  &.in {
+    opacity: 1;
+  }
 }
 
-.modal-backdrop.in {
-  opacity: 1;
-}
