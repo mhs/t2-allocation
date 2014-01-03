@@ -5,7 +5,7 @@ App.ModalView = Em.View.extend(
     App.animateModalOpen()
     $("body").on "keyup.modal", (event) ->
       self.get("controller").send "close"  if event.keyCode is 27
-    @$("input[type=text]").first().focus()
+    @$("input[type=text]").first()
 
   willDestroyElement: ->
     $("body").off "keyup.modal"

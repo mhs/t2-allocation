@@ -50,6 +50,21 @@ App.AllocationsModalController.reopen
       @set('endDate', startDate)
   ).observes('startDate')
 
+  formStartDate: ((k, v) ->
+    if arguments.length > 1
+      [y, m, d] = v.split('-')
+      newDate = new Date(y, m - 1, d)
+      @set('startDate', newDate)
+    App.dateMunge @get('startDate')
+  ).property('startDate')
+
+  formEndDate: ((k, v) ->
+    if arguments.length > 1
+      [y, m, d] = v.split('-')
+      @set('endDate', new Date(y, m - 1, d))
+    App.dateMunge @get('endDate')
+  ).property('endDate')
+
   projects: (->
     projects = @get('currentOffice.projects')
     sortByName =
