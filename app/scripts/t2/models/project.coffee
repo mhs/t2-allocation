@@ -7,6 +7,9 @@ App.Project = DS.Model.extend
   slots: DS.hasMany('slot')
   allocations: DS.hasMany('allocation')
 
+  startDate: DS.attr('date')
+  endDate: DS.attr('date')
+
   sortOrder: (->
     val = 0
     if !@get('billable')
