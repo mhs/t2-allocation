@@ -42,6 +42,12 @@ App.AllocationsModalController.reopen
     @set('billable', project.get('billable')) if @_wasNew
   ).observes('project')
 
+  bindingObserver: (->
+    project = @get('project')
+    return if !project
+    @set('binding', project.get('billable') || project.get('vacation')) if @_wasNew
+  ).observes('project')
+
   startDateDidChange: (->
     startDate = @get('startDate')
     endDate = @get('endDate')
