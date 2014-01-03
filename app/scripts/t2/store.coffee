@@ -29,6 +29,14 @@ App.AvailabilitySerializer = App.ApplicationSerializer.extend
       item.id = item.start_date + item.end_date + item.person_id
     @_super(store, type, payload, requestType)
 
+App.ProjectSerializer = App.ApplicationSerializer.extend
+  serializeHasMany: (record, json, relationship) ->
+    key = relationship.key
+    if key == "offices"
+      json[this.keyForRelationship(key, relationship.kind)] = Ember.get(record, key).mapBy('id')
+    else
+      @_super()
+
 App.RawTransform = DS.Transform.extend
   deserialize: (serialized) ->
     serialized
