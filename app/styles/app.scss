@@ -7,6 +7,7 @@
 @import 'calendar';
 @import 'controls';
 @import 'projects';
+@import 'people';
 @import 'modal';
 @import 'new-nav';
 
@@ -23,6 +24,10 @@ body {
 }
 
 .sign-out-link { font-size: 9pt; }
+
+.hidden {
+  display: none;
+}
 
 .loading {
   position: fixed;

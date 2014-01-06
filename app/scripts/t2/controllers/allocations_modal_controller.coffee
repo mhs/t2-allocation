@@ -16,8 +16,8 @@ editableProps = EDITABLE_PROPERTIES.reduce (props, name)->
 App.AllocationsModalController = App.ModalController.extend editableProps
 
 App.AllocationsModalController.reopen
-  needs: ['officesProjects'],
-  currentOffice: Ember.computed.alias('controllers.officesProjects.model'),
+  needs: ['office'],
+  currentOffice: Ember.computed.alias('controllers.office.model'),
 
   isDirty: true
 
@@ -32,7 +32,7 @@ App.AllocationsModalController.reopen
       content: []
     people = Ember.ArrayProxy.createWithMixins(Ember.SortableMixin, sortByName)
     for office in project.get('offices').toArray()
-      people.pushObjects(office.get('people').toArray())
+      people.pushObjects(office.get('activePeople').toArray())
     people
   ).property('project')
 
@@ -41,6 +41,35 @@ App.AllocationsModalController.reopen
     return if !project
     @set('billable', project.get('billable')) if @_wasNew
   ).observes('project')
+
+  bindingObserver: (->
+    project = @get('project')
+    return if !project
+    @set('binding', project.get('billable') || project.get('vacation')) if @_wasNew
+  ).observes('project')
+
+  startDateDidChange: (->
+    startDate = @get('startDate')
+    endDate = @get('endDate')
+
+    if endDate && endDate < startDate
+      @set('endDate', startDate)
+  ).observes('startDate')
+
+  formStartDate: ((k, v) ->
+    if arguments.length > 1
+      [y, m, d] = v.split('-')
+      newDate = new Date(y, m - 1, d)
+      @set('startDate', newDate)
+    App.dateMunge @get('startDate')
+  ).property('startDate')
+
+  formEndDate: ((k, v) ->
+    if arguments.length > 1
+      [y, m, d] = v.split('-')
+      @set('endDate', new Date(y, m - 1, d))
+    App.dateMunge @get('endDate')
+  ).property('endDate')
 
   projects: (->
     projects = @get('currentOffice.projects')

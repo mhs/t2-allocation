@@ -79,6 +79,7 @@ textarea {
   position: relative;
   bottom: 14px;
   cursor: pointer;
+  line-height: 1
 }
 
 .modal-body {
@@ -165,6 +166,10 @@ textarea {
   margin: 20px 0 0 0;
 }
 
+.modal-office {
+  margin: 0 0 10px 0;
+}
+
 .billable, .exclusive, .modal-offices, .modal-office {
   @include user-select(none);
 
@@ -187,9 +192,9 @@ input[type=checkbox] {
 input[type=checkbox]:checked ~ span::before {
   font-family: "entypo";
   content: '\2713';
-  font-size: 60px;
+  font-size: 28px;
   text-align: center;
-  line-height: .1;
+  line-height: .65;
   float: left;
   color: gray;
   z-index: 2;
