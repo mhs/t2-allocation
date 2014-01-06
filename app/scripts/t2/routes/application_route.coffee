@@ -19,6 +19,7 @@ App.ApplicationRoute = Ember.Route.extend
       @transitionTo('offices.projects', office)
 
     error: (err) ->
+      return
       auth = @controllerFor('authentication')
       auth.login()
 
