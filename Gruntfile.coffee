@@ -237,10 +237,10 @@ module.exports = (grunt)->
           'git commit -m "$GRUNT_COMMIT_MSG"'
 
           # Add heroku remote
-          'heroku git:remote -a t2allocation-staging'
+          'heroku git:remote -a t2allocation-staging -r staging'
 
           # Push to heroku and github
-          'git push heroku staging:master -f'
+          'git push staging staging:master -f'
           'git push origin staging'
 
         ].join '&&'
@@ -269,10 +269,10 @@ module.exports = (grunt)->
           'git commit -m "$GRUNT_COMMIT_MSG"'
 
           # Add heroku remote
-          'heroku git:remote -a t2-allocation'
+          'heroku git:remote -a t2-allocation -r production'
 
           # Push to heroku and github
-          'git push heroku production:master -f'
+          'git push production production:master -f'
           'git push origin production'
 
         ].join '&&'
