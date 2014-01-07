@@ -9,7 +9,6 @@ Ember.Application.initializer
 
     $(document).ajaxError( (event, jqXHR, ajaxSettings, thrownError) ->
       return unless jqXHR.getAllResponseHeaders()
-      return
       auth = container.lookup("controller:authentication")
       auth.logout()
     )

@@ -27,7 +27,6 @@ App.ApplicationRoute = Ember.Route.extend
       @send "openModal", "allocations.modal"
 
     error: (err) ->
-      return
       auth = @controllerFor('authentication')
       auth.login()
 
