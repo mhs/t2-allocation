@@ -23,6 +23,20 @@
         {{textarea value=notes}}
         {{#each msg in errors.notes}}{{msg}}{{/each}}
       </div>
+      <div class="dates">
+        <div class="start" {{bindAttr class="errors.startDate:error :field"}}>
+          <i>&#128197;</i>
+          <label>Start Date</label>
+          {{date-picker name="startDate" class="start-date" value=formStartDate}}
+          {{#each msg in errors.startDate}}{{msg}}{{/each}}
+        </div>
+        <span>-</span>
+        <div class="end" {{bindAttr class="errors.end_date:error :field"}}>
+          <label>End Date</label>
+          {{date-picker name="endDate" class="end-date" value=formEndDate}}
+          {{#each msg in errors.endDate}}{{msg}}{{/each}}
+        </div>
+      </div>
       <div class="modal-offices">
         <label>Offices</label>
         {{#each offices}}

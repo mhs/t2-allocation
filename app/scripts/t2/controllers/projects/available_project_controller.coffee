@@ -17,7 +17,7 @@ App.AvailableProjectController  = Ember.ObjectController.extend
     )
     @set "trackCount", trackNo
     availabilities
-  ).property('availabilities.isLoaded')
+  ).property('availabilities.[]')
 
   availabilityStart: (->
     moment(App.projectsUI.get('startDate')).format("YYYY-MM-DD")
@@ -32,7 +32,7 @@ App.AvailableProjectController  = Ember.ObjectController.extend
       start_date: @get('availabilityStart')
       office_id: @get('controllers.office.model.id')
       end_date: @get('availabilityEnd')
-    App.Availability.find(criteria)
+    @store.find('availability', criteria)
   ).property('controllers.office.model',
     'availabilityStart',
     'availabilityEnd',

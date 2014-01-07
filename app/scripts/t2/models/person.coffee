@@ -1,17 +1,15 @@
-App.Person = App.defineModel 'people', 'person',
-  id: Ember.attr()
-  name: Ember.attr()
-  notes: Ember.attr()
-  email: Ember.attr()
-  unsellable: Ember.attr()
-  startDate: Ember.attr(Date)
-  endDate: Ember.attr(Date)
-  office: Ember.belongsTo("App.Office",
-    key: 'office_id'
-  )
-  allocations: Ember.hasMany("App.Allocation",
-    key: "allocation_ids"
-  )
+attr = DS.attr
+App.Person = DS.Model.extend
+  name: attr('string')
+  role: attr('string')
+  notes: attr('string')
+  email: attr('string')
+  unsellable: attr('boolean')
+  startDate: attr('date')
+  endDate: attr('date')
+  office: DS.belongsTo('office')
+  allocations: DS.hasMany('allocation')
+
   mergedAllocations: (->
     allocations = @get('allocations').filterProperty('current').toArray().sort (a,b)->
       a.get('startDate') - b.get 'startDate'
@@ -34,7 +32,7 @@ App.Person = App.defineModel 'people', 'person',
           end = newEnd
     merged.push {startDate: start, endDate: end}
     merged
-  ).property("App.projectsUI.startDate", "App.projectsUI.endDate",'allocation.[]','allocations.@each.current')
+  ).property("App.projectsUI.startDate", "App.projectsUI.endDate",'allocations.[]','allocations.@each.current')
 
   editUrl:(->
     App.PEOPLE_URL + @get('id') + '/edit'

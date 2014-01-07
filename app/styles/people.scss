@@ -1,6 +1,7 @@
 #peopleList {
   overflow: hidden;
   padding: 76px 0 0;
+  @include user-select(none);
 }
 
 .person {

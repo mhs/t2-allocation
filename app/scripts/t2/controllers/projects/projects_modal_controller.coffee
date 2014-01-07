@@ -9,7 +9,7 @@ App.SelectableOffice = Ember.ObjectProxy.extend
     @selected.contains(office)
   ).property('selected.[]')
 
-EDITABLE_PROPERTIES = ['name', 'billable', 'notes']
+EDITABLE_PROPERTIES = ['name', 'billable', 'notes', 'startDate', 'endDate']
 editableProps = EDITABLE_PROPERTIES.reduce (props, name)->
   props[name] = null
   props
@@ -50,7 +50,7 @@ App.ProjectsModalController.reopen
     @_selectedOffices.forEach (office)->
       _projects = office.get('projects')
       _projects.pushObject(project)
-      offices.pushObject(office)
+      # Ember Data automatically sets the inverse assocation on project
 
   _applyChanges: (project)->
     for n in EDITABLE_PROPERTIES
@@ -60,6 +60,23 @@ App.ProjectsModalController.reopen
 
   _beforeDelete: (project)->
     @_removeFromItsOffices(project)
+
+  formStartDate: ((k, v) ->
+    if arguments.length > 1
+      [y, m, d] = v.split('-')
+      newDate = new Date(y, m - 1, d)
+      @set('startDate', newDate)
+    value = @get('startDate')
+    App.dateMunge(value) if value
+  ).property('startDate')
+
+  formEndDate: ((k, v) ->
+    if arguments.length > 1
+      [y, m, d] = v.split('-')
+      @set('endDate', new Date(y, m - 1, d))
+    value = @get('endDate')
+    App.dateMunge(value) if value
+  ).property('endDate')
 
   offices: (->
     self = @

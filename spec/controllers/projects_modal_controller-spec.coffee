@@ -44,7 +44,7 @@ describe 'App.ProjectsModalController', ->
     officesSpy = properties['offices'] = []
 
   beforeEach ->
-    projectSpy = jasmine.createSpyObj('project', ['get', 'set', 'save', 'destroy', 'deleteRecord'])
+    projectSpy = jasmine.createSpyObj('project', ['get', 'set', 'save', 'destroy', 'destroyRecord'])
 
     projectSpy.get = (n)-> properties[n]
 
