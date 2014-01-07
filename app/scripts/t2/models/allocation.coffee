@@ -25,7 +25,7 @@ App.Allocation = App.defineModel 'allocations', 'allocation',
 
   track: 0
   current: (->
-    @get("startDate") < App.projectsUI.get("endDate") and @get("endDate") > App.projectsUI.get("startDate")
+    @get("startDate") <= App.projectsUI.get("endDate") and @get("endDate") >= App.projectsUI.get("startDate")
   ).property("startDate","endDate","App.projectsUI.startDate", "App.projectsUI.endDate")
   duration: (->
     start = moment(@get("startDate")) || moment(@get("endDate")) || moment()
