@@ -36,21 +36,10 @@ App.ProjectsModalController.reopen
     selected.addEach(project.get('offices'))
 
   _updateOffices: (project)->
-    @_removeFromItsOffices(project)
-    @_addToSelectedOffices(project)
-
-  _removeFromItsOffices: (project)->
     offices = project.get('offices')
-    offices.forEach (office)->
-      office.get('projects').removeObject(project)
     offices.clear()
-
-  _addToSelectedOffices: (project)->
-    offices = project.get('offices')
-    @_selectedOffices.forEach (office)->
-      _projects = office.get('projects')
-      _projects.pushObject(project)
-      # Ember Data automatically sets the inverse assocation on project
+    @_selectedOffices.forEach (selected) ->
+      offices.pushObject(selected)
 
   _applyChanges: (project)->
     for n in EDITABLE_PROPERTIES
