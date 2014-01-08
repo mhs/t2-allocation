@@ -4,9 +4,9 @@ $modal-width: 600px;
 .modal {
   background: white;
   z-index: 1;
-  position: fixed;
+  position: absolute;
   color: gray;
-  top: 10%;
+  // top: 10%;
   left: 50%;
   z-index: 1050;
   width: $modal-width;
@@ -107,6 +107,7 @@ textarea {
   }
 }
 .modal-project, .modal-person, .project-name, .modal-offices {
+  @include clearfix;
   margin: 0 0 20px 0;
   position: relative;
 }
@@ -131,6 +132,10 @@ textarea {
 .dates, .options, .notes, .project-name, .offices {
   @include clearfix;
   position: relative;
+
+  textarea {
+    margin: 0 0 20px 0;
+  }
 }
 
 .dates span {
@@ -168,6 +173,8 @@ textarea {
 
 .modal-office {
   margin: 0 0 10px 0;
+  width: 50%;
+  float: left;
 }
 
 .billable, .exclusive, .modal-offices, .modal-office {
