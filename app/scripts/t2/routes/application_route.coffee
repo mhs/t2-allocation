@@ -17,6 +17,20 @@ App.ApplicationRoute = Ember.Route.extend
       @controllerFor("allocations.modal").edit allocation
       @send "openModal", "allocations.modal"
 
+    quickView: (allocation) ->
+      @send "quickViewModal", allocation
+
+    quickViewModal: (allocation) ->
+      @controllerFor("QuickLookModal").set "model", allocation
+      @render "allocations/quick_look_modal",
+        into: "application"
+        outlet: "quickLook"
+        view: "QuickLookModal"
+        controller: "QuickLookModal"
+
+    close: (modal) ->
+      @send "closeModal"
+
     error: (err) ->
       auth = @controllerFor('authentication')
       auth.login()
@@ -26,12 +40,20 @@ App.ApplicationRoute = Ember.Route.extend
         into: "application"
         outlet: "modal"
 
+
     closeModal: ->
       self = @
-      App.animateModalClose().then ->
-        self.render "empty",
-          into: "application"
+      App.animateModalClose().then =>
+        @disconnectOutlet
           outlet: "modal"
+          parentView: "application"
+
+    closeQuickLook: ->
+      self = @
+      App.animateModalClose().then =>
+        @disconnectOutlet
+          outlet: "quickLook"
+          parentView: "application"
 
     loading: ->
       unless @get('loadingView')
