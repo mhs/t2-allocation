@@ -6,21 +6,12 @@ App.ApplicationRoute = Ember.Route.extend
       transition.abort()
       auth.login()
 
-  model: ->
-    Ember.RSVP.all([
-      App.Office.fetch(),
-      App.Project.fetch(),
-      App.Person.fetch(),
-      App.Allocation.fetch()
-    ])
-
   actions:
     createAllocation: (allocationAttrs={}) ->
-      __hackEmberModel()
       defaults =
         startDate: new Date()
-        endDate: new Date(moment().add(2,'weeks').format('L'))
-      @send 'editAllocation', App.Allocation.create(Ember.merge(defaults, allocationAttrs))
+        endDate: new Date(moment().add(2,'weeks').format('YYYY-MM-DD'))
+      @send 'editAllocation', @store.createRecord('allocation', Ember.merge(defaults, allocationAttrs))
 
     editAllocation: (allocation) ->
       @controllerFor("allocations.modal").edit allocation
@@ -49,6 +40,7 @@ App.ApplicationRoute = Ember.Route.extend
         into: "application"
         outlet: "modal"
 
+
     closeModal: ->
       self = @
       App.animateModalClose().then =>
@@ -62,3 +54,12 @@ App.ApplicationRoute = Ember.Route.extend
         @disconnectOutlet
           outlet: "quickLook"
           parentView: "application"
+
+    loading: ->
+      unless @get('loadingView')
+        view = @container.lookup('view:loading').append()
+        @set('loadingView', view)
+
+      @router.one('didTransition', =>
+        @get('loadingView').destroy()
+      )

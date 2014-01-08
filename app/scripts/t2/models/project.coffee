@@ -1,9 +1,14 @@
-App.Project = App.defineModel 'projects', 'project',
-  id: Ember.attr()
-  name: Ember.attr()
-  notes: Ember.attr()
-  billable: Ember.attr()
-  vacation: Ember.attr()
+App.Project = DS.Model.extend
+  name: DS.attr('string')
+  vacation: DS.attr('boolean')
+  billable: DS.attr('boolean')
+
+  offices: DS.hasMany('office')
+  slots: DS.hasMany('slot')
+  allocations: DS.hasMany('allocation')
+
+  startDate: DS.attr('date')
+  endDate: DS.attr('date')
 
   sortOrder: (->
     val = 0
@@ -14,12 +19,13 @@ App.Project = App.defineModel 'projects', 'project',
     val
   ).property('billable', 'vacation')
 
-  slots: Ember.hasMany("App.Slot",
-    key: "slot_ids"
-  )
-  allocations: Ember.hasMany("App.Allocation",
-    key: "allocation_ids"
-  )
-  offices: Ember.hasMany("App.Office",
-    key: "office_ids"
-  )
+App.AvailableProject = App.Project.extend
+  availableProject: true
+
+  sortOrder: 4
+
+App.DummyProject = App.Project.extend
+  dummyProject: true
+
+  sortOrder: -1
+

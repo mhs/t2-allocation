@@ -5,7 +5,7 @@ describe 'App.ModalController', ->
   beforeEach -> subject = App.ModalController.create()
 
   beforeEach ->
-    editedModelSpy = jasmine.createSpyObj('editedModel', ['save', 'destroy', 'deleteRecord'])
+    editedModelSpy = jasmine.createSpyObj('editedModel', ['save', 'destroy', 'destroyRecord'])
 
   beforeEach ->
     spyOn(subject, 'send').andCallThrough()
@@ -48,7 +48,7 @@ describe 'App.ModalController', ->
       subject.send('delete')
 
     it 'should delete the model', ->
-      expect(editedModelSpy.deleteRecord).toHaveBeenCalled()
+      expect(editedModelSpy.destroyRecord).toHaveBeenCalled()
 
     it 'should close the dialog', ->
       expect(subject.send).toHaveBeenCalledWith('closeModal')

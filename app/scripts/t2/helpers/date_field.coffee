@@ -1,3 +1,8 @@
+App.computed = {}
+App.computed.fmtDate = (key) ->
+  Ember.computed key, ->
+    moment(@get(key)).format 'YYYY-MM-DD'
+
 App.DateField = Ember.TextField.extend(
   type: "date"
   date: ( (key, date) ->

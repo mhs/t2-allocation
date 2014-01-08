@@ -1,13 +1,8 @@
-App.Office = App.defineModel 'offices', 'office',
-  id: Ember.attr()
-  name: Ember.attr()
-  notes: Ember.attr()
-  projects: Ember.hasMany("App.Project",
-    key: "project_ids"
-  )
-  people: Ember.hasMany("App.Person",
-    key: "person_ids"
-  )
+App.Office = DS.Model.extend
+  name: DS.attr('string')
+  projects: DS.hasMany('project')
+  notes: DS.attr('string')
+  people: DS.hasMany('person')
 
   activePeople: (->
     cutoff = App.projectsUI.get('startDate')

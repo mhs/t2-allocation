@@ -1,13 +1,6 @@
 App.AvailabilityController = Ember.ObjectController.extend
-  # needs: ['projects']
-
-  #office: Ember.computed.alias('person.office')
-  #currentOffice: Ember.computed.alias('controllers.projects.model')
 
   isExternal: (-> false).property()
-  #isExternal: (->
-  #  @get('office') != @get('currentOffice')
-  #).property('currentOffice', 'office')
 
   startOffset: (->
     currentMonday = moment(App.projectsUI.get("date"))

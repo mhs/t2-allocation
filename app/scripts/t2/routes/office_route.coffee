@@ -1,6 +1,6 @@
 App.OfficeRoute = Ember.Route.extend
   model: (params) ->
-    offices = @modelFor('application').get('firstObject')
+    offices = @store.all('allocationBundle').get('firstObject.offices')
     offices.findProperty 'slug', params.slug
 
   serialize: (model) ->
