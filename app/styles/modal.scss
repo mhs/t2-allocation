@@ -1,20 +1,18 @@
 $modal-width: 600px;
 
 
-.modal {
+.modal, .quick-view-modal {
   background: white;
   z-index: 1;
   position: absolute;
   color: gray;
-  // top: 10%;
   left: 50%;
   z-index: 1050;
   width: $modal-width;
   margin-left: -($modal-width/2);
   box-shadow: 0px 0px 5px rgba(0,0,0,.4);
   opacity: 0;
-  -webkit-transform: scale(0.6);
-  -webkit-transition: all .250s ease-out;
+  @include transition (all .25s);
 
   i {
     position: absolute;
@@ -57,11 +55,10 @@ textarea {
     outline: 2px solid $dark-gray;
   }
 }
-}
 
-.modal.in {
-  opacity: 1;
-  -webkit-transform: scale(1.0);
+  &.in {
+    opacity: 1;
+  }
 }
 
 .modal-header {
@@ -112,6 +109,12 @@ textarea {
   position: relative;
 }
 
+.modal-person{
+
+  h3 {
+    margin: 0;
+  }
+}
 .modal-offices {
   margin: 20px 0;
 }
@@ -127,9 +130,17 @@ textarea {
 
 .options {
   margin: 0 0 10px 0;
+
+  span {
+    float: left;
+    margin: 0 5px 0 0;
+    font-size: 20px;
+    position: relative;
+    bottom: 1px;
+  }
 }
 
-.dates, .options, .notes, .project-name, .offices {
+.dates, .options, .notes, .project-name, .offices, .percent-allocated {
   @include clearfix;
   position: relative;
 
@@ -141,12 +152,20 @@ textarea {
 .dates span {
   float: left;
   position: relative;
-  top: 27px;
+  top: 23px;
   font-size: 28px;
-  }
+}
 
-.start, .end {
+.dates .dash {
+  top: -7px;
+}
+
+.start, .end, {
   float: left;
+
+  h3 {
+  margin: 0
+  }
 }
 
 .start {
@@ -165,8 +184,23 @@ textarea {
     float: none;
     margin: 0 0 15px 0;
   }
+
+  &.preview {
+    margin: 0 5px 0 0;
+  }
+
+  h3 {
+  margin: 0
+  }
 }
 
+.percent-allocated, .options, .notes {
+  margin: 0 0 20px 0;
+
+  h3 {
+    margin: 0;
+  }
+}
 .modal-offices {
   margin: 20px 0 0 0;
 }
@@ -211,13 +245,14 @@ input[type=checkbox]:checked ~ span::before {
 .modal-footer {
   padding: 0 20px 20px 20px;
 
-  a {
+  a.delete {
     float: right;
     position: relative;
     top: 13px;
     text-decoration: none;
     color: gray;
     margin: 0 0 0 10px;
+    color: $red;
   }
 }
 
@@ -227,12 +262,12 @@ input[type=checkbox]:checked ~ span::before {
   bottom: 0px;
   left: 0px;
   right: 0px;
-
   background: rgba(255,255,255,0.7);
   opacity: 0;
-  -webkit-transition: all .250s ease-out;
+  @include transition (all .25s);
+
+  &.in {
+    opacity: 1;
+  }
 }
 
-.modal-backdrop.in {
-  opacity: 1;
-}
