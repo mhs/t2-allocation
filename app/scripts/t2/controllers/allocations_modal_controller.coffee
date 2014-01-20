@@ -80,6 +80,10 @@ App.AllocationsModalController.reopen
     Ember.ArrayProxy.createWithMixins(Ember.SortableMixin, sortByName)
   ).property('currentOffice')
 
+  errors: (->
+    @_editedModel.get('errors')
+  ).property('_editedModel.errors')
+
   isNew: (->
     @_editedModel.get('isNew')
   ).property('_editedModel')
