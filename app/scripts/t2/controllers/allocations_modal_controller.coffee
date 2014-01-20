@@ -7,6 +7,7 @@ EDITABLE_PROPERTIES = [
   'project'
   'slot'
   'startDate'
+  'percentAllocated'
 ]
 editableProps = EDITABLE_PROPERTIES.reduce (props, name)->
   props[name] = null

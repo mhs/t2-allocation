@@ -8,7 +8,6 @@
       <i>&#128100;</i>
       <h3>{{person.name}}</h3>
     </div>
-  <form {{action save on="submit"}}>
     <div class="dates">
       <i>&#128197;</i>
       <div class="start">
@@ -31,7 +30,7 @@
     </div>
     <div class="percent-allocated">
       <i>&#9716;</i>
-      <h3>100% Allocated</h3>
+      <h3>{{percentAllocated}}% Allocated</h3>
     </div>
     {{#if notes}}
       <div class="notes" data-test="notes">
@@ -44,5 +43,4 @@
     <button class="blue-button" {{action edit model}}>Edit</button>
     <button class="white-button" {{action close}}>Cancel</button>
   </div>
-  </form>
 </div>

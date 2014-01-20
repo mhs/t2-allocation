@@ -55,6 +55,10 @@
         {{#each msg in errors.binding}}{{msg}}{{/each}}
       </div>
     </div>
+    <div class="percent-allocated" {{bindAttr class="errors.binding:error :field"}}>
+      <label>% Allocated{{input type="text" value=percentAllocated }}</label>
+      {{#each msg in errors.binding}}{{msg}}{{/each}}
+    </div>
     <div class="notes" data-test="notes" {{bindAttr class="errors.notes:error :field"}}>
       <i>&#9998;</i>
       <label>Notes</label>
