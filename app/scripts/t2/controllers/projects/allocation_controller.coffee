@@ -12,6 +12,10 @@ App.AllocationController = Ember.ObjectController.extend
     !@get('billable')
   ).property('billable')
 
+  isPartial: (->
+    @get('percentAllocated') < 100
+  ).property('percentAllocated')
+
   startOffset: (->
     currentMonday = moment(App.projectsUI.get("date"))
     startDate = moment(App.dateMunge(@get('startDate')))
