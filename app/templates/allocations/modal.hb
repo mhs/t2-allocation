@@ -51,7 +51,7 @@
         {{#each msg in errors.billable}}{{msg}}{{/each}}
       </div>
       <div class="exclusive" data-test="binding" {{bindAttr class="errors.binding:error :field"}}>
-        <label>{{input type="checkbox" checked=binding}}Binding<span id="binding-check"></span></label>
+        <label>{{input type="checkbox" checked=binding}}Exclusive<span id="binding-check"></span></label>
         {{#each msg in errors.binding}}{{msg}}{{/each}}
       </div>
     </div>
