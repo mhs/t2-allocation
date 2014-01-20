@@ -2,6 +2,10 @@ App.AvailabilityController = Ember.ObjectController.extend
 
   isExternal: (-> false).property()
 
+  isPartial: (->
+    @get('percentAllocated') < 100
+  ).property('percentAllocated')
+
   startOffset: (->
     currentMonday = moment(App.projectsUI.get("date"))
     startDate = moment(@get("startDate")) || moment()

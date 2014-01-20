@@ -9,5 +9,6 @@ App.Availability = DS.Model.extend
   ).property("startDate", "endDate")
 
   person: DS.belongsTo('person')
+  percentAllocated: DS.attr('number')
 
   current: true

@@ -7,5 +7,8 @@
     <em>({{office.name}})</em>
   {{/if}}
 
+  {{#if isPartial}}
+    <span>@{{percentAllocated}}%</span>
+  {{/if}}
   <span class="allocation-range">{{ shortDate startDate }} - {{ shortDate endDate }}</span>
 </div>
