@@ -9,6 +9,7 @@ App.Person = DS.Model.extend
   endDate: attr('date')
   office: DS.belongsTo('office')
   allocations: DS.hasMany('allocation')
+  percentBillable: DS.attr('number')
 
   mergedAllocations: (->
     allocations = @get('allocations').filterProperty('current').toArray().sort (a,b)->
