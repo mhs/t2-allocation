@@ -8,6 +8,10 @@ App.PersonAllocationController = Ember.ObjectController.extend
     !@get('billable')
   ).property('billable')
 
+  isPartial: (->
+    @get('percentAllocated') < 100
+  ).property('percentAllocated')
+
   startOffset: (->
     currentMonday = moment(App.projectsUI.get("date"))
     startDate = moment(@get("startDate")) || moment()
