@@ -49,6 +49,12 @@ App.AllocationsModalController.reopen
     @set('binding', project.get('billable') || project.get('vacation')) if @_wasNew
   ).observes('project')
 
+  percentAllocatedObserver: (->
+    person = @get('person')
+    return unless person
+    @set('percentAllocated', person.get('percentBillable')) if @_wasNew
+  ).observes('person')
+
   startDateDidChange: (->
     startDate = @get('startDate')
     endDate = @get('endDate')
