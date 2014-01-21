@@ -32,5 +32,6 @@ App.ProjectController = Ember.ObjectController.extend
   ).property("trackCount")
 
   actions:
-    addAllocation: ->
-      @send 'createAllocation', { project: @get('model') }
+    addAllocation: (startDate) ->
+      startDate ||= new Date()
+      @send 'createAllocation', {project: @get('model') , startDate: startDate}
