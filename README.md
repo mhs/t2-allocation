@@ -1,5 +1,5 @@
 [![Build Status](https://magnum.travis-ci.com/neo/t2-allocation.png?token=cbFumu6XwVNSbYuFchBc)](https://magnum.travis-ci.com/neo/t2-allocation)
-# T2 - Allocation 
+# T2 - Allocation
 
 Brand new time tracking and scheduling program used to quantify the essence of our business. Built
 in [EmberJS](http://emberjs.com), using [Grunt](http://gruntjs.com) and [Bower](http://bower.io)
@@ -26,6 +26,8 @@ server. See below)
 
 ## Testing
 
+`TODO: check how many of these actually work`
+
 Running all tests:
 
     grunt test
@@ -48,29 +50,7 @@ Running unit test in development mode (autorun)
 
 ## Deployment
 
-Build the application with
-
-    grunt build --production
-
-Deploy the contents of `./dist` directory.
-
-### Staging
-
-We host our staging environment as github pages.
-
-You can create a staging version of your current branch by executing:
-
-    grunt deploy:staging
-
-It will build the application with staging environment settings (`config.json`) into `./dist` folder,
-and push it to [gh-pages](https://github.com/neo/t2-allocation/tree/gh-pages) branch.
-
-Your branch will be hosted in its own directory at
-[t2-allocations-staging](http://neo.github.io/t2-allocation/index.html).
-
-Here is the [master branch version](http://neo.github.io/t2-allocation/master/) of the application.
-
-### Production
+`TODO: harmonize deploys with the other Lineman-based apps`
 
 The production app is hosted on Heroku. Because t2-allocation consists of only static files,
 we will use the hack from this [site](http://kennethreitz.org/static-sites-on-heroku-cedar/). This
@@ -85,7 +65,16 @@ You can create a production version of your current branch by executing:
 
     grunt deploy:production
 
-The app can be accessed [here](http://t2-allocation.herokuapp.com).
+The app can be accessed [here](http://t2allocation.neo.com).
+
+### Staging
+
+The staging environment is identical to the production environment, but is
+deployed with:
+
+    grunt deploy:staging
+
+and can be accessed [here](http://t2allocation-staging.neo.com).
 
 ## Running api-mock server
 
@@ -102,10 +91,6 @@ Here are some links to help lead the way:
 - [Peepcode Ember.js](https://peepcode.com/products/emberjs)
 - [How a gaslighter learned Ember](http://www.youtube.com/watch?v=LyHK18s9taM)
 - [Getting Started with Ember](http://tech.pro/tutorial/1166/getting-started-with-emberjs)
-
-Due to Ember Data's unstable nature, we use Ember Model:
-
-- [Embercasts.com screencast on Ember Model](http://www.embercasts.com/episodes/getting-started-with-ember-model)
 
 and for a comprehensive list of what's happening in Ember Land:
 
