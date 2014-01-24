@@ -28,5 +28,6 @@ App.PersonController = Ember.ObjectController.extend
   ).property("trackCount")
 
   actions:
-    addAllocation: ->
-      @send 'createAllocation', { person: @get('model') }
+    addAllocation: (startDate) ->
+      startDate ||= moment()
+      @send 'createAllocation', {person: @get('model') , startDate: startDate}

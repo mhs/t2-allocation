@@ -1,3 +1,4 @@
 App.ProjectAllocationsView = Ember.View.extend
   doubleClick: (evt) ->
-    @get('controller').send 'addAllocation'
+    newStartDate = App.clickedDate(evt.clientX)
+    @get('controller').send 'addAllocation', newStartDate

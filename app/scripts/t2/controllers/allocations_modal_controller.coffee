@@ -65,16 +65,13 @@ App.AllocationsModalController.reopen
 
   formStartDate: ((k, v) ->
     if arguments.length > 1
-      [y, m, d] = v.split('-')
-      newDate = new Date(y, m - 1, d)
-      @set('startDate', newDate)
+      @set('startDate', moment(v))
     App.dateMunge @get('startDate')
   ).property('startDate')
 
   formEndDate: ((k, v) ->
     if arguments.length > 1
-      [y, m, d] = v.split('-')
-      @set('endDate', new Date(y, m - 1, d))
+      @set('endDate', moment(v))
     App.dateMunge @get('endDate')
   ).property('endDate')
 

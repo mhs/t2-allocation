@@ -52,17 +52,14 @@ App.ProjectsModalController.reopen
 
   formStartDate: ((k, v) ->
     if arguments.length > 1
-      [y, m, d] = v.split('-')
-      newDate = new Date(y, m - 1, d)
-      @set('startDate', newDate)
+      @set('startDate', moment(v))
     value = @get('startDate')
     App.dateMunge(value) if value
   ).property('startDate')
 
   formEndDate: ((k, v) ->
     if arguments.length > 1
-      [y, m, d] = v.split('-')
-      @set('endDate', new Date(y, m - 1, d))
+      @set('endDate', moment(v))
     value = @get('endDate')
     App.dateMunge(value) if value
   ).property('endDate')
