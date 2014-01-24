@@ -48,8 +48,7 @@ App.DateTransform = DS.Transform.extend
     if !string
       null
     else
-      [y, m, d] = string.split('-')
-      new Date(y, m - 1, d)
+      moment(string)
 
   serialize: (date) ->
     if !date

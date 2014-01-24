@@ -33,5 +33,5 @@ App.ProjectController = Ember.ObjectController.extend
 
   actions:
     addAllocation: (startDate) ->
-      startDate ||= new Date()
+      startDate ||= moment()
       @send 'createAllocation', {project: @get('model') , startDate: startDate}

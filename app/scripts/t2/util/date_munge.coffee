@@ -1,2 +1,2 @@
 App.dateMunge = (date) ->
-  moment(date).utc().format('YYYY-MM-DD')
+  moment(date).format('YYYY-MM-DD')

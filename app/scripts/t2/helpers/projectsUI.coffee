@@ -1,12 +1,11 @@
 App.DateUI = Ember.Object.extend
   date: null
   startDate: (->
-    new Date @date
+    moment(@date)
   ).property("date")
 
   endDate: (->
-    end = moment(@get('date')).add "days", @get('daysInWindow')
-    new Date end
+    moment(@get('date')).add "days", @get('daysInWindow')
   ).property("date","daysInWindow")
 
   calculateWindow: (->

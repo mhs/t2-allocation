@@ -29,5 +29,5 @@ App.PersonController = Ember.ObjectController.extend
 
   actions:
     addAllocation: (startDate) ->
-      startDate ||= new Date()
+      startDate ||= moment()
       @send 'createAllocation', {person: @get('model') , startDate: startDate}
