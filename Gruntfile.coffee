@@ -91,6 +91,10 @@ module.exports = (grunt)->
           ]
         ]
       server: '.tmp'
+    uglify:
+      options:
+        beautify:
+          ascii_only: true
     copy:
       dist:
         files: [
