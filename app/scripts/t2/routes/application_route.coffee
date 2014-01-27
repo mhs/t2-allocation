@@ -33,6 +33,7 @@ App.ApplicationRoute = Ember.Route.extend
 
     error: (err) ->
       auth = @controllerFor('authentication')
+      debugger
       auth.login()
 
     openModal: (modal) ->
