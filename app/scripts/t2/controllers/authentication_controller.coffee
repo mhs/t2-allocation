@@ -19,9 +19,7 @@ App.AuthenticationController = Ember.ObjectController.extend
     match = location.href.match(/authentication_token=([a-zA-Z0-9_-]+)/)
     if (match)
       @set('accessToken', match[1])
-      setTimeout(->
-        location.href = location.origin
-      , 500)
+      location.href = location.origin
 
   login: ->
     @_redirectToSignIn()
