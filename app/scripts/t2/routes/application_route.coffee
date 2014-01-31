@@ -32,6 +32,7 @@ App.ApplicationRoute = Ember.Route.extend
       @send "closeModal"
 
     error: (err) ->
+      return
       auth = @controllerFor('authentication')
       auth.login()
 
