@@ -18,6 +18,8 @@ App.AuthenticationController = Ember.ObjectController.extend
   extractAccessToken: ->
     match = location.href.match(/authentication_token=([a-zA-Z0-9_-]+)/)
     if (match)
+      # HAX - see if this lets FF log in
+      localStorage.accessToken = match[1]
       @set('accessToken', match[1])
       location.href = location.origin
 
