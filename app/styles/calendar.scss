@@ -18,7 +18,28 @@
   text-align: center;
   cursor: pointer;
 
-  .datepicker { width: 95%; }
+  .datepicker {
+    width: 95%;
+
+    &:focus ~ .calendar-date-selector {
+      i {
+        display: none;
+      }
+    }
+  }
+  i.cal {
+    position: absolute;
+    top: 16px;
+    left: 22px;
+    font-size: 35px;
+  }
+  i.dropdown {
+    position: absolute;
+    top: 17px;
+    left: 147px;
+    font-size: 20px;
+    font-weight: bold;
+  }
 }
 
 .calendar {

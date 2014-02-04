@@ -2,7 +2,9 @@
   {{#if isEditingDate}}
     {{edit-date class="datepicker" action="confirmDate" escape-press="confirmDate"}}
   {{else}}
+    <i class="cal">&#128197;</i>
     <span {{action "editDate" on="click"}}>{{firstDate}}</span>
+    <i class="dropdown">&#59236;</i>
   {{/if}}
 </div>
 
