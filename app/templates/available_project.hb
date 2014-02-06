@@ -1,5 +1,5 @@
 {{#view App.ProjectAllocationsView}}
-  <article class="project" {{bindAttr style="projectHeight"}}>
+  <article class="project" {{bind-attr style="projectHeight"}}>
     <div class="project-allocations">
       {{#each availability in currentAvailabilities}}
         {{ render "availability" availability }}

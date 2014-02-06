@@ -1,5 +1,5 @@
 {{#view App.ProjectAllocationsView}}
-  <article class="project" {{bindAttr data-project-id="id"}} {{bindAttr style="projectHeight"}}>
+  <article class="project" {{bind-attr data-project-id="id"}} {{bind-attr style="projectHeight"}}>
     <div class="project-allocations">
       {{#each allocation in currentAllocations}}
         {{ render "allocation" allocation }}
