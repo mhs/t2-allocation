@@ -6,7 +6,7 @@ App.NavView = Ember.View.extend
   bottom_links: null
 
   didInsertElement: () ->
-    url = window.App.NAVBAR_URL
+    url = window.ENV.NAVBAR_URL
     self = this
     $.getJSON(url, {}, (data, status, xhr) ->
       top_links = Ember.ArrayProxy.create({content: data.top})

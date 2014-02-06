@@ -1,4 +1,4 @@
 App.ApplicationController = Ember.Controller.extend
   navUrl:(->
-    window.App.NAVBAR_URL
+    window.ENV.NAVBAR_URL
   ).property()

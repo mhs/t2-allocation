@@ -36,6 +36,6 @@ App.Person = DS.Model.extend
   ).property("App.projectsUI.startDate", "App.projectsUI.endDate",'allocations.[]','allocations.@each.current')
 
   editUrl:(->
-    App.PEOPLE_URL + @get('id') + '/edit'
+    ENV.PEOPLE_URL + @get('id') + '/edit'
   ).property()
 

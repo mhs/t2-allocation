@@ -1,5 +1,5 @@
 App.ApplicationAdapter = DS.ActiveModelAdapter.extend
-  host: App.API_BASEURL
+  host: ENV.API_BASEURL
 
 App.ApplicationSerializer = DS.ActiveModelSerializer.extend()
 

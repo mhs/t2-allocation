@@ -1,5 +1,5 @@
 App.Availability = DS.Model.extend
-  url: "#{App.API_BASEURL}/availabilities"
+  url: "#{ENV.API_BASEURL}/availabilities"
   startDate: DS.attr('date')
   endDate: DS.attr('date')
   duration: (->

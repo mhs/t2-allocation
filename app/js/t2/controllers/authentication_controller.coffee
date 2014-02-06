@@ -10,10 +10,10 @@ App.AuthenticationController = Ember.ObjectController.extend
   isAuthenticated: Ember.computed.notEmpty('accessToken')
 
   _redirectToSignIn: ->
-    _redirectTo App.SIGN_IN_URL
+    _redirectTo ENV.SIGN_IN_URL
 
   _redirectToSignOut: ->
-    _redirectTo App.SIGN_OUT_URL
+    _redirectTo ENV.SIGN_OUT_URL
 
   extractAccessToken: ->
     match = location.href.match(/authentication_token=([a-zA-Z0-9_-]+)/)
@@ -44,7 +44,7 @@ App.AuthenticationController = Ember.ObjectController.extend
     Ember.$.ajax({
       # ASYNC MY BALLS
       async: false,
-      url: "#{App.API_BASEURL}/profile.json",
+      url: "#{ENV.API_BASEURL}/profile.json",
       dataType: 'json',
       data: {},
       success: (data) ->

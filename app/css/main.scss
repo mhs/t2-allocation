@@ -1,6 +1,6 @@
 @import "bourbon/bourbon";
 @import url(http://fonts.googleapis.com/css?family=Montserrat:400,700);
-@include font-face(entypo, '/styles/fonts/entypo');
+@include font-face(entypo, '/webfonts/entypo');
 @import 'colors';
 
 @import 'helpers';
@@ -14,6 +14,7 @@
 * {
   @include box-sizing(border-box);
 }
+
 
 body {
   margin: 0;
@@ -36,7 +37,7 @@ body {
   width: 64px;
   height: 64px;
   margin: -32px 0 0 -32px;
-  background: transparent url(images/spinner.png) center center no-repeat;
+  background: transparent url(/img/spinner.png) center center no-repeat;
   background-size: 100% auto;
   z-index: 1000;
   -webkit-animation: rotating 2s linear infinite;
