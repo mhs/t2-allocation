@@ -5,7 +5,6 @@ EDITABLE_PROPERTIES = [
   'notes'
   'person'
   'project'
-  'slot'
   'startDate'
   'percentAllocated'
 ]

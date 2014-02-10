@@ -8,7 +8,6 @@ App.Allocation = DS.Model.extend
   notes: DS.attr('string')
   person: DS.belongsTo('person')
   project: DS.belongsTo('project')
-  slot: DS.belongsTo('slot')
   percentAllocated: DS.attr('number')
 
   #TODO: confirm that didCommit will fire correctly

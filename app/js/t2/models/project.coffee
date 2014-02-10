@@ -4,7 +4,6 @@ App.Project = DS.Model.extend
   billable: DS.attr('boolean')
 
   offices: DS.hasMany('office')
-  slots: DS.hasMany('slot')
   allocations: DS.hasMany('allocation')
 
   startDate: DS.attr('date')
