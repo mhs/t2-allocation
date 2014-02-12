@@ -57,13 +57,6 @@ module.exports = require(process.env['LINEMAN_MAIN']).config.extend 'application
       API_BASEURL:  process.env['API_BASEURL']  || "http://localhost:5000/api/v1",
       NAVBAR_URL:   process.env['NAVBAR_URL']   || "http://localhost:5000/api/v1/navbar",
 
-  images:
-    dist:
-      files: [ # vendor first, so 'app' wins any collisions
-        { expand: true, cwd: "vendor/", src: "img/**/*.*", dest: "dist/css/" }
-        { expand: true, cwd: "app/",    src: "img/**/*.*", dest: "dist/css/" }
-      ]
-
   watch:
     handlebars:
       tasks: ["ember_handlebars:compile"]
