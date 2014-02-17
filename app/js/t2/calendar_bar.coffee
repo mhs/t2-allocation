@@ -7,7 +7,7 @@ App.CalendarBarComponent = Ember.Component.extend
   daysInWindowBinding: "App.projectsUI.daysInWindow"
 
   firstDate: (->
-    moment(@get("date")).format "MMMM D, YYYY"
+    moment(@get("date")).format "D MMM, YYYY"
   ).property("date")
 
   didInsertElement: ->
