@@ -2,7 +2,7 @@
 <div class="user-actions">
   {{#each link in view.bottom_links}}
     <div class="global-settings">
-      <a {{bindAttr href="link.url"}} {{bindAttr title="link.link_text"}}>
+      <a {{bind-attr href="link.url"}} {{bind-attr title="link.link_text"}}>
         <i>{{link.icon}}</i>
       </a>
     </div>
@@ -11,8 +11,8 @@
 </div>
 <ul>
   {{#each link in view.top_links}}
-    <li {{bindAttr class="link.classes"}}>
-      <a {{bindAttr href="link.url"}} {{bindAttr title="link.link_text"}}>
+    <li {{bind-attr class="link.classes"}}>
+      <a {{bind-attr href="link.url"}} {{bind-attr title="link.link_text"}}>
         <i>{{link.icon}}</i>
         {{link.title}}
       </a>

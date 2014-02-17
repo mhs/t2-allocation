@@ -5,7 +5,6 @@ resourceNameMap =
   allocations: 'allocation'
   projects: 'project'
   offices: 'office'
-  slots: 'slot'
   navbar: 'navbar'
   profile: 'profile'
 
@@ -120,7 +119,7 @@ createApiServer = (port)->
   server.loadResources = (dir)->
     fs = require('fs')
     dir = require('path').resolve(dir)
-    known_resources = ['allocations', 'people', 'projects', 'offices', 'slots', 'navbar', 'profile']
+    known_resources = ['allocations', 'people', 'projects', 'offices', 'navbar', 'profile']
     resources = known_resources.reduce (resources, name)->
       fixturePath = "#{dir}/#{name}.json"
 

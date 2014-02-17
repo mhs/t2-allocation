@@ -1,5 +1,5 @@
 {{#view App.PersonAllocationsView}}
-  <article class="person" {{bindAttr data-person-id="id"}} {{bindAttr style="personHeight"}}>
+  <article class="person" {{bind-attr data-person-id="id"}} {{bind-attr style="personHeight"}}>
     <div class="person-allocations">
       {{#each allocation in currentAllocations}}
         {{ render "person_allocation" allocation }}

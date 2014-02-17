@@ -1,5 +1,5 @@
 {{#view App.ProjectAllocationsView}}
-  <article class="project dummy-project" {{bindAttr style="projectHeight"}}>
+  <article class="project dummy-project" {{bind-attr style="projectHeight"}}>
     <div class="project-allocations">
     </div>
 

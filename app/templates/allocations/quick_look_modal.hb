@@ -4,7 +4,7 @@
     <span class="close-x" {{action close}}>&#10060;</span>
   </div>
   <div class="modal-body">
-    <div class="modal-person" {{bindAttr class="errors.person:error :field"}}>
+    <div class="modal-person" {{bind-attr class="errors.person:error :field"}}>
       <i>&#128100;</i>
       <h3>{{person.name}}</h3>
     </div>
@@ -24,7 +24,7 @@
         <h3>{{billableStatus}}</h3>
       </div>
       <span>/</span>
-      <div class="exclusive" data-test="binding" {{bindAttr class="errors.binding:error :field"}}>
+      <div class="exclusive" data-test="binding" {{bind-attr class="errors.binding:error :field"}}>
         <h3>{{bindingStatus}}</h3>
       </div>
     </div>
