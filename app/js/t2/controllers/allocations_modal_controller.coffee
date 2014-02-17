@@ -83,8 +83,11 @@ App.AllocationsModalController.reopen
   ).property('currentOffice')
 
   errors: (->
-    @_editedModel.get('errors')
-  ).property('_editedModel.errors')
+    errors = Ember.Object.create()
+    @get('_editedModel.errors').forEach (error)->
+      errors.set(error.attribute, error.message)
+    errors
+  ).property('_editedModel.errors.[]')
 
   isNew: (->
     @_editedModel.get('isNew')
