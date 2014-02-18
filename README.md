@@ -37,6 +37,6 @@ Here are some links to help lead the way:
 - [How a gaslighter learned Ember](http://www.youtube.com/watch?v=LyHK18s9taM)
 - [Getting Started with Ember](http://tech.pro/tutorial/1166/getting-started-with-emberjs)
 
-and for a comprehensive list of what's happening in Ember Land:
+And for a comprehensive list of what's happening in Ember Land:
 
 - [emberwatch.com](http://emberwatch.com/)
