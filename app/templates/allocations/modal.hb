@@ -17,7 +17,7 @@
                           valueBinding="project"
                           selectionBinding="project"
                           prompt="Select a project"}}
-      {{#each msg in errors.project}}{{msg}}{{/each}}
+      {{errors.project}}
     </div>
     <div class="modal-person" {{bind-attr class="errors.person:error :field"}}>
       <i>&#128100;</i>
@@ -28,7 +28,7 @@
                           valueBinding="person"
                           selectionBinding="person"
                           prompt="Select a name"}}
-      {{#each msg in errors.person}}{{msg}}{{/each}}
+      {{errors.person}}
     </div>
   <form {{action save on="submit"}}>
     <div class="dates">
@@ -36,35 +36,35 @@
         <i>&#128197;</i>
         <label>Start Date</label>
         {{date-picker name="startDate" class="start-date" value=formStartDate}}
-        {{#each msg in errors.startDate}}{{msg}}{{/each}}
+        {{errors.startDate}}
       </div>
       <span>-</span>
-      <div class="end" {{bind-attr class="errors.end_date:error :field"}}>
+      <div class="end" {{bind-attr class="errors.endDate:error :field"}}>
         <label>End Date</label>
         {{date-picker name="endDate" class="end-date" value=formEndDate}}
-        {{#each msg in errors.endDate}}{{msg}}{{/each}}
+        {{errors.endDate}}
       </div>
     </div>
     <div class="options">
       <div class="billable" data-test="billable" {{bind-attr class="errors.billable:error :field" }} >
         <label>{{input type="checkbox" checked=billable}}Billable<span id="billable-check"></span></label>
-        {{#each msg in errors.billable}}{{msg}}{{/each}}
+        {{errors.billable}}
       </div>
       <div class="exclusive" data-test="binding" {{bind-attr class="errors.binding:error :field"}}>
         <label>{{input type="checkbox" checked=binding}}Exclusive<span id="binding-check"></span></label>
-        {{#each msg in errors.binding}}{{msg}}{{/each}}
+        {{errors.binding}}
       </div>
     </div>
-    <div class="percent-allocated" {{bind-attr class="errors.binding:error :field"}}>
+    <div class="percent-allocated" {{bind-attr class="errors.percentAllocated:error :field"}}>
       <i>&#9716;</i>
       <label>% Allocated{{input type="text" value=percentAllocated }}</label>
-      {{#each msg in errors.percentAllocated}}{{msg}}{{/each}}
+      {{errors.percentAllocated}}
     </div>
     <div class="notes" data-test="notes" {{bind-attr class="errors.notes:error :field"}}>
       <i>&#9998;</i>
       <label>Notes</label>
       {{view Ember.TextArea valueBinding="notes"}}
-      {{#each msg in errors.notes}}{{msg}}{{/each}}
+      {{errors.notes}}
     </div>
   </div>
   <div class="modal-footer">

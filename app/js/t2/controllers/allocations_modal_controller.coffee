@@ -49,9 +49,8 @@ App.AllocationsModalController.reopen
   ).observes('project')
 
   percentAllocatedObserver: (->
-    person = @get('person')
-    return unless person
-    @set('percentAllocated', person.get('percentBillable')) if @_wasNew
+    pct = @get('person.percentBillable')
+    @set('percentAllocated', pct || "100") if @_wasNew
   ).observes('person')
 
   startDateDidChange: (->
@@ -83,8 +82,11 @@ App.AllocationsModalController.reopen
   ).property('currentOffice')
 
   errors: (->
-    @_editedModel.get('errors')
-  ).property('_editedModel.errors')
+    errors = Ember.Object.create()
+    @get('_editedModel.errors').forEach (error)->
+      errors.set(error.attribute, error.message)
+    errors
+  ).property('_editedModel.errors.[]')
 
   isNew: (->
     @_editedModel.get('isNew')
