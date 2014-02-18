@@ -97,6 +97,7 @@ nav {
   button, select {
     border: 1px solid #66C5E0;
     border-bottom: 1px solid #5FBAD3;
+    font-weight: normal;
 
     &.white-button {
       border: 1px solid #66C5E0;
@@ -137,6 +138,39 @@ i {
   font-weight: normal;
   font-style: normal;
   font-family: entypo;
+}
+
+.segmented-control {
+  overflow: hidden;
+  display: inline-block;
+
+  button {
+    float: left;
+    width: 100px;
+    color: #777;
+
+    &.active {
+      @include linear-gradient(#FFFFFF, #EFEFEF);
+      color: #777;
+      text-shadow: none;
+
+      &:active {
+        @include linear-gradient(#efefef, #fff);
+      }
+    }
+  }
+
+  button:first-of-type {
+    border-right: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  button:last-of-type {
+    border-left: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
 }
 
 button, select {

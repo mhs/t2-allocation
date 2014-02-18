@@ -6,12 +6,11 @@
                             selectionBinding="model"
                             data-test="all"
                             class="white-button office-select"}}
-    <button {{bind-attr class=":blue-button :project-person-toggle showPeopleToggle:hidden"}}
-            {{action "switchToProjects"}}> Projects<i>&#59215;</i>
-    </button>
-    <button {{bind-attr class=":blue-button :project-person-toggle showProjectsToggle:hidden"}}
-            {{action "switchToPeople"}}> People<i>&#59215;</i>
-    </button>
+    <div class="segmented-control">
+      {{link-to 'Projects' 'projects' class="blue-button" tagName="button"}}
+      {{link-to 'People' 'people' class="blue-button" tagName="button"}}
+    </div>
+
     {{view App.NavView}}
   </section>
   {{calendar-bar action="selectDate" resize="resize"}}
