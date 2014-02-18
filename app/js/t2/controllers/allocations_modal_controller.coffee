@@ -55,10 +55,10 @@ App.AllocationsModalController.reopen
   ).observes('person')
 
   startDateDidChange: (->
-    startDate = @get('startDate')
-    endDate = @get('endDate')
+    startDate = moment(@get('startDate'))
+    endDate = moment(@get('endDate'))
 
-    if endDate && endDate < startDate
+    if endDate && endDate.isBefore(startDate)
       @set('endDate', startDate)
   ).observes('startDate')
 
