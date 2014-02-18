@@ -8,6 +8,7 @@ in [EmberJS](http://emberjs.com), using [Lineman](http://linemanjs.com).
 
 * NodeJS
 * NPM
+* [lineman](http://linemanjs.com)
 * [t2-api](http://github.com/neo/t2-api)
 
 
