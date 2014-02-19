@@ -29,8 +29,6 @@ App.ModalController = Em.ObjectController.extend
 
   actions:
     save: ->
-      if @_editedModel.get('errors.length') > 0
-        @_editedModel.send('becameValid')
       @_applyChanges(@_editedModel)
       @_editedModel.save().then (=> @send "closeModal"), ((error) -> )
 
