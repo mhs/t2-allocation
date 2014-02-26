@@ -1,0 +1,56 @@
+$faux-select-border-radius: 3px;
+
+.faux-select {
+  overflow: hidden;
+  position: relative;
+  float: left;
+  height: 29px;
+  width: 192px;
+}
+
+.faux-select-element {
+  display: block;
+  margin: 0;
+  opacity: 0;
+}
+
+.faux-select-box {
+  position: absolute;
+  min-width: 175px;
+  background: #fff;
+  border-radius: $faux-select-border-radius;
+}
+
+.faux-select-selected,
+.faux-select-graphic {
+  height: 29px;
+  border: 2px solid $dark-blue;
+  border-radius: $faux-select-border-radius;
+}
+
+.faux-select-selected {
+  font-size: 17px;
+  line-height: 18px;
+  color: $dark-blue;
+  float: left;
+  min-width: 145px;
+  border-right: none;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  padding: 5px 10px;
+}
+
+.faux-select-graphic {
+  background-color: $dark-blue;
+  color: #fff;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 30px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  line-height: 25px;
+  text-align: center;
+}
+
