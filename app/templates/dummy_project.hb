@@ -4,7 +4,10 @@
     </div>
 
     <div class="project-descriptor">
-      <button class="white-button" {{action createProject}}>Add Project</button>
+      <div class="segmented-control">
+        {{link-to 'Projects' 'projects' class="toggle-button" tagName="button"}}
+        {{link-to 'People' 'people' class="toggle-button" tagName="button"}}
+      </div>
     </div>
   </article>
 {{/view}}

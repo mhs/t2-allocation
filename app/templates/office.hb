@@ -6,9 +6,8 @@
                             selectionBinding="model"
                             data-test="all"
                             class="white-button office-select"}}
-    <div class="segmented-control">
-      {{link-to 'Projects' 'projects' class="blue-button" tagName="button"}}
-      {{link-to 'People' 'people' class="blue-button" tagName="button"}}
+    <div class="add-project">
+      <button class="white-button" {{action createProject}}>+ Add Project</button>
     </div>
 
     {{view App.NavView}}
