@@ -140,22 +140,33 @@ i {
   font-family: entypo;
 }
 
+.add-project {
+  overflow: hidden;
+  display: inline-block;
+}
+
 .segmented-control {
   overflow: hidden;
   display: inline-block;
+  height: 100px;
 
   button {
     float: left;
-    width: 100px;
-    color: #777;
+    width: 85px;
+    font-weight: normal;
+    border: none;
 
-    &.active {
-      @include linear-gradient(#FFFFFF, #EFEFEF);
-      color: #777;
-      text-shadow: none;
+    &.toggle-button {
+      font-size: 15px;
 
-      &:active {
-        @include linear-gradient(#efefef, #fff);
+      background-color: #999;
+      color: #efefef;
+      border: 3px solid #999;
+
+      &.active {
+        @include linear-gradient(#fff, #efefef);
+        color: #66C5E0;
+        box-shadow: none;
       }
     }
   }
