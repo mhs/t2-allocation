@@ -18,13 +18,3 @@ App.ProjectsRoute = Ember.Route.extend
 
     Ember.ArrayProxy.
       createWithMixins(Ember.SortableMixin,sortByName)
-
-
-  actions:
-    createProject: ->
-      @send 'editProject', @store.createRecord('project')
-
-    editProject: (project) ->
-      @controllerFor("projects.modal").set "availableOffices", @controllerFor('office').get('all')
-      @controllerFor("projects.modal").edit project
-      @send "openModal", "projects.modal"
