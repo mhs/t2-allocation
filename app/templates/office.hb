@@ -20,7 +20,7 @@
     {{view App.NavView}}
   </section>
 
-  {{calendar-bar action="selectDate" resize="resize"}}
+  {{calendar-bar action="selectDate"}}
 </header>
 
 {{outlet}}

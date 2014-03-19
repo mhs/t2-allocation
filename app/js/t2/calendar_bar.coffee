@@ -31,10 +31,6 @@ App.CalendarBarComponent = Ember.Component.extend
     dateArray
   ).property("date", "daysInWindow")
 
-  dateRangeDidChange: (->
-    @sendAction('resize')
-  ).observes('dateRange')
-
   actions:
     editDate: ->
       @set "isEditingDate", true
