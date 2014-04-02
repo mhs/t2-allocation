@@ -30,5 +30,5 @@ App.PersonAllocationController = Ember.ObjectController.extend
     if startOffset < 0
       duration += startOffset
       startOffset = 0
-    "top: " + (@get("track") * ENV.ALLOCATION_HEIGHT) + "px; " + "left: " + (startOffset * App.WIDTH_OF_DAY) + "px; " + "width: " + (duration * App.WIDTH_OF_DAY) + "px; "
+    "top: " + (@get("track") * App.ALLOCATION_HEIGHT) + "px; " + "left: " + (startOffset * App.WIDTH_OF_DAY) + "px; " + "width: " + (duration * App.WIDTH_OF_DAY) + "px; "
   ).property("startOffset", "duration", "track")
