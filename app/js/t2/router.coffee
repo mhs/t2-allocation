@@ -6,6 +6,6 @@ App.Router.map ->
       @resource 'people'
 
 App.IndexRoute = Ember.Route.extend
-  afterModel: (model, transition) ->
+  setupController: (model, transition) ->
     office_slug = @controllerFor('authentication').get('currentUser').office_slug
     @transitionTo('projects', moment().format("YYYY-MM-DD"), office_slug)

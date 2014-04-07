@@ -6,6 +6,16 @@ App.ApplicationRoute = Ember.Route.extend
       transition.abort()
       auth.login()
 
+  model: ->
+    Ember.$.ajax({
+      url: "#{ENV.API_BASEURL}/profile.json",
+      dataType: 'json',
+      data: {}
+    })
+
+  setupController: (controller, model) ->
+    controller.set('model', model.person)
+
   actions:
     createAllocation: (allocationAttrs={}) ->
       defaults =

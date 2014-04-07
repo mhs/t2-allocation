@@ -4,6 +4,9 @@ _redirectTo = (url)->
   location.href = uri
 
 App.AuthenticationController = Ember.ObjectController.extend
+  needs: ['application']
+  application: Ember.computed.alias('controllers.application')
+
   init: -> @set('accessToken', localStorage.accessToken)
 
   accessToken: null
@@ -40,16 +43,5 @@ App.AuthenticationController = Ember.ObjectController.extend
   ).observes("accessToken")
 
   currentUser: (->
-    person = {}
-    Ember.$.ajax({
-      # ASYNC MY BALLS
-      async: false,
-      url: "#{ENV.API_BASEURL}/profile.json",
-      dataType: 'json',
-      data: {},
-      success: (data) ->
-        person = data.person
-      }
-    )
-    person
+    @get('application.model')
   ).property('accessToken')
