@@ -214,32 +214,32 @@ textarea {
 .billable, .exclusive, .modal-offices, .modal-office {
   @include user-select(none);
 
-span::before {
-  font-family: "entypo";
-  position: relative;
-  content: "";
-  width: 18px;
-  height: 18px;
-  border: 1px solid $dark-gray;
-  background: white;
-  margin: 0 10px 0 0;
-  float: left;
-}
+  span::before {
+    font-family: "entypo";
+    position: relative;
+    content: "";
+    width: 18px;
+    height: 18px;
+    border: 1px solid $dark-gray;
+    background: white;
+    margin: 0 10px 0 0;
+    float: left;
+  }
 
-input[type=checkbox] {
-  position: absolute;
-}
+  input[type=checkbox] {
+    position: absolute;
+  }
 
-input[type=checkbox]:checked ~ span::before {
-  font-family: "entypo";
-  content: '\2713';
-  font-size: 28px;
-  text-align: center;
-  line-height: .65;
-  float: left;
-  color: gray;
-  z-index: 2;
-}
+  input[type=checkbox]:checked ~ span::before {
+    font-family: "entypo";
+    content: '\2713';
+    font-size: 28px;
+    text-align: center;
+    line-height: .65;
+    float: left;
+    color: gray;
+    z-index: 2;
+  }
 }
 
 .modal-footer {
