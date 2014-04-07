@@ -2,10 +2,12 @@ App.AllocationView = Ember.View.extend
   attributeBindings: ['style']
   styleBinding: "controller.style"
   classNames: ['allocation']
-  classNameBindings: ['isExternal:external', 'isNonbilling:nonbilling']
+  classNameBindings: ['isExternal:external', 'isNonbilling:nonbilling', 'provisional']
 
   isExternal: Ember.computed.alias('controller.isExternal')
   isNonbilling: Ember.computed.alias('controller.isNonbilling')
+  provisional: Ember.computed.alias('allocation.provisional')
+
   allocation: Ember.computed.alias('controller.model')
   clicks: []
 

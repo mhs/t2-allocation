@@ -9,7 +9,7 @@ App.SelectableOffice = Ember.ObjectProxy.extend
     @selected.contains(office)
   ).property('selected.[]')
 
-EDITABLE_PROPERTIES = ['name', 'billable', 'notes', 'startDate', 'endDate']
+EDITABLE_PROPERTIES = ['name', 'billable', 'provisional', 'notes', 'startDate', 'endDate']
 editableProps = EDITABLE_PROPERTIES.reduce (props, name)->
   props[name] = null
   props

@@ -14,13 +14,11 @@ $modal-width: 600px;
   opacity: 0;
   @include transition (all .25s);
 
-  i {
-    position: absolute;
-    left: -35px;
-    top: 10px;
+  h3 i {
     font-size: 46px;
+    vertical-align: middle;
     font-family: "entypo";
-    }
+  }
 
   label {
     display: block;
@@ -35,26 +33,26 @@ $modal-width: 600px;
     border: none;
   }
 
-input, textarea {
-  padding: 3px;
-  font-size: 14px;
-  display: block;
-  color: gray;
-  }
+  input, textarea {
+    padding: 3px;
+    font-size: 14px;
+    display: block;
+    color: gray;
+    }
 
-textarea {
-  font-weight: bold;
-  height: 60px;
-  resize: none;
-  padding: 10px;
-  width: 100%;
-  border: 1px solid $dark-gray;
-  font-weight: bold;
+  textarea {
+    font-weight: bold;
+    height: 60px;
+    resize: none;
+    padding: 10px;
+    width: 100%;
+    border: 1px solid $dark-gray;
+    font-weight: bold;
 
-  &:focus {
-    outline: 2px solid $dark-gray;
+    &:focus {
+      outline: 2px solid $dark-gray;
+    }
   }
-}
 
   &.in {
     opacity: 1;
@@ -81,7 +79,6 @@ textarea {
 
 .modal-body {
   padding: 20px 50px 20px 20px;
-  margin: 0 0 0 30px;
 
   .field label, select {
     display: block;
@@ -176,31 +173,19 @@ textarea {
   margin: 0 0 20px 10px;
 }
 
-.billable, .exclusive {
+.options .option {
   float: left;
   margin: 0 20px 0 0;
-
-  &.project-modal {
-    float: none;
-    margin: 0 0 15px 0;
-  }
 
   &.preview {
     margin: 0 5px 0 0;
   }
 
   h3 {
-  margin: 0
+    margin: 0
   }
 }
 
-.percent-allocated, .options, .notes {
-  margin: 0 0 20px 0;
-
-  h3 {
-    margin: 0;
-  }
-}
 .modal-offices {
   margin: 20px 0 0 0;
 }
@@ -211,7 +196,7 @@ textarea {
   float: left;
 }
 
-.billable, .exclusive, .modal-offices, .modal-office {
+.option, .modal-offices, .modal-office {
   @include user-select(none);
 
   span::before {

@@ -1,6 +1,7 @@
 EDITABLE_PROPERTIES = [
   'billable'
   'binding'
+  'provisional'
   'endDate'
   'notes'
   'person'
@@ -40,6 +41,12 @@ App.AllocationsModalController.reopen
     project = @get('project')
     return if !project
     @set('billable', project.get('billable')) if @_wasNew
+  ).observes('project')
+
+  provisionalObserver: (->
+    project = @get('project')
+    return unless project
+    @set('provisional', project.get('provisional')) if @_wasNew
   ).observes('project')
 
   bindingObserver: (->

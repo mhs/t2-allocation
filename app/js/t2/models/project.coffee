@@ -2,6 +2,7 @@ App.Project = DS.Model.extend
   name: DS.attr('string')
   vacation: DS.attr('boolean')
   billable: DS.attr('boolean')
+  provisional: DS.attr('boolean')
 
   offices: DS.hasMany('office')
   allocations: DS.hasMany('allocation')
