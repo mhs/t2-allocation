@@ -8,7 +8,7 @@
   <div class="modal-body">
     <h3><i>&#128100;</i> {{person.name}}</h3>
     <h3><i>&#128197;</i> {{startDate}} - {{endDate}}</h3>
-    <h3><i>&#59249;</i> {{billableStatus}} / {{bindingStatus}} / {{provisionalStatus}}</h3>
+    <h3><i>&#59249;</i> {{status}}</h3>
     <h3><i>&#9716;</i> {{percentAllocated}}% Allocated</h3>
     {{#if notes}}
       <h3><i>&#9998;</i> {{notes}}</h3>
