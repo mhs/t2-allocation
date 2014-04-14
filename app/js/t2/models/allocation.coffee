@@ -5,6 +5,7 @@ App.Allocation = DS.Model.extend
   person: DS.belongsTo('person')
   billable: DS.attr('boolean')
   binding: DS.attr('boolean')
+  provisional: DS.attr('boolean')
   notes: DS.attr('string')
   person: DS.belongsTo('person')
   project: DS.belongsTo('project')
@@ -29,3 +30,14 @@ App.Allocation = DS.Model.extend
     end = moment(@get("endDate")) || moment(@get("startDate")) || moment()
     end.diff(start, "days") + 1
   ).property("startDate", "endDate")
+
+  vacation: Ember.computed.alias('project.vacation')
+
+  status: (->
+    words = []
+    words.push(if @get('billable') then "Billable" else "Non-Billable")
+    words.push("Exclusive") if @get('binding')
+    words.push("Provisional") if @get('provisional')
+    words.push("Vacation") if @get('vacation')
+    words.join(" / ")
+  ).property("provisional", "binding", "billable")
