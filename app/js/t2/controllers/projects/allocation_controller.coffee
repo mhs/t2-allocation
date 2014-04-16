@@ -29,7 +29,6 @@ App.AllocationController = Ember.ObjectController.extend
 
   # to offset zero, an 'extra' day will be removed
   style: (->
-    scale = 16
     startOffset = @get("startOffset")
     duration = @get("duration")
     if startOffset < 0

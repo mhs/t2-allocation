@@ -11,6 +11,8 @@ App.Allocation = DS.Model.extend
   project: DS.belongsTo('project')
   percentAllocated: DS.attr('number')
 
+  conflicts: DS.hasMany('conflict')
+
   #TODO: confirm that didCommit will fire correctly
   init: ->
     @_super()
