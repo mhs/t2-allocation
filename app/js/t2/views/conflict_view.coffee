@@ -1,19 +1,19 @@
 App.ConflictView = Ember.View.extend
 
-  attributeBindings: ['style']
+  attributeBindings: ['style', 'title']
+  classNames: ['conflict']
+
+  title: Ember.computed.alias('controller.hint')
+  duration: Ember.computed.alias('controller.duration')
+  startOffset: Ember.computed.alias('controller.startOffset')
+  parentOffset: Ember.computed.alias('parentView.context.startOffset')
 
   style: (->
-    width = @get("conflict.duration") * App.WIDTH_OF_DAY
-    offset = @get("startOffset") * App.WIDTH_OF_DAY
-    "position: absolute; width: #{width}px; left: #{offset}px; background-color: red;"
-  ).property("startOffset", "conflict")
+    dateOffset = @get('startOffset')
+    parentOffset = @get('parentOffset')
+    dateOffset -= parentOffset if (parentOffset > 0)
+    width = @get("duration") * App.WIDTH_OF_DAY
+    offset = dateOffset * App.WIDTH_OF_DAY
+    "width: #{width}px; left: #{offset}px;"
+  ).property("parentOffset", "startOffset", "duration")
 
-  conflict: (->
-    @get("context.content")
-  ).property("context.content")
-
-  startOffset: (->
-    currentMonday = moment(App.projectsUI.get("date"))
-    startDate = moment(App.dateMunge(@get('conflict.startDate')))
-    startDate.diff currentMonday, "days"
-  ).property("App.projectsUI.date", "conflict.startDate")

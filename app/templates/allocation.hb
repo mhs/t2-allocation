@@ -3,6 +3,7 @@
     {{render "conflict" conflict}}
   {{/each}}
 {{/unless}}
+
 <div class="allocation-content" {{bind-attr title="hint"}}>
   {{#if person}}
     <span class="allocation-identifier">{{ person.name }}</span>

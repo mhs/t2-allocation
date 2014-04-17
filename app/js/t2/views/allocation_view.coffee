@@ -1,12 +1,14 @@
 App.AllocationView = Ember.View.extend
   attributeBindings: ['style']
-  styleBinding: "controller.style"
   classNames: ['allocation']
   classNameBindings: ['isExternal:external', 'isNonbilling:nonbilling', 'provisional']
 
   isExternal: Ember.computed.alias('controller.isExternal')
   isNonbilling: Ember.computed.alias('controller.isNonbilling')
-  provisional: Ember.computed.alias('allocation.provisional')
+  provisional: Ember.computed.alias('controller.provisional')
+  startOffset: Ember.computed.alias('controller.startOffset')
+  duration: Ember.computed.alias('controller.duration')
+  track: Ember.computed.alias('controller.track')
 
   allocation: Ember.computed.alias('controller.model')
   clicks: []
@@ -15,7 +17,6 @@ App.AllocationView = Ember.View.extend
     @clicks.push Ember.run.later @, ->
       @get('controller').send 'quickView', @get('allocation')
     , 250
-
     false # to keep from bubbling up
 
   doubleClick: (evt) ->
@@ -24,3 +25,12 @@ App.AllocationView = Ember.View.extend
     @clicks = []
     @get('controller').send 'editAllocation', @get('allocation')
     false # to keep from bubbling up
+
+  style: (->
+    startOffset = @get("startOffset")
+    duration = @get("duration")
+    if startOffset < 0
+      duration += startOffset
+      startOffset = 0
+    "top: " + (@get("track") * App.ALLOCATION_HEIGHT) + "px; " + "left: " + (startOffset * App.WIDTH_OF_DAY) + "px; " + "width: " + (duration * App.WIDTH_OF_DAY) + "px; "
+  ).property("startOffset", "duration", "track")

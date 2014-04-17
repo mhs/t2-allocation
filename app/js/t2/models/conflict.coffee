@@ -7,9 +7,3 @@ App.Conflict = DS.Model.extend
   endDate: DS.attr('date')
   percentAllocated: DS.attr('number')
 
-  duration: (->
-    start = moment(@get("startDate"))
-    end = moment(@get("endDate"))
-    end.diff(start, "days") + 1
-  ).property("startDate", "endDate")
-
