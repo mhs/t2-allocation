@@ -3,25 +3,16 @@ App.ApplicationAdapter = DS.ActiveModelAdapter.extend
 
 App.ApplicationSerializer = DS.ActiveModelSerializer.extend()
 
-App.PersonAdapter = App.ApplicationAdapter.extend
-  ajaxOptions: (url, type, hash) ->
-    # return contentType: false + needed options
-    # hang on to the data since super will try to stringify it
-    if hash?.data?.formData?
-      savedData = hash.data.formData
-      hash.data = {}
-      result = @_super(url, type, hash)
-      result.contentType = false
-      result.processData = false
-      result.data = savedData
-      result
-    else
-      @_super(url, type, hash)
+App.AllocationSerializer = App.ApplicationSerializer.extend
+  normalize: (type, hash) ->
+    debugger
+    @_super(type, hash)
+  serialize: (record, options) ->
+    json = @_super(record, options)
+    json.window_start_date = App.projectsUI.get('startDate')
+    json.window_end_date = App.projectsUI.get('endDate')
+    json
 
-App.PersonSerializer = App.ApplicationSerializer.extend
-  serializeIntoHash: (data, type, record) ->
-    # return the FormData from record
-    data.formData = record.formData(@serialize(record))
 
 App.AvailabilitySerializer = App.ApplicationSerializer.extend
   extractArray:  (store, type, payload, requestType) ->
