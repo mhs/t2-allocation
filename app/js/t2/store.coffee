@@ -3,17 +3,6 @@ App.ApplicationAdapter = DS.ActiveModelAdapter.extend
 
 App.ApplicationSerializer = DS.ActiveModelSerializer.extend()
 
-App.AllocationSerializer = App.ApplicationSerializer.extend
-  normalize: (type, hash) ->
-    debugger
-    @_super(type, hash)
-  serialize: (record, options) ->
-    json = @_super(record, options)
-    json.window_start_date = App.projectsUI.get('startDate')
-    json.window_end_date = App.projectsUI.get('endDate')
-    json
-
-
 App.AvailabilitySerializer = App.ApplicationSerializer.extend
   extractArray:  (store, type, payload, requestType) ->
     payload.availabilities.forEach (item) ->
