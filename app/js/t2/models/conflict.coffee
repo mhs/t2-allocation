@@ -1,6 +1,6 @@
 App.Conflict = DS.Model.extend
 
-  allocations: DS.hasMany('allocation')
+  allocations: DS.hasMany('allocation', {async: true})
   person: DS.belongsTo('person')
 
   startDate: DS.attr('date')
