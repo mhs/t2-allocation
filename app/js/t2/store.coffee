@@ -3,12 +3,6 @@ App.ApplicationAdapter = DS.ActiveModelAdapter.extend
 
 App.ApplicationSerializer = DS.ActiveModelSerializer.extend()
 
-App.AvailabilitySerializer = App.ApplicationSerializer.extend
-  extractArray:  (store, type, payload, requestType) ->
-    payload.availabilities.forEach (item) ->
-      item.id = item.start_date + item.end_date + item.person_id
-    @_super(store, type, payload, requestType)
-
 App.ProjectSerializer = App.ApplicationSerializer.extend
   serializeHasMany: (record, json, relationship) ->
     key = relationship.key

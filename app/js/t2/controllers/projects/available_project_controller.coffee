@@ -28,15 +28,15 @@ App.AvailableProjectController  = Ember.ObjectController.extend
   ).property('App.projectsUI.endDate')
 
   availabilities: (->
-    criteria =
-      start_date: @get('availabilityStart')
-      office_id: @get('controllers.office.model.id')
-      end_date: @get('availabilityEnd')
-    @store.find('availability', criteria)
+    # criteria =
+    #   start_date: @get('availabilityStart')
+    #   office_id: @get('controllers.office.model.id')
+    #   end_date: @get('availabilityEnd')
+    # @store.find('availability', criteria)
+    @store.all('availability')
   ).property('controllers.office.model',
     'availabilityStart',
-    'availabilityEnd',
-    'App.projectsUI.allocationUpdates')
+    'availabilityEnd')
 
   actions:
     addAllocation: ->

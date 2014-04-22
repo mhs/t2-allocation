@@ -12,8 +12,6 @@ App.DateUI = Ember.Object.extend
     Math.ceil((window.innerWidth - App.WIDTH_OF_DESCRIPTOR) / App.WIDTH_OF_DAY)
   )
 
-  allocationUpdates: 0
-
   init: ->
     @_super()
     @set('daysInWindow', @calculateWindow())

@@ -13,16 +13,6 @@ App.Allocation = DS.Model.extend
 
   conflicts: DS.hasMany('conflict')
 
-  #TODO: confirm that didCommit will fire correctly
-  init: ->
-    @_super()
-    @on 'didDelete', @, @pokeAllocations
-    @on 'didCreate', @, @pokeAllocations
-    @on 'didUpdate', @, @pokeAllocations
-
-  pokeAllocations: ->
-    App.projectsUI.incrementProperty('allocationUpdates')
-
   track: 0
 
   current: (->
