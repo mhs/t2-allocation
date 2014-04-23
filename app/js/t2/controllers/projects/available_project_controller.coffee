@@ -1,10 +1,12 @@
 App.AvailableProjectController  = Ember.ObjectController.extend
   needs: ['application', 'projects', 'office']
-  trackCount: 0
 
-  projectHeight: (->
-    "height: " + (@get("trackCount") * App.ALLOCATION_HEIGHT + 1) + "px;"
-  ).property("trackCount")
+  startDate: Ember.computed.alias('App.projectsUI.startDate')
+  endDate: Ember.computed.alias('App.projectsUI.endDate')
+  selectedOffice: Ember.computed.alias('controllers.office.model')
+  people: Ember.computed.alias('selectedOffice.people')
+
+  trackCount: 0
 
   currentAvailabilities: (->
     availabilities = @get("availabilities")
@@ -19,26 +21,16 @@ App.AvailableProjectController  = Ember.ObjectController.extend
     availabilities
   ).property('availabilities.[]')
 
-  availabilityStart: (->
-    moment(App.projectsUI.get('startDate')).format("YYYY-MM-DD")
-  ).property('App.projectsUI.startDate')
-
-  availabilityEnd: (->
-    moment(App.projectsUI.get('endDate')).format("YYYY-MM-DD")
-  ).property('App.projectsUI.endDate')
-
   availabilities: (->
-    # criteria =
-    #   start_date: @get('availabilityStart')
-    #   office_id: @get('controllers.office.model.id')
-    #   end_date: @get('availabilityEnd')
-    # @store.find('availability', criteria)
+    people = @get('people')
+    @get('allAvailabilities').filter (availability) ->
+      people.contains(availability.get('person'))
+  ).property('people', 'allAvailabilities.[]')
+
+  allAvailabilities: (->
     @store.all('availability')
-  ).property('controllers.office.model',
-    'availabilityStart',
-    'availabilityEnd')
+  ).property('startDate', 'endDate')
 
   actions:
     addAllocation: ->
       @send 'createAllocation', {}
-
