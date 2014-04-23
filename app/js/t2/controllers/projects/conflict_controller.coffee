@@ -12,6 +12,10 @@ App.ConflictController = Ember.ObjectController.extend
     end.diff(start, "days") + 1
   ).property('startDate', 'endDate')
 
-  hint: (->
-    @get('allocations').mapProperty('project.name').join(', ')
-  ).property('allocations')
+  # HACK - databound templates plz!
+  #
+  hint: null
+  _hint: (->
+    @get('allocations').then (allocations) =>
+      @set("hint", allocations.mapProperty('project.name').join(', '))
+  ).observes('allocations.[]')
