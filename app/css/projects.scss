@@ -104,6 +104,19 @@
 .allocation-identifier { font-weight: 700; }
 .allocation-range { color: rgba(255,255,255,0.7); }
 
+.conflict {
+  cursor: pointer;
+  height: 28px;
+  background-color: rgba(200, 0, 0, .70);
+  text-shadow: 0 -1px 0 rgba(0,0,0,.1);
+  position: absolute;
+  font-size: 14px;
+  color: rgba(255,255,255,0.9);
+  border-radius: 3px;
+  line-height: 29px;
+  text-align: center;
+}
+
 .project-controls {
   @include position(absolute, 0 0px 0px 0px);
   height: 30px;

@@ -11,25 +11,13 @@ App.Allocation = DS.Model.extend
   project: DS.belongsTo('project')
   percentAllocated: DS.attr('number')
 
-  #TODO: confirm that didCommit will fire correctly
-  init: ->
-    @_super()
-    @on 'didDelete', @, @pokeAllocations
-    @on 'didCreate', @, @pokeAllocations
-    @on 'didUpdate', @, @pokeAllocations
-
-  pokeAllocations: ->
-    App.projectsUI.incrementProperty('allocationUpdates')
+  conflicts: DS.hasMany('conflict')
 
   track: 0
+
   current: (->
     @get("startDate") <= App.projectsUI.get("endDate") and @get("endDate") >= App.projectsUI.get("startDate")
   ).property("startDate","endDate","App.projectsUI.startDate", "App.projectsUI.endDate")
-  duration: (->
-    start = moment(@get("startDate")) || moment(@get("endDate")) || moment()
-    end = moment(@get("endDate")) || moment(@get("startDate")) || moment()
-    end.diff(start, "days") + 1
-  ).property("startDate", "endDate")
 
   vacation: Ember.computed.alias('project.vacation')
 
