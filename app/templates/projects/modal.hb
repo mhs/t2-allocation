@@ -19,10 +19,6 @@
       </div>
 
       <div class="options field">
-        <div class="option" {{bind-attr class="errors.billable:error :field"}}>
-          <label>{{input type="checkbox" checked=billable}}Billable<span></span></label>
-          {{#each msg in errors.billable}}{{msg}}{{/each}}
-        </div>
         <div class="option" {{bind-attr class="errors.provisional:error :field"}}>
           <label>{{input type="checkbox" checked=provisional}}Provisional<span></span></label>
           {{#each msg in errors.provisional}}{{msg}}{{/each}}
