@@ -57,8 +57,12 @@ App.AllocationsModalController.reopen
 
   percentAllocatedObserver: (->
     pct = @get('person.percentBillable')
-    @set('percentAllocated', pct || "100") if @_wasNew
-  ).observes('person')
+    if @_wasNew
+      if @get('project.vacation')
+        @set('percentAllocated', '100')
+      else
+        @set('percentAllocated', pct || "100")
+  ).observes('person', 'project')
 
   startDateDidChange: (->
     startDate = moment(@get('startDate'))
