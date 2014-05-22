@@ -10,6 +10,10 @@
     <h3><i>&#128197;</i> {{startDate}} - {{endDate}}</h3>
     <h3><i>&#59249;</i> {{status}}</h3>
     <h3><i>&#9716;</i> {{percentAllocated}}% Allocated</h3>
+    {{#if project.workshop}}
+      <h3><i>&#128179;</i> ${{fee}}</h3>
+    {{/if}}
+
     {{#if notes}}
       <h3><i>&#9998;</i> {{notes}}</h3>
     {{/if}}

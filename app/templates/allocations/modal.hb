@@ -67,6 +67,13 @@
         {{errors.percentAllocated}}
       </div>
 
+      {{#if project.workshop}}
+        <div class="field" {{bind-attr class="errors.fee:error :field"}}>
+          <label><i>&#128179;</i> Fee {{input type="text" value=fee }}</label>
+          {{errors.fee}}
+        </div>
+      {{/if}}
+
       <div class="field" data-test="notes" {{bind-attr class="errors.notes:error :field"}}>
         <label><i>&#9998;</i> Notes</label>
         {{view Ember.TextArea valueBinding="notes"}}

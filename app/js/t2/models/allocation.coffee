@@ -10,6 +10,7 @@ App.Allocation = DS.Model.extend
   person: DS.belongsTo('person')
   project: DS.belongsTo('project')
   percentAllocated: DS.attr('number')
+  fee: DS.attr('number')
 
   conflicts: DS.hasMany('conflict')
 
