@@ -53,10 +53,7 @@
             <label>{{input type="checkbox" checked=billable}}Billable<span></span></label>
             {{errors.billable}}
           </div>
-          <div class="option" {{bind-attr class="errors.binding:error :field"}}>
-            <label>{{input type="checkbox" checked=binding}}Exclusive<span></span></label>
-            {{errors.binding}}
-          </div>
+          {{input type="hidden" checked=binding}}
         {{/unless}}
         <div class="option" {{bind-attr class="errors.provisional:error :field" }} >
           <label>{{input type="checkbox" checked=provisional}}Provisional<span></span></label>
