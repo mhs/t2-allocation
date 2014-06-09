@@ -24,8 +24,7 @@ App.Allocation = DS.Model.extend
   status: (->
     words = []
     words.push(if @get('billable') then "Billable" else "Non-Billable")
-    words.push("Exclusive") if @get('binding')
     words.push("Provisional") if @get('provisional')
     words.push("Vacation") if @get('vacation')
     words.join(" / ")
-  ).property("provisional", "binding", "billable")
+  ).property("provisional", "billable")
