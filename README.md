@@ -28,6 +28,8 @@ Tests were all broken. Deleted them :(
 
 [production](http://t2allocation.neo.com) and [staging](http://t2allocation-staging.herokuapp.com)
 apps are hosted on Heroku with [Lineman Heroku Buildpack](http://linemanjs.com/#heroku-deployment).
+Note that the default buildpack currently has issues with cached assets so we are using a fork of
+it that invalidates the heroku cache at build time.
 
 ## Getting started with EmberJS
 
