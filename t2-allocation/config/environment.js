@@ -24,13 +24,13 @@ module.exports = function(environment) {
     // ENV.APP.LOG_TRANSITIONS = true;
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     ENV.APP.LOG_VIEW_LOOKUPS = true;
-    ENV.UA = "UA-XXXXXXXX-Y",
-    ENV.DOMAIN = "example.com",
-    ENV.SIGN_IN_URL = "http://localhost:5000/sign_in",
-    ENV.SIGN_OUT_URL = "http://localhost:5000/sign_out",
-    ENV.PEOPLE_URL = "http://localhost:9999/#/people/",
-    ENV.API_BASEURL = "http://localhost:5000/api/v1",
-    ENV.NAVBAR_URL = "http://localhost:5000/api/v1/navbar",
+    ENV.UA = "UA-XXXXXXXX-Y";
+    ENV.DOMAIN = "example.com";
+    ENV.SIGN_IN_URL = "http://localhost:5000/sign_in";
+    ENV.SIGN_OUT_URL = "http://localhost:5000/sign_out";
+    ENV.PEOPLE_URL = "http://localhost:9999/#/people/";
+    ENV.API_BASEURL = "http://localhost:5000/api/v1";
+    ENV.NAVBAR_URL = "http://localhost:5000/api/v1/navbar";
   }
 
   if (environment === 'test') {
