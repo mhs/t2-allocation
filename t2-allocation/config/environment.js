@@ -38,7 +38,7 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
-
+    ENV.API_BASEURL = "http://t2.neo.com";
   }
 
   return ENV;
