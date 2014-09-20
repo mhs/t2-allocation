@@ -3,14 +3,12 @@
 Allocation = DS.Model.extend
   startDate: DS.attr('date')
   endDate: DS.attr('date')
-  project: DS.belongsTo('project')
   person: DS.belongsTo('person')
+  project: DS.belongsTo('project')
   billable: DS.attr('boolean')
   binding: DS.attr('boolean')
   provisional: DS.attr('boolean')
   notes: DS.attr('string')
-  person: DS.belongsTo('person')
-  project: DS.belongsTo('project')
   percentAllocated: DS.attr('number')
 
   conflicts: DS.hasMany('conflict')
