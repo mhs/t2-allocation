@@ -1,6 +1,12 @@
 `import Ember from "ember";`
 `import ENV from "t2-allocation/config/environment";`
 
+_redirectTo = (url)->
+  uri = url
+  uri += "?return_url=" + escape(location.href)
+  location.href = uri
+
+
 AuthenticationController = Ember.ObjectController.extend
   init: -> @set('accessToken', localStorage.accessToken)
 
