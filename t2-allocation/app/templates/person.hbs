@@ -1,4 +1,4 @@
-{{#view App.PersonAllocationsView}}
+{{#view "person-allocations"}}
   <article class="person" {{bind-attr data-person-id="id"}} {{bind-attr style="personHeight"}}>
     <div class="person-allocations">
       {{#each allocation in currentAllocations}}
@@ -6,7 +6,7 @@
       {{/each}}
     </div>
 
-    {{#view App.PersonEditView class="person-descriptor"}}
+    {{#view "person-edit" class="person-descriptor"}}
       {{ name }}
       <div class="person-controls">
         <a target="_blank" {{bind-attr href="editUrl"}}><i class="edit-person" >&#9874;</i></a>

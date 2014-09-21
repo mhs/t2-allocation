@@ -5,7 +5,7 @@
         <span class="faux-select-selected">{{name}}</span>
         <span class="faux-select-graphic">&#x25BE;</span>
       </div>
-      {{view App.SelectOffice contentBinding="all"
+      {{view "select-office" contentBinding="all"
                               optionLabelPath="content.name"
                               optionValuePath="content"
                               selectionBinding="model"
@@ -17,7 +17,7 @@
       <button class="add-project-button" {{action createProject}}>+ Add Project</button>
     </div>
 
-    {{view App.NavView}}
+    {{view "nav"}}
   </section>
 
   {{calendar-bar action="selectDate" resize="resize"}}

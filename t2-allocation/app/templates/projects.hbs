@@ -1,10 +1,10 @@
 <section id="projectList">
   {{#each project in model}}
     {{#if project.availableProject}}
-      {{ render 'availableProject' project }}
+      {{ render 'available-project' project }}
     {{else}}
       {{#if project.dummyProject}}
-        {{ render 'dummyProject' project }}
+        {{ render 'dummy-project' project }}
       {{else}}
         {{ render 'project' project }}
       {{/if}}
