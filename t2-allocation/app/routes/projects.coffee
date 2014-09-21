@@ -4,13 +4,15 @@ ProjectsRoute = Ember.Route.extend
     office = @modelFor('office')
     projects = office.get('projects')
     unless projects.findBy('dummyProject', true)
-      dummyProject = @store.createRecord('dummyProject')
+      dummyProject = @store.createRecord('project', dummyProject: true, sortOrder: -1)
       projects.pushObject(dummyProject)
     unless projects.findBy('name', 'Available')
-      availableProject = @store.createRecord('availableProject',
+      availableProject = @store.createRecord('project',
         people: office.get('people')
         office: office
         name: "Available"
+        availableProject: true
+        sortOrder: 4
       )
       projects.pushObject(availableProject)
     sortByName =
