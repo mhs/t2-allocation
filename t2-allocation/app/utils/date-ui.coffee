@@ -18,9 +18,10 @@ DateUI = Ember.Object.extend
     @_super()
     @set('daysInWindow', @calculateWindow())
 
-window.UIGlobal = {}
-window.UIGlobal.projectsUI = DateUI.create
+projectsUI = DateUI.create
   # initialize on the Monday of the current week
   date: moment().startOf("week").add('d', 1).format("YYYY-MM-DD")
 
+window.UIGlobal = {}
+window.UIGlobal.projectsUI = projectsUI
 `export { DateUI, projectsUI };`
