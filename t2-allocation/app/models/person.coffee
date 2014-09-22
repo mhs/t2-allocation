@@ -35,7 +35,7 @@ Person = DS.Model.extend
           end = newEnd
     merged.push {startDate: start, endDate: end}
     merged
-  ).property("App.projectsUI.startDate", "App.projectsUI.endDate",'allocations.[]','allocations.@each.current')
+  ).property("UIGlobal.projectsUI.startDate", "UIGlobal.projectsUI.endDate",'allocations.[]','allocations.@each.current')
 
   editUrl:(->
     ENV.PEOPLE_URL + @get('id') + '/edit'

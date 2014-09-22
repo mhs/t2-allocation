@@ -28,7 +28,7 @@ AvailabilityView = Ember.View.extend
     if startOffset < 0
       duration += startOffset
       startOffset = 0
-    "top: " + (@get("track") * ALLOCATION_HEIGHT) + "px; " + "left: " + (startOffset * WIDTH_OF_DAY) + "px; " + "width: " + (duration * App.WIDTH_OF_DAY) + "px; "
+    "top: " + (@get("track") * ALLOCATION_HEIGHT) + "px; " + "left: " + (startOffset * WIDTH_OF_DAY) + "px; " + "width: " + (duration * WIDTH_OF_DAY) + "px; "
   ).property("startOffset", "duration", "track")
 
 `export default AvailabilityView;`

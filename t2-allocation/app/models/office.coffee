@@ -10,7 +10,7 @@ Office = DS.Model.extend
     @get('people').filter (item) ->
       date = item.get('endDate')
       !date || date > cutoff
-  ).property('App.projectsUI.startDate')
+  ).property('UIGlobal.projectsUI.startDate')
 
   slug: (->
     @get('name').replace(/\s+/, '-').toLowerCase()

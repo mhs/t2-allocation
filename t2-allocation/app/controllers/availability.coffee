@@ -14,10 +14,10 @@ AvailabilityController = Ember.ObjectController.extend
   ).property('office', 'isExternal', 'person')
 
   startOffset: (->
-    currentMonday = moment(App.projectsUI.get("date"))
+    currentMonday = moment(UIGlobal.projectsUI.get("date"))
     startDate = moment(@get("startDate")) || moment()
     startDate.diff currentMonday, "days"
-  ).property("App.projectsUI.date", "startDate")
+  ).property("UIGlobal.projectsUI.date", "startDate")
 
   duration: (->
     start = moment(@get("startDate"))

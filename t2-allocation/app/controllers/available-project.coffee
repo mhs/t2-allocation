@@ -1,5 +1,5 @@
 `import Ember from "ember";`
-`import group_by_sorted_name from "t2-allocation/utils/group-by";`
+`import { group_by_sorted_name } from "t2-allocation/utils/group-by";`
 
 AvailableProjectController  = Ember.ObjectController.extend
   needs: ['application', 'projects', 'office']
