@@ -1,0 +1,24 @@
+#controls {
+  position: relative;
+  height: $controls-height;
+  line-height: $controls-height;
+  background-color: #73d7f4;
+
+  button, select {
+    float: right;
+    margin: 12px 10px 0 0;
+  }
+
+  select { margin-left: 15px; }
+}
+
+.controls-title {
+  position: absolute;
+  width: $sidebar-width - 15px;
+  height: 100%;
+  padding-left: 15px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 400;
+  background-color: #8BDEF6;
+}

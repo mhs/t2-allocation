@@ -1,0 +1,197 @@
+$modal-width: 600px;
+
+.modal {
+  background: white;
+  z-index: 1;
+  position: absolute;
+  color: gray;
+  left: 50%;
+  z-index: 1050;
+  width: $modal-width;
+  margin-left: -($modal-width/2);
+  box-shadow: 0px 0px 5px rgba(0,0,0,.4);
+  opacity: 0;
+  @include transition (all .25s);
+
+  &.in {
+    opacity: 1;
+  }
+}
+
+
+.modal-header {
+  font-size: 22px;
+  padding: 20px;
+  font-weight: bold;
+  background: $blue;
+  color: white;
+
+  .close-x {
+    font-family: "entypo";
+    font-size: 56px;
+    float: right;
+    position: relative;
+    bottom: 14px;
+    cursor: pointer;
+    line-height: 1
+  }
+}
+
+
+.modal-footer {
+  padding: 0 20px 20px 20px;
+
+  a.delete {
+    float: right;
+    position: relative;
+    top: 13px;
+    text-decoration: none;
+    color: gray;
+    margin: 0 0 0 10px;
+    color: $red;
+  }
+
+  button {
+    width: auto;
+    height: auto;
+    padding: 10px;
+    border: none;
+  }
+}
+
+
+.modal-backdrop {
+  position: fixed;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  background: rgba(255,255,255,0.7);
+  opacity: 0;
+  @include transition (all .25s);
+
+  &.in {
+    opacity: 1;
+  }
+}
+
+
+.modal-body {
+  padding: 20px 50px 20px 20px;
+
+  .field label, select {
+    display: block;
+  }
+
+  .error {
+    color: red;
+  }
+
+  .field, .options {
+    margin: 0 0 20px 30px;
+    @include clearfix;
+
+    .inline {
+      float: left;
+    }
+
+    .range {
+      margin-top: 32px;
+      padding: 0 10px;
+    }
+  }
+
+  h3 i {
+    font-size: 46px;
+    vertical-align: middle;
+  }
+
+  label {
+    display: block;
+    margin: 0 0 5px 0;
+    font-size: 20px;
+    position: relative;
+    i {
+      font-size: 46px;
+      position: absolute;
+      top: 12px;
+      left: -35px;
+    }
+  }
+
+  input, textarea {
+    padding: 3px;
+    font-size: 14px;
+    display: block;
+    color: gray;
+  }
+
+  textarea {
+    font-weight: bold;
+    height: 60px;
+    resize: none;
+    padding: 10px;
+    width: 100%;
+    border: 1px solid $dark-gray;
+    font-weight: bold;
+
+    &:focus {
+      outline: 2px solid $dark-gray;
+    }
+  }
+
+  .options {
+    margin: 0 0 10px 32px;
+
+    span {
+      float: left;
+      margin: 0 5px 0 0;
+      font-size: 20px;
+      position: relative;
+      bottom: 1px;
+    }
+
+    .option {
+      float: left;
+      margin: 0 20px 0 0;
+
+      &.list {
+        width: 50%;
+        margin: 0
+      }
+
+      @include user-select(none);
+
+      span::before {
+        font-family: "entypo";
+        position: relative;
+        content: "";
+        width: 18px;
+        height: 18px;
+        border: 1px solid $dark-gray;
+        background: white;
+        margin: 0 10px 0 0;
+        float: left;
+      }
+
+      input[type=checkbox] {
+        position: absolute;
+      }
+
+      input[type=checkbox]:checked ~ span::before {
+        font-family: "entypo";
+        content: '\2713';
+        font-size: 28px;
+        text-align: center;
+        line-height: .65;
+        float: left;
+        color: gray;
+        z-index: 2;
+      }
+
+      &.preview {
+        margin: 0 5px 0 0;
+      }
+    }
+  }
+}

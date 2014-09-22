@@ -1,0 +1,47 @@
+button, select {
+  @include transition(all .05s);
+  @include size(176 29);
+  text-align: center;
+  padding: 1px 0 0;
+  cursor: pointer;
+  outline: none;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 700;
+
+  i {
+    margin: 0 0 0 5px;
+  }
+
+  &.blue-button {
+    @include linear-gradient(#76DCF9, #6FD2EE);
+    text-shadow: 0 1px 1px rgba(0,0,0,.15);
+    color: white;
+
+    &:active {
+      @include linear-gradient(#64C1DC, #76DCF9);
+      border: 1px solid darken(#66C5E0, 20%);
+      border-bottom: 1px solid #5FBAD3;
+      box-shadow: inset 0 1px 3px rgba(0,0,0, .3),
+                        0 1px 0 rgba(white, .2);
+    }
+  }
+
+  &.white-button {
+    @include linear-gradient(#FFFFFF, #EFEFEF);
+    text-shadow: 0 1px 0 white;
+    color: #8A8A8A;
+    border: 1px solid #cfcfcf;
+    border-bottom: 1px solid #aeaeae;
+    color: #9b9b9b;
+
+    &:active {
+      @include linear-gradient(#D2D2D2, #FFFFFF);
+      border: 1px solid darken(#cfcfcf, 20%);
+      border-bottom: 1px solid #aeaeae;
+      box-shadow: inset 0 1px 2px rgba(0,0,0, .4),
+                        0 1px 0 rgba(white, .2);
+    }
+  }
+}
+

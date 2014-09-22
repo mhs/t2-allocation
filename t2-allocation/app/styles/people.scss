@@ -1,0 +1,55 @@
+#peopleList {
+  overflow: hidden;
+  padding: 76px 0 0;
+  @include user-select(none);
+}
+
+.person {
+  position: relative;
+  display: block;
+  width: 100%;
+  min-height: 60px;
+  padding-left: $sidebar-width;
+  border-bottom: 1px solid #cecfcf;
+  background-color: rgba(255,255,255, 0.5);
+  background-image: url('/img/calendar.png');
+  background-position: $sidebar-width;
+}
+
+.person-descriptor {
+  @include position(absolute, 0px 0 0px 0px);
+  display: block;
+  width: $sidebar-width;
+  border-right: 1px solid #cecfcf;
+  padding: 6px 0 0 8px;
+  color: #454848;
+  font-weight: 400;
+  background-color: #fff;
+}
+
+.person-allocations {
+  position: relative;
+  height: 100%;
+}
+
+.person-controls {
+  @include position(absolute, 0 0px 0px 0px);
+  height: 30px;
+  padding: 15px 8px;
+
+  i {
+    @include transition(color .4s);
+    font-size: 36px;
+    cursor: pointer;
+    color: #cecece;
+
+    &:hover {
+      color: #454848;
+    }
+  }
+}
+
+.edit-person {
+  float: left;
+}
+
