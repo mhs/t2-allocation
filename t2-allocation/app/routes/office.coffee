@@ -13,8 +13,8 @@ OfficeRoute = Ember.Route.extend
       @send 'editProject', @store.createRecord('project')
 
     editProject: (project) ->
-      @controllerFor("projects.modal").set "availableOffices", @controllerFor('office').get('all')
-      @controllerFor("projects.modal").edit project
-      @send "openModal", "projects.modal"
+      @controllerFor("projects-modal").set "availableOffices", @controllerFor('office').get('all')
+      @controllerFor("projects-modal").edit project
+      @send "openModal", "projects-modal"
 
 `export default OfficeRoute;`
