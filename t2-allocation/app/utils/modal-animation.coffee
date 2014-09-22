@@ -7,7 +7,7 @@ animateModalClose = ->
   $(".modal-backdrop").removeClass "in"
   setTimeout (->
     deferred.resolve()
-  ), App.DEFAULT_CSS_TRANSITION_DURATION_MS
+  ), DEFAULT_CSS_TRANSITION_DURATION_MS
   deferred.promise
 
 animateModalOpen = ->
@@ -16,7 +16,7 @@ animateModalOpen = ->
   $(".modal").addClass "in"
   setTimeout (->
     deferred.resolve "ok"
-  ), App.DEFAULT_CSS_TRANSITION_DURATION_MS
+  ), DEFAULT_CSS_TRANSITION_DURATION_MS
   deferred.promise
 
 `export { animateModalOpen, animateModalClose };`
