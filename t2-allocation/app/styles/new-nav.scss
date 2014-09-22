@@ -94,7 +94,7 @@ nav {
 }
 
 .logo {
-  @include retina-image(/img/logo, 100%);
+  @include retina-image(/assets/images/logo, 100%);
   @include size(60 22);
   display: block;
   margin: 5px 6px 0 0;
