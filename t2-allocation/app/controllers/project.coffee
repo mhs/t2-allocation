@@ -10,6 +10,8 @@ ProjectController = Ember.ObjectController.extend
 
   trackCount: 0
 
+  allocations: Ember.computed.alias('model.allocations')
+
   selectedAllocations: (->
     allocations = @get('allocations')
     if @get('vacation')
