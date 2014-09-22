@@ -16,15 +16,15 @@ ApplicationRoute = Ember.Route.extend
       @send 'editAllocation', @store.createRecord('allocation', Ember.merge(defaults, allocationAttrs))
 
     editAllocation: (allocation) ->
-      @controllerFor("allocations.modal").edit allocation
-      @send "openModal", "allocations.modal"
+      @controllerFor("allocations/modal").edit allocation
+      @send "openModal", "allocations/modal"
 
     quickView: (allocation) ->
       @send "quickViewModal", allocation
 
     quickViewModal: (allocation) ->
       @controllerFor("QuickLookModal").set "model", allocation
-      @render "allocations/quick_look_modal",
+      @render "allocations/quick-look-modal",
         into: "application"
         outlet: "quickLook"
         view: "QuickLookModal"
