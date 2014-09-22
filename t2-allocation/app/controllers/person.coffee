@@ -6,8 +6,6 @@ PersonController = Ember.ObjectController.extend
   needs: ['people']
   currentOffice: Ember.computed.alias('controllers.people.model')
 
-  content: null
-
   trackCount: 0
 
   selectedAllocations: (->

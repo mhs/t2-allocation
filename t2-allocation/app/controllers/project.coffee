@@ -6,8 +6,6 @@ ProjectController = Ember.ObjectController.extend
   needs: ['office']
   currentOffice: Ember.computed.alias('controllers.office.model')
 
-  content: null
-
   trackCount: 0
 
   allocations: Ember.computed.alias('model.allocations')
