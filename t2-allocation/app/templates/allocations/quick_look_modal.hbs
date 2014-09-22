@@ -2,7 +2,7 @@
 
   <div class="modal-header">
     Allocation: {{project.name}}
-    <span class="close-x" {{action close}}>&#10060;</span>
+    <span class="close-x" {{action "close"}}>&#10060;</span>
   </div>
 
   <div class="modal-body">
@@ -16,8 +16,8 @@
   </div>
 
   <div class="modal-footer">
-    <button class="blue-button" {{action edit model}}>Edit</button>
-    <button class="white-button" {{action close}}>Cancel</button>
+    <button class="blue-button" {{action "edit" model}}>Edit</button>
+    <button class="white-button" {{action "close"}}>Cancel</button>
   </div>
 
 </div>

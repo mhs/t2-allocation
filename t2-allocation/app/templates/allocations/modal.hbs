@@ -6,10 +6,10 @@
     {{else}}
       Editing Allocation
     {{/if}}
-    <span class="close-x" {{action close}}>&#10060;</span>
+    <span class="close-x" {{action "close"}}>&#10060;</span>
   </div>
 
-  <form {{action save on="submit"}}>
+  <form {{action "save" on="submit"}}>
     <div class="modal-body">
       <div class="field" {{bind-attr class="errors.project:error :field"}}>
         <label><i>&#128710;</i> Project</label>
@@ -75,9 +75,9 @@
 
     <div class="modal-footer">
       <button class="blue-button" type="submit" {{bind-attr disabled="shouldDisableSubmit"}}>Save</button>
-      <button class="white-button" {{action close}}>Cancel</button>
+      <button class="white-button" {{action "close"}}>Cancel</button>
       {{#if canDelete}}
-        <a href="#" class="delete" {{action delete}}>Delete</a>
+        <a href="#" class="delete" {{action "delete"}}>Delete</a>
       {{/if}}
       {{#if isSaving}}
         Saving...

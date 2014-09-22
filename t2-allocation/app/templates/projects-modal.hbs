@@ -6,10 +6,10 @@
     {{else}}
       Editing: {{unbound name}}
     {{/if}}
-    <span class="close-x" {{action close}}>&#10060;</span>
+    <span class="close-x" {{action "close"}}>&#10060;</span>
   </div>
 
-  <form {{action save on="submit"}}>
+  <form {{action "save" on="submit"}}>
 
     <div class="modal-body">
       <div class="field" {{bind-attr class="errors.name:error :field"}}>
@@ -57,7 +57,7 @@
 
     <div class="modal-footer">
       <button class="blue-button" type="submit" {{bind-attr disabled="shouldDisableSubmit"}}>Save</button>
-      <button class="white-button" {{action close}}>Cancel</button>
+      <button class="white-button" {{action "close"}}>Cancel</button>
       {{#if isSaving}}
         Saving...
       {{/if}}
