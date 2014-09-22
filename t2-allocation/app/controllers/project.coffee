@@ -1,6 +1,6 @@
 `import Ember from "ember";`
-`import ALLOCATION_HEIGHT from "t2-allocation/utils/constants";`
-`import group_by_sorted_name from "t2-allocation/utils/group-by";`
+`import { ALLOCATION_HEIGHT } from "t2-allocation/utils/constants";`
+`import { group_by_sorted_name } from "t2-allocation/utils/group-by";`
 
 ProjectController = Ember.ObjectController.extend
   needs: ['office']
