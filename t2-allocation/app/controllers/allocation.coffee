@@ -1,5 +1,5 @@
 `import Ember from "ember";`
-
+`import dateMunge from "t2-allocation/utils/date-munge";`
 AllocationController = Ember.ObjectController.extend
   needs: ['projects', 'office']
 
@@ -25,7 +25,7 @@ AllocationController = Ember.ObjectController.extend
 
   startOffset: (->
     currentMonday = moment(UIGlobal.projectsUI.get("date"))
-    startDate = moment(UIGlobal.dateMunge(@get('startDate')))
+    startDate = moment(dateMunge(@get('startDate')))
     startDate.diff currentMonday, "days"
   ).property("UIGlobal.projectsUI.date", "startDate")
 
