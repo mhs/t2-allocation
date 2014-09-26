@@ -20,10 +20,10 @@ module.exports = function(environment) {
 
   if (environment === 'development') {
     // ENV.APP.LOG_RESOLVER = true;
-    ENV.APP.LOG_ACTIVE_GENERATION = true;
+    // ENV.APP.LOG_ACTIVE_GENERATION = true;
     // ENV.APP.LOG_TRANSITIONS = true;
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
-    ENV.APP.LOG_VIEW_LOOKUPS = true;
+    // ENV.APP.LOG_VIEW_LOOKUPS = true;
     ENV.UA = "UA-XXXXXXXX-Y";
     ENV.DOMAIN = "example.com";
     ENV.SIGN_IN_URL = "http://localhost:5000/sign_in";
@@ -38,7 +38,20 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
-    ENV.API_BASEURL = "http://t2.neo.com";
+    ENV.UA = "UA-XXXXXXXX-Y";
+    ENV.DOMAIN =       "example.com";
+    ENV.API_BASEURL =  "http://t2.neo.com/api/v1";
+    ENV.SIGN_IN_URL =  "http://t2.neo.com/sign_in";
+    ENV.PEOPLE_URL =   "http://t2-people.herokuapp.com/#/people/";
+    ENV.SIGN_OUT_URL = "http://t2.neo.com/sign_out";
+    ENV.NAVBAR_URL =   "http://t2.neo.com/api/v1/navbar";
+  }
+  if (environment === 'staging') {
+    ENV.API_BASEURL =  "http://t2-staging.neo.com/api/v1";
+    ENV.SIGN_IN_URL =  "http://t2-staging.neo.com/sign_in";
+    ENV.PEOPLE_URL =   "http://t2people-staging.neo.com/#/people/";
+    ENV.SIGN_OUT_URL = "http://t2-staging.neo.com/sign_out";
+    ENV.NAVBAR_URL =   "http://t2-staging.neo.com/api/v1/navbar";
   }
 
   return ENV;
