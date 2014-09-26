@@ -12,7 +12,6 @@ ConflictView = Ember.View.extend
   parentOffset: Ember.computed.alias('parentView.context.startOffset')
 
   style: (->
-    debugger
     dateOffset = @get('startOffset')
     parentOffset = @get('parentOffset')
     dateOffset -= parentOffset if (parentOffset > 0)
