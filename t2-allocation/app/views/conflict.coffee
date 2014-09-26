@@ -1,5 +1,5 @@
 `import Ember from "ember";`
-`import WIDTH_OF_DAY from "t2-allocation/utils/constants";`
+`import { WIDTH_OF_DAY } from "t2-allocation/utils/constants";`
 
 ConflictView = Ember.View.extend
 
@@ -12,6 +12,7 @@ ConflictView = Ember.View.extend
   parentOffset: Ember.computed.alias('parentView.context.startOffset')
 
   style: (->
+    debugger
     dateOffset = @get('startOffset')
     parentOffset = @get('parentOffset')
     dateOffset -= parentOffset if (parentOffset > 0)
