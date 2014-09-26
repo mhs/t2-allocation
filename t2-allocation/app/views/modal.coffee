@@ -1,7 +1,7 @@
 `import Ember from "ember";`
 
 ModalView = Ember.View.extend(
-  layout: Ember.Handlebars.compile("{{yield}}<div class=modal-backdrop></div>")
+  layoutName: "modal-layout"
   didInsertElement: ->
     self = @
     # hack to fix race condition not triggering CSS transition
