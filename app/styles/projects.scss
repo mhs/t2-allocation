@@ -1,0 +1,213 @@
+#projectList {
+  overflow: hidden;
+  padding: 76px 0 0;
+  @include user-select(none);
+}
+
+.project {
+  position: relative;
+  display: block;
+  width: 100%;
+  min-height: 80px;
+  padding-left: $sidebar-width;
+  border-bottom: 1px solid #cecfcf;
+  background-color: rgba(255,255,255, 0.5);
+  background-image: url('/assets/images/calendar.png');
+  background-position: $sidebar-width;
+}
+
+.dummy-project {
+  min-height: 42px;
+}
+
+.project-descriptor {
+  @include position(absolute, 0px 0 0px 0px);
+  display: block;
+  width: $sidebar-width;
+  border-right: 1px solid #cecfcf;
+  padding: 6px 0 0 10px;
+  color: #454848;
+  font-weight: 400;
+  background-color: #fff;
+}
+
+.project-allocations {
+  position: relative;
+  height: 100%;
+}
+
+.allocation {
+  @include transition(all .4s);
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,.05);
+  margin-top: 1px;
+  cursor: pointer;
+  height: 28px;
+  background-color: rgba(#3bcf91, .85);
+  text-shadow: 0 -1px 0 rgba(0,0,0,.1);
+  position: absolute;
+  font-size: 14px;
+  color: rgba(255,255,255,0.9);
+  border-radius: 3px;
+  line-height: 29px;
+
+  &:hover {
+    background-color: rgba(#3bcf91, 1);
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,.1);
+
+  }
+
+  &.available {
+    background-color: rgba(#DC523C, .85);
+
+    &:hover {
+      background-color: rgba(#DC523C, 1);
+      box-shadow: inset 0 0 0 1px rgba(0,0,0,.1);
+    }
+
+  }
+
+  &.nonbilling {
+    background-color: rgba(#DC523C, .85);
+
+    &:hover {
+      background-color: rgba(#DC523C, 1);
+      box-shadow: inset 0 0 0 1px rgba(0,0,0,.1);
+    }
+
+  }
+
+  &.provisional {
+    background-color: rgba(#6C3488, .85);
+
+    &:hover {
+      background-color: rgba(#6C3488, 1);
+      box-shadow: inset 0 0 0 1px rgba(0,0,0,.1);
+    }
+
+  }
+
+  &.external {
+  opacity: 0.5;
+  }
+}
+
+.allocation-content {
+  background-color: transparent;
+  padding: 0 0 0 8px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.allocation-identifier { font-weight: 700; }
+.allocation-range { color: rgba(255,255,255,0.7); }
+
+.conflict {
+  cursor: pointer;
+  height: 28px;
+  background-color: rgba(200, 0, 0, .70);
+  text-shadow: 0 -1px 0 rgba(0,0,0,.1);
+  position: absolute;
+  font-size: 14px;
+  color: rgba(255,255,255,0.9);
+  border-radius: 3px;
+  line-height: 29px;
+  text-align: center;
+}
+
+.project-controls {
+  @include position(absolute, 0 0px 0px 0px);
+  height: 30px;
+  padding: 15px 8px;
+
+  i {
+    @include transition(color .4s);
+    font-size: 36px;
+    cursor: pointer;
+    color: #cecece;
+
+    &:hover {
+      color: #454848;
+    }
+  }
+}
+
+.edit-project {
+  float: left;
+}
+
+.add-allocation {
+  float: right;
+}
+
+// Loading
+
+.loader {
+  max-width: 960px;
+  width: 96%;
+  margin: auto;
+  text-align: center;
+  font-size: 70px;
+  color: $dark-gray;
+  text-align: left;
+}
+
+.gears {
+  @include size (500);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -300px -250px;
+}
+
+.lg-gear, .sm-gear, .largest-gear {
+
+  span {
+    line-height: 1;
+    position: absolute;
+    color: $dark-gray;
+    font-family: "entypo";
+    @include animation (rotate 6s linear infinite);
+  }
+}
+
+.largest-gear {
+
+  span {
+    top: 155px;
+    left: 110px;
+    font-size: 400px;
+    @include transform-origin (104px 200px);
+    @include animation-direction (reverse);
+  }
+}
+
+.lg-gear {
+
+  span {
+    top: 146px;
+    left: 229px;
+    font-size: 200px;
+    @include transform-origin (52px 100px);
+  }
+}
+
+.sm-gear {
+
+  span {
+    top: 139px;
+    left: 224px;
+    font-size: 100px;
+    @include transform-origin (26px 50px);
+    @include animation-direction (reverse);
+  }
+}
+
+@include keyframes (rotate) {
+
+  0% {
+    @include transform (rotate(360deg));
+  }
+}

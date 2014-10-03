@@ -1,0 +1,17 @@
+{{#view "person-allocations"}}
+  <article class="person" {{bind-attr data-person-id="id"}} {{bind-attr style="personHeight"}}>
+    <div class="person-allocations">
+      {{#each allocation in currentAllocations}}
+        {{ render "person_allocation" allocation }}
+      {{/each}}
+    </div>
+
+    {{#view "person-edit" class="person-descriptor"}}
+      {{ name }}
+      <div class="person-controls">
+        <a target="_blank" {{bind-attr href="editUrl"}}><i class="edit-person" >&#9874;</i></a>
+        <i class="add-allocation" {{action "addAllocation"}}>&#10133;</i>
+      </div>
+    {{/view}}
+  </article>
+{{/view}}

@@ -2,13 +2,12 @@
 # T2 - Allocation
 
 Brand new time tracking and scheduling program used to quantify the essence of our business. Built
-in [EmberJS](http://emberjs.com), using [Lineman](http://linemanjs.com).
+in [EmberJS](http://emberjs.com), using [ember-cli](http://www.ember-cli.com).
 
 ## Requirements
 
-* NodeJS
-* NPM
-* [lineman](http://linemanjs.com)
+* NodeJS & NPM `brew install node`
+* ember-cli `npm install -g ember-cli`
 * [t2-api](http://github.com/neo/t2-api)
 
 
@@ -18,28 +17,29 @@ in [EmberJS](http://emberjs.com), using [Lineman](http://linemanjs.com).
 1. Change directory: `cd t2-allocation`
 1. Install npm dependencies: `npm install`
 1. Start [t2-api](https://github.com/neo/t2-api#start-the-server).
-1. Start: `lineman run`
-
+1. Start: `ember serve`.  You can specify a `--port` argument if you'd like.
+1. You'll probably want the [ember inspector for chrome](https://chrome.google.com/webstore/detail/ember-inspector/bmdblncegkenkacieihfhpjfppoconhi)
 ## Testing
 
-Tests were all broken. Deleted them :(
+Tests are written in [ember-qunit](https://github.com/rwjblue/ember-qunit).
+Run them using `ember test`
 
 ## Deployment
 
-[production](http://t2allocation.neo.com) and [staging](http://t2allocation-staging.herokuapp.com)
-apps are hosted on Heroku with [Lineman Heroku Buildpack](http://linemanjs.com/#heroku-deployment).
-Note that the default buildpack currently has issues with cached assets so we are using a fork of
-it that invalidates the heroku cache at build time.
+* Add your public key to `~/.ssh/authorized_keys` via the `neo` user at `t2static.neo.com`.
+* Run `ember build --env production`
+
+### Production
+
+* Run `scp -r dist/* neo@t2static.neo.com:/var/www/t2allocationbeta.neo.com`
 
 ## Getting started with EmberJS
 
 Here are some links to help lead the way:
 
 - [Ember.js Getting Started](http://emberjs.com/guides/getting-started/)
-- [Peepcode Ember.js](https://peepcode.com/products/emberjs)
-- [How a gaslighter learned Ember](http://www.youtube.com/watch?v=LyHK18s9taM)
-- [Getting Started with Ember](http://tech.pro/tutorial/1166/getting-started-with-emberjs)
 
 And for a comprehensive list of what's happening in Ember Land:
 
 - [emberwatch.com](http://emberwatch.com/)
+- [emberweekly.com](http://emberweekly.com/)

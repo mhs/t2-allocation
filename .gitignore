@@ -1,20 +1,19 @@
 .DS_Store
-
-# ignore node_modules, as the node project is not "deployed" per se: http://www.mikealrogers.com/posts/nodemodules-in-git.html
-/node_modules
-
-# ignore bower components
-/app/bower_components
-
-/dist
-/generated
-.sass-cache/*
-*.log
-.tmp
-.vimrc
-selenium
-config.json
-.staging
-.production
 tags
-/.projectile
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# compiled output
+/dist
+/tmp
+
+# dependencies
+/node_modules
+/bower_components/*
+
+# misc
+/.sass-cache
+/connect.lock
+/coverage/*
+/libpeerconnection.log
+npm-debug.log
+testem.log
