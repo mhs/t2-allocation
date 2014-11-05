@@ -9,6 +9,8 @@ in [EmberJS](http://emberjs.com), using [ember-cli](http://www.ember-cli.com).
 * NodeJS & NPM `brew install node`
 * ember-cli `npm install -g ember-cli`
 * [t2-api](http://github.com/neo/t2-api)
+* ruby for sass
+* bower for front-end js dependencies `npm install -g bower`
 
 
 ## Install & run
@@ -16,6 +18,8 @@ in [EmberJS](http://emberjs.com), using [ember-cli](http://www.ember-cli.com).
 1. Get the code: `git clone git@github.com:neo/t2-allocation`
 1. Change directory: `cd t2-allocation`
 1. Install npm dependencies: `npm install`
+1. Install bower dependencies: `bower install`
+2. Install the sass gem `bundle install`
 1. Start [t2-api](https://github.com/neo/t2-api#start-the-server).
 1. Start: `ember serve`.  You can specify a `--port` argument if you'd like.
 1. You'll probably want the [ember inspector for chrome](https://chrome.google.com/webstore/detail/ember-inspector/bmdblncegkenkacieihfhpjfppoconhi)
