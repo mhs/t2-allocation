@@ -7,6 +7,12 @@ OfficeController = Ember.ObjectController.extend
     @store.all('office')
   ).property()
 
+  allActive: (->
+    @store.filter('office', (office) ->
+      return !office.get('deleted')
+    )
+  ).property()
+
   modelChanged: (->
     route = @get('controllers.application.currentRouteName')
     return unless route
