@@ -4,6 +4,7 @@ Office = DS.Model.extend
   projects: DS.hasMany('project')
   notes: DS.attr('string')
   people: DS.hasMany('person')
+  deleted: DS.attr('boolean')
 
   activePeople: (->
     cutoff = UIGlobal.projectsUI.get('startDate')
