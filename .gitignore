@@ -9,6 +9,7 @@ tags
 # dependencies
 /node_modules
 /bower_components/*
+/vendor
 
 # misc
 /.sass-cache
