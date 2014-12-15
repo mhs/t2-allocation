@@ -25,7 +25,8 @@ module.exports = function(environment) {
       'connect-src': "'self' https://api.mixpanel.com http://localhost:5000", // Allow data (ajax/websocket) from api.mixpanel.com and custom-api.local
       'img-src': "'self'",
       'style-src': "'self' 'unsafe-inline' http://fonts.googleapis.com", // Allow inline styles and loaded CSS from http://fonts.googleapis.com
-      'media-src': "'self'"
+      'media-src': "'self'",
+      'report-uri': "'self'"
     }
   };
 

@@ -6,7 +6,7 @@ Project = DS.Model.extend
   provisional: DS.attr('boolean')
 
   offices: DS.hasMany('office')
-  allocations: DS.hasMany('allocation')
+  allocations: DS.hasMany('allocation', { async: true })
 
   startDate: DS.attr('date')
   endDate: DS.attr('date')
