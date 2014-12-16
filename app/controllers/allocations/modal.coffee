@@ -11,7 +11,8 @@ EDITABLE_PROPERTIES = [
   'person'
   'project'
   'startDate'
-  'percentAllocated'
+  'percentAllocated',
+  'likelihood'
 ]
 editableProps = EDITABLE_PROPERTIES.reduce (props, name)->
   props[name] = null
@@ -106,6 +107,8 @@ AllocationsModalController.reopen
   isNew: (->
     @_editedModel.get('isNew')
   ).property('_editedModel')
+
+  likelihoodOptions: ['100% Booked', '90% Likely', '60% Likely', '30% Likely']
 
   _initForm: (allocation)->
     @_wasNew = allocation.get('isNew')

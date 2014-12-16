@@ -22,6 +22,16 @@
         {{errors.project}}
       </div>
 
+      <div class="field" {{bind-attr class="errors.likelihood:error :field"}}>
+        <label><i>&#59140;</i> Likelihood (%)</label>
+        {{view Ember.Select class="white-button" contentBinding="likelihoodOptions"
+                            optionValuePath="content"
+                            valueBinding="likelihood"
+                            selectionBinding="likelihood"
+                            prompt="Select a value"}}
+        {{errors.likelihood}}
+      </div>
+
       <div class="field" {{bind-attr class="errors.person:error :field"}}>
         <label><i>&#128100;</i> Person</label>
         {{view Ember.Select class="white-button" contentBinding="people"

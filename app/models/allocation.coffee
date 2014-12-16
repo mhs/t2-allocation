@@ -10,7 +10,8 @@ Allocation = DS.Model.extend
   provisional: DS.attr('boolean')
   notes: DS.attr('string')
   percentAllocated: DS.attr('number')
-
+  likelihood: DS.attr('string')
+  
   conflicts: DS.hasMany('conflict')
 
   track: 0
