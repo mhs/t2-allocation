@@ -27,8 +27,8 @@
         {{view Ember.Select class="white-button" contentBinding="people"
                             optionLabelPath="content.name"
                             optionValuePath="content"
-                            valueBinding="person"
-                            selectionBinding="person"
+                            valueBinding="person.content"
+                            selectionBinding="person.content"
                             prompt="Select a name"}}
         {{errors.person}}
       </div>
