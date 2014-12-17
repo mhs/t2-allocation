@@ -65,10 +65,6 @@
           </div>
           {{input type="hidden" checked=binding}}
         {{/unless}}
-        <div class="option" {{bind-attr class="errors.provisional:error :field" }} >
-          <label>{{input type="checkbox" checked=provisional}}Provisional<span></span></label>
-          {{errors.provisional}}
-        </div>
       </div>
 
       <div class="field" {{bind-attr class="errors.percentAllocated:error :field"}}>

@@ -4,11 +4,10 @@
 PersonAllocationView = Ember.View.extend
   attributeBindings: ['style']
   classNames: ['allocation']
-  classNameBindings: ['isExternal:external', 'isNonbilling:nonbilling', 'provisional']
+  classNameBindings: ['isExternal:external', 'isNonbilling:nonbilling']
 
   isExternal: Ember.computed.alias('controller.isExternal')
   isNonbilling: Ember.computed.alias('controller.isNonbilling')
-  provisional: Ember.computed.alias('controller.provisional')
   startOffset: Ember.computed.alias('controller.startOffset')
   duration: Ember.computed.alias('controller.duration')
   track: Ember.computed.alias('controller.track')

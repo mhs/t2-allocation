@@ -7,11 +7,10 @@ Allocation = DS.Model.extend
   project: DS.belongsTo('project')
   billable: DS.attr('boolean')
   binding: DS.attr('boolean')
-  provisional: DS.attr('boolean')
   notes: DS.attr('string')
   percentAllocated: DS.attr('number')
   likelihood: DS.attr('string')
-  
+
   conflicts: DS.hasMany('conflict')
 
   track: 0
@@ -25,9 +24,9 @@ Allocation = DS.Model.extend
   status: (->
     words = []
     words.push(if @get('billable') then "Billable" else "Non-Billable")
-    words.push("Provisional") if @get('provisional')
+    words.push(@get('likelihood')) if @get('likelihood')
     words.push("Vacation") if @get('vacation')
     words.join(" / ")
-  ).property("provisional", "billable")
+  ).property("likelihood", "billable")
 
 `export default Allocation;`

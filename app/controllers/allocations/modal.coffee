@@ -5,13 +5,12 @@
 EDITABLE_PROPERTIES = [
   'billable'
   'binding'
-  'provisional'
   'endDate'
   'notes'
   'person'
   'project'
   'startDate'
-  'percentAllocated',
+  'percentAllocated'
   'likelihood'
 ]
 editableProps = EDITABLE_PROPERTIES.reduce (props, name)->
@@ -46,12 +45,6 @@ AllocationsModalController.reopen
     project = @get('project')
     return if !project
     @set('billable', project.get('billable')) if @_wasNew
-  ).observes('project')
-
-  provisionalObserver: (->
-    project = @get('project')
-    return unless project
-    @set('provisional', project.get('provisional')) if @_wasNew
   ).observes('project')
 
   bindingObserver: (->
