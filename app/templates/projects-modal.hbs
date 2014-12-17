@@ -18,13 +18,6 @@
         {{#each msg in errors.name}}{{msg}}{{/each}}
       </div>
 
-      <div class="options field">
-        <div class="option" {{bind-attr class="errors.provisional:error :field"}}>
-          <label>{{input type="checkbox" checked=provisional}}Provisional<span></span></label>
-          {{#each msg in errors.provisional}}{{msg}}{{/each}}
-        </div>
-      </div>
-
       <div class="field" {{bind-attr class="errors.notes:error :field"}}>
         <label><i>&#9998;</i> Notes</label>
         {{textarea value=notes}}
