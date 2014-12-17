@@ -7,12 +7,18 @@ EDITABLE_PROPERTIES = [
   'binding'
   'endDate'
   'notes'
-  'person'
   'project'
   'startDate'
   'percentAllocated'
   'likelihood'
 ]
+
+ROLES = [ {name: 'Principal', id: 'role:principal', group: 'Roles'},
+          {name: 'Product Manager', id: 'role:product_manager', group: 'Roles'},
+          {name: 'Engineer', id: 'role:developer', group: 'Roles'},
+          {name: 'Designer', id: 'role:designer', group: 'Roles'}]
+
+
 editableProps = EDITABLE_PROPERTIES.reduce (props, name)->
   props[name] = null
   props
@@ -39,6 +45,15 @@ AllocationsModalController.reopen
     for office in project.get('offices').toArray()
       people.pushObjects(office.get('activePeople').toArray())
     people
+  ).property('project')
+
+  peopleAndRoles: (->
+    peopleAndRoles = Ember.ArrayProxy.create({content: []})
+    peopleAndRoles.pushObjects(Em.A(ROLES))
+    peopleAndRoles.pushObjects(@get('people').map (person) ->
+      { name: person.get('name'), id: person.get('id'), group: 'People' }
+    )
+    peopleAndRoles
   ).property('project')
 
   billableObserver: (->

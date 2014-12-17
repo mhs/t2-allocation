@@ -34,12 +34,13 @@
 
       <div class="field" {{bind-attr class="errors.person:error :field"}}>
         <label><i>&#128100;</i> Person</label>
-        {{view Ember.Select class="white-button" contentBinding="people"
+        {{view Ember.Select class="white-button" contentBinding="peopleAndRoles"
                             optionLabelPath="content.name"
-                            optionValuePath="content"
+                            optionValuePath="content.id"
+                            optionGroupPath="group"
                             valueBinding="person.content"
                             selectionBinding="person.content"
-                            prompt="Select a name"}}
+                            prompt="Select a person or role"}}
         {{errors.person}}
       </div>
 
