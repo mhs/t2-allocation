@@ -36,7 +36,7 @@ AllocationController = Ember.ObjectController.extend
   ).property("startDate", "endDate")
 
   speculative: (->
-    @get('likelihood') != '100% Booked'
+    @get('likelihood') != '100% Booked' && @get('likelihood') != null
   ).property('likelihood')
 
 `export default AllocationController;`
