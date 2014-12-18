@@ -4,6 +4,7 @@ Allocation = DS.Model.extend
   startDate: DS.attr('date')
   endDate: DS.attr('date')
   person: DS.belongsTo('person', { async: true })
+  role: DS.attr('string')
   project: DS.belongsTo('project')
   billable: DS.attr('boolean')
   binding: DS.attr('boolean')

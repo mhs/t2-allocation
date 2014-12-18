@@ -8,6 +8,7 @@ EDITABLE_PROPERTIES = [
   'endDate'
   'notes'
   'project'
+  'person'
   'startDate'
   'percentAllocated'
   'likelihood'
@@ -51,7 +52,7 @@ AllocationsModalController.reopen
     peopleAndRoles = Ember.ArrayProxy.create({content: []})
     peopleAndRoles.pushObjects(Em.A(ROLES))
     peopleAndRoles.pushObjects(@get('people').map (person) ->
-      { name: person.get('name'), id: person.get('id'), group: 'People' }
+      { name: person.get('name'), id: person.get('id'), person: person, group: 'People' }
     )
     peopleAndRoles
   ).property('project')
@@ -118,6 +119,16 @@ AllocationsModalController.reopen
 
   likelihoodOptions: ['100% Booked', '90% Likely', '60% Likely', '30% Likely']
 
+  personOrRole: (allocation, value) ->
+    if value.content.group == 'People' 
+      # save person
+      allocation.set('person', value.content.person)
+      allocation.set('role', null)
+    else
+      # save role
+      allocation.set('person', null)
+      allocation.set('role', value.content.name)
+
   _initForm: (allocation)->
     @_wasNew = allocation.get('isNew')
     @_initialProject = allocation.get('project')
@@ -127,7 +138,10 @@ AllocationsModalController.reopen
 
   _applyChanges: (allocation)->
     for n in EDITABLE_PROPERTIES
-      allocation.set(n, @get(n))
+      if n == 'person'
+        @personOrRole(allocation, @get(n))
+      else
+        allocation.set(n, @get(n))
 
     newProject = @get('project')
     if newProject != @_initialProject || @_wasNew
