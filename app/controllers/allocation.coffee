@@ -15,9 +15,6 @@ AllocationController = Ember.ObjectController.extend
   ).property('percentAllocated')
 
   isExternal: (->
-    if @get('person.office.id') == 3 
-      debugger
-
     !Ember.empty(@get('office')) && (@get('office') != @get('currentOffice'))
   ).property('currentOffice', 'office')
 
