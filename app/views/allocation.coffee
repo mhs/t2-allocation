@@ -4,10 +4,11 @@
 AllocationView = Ember.View.extend
   attributeBindings: ['style']
   classNames: ['allocation']
-  classNameBindings: ['isExternal:external', 'isNonbilling:nonbilling', 'speculative']
+  classNameBindings: ['isExternal:external', 'isNonbilling:nonbilling', 'speculative', 'role:role']
 
   isExternal: Ember.computed.alias('controller.isExternal')
   isNonbilling: Ember.computed.alias('controller.isNonbilling')
+  role: Ember.computed.alias('controller.role')
   speculative: Ember.computed.alias('controller.speculative')
   startOffset: Ember.computed.alias('controller.startOffset')
   duration: Ember.computed.alias('controller.duration')
