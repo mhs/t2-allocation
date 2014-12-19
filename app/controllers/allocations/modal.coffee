@@ -12,7 +12,10 @@ EDITABLE_PROPERTIES = [
   'startDate'
   'percentAllocated'
   'likelihood'
+  'role'
 ]
+
+personOrRoleSelection: null
 
 ROLES = [ {name: 'Principal', id: 'role:principal', group: 'Roles'},
           {name: 'Product Manager', id: 'role:product_manager', group: 'Roles'},
@@ -119,15 +122,17 @@ AllocationsModalController.reopen
 
   likelihoodOptions: ['100% Booked', '90% Likely', '60% Likely', '30% Likely']
 
-  personOrRole: (allocation, value) ->
-    if value.content.group == 'People' 
-      # save person
-      allocation.set('person', value.content.person)
+  getPersonOrRole: (allocation) ->
+    @get('peopleAndRoles').find (personOrRole) =>
+      allocation.get('person.content.id') == personOrRole.id || allocation.get('role') == personOrRole.name
+
+  setPersonOrRole: (allocation) ->
+    if @personOrRoleSelection.group == 'People'
+      allocation.set('person', @personOrRoleSelection.person)
       allocation.set('role', null)
     else
-      # save role
       allocation.set('person', null)
-      allocation.set('role', value.content.name)
+      allocation.set('role', @personOrRoleSelection.name)
 
   _initForm: (allocation)->
     @_wasNew = allocation.get('isNew')
@@ -135,13 +140,13 @@ AllocationsModalController.reopen
     @set('project', null)
     for n in EDITABLE_PROPERTIES
       @set(n, allocation.get(n))
+    @personOrRoleSelection = @getPersonOrRole(allocation)
 
   _applyChanges: (allocation)->
     for n in EDITABLE_PROPERTIES
-      if n == 'person'
-        @personOrRole(allocation, @get(n))
-      else
+      unless n == 'person' || n == 'role'
         allocation.set(n, @get(n))
+    @setPersonOrRole(allocation)
 
     newProject = @get('project')
     if newProject != @_initialProject || @_wasNew

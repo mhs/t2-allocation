@@ -1,6 +1,6 @@
 `import Ember from "ember";`
 `import { ALLOCATION_HEIGHT } from "t2-allocation/utils/constants";`
-`import { group_by_sorted_name } from "t2-allocation/utils/group-by";`
+`import { group_by_sorted_name_role } from "t2-allocation/utils/group-by";`
 
 ProjectController = Ember.ObjectController.extend
   needs: ['office']
@@ -22,7 +22,7 @@ ProjectController = Ember.ObjectController.extend
     allocations = @get("selectedAllocations").filterProperty("current")
 
     trackNo = 0
-    group_by_sorted_name(allocations, (allocs, person) ->
+    group_by_sorted_name_role(allocations, (allocs, person) ->
       allocs.forEach (alloc) ->
         alloc.set("track", trackNo)
       trackNo++
