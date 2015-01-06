@@ -10,6 +10,10 @@ ProjectController = Ember.ObjectController.extend
 
   allocations: Ember.computed.alias('model.allocations')
 
+  currentMonday: (->
+    moment(UIGlobal.projectsUI.get("date"))
+  ).property('UIGlobal.projectsUI.date')
+
   selectedAllocations: (->
     allocations = @get('allocations')
     if @get('vacation')

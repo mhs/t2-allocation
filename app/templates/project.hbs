@@ -2,7 +2,11 @@
   <article class="project" {{bind-attr data-project-id="id"}} {{bind-attr style="projectHeight"}}>
     <div class="project-allocations">
       {{#each allocation in currentAllocations}}
-        {{ render "allocation" allocation }}
+        {{allocation-box allocation=allocation
+                         currentOffice=currentOffice
+                         clicked="quickView"
+                         doubleClicked="editAllocation"
+                         currentMonday=currentMonday}}
       {{/each}}
     </div>
 

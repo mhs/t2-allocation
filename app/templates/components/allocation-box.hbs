@@ -1,5 +1,5 @@
-{{#unless vacation}}
-  {{#each conflict in conflicts}}
+{{#unless allocation.vacation}}
+  {{#each conflict in allocation.conflicts}}
     {{render "conflict" conflict}}
   {{/each}}
 {{/unless}}
