@@ -38,12 +38,10 @@ test "boxWidth is in pixels", ->
 
 test "topOffset is in pixels", ->
   component = @subject()
-  component.set "allocation",
-    track: 0
+  component.set "index", 0
 
   equal component.get("topOffset"), 0 * ALLOCATION_HEIGHT
-  component.set "allocation",
-    track: 5
+  component.set "index", 5
 
   equal component.get("topOffset"), 5 * ALLOCATION_HEIGHT
 
@@ -91,7 +89,7 @@ test "clicking once sends the 'clicked' action", ->
   component.set "clicked", "externalAction"
   component.set "targetObject", actionTarget
   @append()
-  click ".allocation-content"
+  click ".allocation"
 
 test "double clicking sends the 'doubleClicked' action and DOESNT send click", ->
   expect 1
@@ -109,4 +107,4 @@ test "double clicking sends the 'doubleClicked' action and DOESNT send click", -
   component.set "clicked", "clickAction"
   component.set "targetObject", actionTarget
   @append()
-  triggerEvent ".allocation-content", "dblclick"
+  triggerEvent ".allocation", "dblclick"

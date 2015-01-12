@@ -10,20 +10,28 @@ AllocationBox = Ember.Component.extend
   classNames: ['allocation']
   classNameBindings: ['isExternal:external', 'isNonbilling:nonbilling', 'provisional']
 
-  clicks: []
+  #external properties
+  currentOffice: null
+  allocation: null
+  currentMonday: null
+  index: 0
 
-  click: (evt) ->
-    @clicks.push Ember.run.later @, ->
-      @sendAction 'clicked', @get('allocation')
-    , 250
-    false # to keep from bubbling up
+  #calculated properties
+  person: Ember.computed.alias('allocation.person')
+  billable: Ember.computed.alias('allocation.billable')
+  office: Ember.computed.alias('allocation.person.office')
+  percentAllocated: Ember.computed.alias('allocation.percentAllocated')
+  startDate: Ember.computed.alias('allocation.startDate')
+  endDate: Ember.computed.alias('allocation.endDate')
+  provisional: Ember.computed.alias('allocation.provisional')
 
-  doubleClick: (evt) ->
-    @clicks.map (click) ->
-      Ember.run.cancel click
-    @clicks = []
-    @sendAction 'doubleClicked', @get('allocation')
-    false # to keep from bubbling up
+  isNonBilling: Ember.computed.not('billable')
+
+  isPartial: Ember.computed.lt('percentAllocated', 100)
+
+  isExternal: (->
+    @get('office') != @get('currentOffice')
+  ).property('currentOffice', 'office')
 
   style: Ember.computed "topOffset", "leftOffset", "boxWidth", ->
     cssPx('top', @get('topOffset')) +
@@ -58,28 +66,21 @@ AllocationBox = Ember.Component.extend
     end.diff(start, "days") + 1
   ).property("startDate", "endDate")
 
-  #external properties
-  currentOffice: null
-  allocation: null
-  currentMonday: null
-  index: 0
+  clicks: []
 
-  #calculated properties
-  person: Ember.computed.alias('allocation.person')
-  billable: Ember.computed.alias('allocation.billable')
-  office: Ember.computed.alias('allocation.person.office')
-  percentAllocated: Ember.computed.alias('allocation.percentAllocated')
-  startDate: Ember.computed.alias('allocation.startDate')
-  endDate: Ember.computed.alias('allocation.endDate')
-  provisional: Ember.computed.alias('allocation.provisional')
+  #event hooks
+  click: (evt) ->
+    @clicks.push Ember.run.later @, ->
+      @sendAction 'clicked', @get('allocation')
+    , 250
+    false # to keep from bubbling up
 
-  isNonBilling: Ember.computed.not('billable')
-
-  isPartial: Ember.computed.lt('percentAllocated', 100)
-
-  isExternal: (->
-    @get('office') != @get('currentOffice')
-  ).property('currentOffice', 'office')
+  doubleClick: (evt) ->
+    @clicks.map (click) ->
+      Ember.run.cancel click
+    @clicks = []
+    @sendAction 'doubleClicked', @get('allocation')
+    false # to keep from bubbling up
 
 
 `export default AllocationBox;`

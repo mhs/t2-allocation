@@ -14,8 +14,6 @@ Allocation = DS.Model.extend
 
   conflicts: DS.hasMany('conflict')
 
-  track: 0
-
   current: (->
     @get("startDate") <= UIGlobal.projectsUI.get("endDate") and @get("endDate") >= UIGlobal.projectsUI.get("startDate")
   ).property("startDate","endDate","UIGlobal.projectsUI.startDate", "UIGlobal.projectsUI.endDate")
