@@ -37,8 +37,8 @@ AllocationBox = Ember.Component.extend
       duration += startOffset # startOffset is negative
     duration * WIDTH_OF_DAY
 
-  topOffset: Ember.computed 'allocation.track', ->
-    @get('allocation.track') * ALLOCATION_HEIGHT
+  topOffset: Ember.computed 'index', ->
+    @get('index') * ALLOCATION_HEIGHT
 
   leftOffset: Ember.computed 'startOffset', ->
     startOffset = @get("startOffset")
@@ -62,6 +62,7 @@ AllocationBox = Ember.Component.extend
   currentOffice: null
   allocation: null
   currentMonday: null
+  index: 0
 
   #calculated properties
   person: Ember.computed.alias('allocation.person')
@@ -80,9 +81,5 @@ AllocationBox = Ember.Component.extend
     @get('office') != @get('currentOffice')
   ).property('currentOffice', 'office')
 
-  hint: (->
-    _external = if @get('isExternal') then " (#{@get('office.name')})" else ''
-    "#{@get('person.name')}#{_external}"
-  ).property('office', 'isExternal', 'person')
 
 `export default AllocationBox;`

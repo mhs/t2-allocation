@@ -1,6 +1,7 @@
 `import Ember from "ember";`
 `import { ALLOCATION_HEIGHT } from "t2-allocation/utils/constants";`
 `import { group_by_sorted_name_role } from "t2-allocation/utils/group-by";`
+`import AllocationTrack from "t2-allocation/models/allocation-track";`
 
 ProjectController = Ember.ObjectController.extend
   needs: ['office']
@@ -32,7 +33,11 @@ ProjectController = Ember.ObjectController.extend
       trackNo++
     )
     @set "trackCount", trackNo
-    allocations
+    allocations.map (allocation) =>
+      AllocationTrack.create
+        allocation: allocation
+        index: allocation.get('track')
+        currentOffice: @get('currentOffice')
   ).property("selectedAllocations")
 
   projectHeight: (->
