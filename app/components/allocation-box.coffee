@@ -2,6 +2,9 @@
 `import dateMunge from "t2-allocation/utils/date-munge";`
 `import { ALLOCATION_HEIGHT, WIDTH_OF_DAY } from "t2-allocation/utils/constants";`
 
+cssPx = (name, val) ->
+  "#{name}: #{val}px; "
+
 AllocationBox = Ember.Component.extend
   attributeBindings: ['style']
   classNames: ['allocation']
@@ -22,14 +25,27 @@ AllocationBox = Ember.Component.extend
     @sendAction 'doubleClicked', @get('allocation')
     false # to keep from bubbling up
 
-  style: (->
+  style: Ember.computed "topOffset", "leftOffset", "boxWidth", ->
+    cssPx('top', @get('topOffset')) +
+    cssPx('left', @get('leftOffset')) +
+    cssPx('width', @get('boxWidth'))
+
+  boxWidth: Ember.computed 'duration', 'startOffset', ->
     startOffset = @get("startOffset")
     duration = @get("duration")
     if startOffset < 0
-      duration += startOffset
-      startOffset = 0
-    "top: " + (@get("allocation.track") * ALLOCATION_HEIGHT) + "px; " + "left: " + (startOffset * WIDTH_OF_DAY) + "px; " + "width: " + (duration * WIDTH_OF_DAY) + "px; "
-  ).property("startOffset", "duration", "allocation.track")
+      duration += startOffset # startOffset is negative
+    duration * WIDTH_OF_DAY
+
+  topOffset: Ember.computed 'allocation.track', ->
+    @get('allocation.track') * ALLOCATION_HEIGHT
+
+  leftOffset: Ember.computed 'startOffset', ->
+    startOffset = @get("startOffset")
+    if startOffset < 0
+      0
+    else
+      startOffset * WIDTH_OF_DAY
 
   startOffset: (->
     startDate = moment(dateMunge(@get('startDate')))
