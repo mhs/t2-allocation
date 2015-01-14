@@ -15,7 +15,7 @@ EDITABLE_PROPERTIES = [
   'role'
 ]
 
-personOrRoleSelection: null
+
 
 ROLES = [ {name: 'Principal', id: 'role:principal', group: 'Roles'},
           {name: 'Product Manager', id: 'role:product_manager', group: 'Roles'},
@@ -37,6 +37,8 @@ AllocationsModalController.reopen
   isDirty: true
 
   _initialProject: null
+
+  personOrRoleSelection: null
 
   people: (->
     project = @get('project')
@@ -127,12 +129,13 @@ AllocationsModalController.reopen
       allocation.get('person.content.id') == personOrRole.id || allocation.get('role') == personOrRole.name
 
   setPersonOrRole: (allocation) ->
-    if @personOrRoleSelection.group == 'People'
-      allocation.set('person', @personOrRoleSelection.person)
+    selected = @get('personOrRoleSelection')
+    if selected.group == 'People'
+      allocation.set('person', selected.person)
       allocation.set('role', null)
     else
       allocation.set('person', null)
-      allocation.set('role', @personOrRoleSelection.name)
+      allocation.set('role', selected.name)
 
   _initForm: (allocation)->
     @_wasNew = allocation.get('isNew')
@@ -140,7 +143,7 @@ AllocationsModalController.reopen
     @set('project', null)
     for n in EDITABLE_PROPERTIES
       @set(n, allocation.get(n))
-    @personOrRoleSelection = @getPersonOrRole(allocation)
+    @set('personOrRoleSelection', @getPersonOrRole(allocation))
 
   _applyChanges: (allocation)->
     for n in EDITABLE_PROPERTIES
