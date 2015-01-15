@@ -12,6 +12,14 @@ Project = DS.Model.extend
   startDate: DS.attr('date')
   endDate: DS.attr('date')
 
+
+  #flat-maps the offices' active people
+  _activePeople: Ember.computed 'offices.@each.activePeople', ->
+    [].concat.apply([], @get('offices').mapBy('activePeople')) 
+
+  peopleSort: ['name:asc']
+  activePeople: Ember.computed.sort '_activePeople', 'peopleSort'
+
   sortOrder: (->
     val = 0
     if !@get('billable')

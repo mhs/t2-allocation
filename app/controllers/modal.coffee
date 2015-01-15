@@ -1,5 +1,7 @@
 `import Ember from "ember";`
 ModalController = Ember.ObjectController.extend
+  isDirty: true
+
   canDelete: null
 
   _editedModel: null
@@ -14,9 +16,6 @@ ModalController = Ember.ObjectController.extend
 
   # override me!
   _applyChanges: (editedModel) ->
-
-  # override me!
-  _beforeDelete: (editedModel)->
 
   _cancelChanges: (editedModel)->
     if editedModel.get('isNew')
@@ -36,7 +35,6 @@ ModalController = Ember.ObjectController.extend
       @_editedModel.save().then (=> @send "closeModal"), ((error) -> )
 
     delete: ->
-      @_beforeDelete(@_editedModel)
       @_editedModel.destroyRecord()
       @send "closeModal"
 
@@ -44,7 +42,6 @@ ModalController = Ember.ObjectController.extend
       @_cancelChanges(@_editedModel)
       @send "closeModal"
 
-  shouldDisableSubmit: (->
-    not @get("isDirty")
-  ).property("isDirty")
+  shouldDisableSubmit: Ember.computed.not 'isDirty'
+
 `export default ModalController;`
