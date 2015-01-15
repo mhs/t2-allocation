@@ -62,14 +62,14 @@ module.exports = function(environment) {
     ENV.DOMAIN =       "example.com";
     ENV.API_BASEURL =  "http://t2.neo.com/api/v1";
     ENV.SIGN_IN_URL =  "http://t2.neo.com/sign_in";
-    ENV.PEOPLE_URL =   "http://t2-people.herokuapp.com/#/people/";
+    ENV.PEOPLE_URL =   "http://t2people.neo.com/people/";
     ENV.SIGN_OUT_URL = "http://t2.neo.com/sign_out";
     ENV.NAVBAR_URL =   "http://t2.neo.com/api/v1/navbar";
   }
   if (environment === 'staging') {
     ENV.API_BASEURL =  "http://t2-staging.neo.com/api/v1";
     ENV.SIGN_IN_URL =  "http://t2-staging.neo.com/sign_in";
-    ENV.PEOPLE_URL =   "http://t2people-staging.neo.com/#/people/";
+    ENV.PEOPLE_URL =   "http://t2people-staging.neo.com/people/";
     ENV.SIGN_OUT_URL = "http://t2-staging.neo.com/sign_out";
     ENV.NAVBAR_URL =   "http://t2-staging.neo.com/api/v1/navbar";
   }
