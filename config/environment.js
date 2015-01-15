@@ -40,7 +40,8 @@ module.exports = function(environment) {
     ENV.DOMAIN = "example.com";
     ENV.SIGN_IN_URL = "http://localhost:5000/sign_in";
     ENV.SIGN_OUT_URL = "http://localhost:5000/sign_out";
-    ENV.PEOPLE_URL = "http://localhost:9999/#/people/";
+    ENV.PEOPLE_URL = "http://localhost:9999/people/";
+    ENV.PROJECTS_URL = "http://localhost:9001/projects/";
     ENV.API_BASEURL = "http://localhost:5000/api/v1";
     ENV.NAVBAR_URL = "http://localhost:5000/api/v1/navbar";
   }
@@ -63,6 +64,7 @@ module.exports = function(environment) {
     ENV.API_BASEURL =  "http://t2.neo.com/api/v1";
     ENV.SIGN_IN_URL =  "http://t2.neo.com/sign_in";
     ENV.PEOPLE_URL =   "http://t2people.neo.com/people/";
+    ENV.PROJECTS_URL = "http://t2projects.neo.com/projects/";
     ENV.SIGN_OUT_URL = "http://t2.neo.com/sign_out";
     ENV.NAVBAR_URL =   "http://t2.neo.com/api/v1/navbar";
   }
@@ -70,6 +72,7 @@ module.exports = function(environment) {
     ENV.API_BASEURL =  "http://t2-staging.neo.com/api/v1";
     ENV.SIGN_IN_URL =  "http://t2-staging.neo.com/sign_in";
     ENV.PEOPLE_URL =   "http://t2people-staging.neo.com/people/";
+    ENV.PROJECTS_URL = "http://t2projects-staging.neo.com/projects/";
     ENV.SIGN_OUT_URL = "http://t2-staging.neo.com/sign_out";
     ENV.NAVBAR_URL =   "http://t2-staging.neo.com/api/v1/navbar";
   }
