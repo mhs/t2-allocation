@@ -1,6 +1,6 @@
 `import Ember from "ember";`
 `import ModalController from "t2-allocation/controllers/modal";`
-`import dateMunge from "t2-allocation/utils/date-munge";`
+`import FormDateRangeMixin from "t2-allocation/mixins/form-date-range";`
 
 EDITABLE_PROPERTIES = [
   'billable'
@@ -29,7 +29,7 @@ editableProps = EDITABLE_PROPERTIES.reduce (props, name)->
   props
 , {}
 
-AllocationsModalController = ModalController.extend editableProps
+AllocationsModalController = ModalController.extend editableProps, FormDateRangeMixin
 
 AllocationsModalController.reopen
   needs: ['office'],
@@ -61,34 +61,6 @@ AllocationsModalController.reopen
       else
         @set('percentAllocated', pct || "100")
   ).observes('personOrRoleSelection', 'project')
-
-  startDateDidChange: (->
-    startDate = moment(@get('startDate'))
-    endDate = moment(@get('endDate'))
-
-    if endDate && endDate.isBefore(startDate)
-      @set('endDate', startDate)
-  ).observes('startDate')
-
-  endDateDidChange: (->
-    startDate = moment(@get('startDate'))
-    endDate = moment(@get('endDate'))
-
-    if startDate && startDate.isAfter(endDate)
-      @set('startDate', endDate)
-  ).observes('endDate')
-
-  formStartDate: ((k, v) ->
-    if arguments.length > 1
-      @set('startDate', moment(v))
-    dateMunge @get('startDate')
-  ).property('startDate')
-
-  formEndDate: ((k, v) ->
-    if arguments.length > 1
-      @set('endDate', moment(v))
-    dateMunge @get('endDate')
-  ).property('endDate')
 
   projectSort: ['sortOrder:asc', 'name:asc']
   projects: Ember.computed.filter 'sortedProjects', (item) ->
