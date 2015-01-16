@@ -34,7 +34,7 @@
 
       <div class="field" {{bind-attr class="errors.person:error :field"}}>
         <label><i>&#128100;</i> Person</label>
-        {{view "select" class="white-button" contentBinding="people"
+        {{view "select" class="white-button" contentBinding="peopleAndRoles"
                             optionLabelPath="content.name"
                             optionValuePath="content.id"
                             optionGroupPath="group"
