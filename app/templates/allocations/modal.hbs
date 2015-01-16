@@ -13,7 +13,7 @@
     <div class="modal-body">
       <div class="field" {{bind-attr class="errors.project:error :field"}}>
         <label><i>&#128710;</i> Project</label>
-        {{view Ember.Select class="white-button" contentBinding="projects"
+        {{view "select" class="white-button" contentBinding="projects"
                             optionLabelPath="content.name"
                             optionValuePath="content"
                             valueBinding="project"
@@ -34,7 +34,7 @@
 
       <div class="field" {{bind-attr class="errors.person:error :field"}}>
         <label><i>&#128100;</i> Person</label>
-        {{view Ember.Select class="white-button" contentBinding="peopleAndRoles"
+        {{view "select" class="white-button" contentBinding="people"
                             optionLabelPath="content.name"
                             optionValuePath="content.id"
                             optionGroupPath="group"

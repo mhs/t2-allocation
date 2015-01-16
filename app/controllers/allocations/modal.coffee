@@ -1,6 +1,6 @@
 `import Ember from "ember";`
 `import ModalController from "t2-allocation/controllers/modal";`
-`import dateMunge from "t2-allocation/utils/date-munge";`
+`import FormDateRangeMixin from "t2-allocation/mixins/form-date-range";`
 
 EDITABLE_PROPERTIES = [
   'billable'
@@ -28,29 +28,19 @@ editableProps = EDITABLE_PROPERTIES.reduce (props, name)->
   props
 , {}
 
-AllocationsModalController = ModalController.extend editableProps
+AllocationsModalController = ModalController.extend editableProps, FormDateRangeMixin
 
 AllocationsModalController.reopen
   needs: ['office'],
   currentOffice: Ember.computed.alias('controllers.office.model'),
 
-  isDirty: true
 
   _initialProject: null
 
   personOrRoleSelection: null
 
   people: (->
-    project = @get('project')
-    if !project
-      return []
-    sortByName =
-      sortProperties: ['name']
-      content: []
-    people = Ember.ArrayProxy.createWithMixins(Ember.SortableMixin, sortByName)
-    for office in project.get('offices').toArray()
-      people.pushObjects(office.get('activePeople').toArray())
-    people
+    @get('project.activePeople') || []
   ).property('project')
 
   peopleAndRoles: (->
@@ -62,54 +52,19 @@ AllocationsModalController.reopen
     peopleAndRoles
   ).property('project')
 
-  billableObserver: (->
-    project = @get('project')
-    return if !project
-    @set('billable', project.get('billable')) if @_wasNew
-  ).observes('project')
-
-  bindingObserver: (->
-    project = @get('project')
-    return if !project
-    @set('binding', project.get('billable') || project.get('vacation')) if @_wasNew
-  ).observes('project')
-
   percentAllocatedObserver: (->
-    pct = @get('personOrRoleSelection.person.percentBillable')
-    if @_wasNew
+    pct = @get('person.percentBillable')
+    if @get('isNew')
       if @get('project.vacation')
         @set('percentAllocated', '100')
       else
         @set('percentAllocated', pct || "100")
   ).observes('personOrRoleSelection', 'project')
 
-  startDateDidChange: (->
-    startDate = moment(@get('startDate'))
-    endDate = moment(@get('endDate'))
-
-    if endDate && endDate.isBefore(startDate)
-      @set('endDate', startDate)
-  ).observes('startDate')
-
-  formStartDate: ((k, v) ->
-    if arguments.length > 1
-      @set('startDate', moment(v))
-    dateMunge @get('startDate')
-  ).property('startDate')
-
-  formEndDate: ((k, v) ->
-    if arguments.length > 1
-      @set('endDate', moment(v))
-    dateMunge @get('endDate')
-  ).property('endDate')
-
-  projects: (->
-    projects = @get('currentOffice.projects')
-    sortByName =
-      sortProperties: ['sortOrder', 'name']
-      content: projects
-    Ember.ArrayProxy.createWithMixins(Ember.SortableMixin, sortByName)
-  ).property('currentOffice')
+  projectSort: ['sortOrder:asc', 'name:asc']
+  projects: Ember.computed.filter 'sortedProjects', (item) ->
+    item.get('name') != 'Available'
+  sortedProjects: Ember.computed.sort 'currentOffice.projects', 'projectSort'
 
   errors: (->
     errors = Ember.Object.create()
@@ -118,9 +73,7 @@ AllocationsModalController.reopen
     errors
   ).property('_editedModel.errors.[]')
 
-  isNew: (->
-    @_editedModel.get('isNew')
-  ).property('_editedModel')
+  isNew: Ember.computed.alias '_editedModel.isNew'
 
   likelihoodOptions: ['100% Booked', '90% Likely', '60% Likely', '30% Likely']
 
@@ -138,8 +91,6 @@ AllocationsModalController.reopen
       allocation.set('role', selected.name)
 
   _initForm: (allocation)->
-    @_wasNew = allocation.get('isNew')
-    @_initialProject = allocation.get('project')
     @set('project', null)
     for n in EDITABLE_PROPERTIES
       @set(n, allocation.get(n))
@@ -150,13 +101,5 @@ AllocationsModalController.reopen
       unless n == 'person' || n == 'role'
         allocation.set(n, @get(n))
     @setPersonOrRole(allocation)
-
-    newProject = @get('project')
-    if newProject != @_initialProject || @_wasNew
-      @_initialProject.get('allocations').removeObject(allocation) if @_initialProject
-      newProject.get('allocations').pushObject(allocation) if newProject
-
-  _beforeDelete: (allocation)->
-    @_initialProject.get('allocations').removeObject(allocation) if @_initialProject
 
 `export default AllocationsModalController;`

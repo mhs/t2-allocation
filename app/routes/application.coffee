@@ -8,16 +8,27 @@ ApplicationRoute = Ember.Route.extend
       transition.abort()
       auth.login()
 
+  _createAllocation: (allocationAttrs) ->
+    defaults =
+      startDate: moment()
+      endDate: moment().add(2,'weeks')
+    @_editAllocation(@store.createRecord('allocation', Ember.merge(defaults, allocationAttrs)))
+
+  _editAllocation: (allocation) ->
+    @controllerFor("allocations/modal").edit allocation
+    @send "openModal", "allocations/modal"
+
+  _openModal: (modal) ->
+    @render modal,
+      into: "application"
+      outlet: "modal"
+
   actions:
     createAllocation: (allocationAttrs={}) ->
-      defaults =
-        startDate: moment()
-        endDate: moment().add(2,'weeks').format('YYYY-MM-DD')
-      @send 'editAllocation', @store.createRecord('allocation', Ember.merge(defaults, allocationAttrs))
+      @_createAllocation(allocationAttrs)
 
     editAllocation: (allocation) ->
-      @controllerFor("allocations/modal").edit allocation
-      @send "openModal", "allocations/modal"
+      @_editAllocation(allocation)
 
     quickView: (allocation) ->
       @send "quickViewModal", allocation
@@ -39,10 +50,7 @@ ApplicationRoute = Ember.Route.extend
       auth.login()
 
     openModal: (modal) ->
-      @render modal,
-        into: "application"
-        outlet: "modal"
-
+      @_openModal(modal)
 
     closeModal: ->
       self = @

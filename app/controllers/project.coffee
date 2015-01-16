@@ -37,7 +37,12 @@ ProjectController = Ember.ObjectController.extend
 
   actions:
     addAllocation: (startDate) ->
-      startDate ||= moment()
-      @send 'createAllocation', {project: @get('model') , startDate: startDate}
+      attrs =
+        startDate: startDate ||= moment()
+        project: @get('model')
+        billable: @get('model.billable')
+        provisional: @get('model.provisional')
+        binding: @get('model.billable') || @get('model.vacation')
+      @send 'createAllocation', attrs
 
 `export default ProjectController;`
