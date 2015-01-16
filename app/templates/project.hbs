@@ -16,9 +16,8 @@
           {{/unless}}
 
           <div class="allocation-content" {{bind-attr title="track.hint"}}>
-            {{#if track.allocation.person}}
-              <span class="allocation-identifier">{{ track.allocation.person.name }}</span>
-            {{/if}}
+            <span class="allocation-identifier">{{ track.identifier }}</span>
+
 
             {{#if track.isExternal}}
               <em>({{track.allocation.person.office.name}})</em>

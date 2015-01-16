@@ -10,7 +10,9 @@ AllocationTrack = Ember.Object.extend
 
   isPartial: Ember.computed.lt('allocation.percentAllocated', 100)
   isExternal: Ember.computed 'currentOffice', 'allocation.person.office', ->
-    @get('allocation.person.office') != @get('currentOffice')
+    office = @get('allocation.person.office')
+    office && (office != @get('currentOffice'))
+  identifier: Ember.computed.any('allocation.person.name','allocation.role')
 
   hint: (->
     _external = if @get('isExternal') then " (#{@get('allocation.person.office.name')})" else ''

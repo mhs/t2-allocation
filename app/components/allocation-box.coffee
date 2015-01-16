@@ -8,7 +8,7 @@ cssPx = (name, val) ->
 AllocationBox = Ember.Component.extend
   attributeBindings: ['style']
   classNames: ['allocation']
-  classNameBindings: ['isExternal:external', 'isNonbilling:nonbilling', 'provisional']
+  classNameBindings: ['isExternal:external', 'isNonbilling:nonbilling', 'speculative', 'role:role']
 
   #external properties
   currentOffice: null
@@ -23,7 +23,7 @@ AllocationBox = Ember.Component.extend
   percentAllocated: Ember.computed.alias('allocation.percentAllocated')
   startDate: Ember.computed.alias('allocation.startDate')
   endDate: Ember.computed.alias('allocation.endDate')
-  provisional: Ember.computed.alias('allocation.provisional')
+  role: Ember.computed.alias('allocation.role')
 
   isNonBilling: Ember.computed.not('billable')
 
@@ -32,6 +32,10 @@ AllocationBox = Ember.Component.extend
   isExternal: (->
     @get('office') != @get('currentOffice')
   ).property('currentOffice', 'office')
+
+  speculative: (->
+    @get('allocation.likelihood') != '100% Booked' && @get('allocation.likelihood') != null
+  ).property('allocation.likelihood')
 
   style: Ember.computed "topOffset", "leftOffset", "boxWidth", ->
     cssPx('top', @get('topOffset')) +
