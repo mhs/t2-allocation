@@ -1,8 +1,35 @@
 {{#view "project-allocations"}}
   <article class="project" {{bind-attr data-project-id="id"}} {{bind-attr style="projectHeight"}}>
     <div class="project-allocations">
-      {{#each allocation in currentAllocations}}
-        {{ render "allocation" allocation }}
+      {{#each track in currentAllocations}}
+        {{#allocation-box allocation=track.allocation
+                         index=track.index
+                         currentOffice=currentOffice
+                         clicked="quickView"
+                         doubleClicked="editAllocation"
+                         currentMonday=currentMonday}}
+
+          {{#unless track.allocation.vacation}}
+            {{#each conflict in track.allocation.conflicts}}
+              {{render "conflict" conflict}}
+            {{/each}}
+          {{/unless}}
+
+          <div class="allocation-content" {{bind-attr title="track.hint"}}>
+            {{#if track.allocation.person}}
+              <span class="allocation-identifier">{{ track.allocation.person.name }}</span>
+            {{/if}}
+
+            {{#if track.isExternal}}
+              <em>({{track.allocation.person.office.name}})</em>
+            {{/if}}
+
+            {{#if track.isPartial}}
+              <span>@{{track.allocation.percentAllocated}}%</span>
+            {{/if}}
+            <span class="allocation-range">{{short-date track.allocation.startDate}} - {{short-date track.allocation.endDate}}</span>
+          </div>
+        {{/allocation-box}}
       {{/each}}
     </div>
 

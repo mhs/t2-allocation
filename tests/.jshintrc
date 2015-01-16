@@ -27,6 +27,7 @@
     "moduleFor",
     "moduleForComponent",
     "moduleForModel",
+    "moment",
     "process",
     "expect",
     "visit",
