@@ -36,14 +36,14 @@ module.exports = function(environment) {
     // ENV.APP.LOG_TRANSITIONS = true;
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
-    ENV.UA = "UA-XXXXXXXX-Y";
-    ENV.DOMAIN = "example.com";
-    ENV.SIGN_IN_URL = "http://localhost:5000/sign_in";
-    ENV.SIGN_OUT_URL = "http://localhost:5000/sign_out";
+    var apiUrl = "http://localhost:5000";
+
+    ENV.API_BASEURL = apiUrl + "/api/v1";
+    ENV.SIGN_IN_URL = apiUrl + "/sign_in";
+    ENV.SIGN_OUT_URL = apiUrl + "/sign_out";
+    ENV.NAVBAR_URL = apiUrl + "/api/v1/navbar";
     ENV.PEOPLE_URL = "http://localhost:9999/people/";
     ENV.PROJECTS_URL = "http://localhost:9001/projects/";
-    ENV.API_BASEURL = "http://localhost:5000/api/v1";
-    ENV.NAVBAR_URL = "http://localhost:5000/api/v1/navbar";
   }
 
   if (environment === 'test') {
@@ -59,22 +59,25 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
-    ENV.UA = "UA-XXXXXXXX-Y";
-    ENV.DOMAIN =       "example.com";
-    ENV.API_BASEURL =  "http://t2.neo.com/api/v1";
-    ENV.SIGN_IN_URL =  "http://t2.neo.com/sign_in";
+    var apiUrl = "http://t2.neo.com";
+
+    ENV.API_BASEURL =  apiUrl + "/api/v1";
+    ENV.SIGN_IN_URL =  apiUrl + "/sign_in";
+    ENV.SIGN_OUT_URL = apiUrl + "/sign_out";
+    ENV.NAVBAR_URL =   apiUrl + "/api/v1/navbar";
     ENV.PEOPLE_URL =   "http://t2people.neo.com/people/";
     ENV.PROJECTS_URL = "http://t2projects.neo.com/projects/";
-    ENV.SIGN_OUT_URL = "http://t2.neo.com/sign_out";
-    ENV.NAVBAR_URL =   "http://t2.neo.com/api/v1/navbar";
   }
+
   if (environment === 'staging') {
-    ENV.API_BASEURL =  "http://t2-staging.neo.com/api/v1";
-    ENV.SIGN_IN_URL =  "http://t2-staging.neo.com/sign_in";
+    var apiUrl = "http://t2api-staging.neo.com";
+
+    ENV.API_BASEURL =  apiUrl + "/api/v1";
+    ENV.SIGN_IN_URL =  apiUrl + "/sign_in";
+    ENV.SIGN_OUT_URL = apiUrl + "/sign_out";
+    ENV.NAVBAR_URL =   apiUrl + "/api/v1/navbar";
     ENV.PEOPLE_URL =   "http://t2people-staging.neo.com/people/";
     ENV.PROJECTS_URL = "http://t2projects-staging.neo.com/projects/";
-    ENV.SIGN_OUT_URL = "http://t2-staging.neo.com/sign_out";
-    ENV.NAVBAR_URL =   "http://t2-staging.neo.com/api/v1/navbar";
   }
 
   return ENV;

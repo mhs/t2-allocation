@@ -22,14 +22,24 @@
         {{errors.project}}
       </div>
 
+      <div class="field" {{bind-attr class="errors.likelihood:error :field"}}>
+        <label><i>&#59140;</i> Likelihood of Close (%)</label>
+        {{view Ember.Select class="white-button" contentBinding="likelihoodOptions"
+                            optionValuePath="content"
+                            valueBinding="likelihood"
+                            selectionBinding="likelihood"
+                            prompt="Select a value"}}
+        {{errors.likelihood}}
+      </div>
+
       <div class="field" {{bind-attr class="errors.person:error :field"}}>
         <label><i>&#128100;</i> Person</label>
-        {{view Ember.Select class="white-button" contentBinding="people"
+        {{view Ember.Select class="white-button" contentBinding="peopleAndRoles"
                             optionLabelPath="content.name"
-                            optionValuePath="content"
-                            valueBinding="person"
-                            selectionBinding="person"
-                            prompt="Select a name"}}
+                            optionValuePath="content.id"
+                            optionGroupPath="group"
+                            selection=personOrRoleSelection
+                            prompt="Select a person or role"}}
         {{errors.person}}
       </div>
 
@@ -55,10 +65,6 @@
           </div>
           {{input type="hidden" checked=binding}}
         {{/unless}}
-        <div class="option" {{bind-attr class="errors.provisional:error :field" }} >
-          <label>{{input type="checkbox" checked=provisional}}Provisional<span></span></label>
-          {{errors.provisional}}
-        </div>
       </div>
 
       <div class="field" {{bind-attr class="errors.percentAllocated:error :field"}}>

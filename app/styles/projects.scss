@@ -76,7 +76,7 @@
 
   }
 
-  &.provisional {
+  &.speculative {
     background-color: rgba(#6C3488, .85);
 
     &:hover {
@@ -84,6 +84,14 @@
       box-shadow: inset 0 0 0 1px rgba(0,0,0,.1);
     }
 
+  }
+
+  &.role {
+    background-color: rgba($dark-gray, .85);
+
+    &:hover {
+      background-color: rgba($dark-gray, 1);
+    }
   }
 
   &.external {

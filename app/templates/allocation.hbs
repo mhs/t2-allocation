@@ -7,6 +7,8 @@
 <div class="allocation-content" {{bind-attr title="hint"}}>
   {{#if person}}
     <span class="allocation-identifier">{{ person.name }}</span>
+  {{else}}
+    <span class="allocation-identifier">{{ role }}</span>
   {{/if}}
 
   {{#if isExternal}}
@@ -16,6 +18,10 @@
   {{#if isPartial}}
     <span>@{{percentAllocated}}%</span>
   {{/if}}
-  <span class="allocation-range">{{ short-date startDate }} - {{ short-date endDate }}</span>
+  <span class="allocation-range">
+    {{ short-date startDate }} - {{ short-date endDate }}
+    {{#if speculative}}
+      ({{likelihood}})
+    {{/if}}
+  </span>
 </div>
-

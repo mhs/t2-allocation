@@ -5,14 +5,24 @@
 EDITABLE_PROPERTIES = [
   'billable'
   'binding'
-  'provisional'
   'endDate'
   'notes'
-  'person'
   'project'
+  'person'
   'startDate'
   'percentAllocated'
+  'likelihood'
+  'role'
 ]
+
+
+
+ROLES = [ {name: 'Principal', id: 'role:principal', group: 'Roles'},
+          {name: 'Product Manager', id: 'role:product_manager', group: 'Roles'},
+          {name: 'Engineer', id: 'role:developer', group: 'Roles'},
+          {name: 'Designer', id: 'role:designer', group: 'Roles'}]
+
+
 editableProps = EDITABLE_PROPERTIES.reduce (props, name)->
   props[name] = null
   props
@@ -28,6 +38,8 @@ AllocationsModalController.reopen
 
   _initialProject: null
 
+  personOrRoleSelection: null
+
   people: (->
     project = @get('project')
     if !project
@@ -41,16 +53,19 @@ AllocationsModalController.reopen
     people
   ).property('project')
 
+  peopleAndRoles: (->
+    peopleAndRoles = Ember.ArrayProxy.create({content: []})
+    peopleAndRoles.pushObjects(Em.A(ROLES))
+    peopleAndRoles.pushObjects(@get('people').map (person) ->
+      { name: person.get('name'), id: person.get('id'), person: person, group: 'People' }
+    )
+    peopleAndRoles
+  ).property('project')
+
   billableObserver: (->
     project = @get('project')
     return if !project
     @set('billable', project.get('billable')) if @_wasNew
-  ).observes('project')
-
-  provisionalObserver: (->
-    project = @get('project')
-    return unless project
-    @set('provisional', project.get('provisional')) if @_wasNew
   ).observes('project')
 
   bindingObserver: (->
@@ -60,13 +75,13 @@ AllocationsModalController.reopen
   ).observes('project')
 
   percentAllocatedObserver: (->
-    pct = @get('person.percentBillable')
+    pct = @get('personOrRoleSelection.person.percentBillable')
     if @_wasNew
       if @get('project.vacation')
         @set('percentAllocated', '100')
       else
         @set('percentAllocated', pct || "100")
-  ).observes('person', 'project')
+  ).observes('personOrRoleSelection', 'project')
 
   startDateDidChange: (->
     startDate = moment(@get('startDate'))
@@ -107,16 +122,34 @@ AllocationsModalController.reopen
     @_editedModel.get('isNew')
   ).property('_editedModel')
 
+  likelihoodOptions: ['100% Booked', '90% Likely', '60% Likely', '30% Likely']
+
+  getPersonOrRole: (allocation) ->
+    @get('peopleAndRoles').find (personOrRole) =>
+      allocation.get('person.content.id') == personOrRole.id || allocation.get('role') == personOrRole.name
+
+  setPersonOrRole: (allocation) ->
+    selected = @get('personOrRoleSelection')
+    if selected.group == 'People'
+      allocation.set('person', selected.person)
+      allocation.set('role', null)
+    else
+      allocation.set('person', null)
+      allocation.set('role', selected.name)
+
   _initForm: (allocation)->
     @_wasNew = allocation.get('isNew')
     @_initialProject = allocation.get('project')
     @set('project', null)
     for n in EDITABLE_PROPERTIES
       @set(n, allocation.get(n))
+    @set('personOrRoleSelection', @getPersonOrRole(allocation))
 
   _applyChanges: (allocation)->
     for n in EDITABLE_PROPERTIES
-      allocation.set(n, @get(n))
+      unless n == 'person' || n == 'role'
+        allocation.set(n, @get(n))
+    @setPersonOrRole(allocation)
 
     newProject = @get('project')
     if newProject != @_initialProject || @_wasNew

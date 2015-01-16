@@ -45,3 +45,6 @@ button, select {
   }
 }
 
+select {
+  @include size(250 29);
+}

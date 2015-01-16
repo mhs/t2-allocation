@@ -15,7 +15,7 @@ AllocationController = Ember.ObjectController.extend
   ).property('percentAllocated')
 
   isExternal: (->
-    @get('office') != @get('currentOffice')
+    !Ember.empty(@get('office')) && (@get('office') != @get('currentOffice'))
   ).property('currentOffice', 'office')
 
   hint: (->
@@ -34,5 +34,9 @@ AllocationController = Ember.ObjectController.extend
     end = moment(@get("endDate"))
     end.diff(start, "days") + 1
   ).property("startDate", "endDate")
+
+  speculative: (->
+    @get('likelihood') != '100% Booked' && @get('likelihood') != null
+  ).property('likelihood')
 
 `export default AllocationController;`
