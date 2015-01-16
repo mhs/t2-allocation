@@ -23,7 +23,6 @@ ROLES = [ {name: 'Principal', id: 'role:principal', group: 'Roles'},
           {name: 'Designer', id: 'role:designer', group: 'Roles'}]
 
 
->>>>>>> Add more tests and remove vestigial code.
 editableProps = EDITABLE_PROPERTIES.reduce (props, name)->
   props[name] = null
   props
