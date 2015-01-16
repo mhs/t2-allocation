@@ -9,7 +9,6 @@
     {{#view "person-edit" class="person-descriptor"}}
     <a {{bind-attr href="editUrl"}} class="text-link" >{{ name }}</a>
       <div class="person-controls">
-        <a {{bind-attr href="editUrl"}}><i class="edit-person" >&#9874;</i></a>
         <i class="add-allocation" {{action "addAllocation"}}>&#10133;</i>
       </div>
     {{/view}}
