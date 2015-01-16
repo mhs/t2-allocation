@@ -1,0 +1,9 @@
+.text-link {
+  text-decoration: none;
+  color: $very-very-dark-gray;
+
+  &:hover {
+    color: lighten($very-very-dark-gray, 40%);
+    text-decoration: underline;
+  }
+}

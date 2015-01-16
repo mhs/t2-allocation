@@ -1,4 +1,6 @@
 `import DS from "ember-data";`
+`import ENV from "t2-allocation/config/environment";`
+
 Project = DS.Model.extend
   name: DS.attr('string')
   vacation: DS.attr('boolean')
@@ -18,5 +20,10 @@ Project = DS.Model.extend
       val += 2
     val
   ).property('billable', 'vacation')
+
+  showUrl:(->
+    ENV.PROJECTS_URL + @get('id')
+  ).property()
+
 
 `export default Project;`
