@@ -1,7 +1,7 @@
 `import Ember from "ember";`
 `import { group_by_sorted_project } from "t2-allocation/utils/group-by";`
 `import { ALLOCATION_HEIGHT } from "t2-allocation/utils/constants";`
-`import AllocationTrack from "t2-allocation/models/allocation-track";`
+`import AllocationBoxModel from "t2-allocation/models/allocation-box-model";`
 
 PersonController = Ember.ObjectController.extend
   needs: ['people', 'office']
@@ -24,9 +24,8 @@ PersonController = Ember.ObjectController.extend
     )
     @set "trackCount", trackNo
     allocations.map (allocation) =>
-      AllocationTrack.create
-        allocation: allocation
-        index: allocation.get('track')
+      AllocationBoxModel.create
+        content: allocation
         currentOffice: @get('currentOffice')
   ).property("selectedAllocations")
 

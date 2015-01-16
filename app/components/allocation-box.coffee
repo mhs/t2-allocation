@@ -24,6 +24,7 @@ AllocationBox = Ember.Component.extend
   startDate: Ember.computed.alias('allocation.startDate')
   endDate: Ember.computed.alias('allocation.endDate')
   role: Ember.computed.alias('allocation.role')
+  speculative: Ember.computed.alias('allocation.speculative')
 
   isNonBilling: Ember.computed.not('billable')
 
@@ -32,10 +33,6 @@ AllocationBox = Ember.Component.extend
   isExternal: (->
     @get('office') != @get('currentOffice')
   ).property('currentOffice', 'office')
-
-  speculative: (->
-    @get('allocation.likelihood') != '100% Booked' && @get('allocation.likelihood') != null
-  ).property('allocation.likelihood')
 
   style: Ember.computed "topOffset", "leftOffset", "boxWidth", ->
     cssPx('top', @get('topOffset')) +

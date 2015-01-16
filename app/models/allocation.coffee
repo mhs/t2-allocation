@@ -28,4 +28,8 @@ Allocation = DS.Model.extend
     words.join(" / ")
   ).property("likelihood", "billable")
 
+  speculative: (->
+    @get('likelihood') != '100% Booked' && @get('likelihood') != null
+  ).property('likelihood')
+
 `export default Allocation;`

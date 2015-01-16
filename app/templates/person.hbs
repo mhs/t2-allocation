@@ -1,22 +1,23 @@
 {{#view "person-allocations"}}
   <article class="person" {{bind-attr data-person-id="id"}} {{bind-attr style="personHeight"}}>
     <div class="person-allocations">
-      {{#each track in currentAllocations}}
-        {{#allocation-box allocation=track.allocation
-                         index=track.index
+      {{#each boxModel in currentAllocations}}
+        {{#allocation-box allocation=boxModel.content
+                         index=boxModel.index
                          currentOffice=currentOffice
                          clicked="quickView"
                          doubleClicked="editAllocation"
                          currentMonday=currentMonday}}
-          <div class="allocation-content" {{bind-attr title="track.hint"}}>
-            {{#if track.allocation.project}}
-              <span class="allocation-identifier">{{ track.allocation.project.name }}</span>
+
+          <div class="allocation-content" {{bind-attr title="boxModel.hint"}}>
+            {{#if boxModel.project}}
+              <span class="allocation-identifier">{{ boxModel.project.name }}</span>
             {{/if}}
 
-            {{#if track.isPartial}}
-              <span>@{{track.allocation.percentAllocated}}%</span>
+            {{#if boxModel.isPartial}}
+              <span>@{{boxModel.percentAllocated}}%</span>
             {{/if}}
-            <span class="allocation-range">{{ short-date track.allocation.startDate }} - {{ short-date track.allocation.endDate }}</span>
+            <span class="allocation-range">{{ short-date boxModel.startDate }} - {{ short-date boxModel.endDate }}</span>
           </div>
         {{/allocation-box}}
       {{/each}}
