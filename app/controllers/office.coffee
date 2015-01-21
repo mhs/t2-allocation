@@ -1,4 +1,5 @@
 `import Ember from "ember";`
+`import ENV from "t2-allocation/config/environment";`
 
 OfficeController = Ember.ObjectController.extend
   needs: ['application']
@@ -12,6 +13,8 @@ OfficeController = Ember.ObjectController.extend
       return !office.get('deleted')
     )
   ).property()
+
+  newProjectUrl: ENV.PROJECTS_URL + 'new'
 
   modelChanged: (->
     route = @get('controllers.application.currentRouteName')

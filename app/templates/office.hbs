@@ -14,7 +14,7 @@
     </div>
 
     <div class="add-project">
-      <button class="add-project-button" {{action "createProject"}}>+ Add Project</button>
+      <a class="add-project-button" {{bind-attr href="newProjectUrl"}}>+ Add Project</a>
     </div>
 
     {{view "nav"}}
