@@ -19,5 +19,9 @@ BundleRoute = Ember.Route.extend
   endDate:(->
     moment(UIGlobal.projectsUI.get('endDate')).format "YYYY-MM-DD"
   ).property('UIGlobal.projectsUI.endDate')
-
+  actions:
+    updateBundle: ->
+      @store.fetch 'allocationBundle',
+        start_date: @get('startDate')
+        end_date: @get('endDate')
 `export default BundleRoute;`

@@ -30,9 +30,8 @@ AvailableProjectController  = Ember.ObjectController.extend
       people.contains(availability.get('person'))
   ).property('people', 'allAvailabilities.[]')
 
-  allAvailabilities: (->
-    @store.all('availability')
-  ).property('startDate', 'endDate')
+  allAvailabilities: Ember.computed 'model.bundle.availabilities.@each.id', ->
+    @get('bundle.availabilities')
 
   actions:
     addAllocation: ->
