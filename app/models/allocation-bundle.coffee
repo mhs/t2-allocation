@@ -5,5 +5,6 @@ AllocationBundle = DS.Model.extend
   offices: DS.hasMany 'office'
   people: DS.hasMany 'person'
   allocations: DS.hasMany 'allocation'
+  availabilities: DS.hasMany 'availability'
 
 `export default AllocationBundle;`

@@ -32,11 +32,22 @@ ModalController = Ember.ObjectController.extend
       if @_editedModel.get('errors.length') > 0
         @_editedModel.get('errors').clear()
       @_applyChanges(@_editedModel)
-      @_editedModel.save().then (=> @send "closeModal"), ((error) -> )
+      @_editedModel.save().then(
+        (model) =>
+          @send "closeModal"
+          @send('updateBundle')
+        ,
+        (error) -> 
+      )
 
     delete: ->
-      @_editedModel.destroyRecord()
-      @send "closeModal"
+      @_editedModel.destroyRecord().then(
+        (model) =>
+          @send "closeModal"
+          @send('updateBundle')
+        ,
+        (error) -> 
+      )
 
     close: ->
       @_cancelChanges(@_editedModel)
