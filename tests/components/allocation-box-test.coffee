@@ -65,7 +65,7 @@ testProperties = ->
     percentAllocated: 100
     startDate: moment("2015-1-1")
     endDate: moment("2015-1-8")
-    provisional: true
+    speculative: true
 
   allocation: allocation
   currentMonday: moment("2015-1-1")
@@ -76,7 +76,7 @@ test "it renders", ->
   Ember.run ->
     component.setProperties testProperties()
 
-  ok @$().hasClass("provisional"), "it is provisional"
+  ok @$().hasClass("speculative"), "it is provisional"
 
 test "clicking once sends the 'clicked' action", ->
   expect 1

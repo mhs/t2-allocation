@@ -1,6 +1,6 @@
 `import Ember from "ember";`
 `import { test, moduleFor } from "ember-qunit"`
-moduleFor("controller:project", "Project controller", needs: ["controller:office"])
+moduleFor("controller:project", "Project controller", needs: ["controller:office", "controller:projects"])
 
 test "addAllocation", ->
   testModel = Ember.Object.create
