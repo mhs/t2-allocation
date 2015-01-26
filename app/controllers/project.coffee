@@ -4,7 +4,7 @@
 `import AllocationBoxModel from "t2-allocation/models/allocation-box-model";`
 
 ProjectController = Ember.ObjectController.extend
-  needs: ['office']
+  needs: ['office', 'projects']
   currentOffice: Ember.computed.alias('controllers.office.model')
 
   trackCount: 0
@@ -51,6 +51,8 @@ ProjectController = Ember.ObjectController.extend
         billable: @get('model.billable')
         provisional: @get('model.provisional')
         binding: @get('model.billable') || @get('model.vacation')
+        likelihood: @get('controllers.projects.lastLikelihood')
+        endDate: @get('controllers.projects.lastEndDate')
       @send 'createAllocation', attrs
 
 `export default ProjectController;`

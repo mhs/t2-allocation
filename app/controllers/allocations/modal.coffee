@@ -31,7 +31,7 @@ editableProps = EDITABLE_PROPERTIES.reduce (props, name)->
 AllocationsModalController = ModalController.extend editableProps, FormDateRangeMixin
 
 AllocationsModalController.reopen
-  needs: ['office'],
+  needs: ['office', 'projects'],
   currentOffice: Ember.computed.alias('controllers.office.model'),
 
 
@@ -101,5 +101,7 @@ AllocationsModalController.reopen
       unless n == 'person' || n == 'role'
         allocation.set(n, @get(n))
     @setPersonOrRole(allocation)
+    @get('controllers.projects').set('lastLikelihood', @get('likelihood'))
+    @get('controllers.projects').set('lastEndDate', @get('endDate'))
 
 `export default AllocationsModalController;`

@@ -2,7 +2,7 @@
 `import { test, moduleFor } from "ember-qunit";`
 `import { checkDate } from "../helpers/assertions";`
 
-moduleFor("controller:allocations/modal", "Allocations modal controller", needs: ["controller:office"])
+moduleFor("controller:allocations/modal", "Allocations modal controller", needs: ["controller:office", "controller:projects"])
 
 test "calling edit properly initializes the modal", ->
   expect(4)
