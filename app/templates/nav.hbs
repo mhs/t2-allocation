@@ -1,8 +1,12 @@
 <a href="#" class="logo"></a>
 <div class="user-actions">
-  {{#each link in view.bottom_links}}
-    {{nav-bar-button link=link displayTitle=false}}
-  {{/each}}
+  {{#if bottom_links}}
+    <ul>
+      {{#each link in view.bottom_links}}
+        {{nav-bar-button link=link displayTitle=false}}
+      {{/each}}
+    </ul>
+  {{/if}}
   <div class="global-logout"><a href="/#/sign_out"><i>&#59201;</i></a></div>
 </div>
 <ul>
