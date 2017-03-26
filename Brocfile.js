@@ -12,7 +12,7 @@ app.import('bower_components/jquery-ui/themes/redmond/jquery-ui.css')
 
 var extraAssets = pickFiles('bower_components/jquery-ui/themes/redmond/images', {
   srcDir: '/',
-  files: ['*.gif', '*.png'],
+  files: ['*.png'],
   destDir: '/assets/images'
 });
 
