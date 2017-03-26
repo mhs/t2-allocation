@@ -1,27 +1,28 @@
-`import Ember from "ember";`
-`import { WIDTH_OF_DESCRIPTOR, WIDTH_OF_DAY } from "t2-allocation/utils/constants";`
-DateUI = Ember.Object.extend
-  date: null
-  startDate: (->
-    moment(@date)
-  ).property("date")
+import Ember from "ember";
+import { WIDTH_OF_DESCRIPTOR, WIDTH_OF_DAY } from "t2-allocation/utils/constants";
+let DateUI = Ember.Object.extend({
+  date: null,
+  startDate: (function() {
+    return moment(this.date);
+  }).property("date"),
 
-  endDate: (->
-    moment(@get('date')).add "days", @get('daysInWindow')
-  ).property("date","daysInWindow")
+  endDate: (function() {
+    return moment(this.get('date')).add("days", this.get('daysInWindow'));
+  }).property("date","daysInWindow"),
 
-  calculateWindow: (->
-    Math.ceil((window.innerWidth - WIDTH_OF_DESCRIPTOR) / WIDTH_OF_DAY)
-  )
+  calculateWindow() {
+    return Math.ceil((window.innerWidth - WIDTH_OF_DESCRIPTOR) / WIDTH_OF_DAY);},
 
-  init: ->
-    @_super()
-    @set('daysInWindow', @calculateWindow())
+  init() {
+    this._super();
+    return this.set('daysInWindow', this.calculateWindow());
+  }
+});
 
-projectsUI = DateUI.create
-  # initialize on the Monday of the current week
-  date: moment().startOf("week").add('d', 1).format("YYYY-MM-DD")
+let projectsUI = DateUI.create({
+  // initialize on the Monday of the current week
+  date: moment().startOf("week").add('d', 1).format("YYYY-MM-DD")});
 
-window.UIGlobal = {}
-window.UIGlobal.projectsUI = projectsUI
-`export { DateUI, projectsUI };`
+window.UIGlobal = {};
+window.UIGlobal.projectsUI = projectsUI;
+export { DateUI, projectsUI };

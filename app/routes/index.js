@@ -1,8 +1,10 @@
-`import Ember from "ember";`
+import Ember from "ember";
 
-IndexRoute = Ember.Route.extend
-  afterModel: (model, transition) ->
-    office_slug = @controllerFor('authentication').get('currentUser').office_slug
-    @transitionTo('projects', moment().format("YYYY-MM-DD"), office_slug)
+let IndexRoute = Ember.Route.extend({
+  afterModel(model, transition) {
+    let { office_slug } = this.controllerFor('authentication').get('currentUser');
+    return this.transitionTo('projects', moment().format("YYYY-MM-DD"), office_slug);
+  }
+});
 
-`export default IndexRoute;`
+export default IndexRoute;

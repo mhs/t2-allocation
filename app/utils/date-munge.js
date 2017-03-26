@@ -1,4 +1,3 @@
-dateMunge = (date) ->
-  moment(date).format('YYYY-MM-DD')
+let dateMunge = date => moment(date).format('YYYY-MM-DD');
 
-`export default dateMunge;`
+export default dateMunge;

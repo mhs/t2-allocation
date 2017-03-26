@@ -1,26 +1,31 @@
-`import projectsUI from "t2-allocation/utils/date-ui"`
+import projectsUI from "t2-allocation/utils/date-ui";
 
-initializer =
-  name: 'ajaxInitializer'
+let initializer = {
+  name: 'ajaxInitializer',
 
-  initialize: (container, application) ->
-    $.ajaxSetup beforeSend: (xhr) ->
-      auth = container.lookup("controller:authentication")
-      xhr.setRequestHeader("Authorization", auth.get('accessToken'))
-      xhr.setRequestHeader("x-Requested-With", "XMLHTTPRequest")
-      startDate = UIGlobal.projectsUI.get('startDate')
-      if (startDate)
-        xhr.setRequestHeader("X-Window-Start", startDate.format('YYYY-MM-DD'))
-        xhr.setRequestHeader("X-Window-End", UIGlobal.projectsUI.get('endDate').format('YYYY-MM-DD'))
+  initialize(container, application) {
+    $.ajaxSetup({beforeSend(xhr) {
+      let auth = container.lookup("controller:authentication");
+      xhr.setRequestHeader("Authorization", auth.get('accessToken'));
+      xhr.setRequestHeader("x-Requested-With", "XMLHTTPRequest");
+      let startDate = UIGlobal.projectsUI.get('startDate');
+      if (startDate) {
+        xhr.setRequestHeader("X-Window-Start", startDate.format('YYYY-MM-DD'));
+        return xhr.setRequestHeader("X-Window-End", UIGlobal.projectsUI.get('endDate').format('YYYY-MM-DD'));
+      }
+    }
+    });
 
-    $(document).ajaxError( (event, jqXHR, ajaxSettings, thrownError) ->
-      return unless jqXHR.getAllResponseHeaders()
-      return if jqXHR.status == 422
-      # HAX HAX HAX
-      localStorage.removeItem('accessToken')
-      return
-      auth = container.lookup("controller:authentication")
-      auth.logout()
-    )
+    return $(document).ajaxError( function(event, jqXHR, ajaxSettings, thrownError) {
+      if (!jqXHR.getAllResponseHeaders()) { return; }
+      if (jqXHR.status === 422) { return; }
+      // HAX HAX HAX
+      localStorage.removeItem('accessToken');
+      return;
+      let auth = container.lookup("controller:authentication");
+      return auth.logout();
+    });
+  }
+};
 
-`export default initializer;`
+export default initializer;

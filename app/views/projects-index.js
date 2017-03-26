@@ -1,5 +1,5 @@
-`import Ember from "ember";`
+import Ember from "ember";
 
-ProjectsIndexView = Ember.View.extend()
+let ProjectsIndexView = Ember.View.extend();
 
-`export default ProjectsIndexView;`
+export default ProjectsIndexView;

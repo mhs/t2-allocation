@@ -1,58 +1,69 @@
-`import Ember from "ember";`
-ModalController = Ember.ObjectController.extend
-  isDirty: true
+import Ember from "ember";
+let ModalController = Ember.ObjectController.extend({
+  isDirty: true,
 
-  canDelete: null
+  canDelete: null,
 
-  _editedModel: null
+  _editedModel: null,
 
-  edit: (model)->
-    @set('canDelete', not model.get('isNew'))
-    @set('_editedModel', model)
-    @_initForm(model)
+  edit(model){
+    this.set('canDelete', !model.get('isNew'));
+    this.set('_editedModel', model);
+    return this._initForm(model);
+  },
 
-  # override me!
-  _initForm: (editedModel)->
+  // override me!
+  _initForm(editedModel){},
 
-  # override me!
-  _applyChanges: (editedModel) ->
+  // override me!
+  _applyChanges(editedModel) {},
 
-  _cancelChanges: (editedModel)->
-    if editedModel.get('isNew')
-      editedModel.deleteRecord()
-    else
-      editedModel.rollback()
+  _cancelChanges(editedModel){
+    if (editedModel.get('isNew')) {
+      return editedModel.deleteRecord();
+    } else {
+      return editedModel.rollback();
+    }
+  },
 
-  modelChanged: ( ->
-    throw new Error("This controller should not use 'model'! We don't want the object to be autoupdated while editing. Use edit() instead")
-  ).observes('model')
+  modelChanged: ( function() {
+    throw new Error("This controller should not use 'model'! We don't want the object to be autoupdated while editing. Use edit() instead");
+  }).observes('model'),
 
-  actions:
-    save: ->
-      if @_editedModel.get('errors.length') > 0
-        @_editedModel.get('errors').clear()
-      @_applyChanges(@_editedModel)
-      @_editedModel.save().then(
-        (model) =>
-          @send "closeModal"
-          @send('updateBundle')
+  actions: {
+    save() {
+      if (this._editedModel.get('errors.length') > 0) {
+        this._editedModel.get('errors').clear();
+      }
+      this._applyChanges(this._editedModel);
+      return this._editedModel.save().then(
+        model => {
+          this.send("closeModal");
+          return this.send('updateBundle');
+        }
         ,
-        (error) -> 
-      )
+        function(error) {} 
+      );
+    },
 
-    delete: ->
-      @_editedModel.destroyRecord().then(
-        (model) =>
-          @send "closeModal"
-          @send('updateBundle')
+    delete() {
+      return this._editedModel.destroyRecord().then(
+        model => {
+          this.send("closeModal");
+          return this.send('updateBundle');
+        }
         ,
-        (error) -> 
-      )
+        function(error) {} 
+      );
+    },
 
-    close: ->
-      @_cancelChanges(@_editedModel)
-      @send "closeModal"
+    close() {
+      this._cancelChanges(this._editedModel);
+      return this.send("closeModal");
+    }
+  },
 
-  shouldDisableSubmit: Ember.computed.not 'isDirty'
+  shouldDisableSubmit: Ember.computed.not('isDirty')
+});
 
-`export default ModalController;`
+export default ModalController;

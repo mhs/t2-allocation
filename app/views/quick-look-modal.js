@@ -1,5 +1,5 @@
-`import ModalView from "t2-allocation/views/modal";`
+import ModalView from "t2-allocation/views/modal";
 
-QuickLookModalView = ModalView.extend()
+let QuickLookModalView = ModalView.extend();
 
-`export default QuickLookModalView;`
+export default QuickLookModalView;

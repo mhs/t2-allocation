@@ -1,37 +1,41 @@
-`import DS from "ember-data";`
-`import ENV from "t2-allocation/config/environment";`
+import DS from "ember-data";
+import ENV from "t2-allocation/config/environment";
 
-Project = DS.Model.extend
-  name: DS.attr('string')
-  vacation: DS.attr('boolean')
-  billable: DS.attr('boolean', {defaultValue: true})
+let Project = DS.Model.extend({
+  name: DS.attr('string'),
+  vacation: DS.attr('boolean'),
+  billable: DS.attr('boolean', {defaultValue: true}),
 
-  offices: DS.hasMany('office')
-  allocations: DS.hasMany('allocation', { async: true })
+  offices: DS.hasMany('office'),
+  allocations: DS.hasMany('allocation', { async: true }),
 
-  startDate: DS.attr('date')
-  endDate: DS.attr('date')
-
-
-  #flat-maps the offices' active people
-  _activePeople: Ember.computed 'offices.@each.activePeople', ->
-    [].concat.apply([], @get('offices').mapBy('activePeople')) 
-
-  peopleSort: ['name:asc']
-  activePeople: Ember.computed.sort '_activePeople', 'peopleSort'
-
-  sortOrder: (->
-    val = 0
-    if !@get('billable')
-      val += 1
-    if @get('vacation')
-      val += 2
-    val
-  ).property('billable', 'vacation')
-
-  showUrl:(->
-    ENV.PROJECTS_URL + @get('id')
-  ).property()
+  startDate: DS.attr('date'),
+  endDate: DS.attr('date'),
 
 
-`export default Project;`
+  //flat-maps the offices' active people
+  _activePeople: Ember.computed('offices.@each.activePeople', function() {
+    return [].concat.apply([], this.get('offices').mapBy('activePeople'));
+  }), 
+
+  peopleSort: ['name:asc'],
+  activePeople: Ember.computed.sort('_activePeople', 'peopleSort'),
+
+  sortOrder: (function() {
+    let val = 0;
+    if (!this.get('billable')) {
+      val += 1;
+    }
+    if (this.get('vacation')) {
+      val += 2;
+    }
+    return val;
+  }).property('billable', 'vacation'),
+
+  showUrl:(function() {
+    return ENV.PROJECTS_URL + this.get('id');
+  }).property()
+});
+
+
+export default Project;

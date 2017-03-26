@@ -1,5 +1,5 @@
-`import ModalView from "t2-allocation/views/modal";`
+import ModalView from "t2-allocation/views/modal";
 
-ConfirmDeleteView = ModalView.extend()
+let ConfirmDeleteView = ModalView.extend();
 
-`export default ConfirmDeleteView;`
+export default ConfirmDeleteView;

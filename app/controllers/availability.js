@@ -1,28 +1,29 @@
-`import Ember from "ember";`
+import Ember from "ember";
 
-AvailabilityController = Ember.ObjectController.extend
+let AvailabilityController = Ember.ObjectController.extend({
 
-  isExternal: (-> false).property()
+  isExternal: (() => false).property(),
 
-  isPartial: (->
-    @get('percentAllocated') < 100
-  ).property('percentAllocated')
+  isPartial: (function() {
+    return this.get('percentAllocated') < 100;
+  }).property('percentAllocated'),
 
-  hint: (->
-    _external = if @get('isExternal') then " (#{@get('office.name')})" else ''
-    "#{@get('person.name')}#{_external}"
-  ).property('office', 'isExternal', 'person')
+  hint: (function() {
+    let _external = this.get('isExternal') ? ` (${this.get('office.name')})` : '';
+    return `${this.get('person.name')}${_external}`;
+  }).property('office', 'isExternal', 'person'),
 
-  startOffset: (->
-    currentMonday = moment(UIGlobal.projectsUI.get("date"))
-    startDate = moment(@get("startDate")) || moment()
-    startDate.diff currentMonday, "days"
-  ).property("UIGlobal.projectsUI.date", "startDate")
+  startOffset: (function() {
+    let currentMonday = moment(UIGlobal.projectsUI.get("date"));
+    let startDate = moment(this.get("startDate")) || moment();
+    return startDate.diff(currentMonday, "days");
+  }).property("UIGlobal.projectsUI.date", "startDate"),
 
-  duration: (->
-    start = moment(@get("startDate"))
-    end = moment(@get("endDate"))
-    end.diff(start, "days") + 1
-  ).property("startDate", "endDate")
+  duration: (function() {
+    let start = moment(this.get("startDate"));
+    let end = moment(this.get("endDate"));
+    return end.diff(start, "days") + 1;
+  }).property("startDate", "endDate")
+});
 
-`export default AvailabilityController;`
+export default AvailabilityController;

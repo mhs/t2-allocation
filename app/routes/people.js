@@ -1,7 +1,9 @@
-`import Ember from "ember";`
+import Ember from "ember";
 
-PeopleRoute = Ember.Route.extend
-  model: ->
-    @modelFor('office').get('activePeople')
+let PeopleRoute = Ember.Route.extend({
+  model() {
+    return this.modelFor('office').get('activePeople');
+  }
+});
 
-`export default PeopleRoute;`
+export default PeopleRoute;

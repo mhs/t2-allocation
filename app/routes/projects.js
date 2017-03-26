@@ -1,27 +1,33 @@
-`import Ember from "ember";`
-ProjectsRoute = Ember.Route.extend
-  model: ->
-    office = @modelFor('office')
-    projects = office.get('projects')
-    bundle = @modelFor('bundle').get('firstObject')
-    unless projects.findBy('dummyProject', true)
-      dummyProject = @store.createRecord('project', dummyProject: true, sortOrder: -1)
-      projects.pushObject(dummyProject)
-    unless projects.findBy('name', 'Available')
-      availableProject = @store.createRecord('project',
-        people: office.get('people')
-        office: office
-        name: "Available"
-        availableProject: true
-        sortOrder: 4
-        bundle: bundle
-      )
-      projects.pushObject(availableProject)
-    sortByName =
-      sortProperties: ['sortOrder', 'name']
+import Ember from "ember";
+let ProjectsRoute = Ember.Route.extend({
+  model() {
+    let office = this.modelFor('office');
+    let projects = office.get('projects');
+    let bundle = this.modelFor('bundle').get('firstObject');
+    if (!projects.findBy('dummyProject', true)) {
+      let dummyProject = this.store.createRecord('project', {dummyProject: true, sortOrder: -1});
+      projects.pushObject(dummyProject);
+    }
+    if (!projects.findBy('name', 'Available')) {
+      let availableProject = this.store.createRecord('project', {
+        people: office.get('people'),
+        office,
+        name: "Available",
+        availableProject: true,
+        sortOrder: 4,
+        bundle
+      }
+      );
+      projects.pushObject(availableProject);
+    }
+    let sortByName = {
+      sortProperties: ['sortOrder', 'name'],
       content: projects
+    };
 
-    Ember.ArrayProxy.
-      createWithMixins(Ember.SortableMixin,sortByName)
+    return Ember.ArrayProxy.
+      createWithMixins(Ember.SortableMixin,sortByName);
+  }
+});
 
-`export default ProjectsRoute;`
+export default ProjectsRoute;

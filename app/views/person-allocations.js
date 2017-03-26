@@ -1,9 +1,11 @@
-`import Ember from "ember";`
-`import clickedDate from "t2-allocation/utils/clicked-date";`
+import Ember from "ember";
+import clickedDate from "t2-allocation/utils/clicked-date";
 
-PersonAllocationsView = Ember.View.extend
-  doubleClick: (evt) ->
-    newStartDate = clickedDate(evt.clientX)
-    @get('controller').send 'addAllocation', newStartDate
+let PersonAllocationsView = Ember.View.extend({
+  doubleClick(evt) {
+    let newStartDate = clickedDate(evt.clientX);
+    return this.get('controller').send('addAllocation', newStartDate);
+  }
+});
 
-`export default PersonAllocationsView;`
+export default PersonAllocationsView;

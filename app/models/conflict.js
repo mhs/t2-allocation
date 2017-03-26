@@ -1,10 +1,11 @@
-`import DS from "ember-data";`
-Conflict = DS.Model.extend
-  allocations: DS.hasMany('allocation', {async: true})
-  person: DS.belongsTo('person')
+import DS from "ember-data";
+let Conflict = DS.Model.extend({
+  allocations: DS.hasMany('allocation', {async: true}),
+  person: DS.belongsTo('person'),
 
-  startDate: DS.attr('date')
-  endDate: DS.attr('date')
+  startDate: DS.attr('date'),
+  endDate: DS.attr('date'),
   percentAllocated: DS.attr('number')
+});
 
-`export default Conflict;`
+export default Conflict;

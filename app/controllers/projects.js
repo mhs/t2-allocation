@@ -1,10 +1,11 @@
-`import DS from "ember-data";`
+import DS from "ember-data";
 
-ProjectsController = Ember.ArrayController.extend
+let ProjectsController = Ember.ArrayController.extend({
 
-  # for remembering previously entered values for easier bulk entry
-  lastLikelihood: null
+  // for remembering previously entered values for easier bulk entry
+  lastLikelihood: null,
   lastEndDate: null
+});
 
 
-`export default ProjectsController;`
+export default ProjectsController;

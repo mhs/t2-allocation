@@ -1,49 +1,57 @@
-`import Ember from "ember";`
+import Ember from "ember";
 
-CalendarBarComponent = Ember.Component.extend
-  tagName: 'section'
-  classNames: ['calendarBar']
+let CalendarBarComponent = Ember.Component.extend({
+  tagName: 'section',
+  classNames: ['calendarBar'],
 
-  isEditingDate: false
-  dateBinding: "UIGlobal.projectsUI.date"
-  daysInWindowBinding: "UIGlobal.projectsUI.daysInWindow"
+  isEditingDate: false,
+  dateBinding: "UIGlobal.projectsUI.date",
+  daysInWindowBinding: "UIGlobal.projectsUI.daysInWindow",
 
-  firstDate: (->
-    moment(@get("date")).format "D MMM, YYYY"
-  ).property("date")
+  firstDate: (function() {
+    return moment(this.get("date")).format("D MMM, YYYY");
+  }).property("date"),
 
-  didInsertElement: ->
-    $(window).resize ->
-      Ember.run.debounce @, ->
-        days = UIGlobal.projectsUI.calculateWindow()
-        UIGlobal.projectsUI.set "daysInWindow", days
-      , 300
+  didInsertElement() {
+    return $(window).resize(function() {
+      return Ember.run.debounce(this, function() {
+        let days = UIGlobal.projectsUI.calculateWindow();
+        return UIGlobal.projectsUI.set("daysInWindow", days);
+      }
+      , 300);
+    });
+  },
 
-  dateRange: (->
-    date = moment(@get("date"))
-    daysInWindow = @get("daysInWindow")
-    date = moment()  unless date.isValid()
-    dateArray = []
-    monday = moment(date)
-    i = 0
+  dateRange: (function() {
+    let date = moment(this.get("date"));
+    let daysInWindow = this.get("daysInWindow");
+    if (!date.isValid()) { date = moment(); }
+    let dateArray = [];
+    let monday = moment(date);
+    let i = 0;
 
-    while i <= (daysInWindow / 7)
-      dateArray.push moment(monday).add("week", i).format("MMM D")
-      i++
-    dateArray
-  ).property("date", "daysInWindow")
+    while (i <= (daysInWindow / 7)) {
+      dateArray.push(moment(monday).add("week", i).format("MMM D"));
+      i++;
+    }
+    return dateArray;
+  }).property("date", "daysInWindow"),
 
-  dateRangeDidChange: (->
-    @sendAction('resize')
-  ).observes('dateRange')
+  dateRangeDidChange: (function() {
+    return this.sendAction('resize');
+  }).observes('dateRange'),
 
-  actions:
-    editDate: ->
-      @set "isEditingDate", true
+  actions: {
+    editDate() {
+      return this.set("isEditingDate", true);
+    },
 
-    confirmDate: (dateValue) ->
-      dateValue = @get("date") unless moment(dateValue).isValid()
-      @set "isEditingDate", false
-      @triggerAction(actionContext: dateValue)
+    confirmDate(dateValue) {
+      if (!moment(dateValue).isValid()) { dateValue = this.get("date"); }
+      this.set("isEditingDate", false);
+      return this.triggerAction({actionContext: dateValue});
+    }
+  }
+});
 
-`export default CalendarBarComponent;`
+export default CalendarBarComponent;

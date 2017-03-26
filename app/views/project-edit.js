@@ -1,15 +1,19 @@
-`import Ember from "ember";`
+import Ember from "ember";
 
-ProjectEditView = Ember.View.extend
-  classNameBindings: ['hover']
-  hover: false
-  doubleClick: (evt) ->
-    project = @get('controller').get('model')
-    @get('controller').send 'editProject', project
-    false # to keep from bubbling up
-  mouseEnter: (evt, view) ->
-    @set 'hover', true
-  mouseLeave: (evt, view) ->
-    @set 'hover', false
+let ProjectEditView = Ember.View.extend({
+  classNameBindings: ['hover'],
+  hover: false,
+  doubleClick(evt) {
+    let project = this.get('controller').get('model');
+    this.get('controller').send('editProject', project);
+    return false;
+  }, // to keep from bubbling up
+  mouseEnter(evt, view) {
+    return this.set('hover', true);
+  },
+  mouseLeave(evt, view) {
+    return this.set('hover', false);
+  }
+});
 
-`export default ProjectEditView;`
+export default ProjectEditView;

@@ -1,34 +1,36 @@
-`import Ember from "ember";`
-`import ENV from "t2-allocation/config/environment";`
+import Ember from "ember";
+import ENV from "t2-allocation/config/environment";
 
-OfficeController = Ember.ObjectController.extend
-  needs: ['application']
+let OfficeController = Ember.ObjectController.extend({
+  needs: ['application'],
 
-  all: (->
-    @store.all('office')
-  ).property()
+  all: (function() {
+    return this.store.all('office');
+  }).property(),
 
-  allActive: (->
-    @store.filter('office', (office) ->
-      return !office.get('deleted')
-    )
-  ).property()
+  allActive: (function() {
+    return this.store.filter('office', office => !office.get('deleted'));
+  }).property(),
 
-  newProjectUrl: ENV.PROJECTS_URL + 'new'
+  newProjectUrl: ENV.PROJECTS_URL + 'new',
 
-  modelChanged: (->
-    route = @get('controllers.application.currentRouteName')
-    return unless route
-    @transitionToRoute route, @get('model')
-  ).observes('model')
+  modelChanged: (function() {
+    let route = this.get('controllers.application.currentRouteName');
+    if (!route) { return; }
+    return this.transitionToRoute(route, this.get('model'));
+  }).observes('model'),
 
-  actions:
-    selectDate: (newDate) ->
-      route = @get('controllers.application.currentRouteName')
-      @transitionToRoute route, newDate, @get('model.slug')
+  actions: {
+    selectDate(newDate) {
+      let route = this.get('controllers.application.currentRouteName');
+      return this.transitionToRoute(route, newDate, this.get('model.slug'));
+    },
 
-    resize: ->
-      route = @get('controllers.application.currentRouteName')
-      @transitionToRoute route, UIGlobal.projectsUI.get('date'), @get('model.slug')
+    resize() {
+      let route = this.get('controllers.application.currentRouteName');
+      return this.transitionToRoute(route, UIGlobal.projectsUI.get('date'), this.get('model.slug'));
+    }
+  }
+});
 
-`export default OfficeController;`
+export default OfficeController;

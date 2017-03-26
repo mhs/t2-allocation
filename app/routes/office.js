@@ -1,20 +1,26 @@
-`import Ember from "ember";`
+import Ember from "ember";
 
-OfficeRoute = Ember.Route.extend
-  model: (params) ->
-    offices = @store.all('allocationBundle').get('firstObject.offices')
-    offices.findProperty 'slug', params.slug
+let OfficeRoute = Ember.Route.extend({
+  model(params) {
+    let offices = this.store.all('allocationBundle').get('firstObject.offices');
+    return offices.findProperty('slug', params.slug);
+  },
 
-  serialize: (model) ->
-    {slug: model.get('slug')}
+  serialize(model) {
+    return {slug: model.get('slug')};
+  },
 
-  actions:
-    createProject: ->
-      @send 'editProject', @store.createRecord('project')
+  actions: {
+    createProject() {
+      return this.send('editProject', this.store.createRecord('project'));
+    },
 
-    editProject: (project) ->
-      @controllerFor("projects-modal").set "availableOffices", @controllerFor('office').get('allActive')
-      @controllerFor("projects-modal").edit project
-      @send "openModal", "projects-modal"
+    editProject(project) {
+      this.controllerFor("projects-modal").set("availableOffices", this.controllerFor('office').get('allActive'));
+      this.controllerFor("projects-modal").edit(project);
+      return this.send("openModal", "projects-modal");
+    }
+  }
+});
 
-`export default OfficeRoute;`
+export default OfficeRoute;

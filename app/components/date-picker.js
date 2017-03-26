@@ -1,8 +1,10 @@
-`import Ember from "ember";`
+import Ember from "ember";
 
-DatePickerComponent = Ember.TextField.extend
-  focusIn: (event) ->
-    @$().datepicker
-      dateFormat: "yy-mm-dd"
+let DatePickerComponent = Ember.TextField.extend({
+  focusIn(event) {
+    return this.$().datepicker({
+      dateFormat: "yy-mm-dd"});
+  }
+});
 
-`export default DatePickerComponent;`
+export default DatePickerComponent;

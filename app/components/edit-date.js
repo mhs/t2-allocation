@@ -1,15 +1,20 @@
-`import Ember from "ember";`
+import Ember from "ember";
 
-EditDateView = Ember.TextField.extend
-  didInsertElement: ->
-    @$().focus()
+let EditDateView = Ember.TextField.extend({
+  didInsertElement() {
+    return this.$().focus();
+  },
 
-  focusIn: (event) ->
-    self = @
-    @set "value", moment(UIGlobal.projectsUI.get("date")).format("YYYY-MM-DD")
-    @$().datepicker
-      dateFormat: "yy-mm-dd"
-      onClose: (date)->
-        self.triggerAction(actionContext: date)
+  focusIn(event) {
+    let self = this;
+    this.set("value", moment(UIGlobal.projectsUI.get("date")).format("YYYY-MM-DD"));
+    return this.$().datepicker({
+      dateFormat: "yy-mm-dd",
+      onClose(date){
+        return self.triggerAction({actionContext: date});
+      }
+    });
+  }
+});
 
-`export default EditDateView;`
+export default EditDateView;

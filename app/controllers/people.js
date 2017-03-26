@@ -1,18 +1,20 @@
-`import Ember from "ember";`
+import Ember from "ember";
 
-PeopleController = Ember.ArrayController.extend
-  needs: ['office']
+let PeopleController = Ember.ArrayController.extend({
+  needs: ['office'],
 
-  office: Ember.computed.alias('controllers.office.model')
+  office: Ember.computed.alias('controllers.office.model'),
 
-  sortedPeople: (->
-    people = @get('model')
-    sortByName =
-      sortProperties: ['sortOrder', 'name']
+  sortedPeople: (function() {
+    let people = this.get('model');
+    let sortByName = {
+      sortProperties: ['sortOrder', 'name'],
       content: people
+    };
 
-    Ember.ArrayProxy.
-      createWithMixins(Ember.SortableMixin,sortByName)
-  ).property('office', 'model')
+    return Ember.ArrayProxy.
+      createWithMixins(Ember.SortableMixin,sortByName);
+  }).property('office', 'model')
+});
 
-`export default PeopleController;`
+export default PeopleController;

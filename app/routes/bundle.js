@@ -1,27 +1,32 @@
-`import Ember from "ember";`
-BundleRoute = Ember.Route.extend
-  model: (params) ->
-    startDate = params.startDate
-    monday = moment(startDate).startOf("week").add("d", 1)
-    UIGlobal.projectsUI.set('date', monday.format("YYYY-MM-DD"))
+import Ember from "ember";
+let BundleRoute = Ember.Route.extend({
+  model(params) {
+    let { startDate } = params;
+    let monday = moment(startDate).startOf("week").add("d", 1);
+    UIGlobal.projectsUI.set('date', monday.format("YYYY-MM-DD"));
 
-    @store.find 'allocationBundle',
-      start_date: @get('startDate')
-      end_date: @get('endDate')
+    return this.store.find('allocationBundle', {
+      start_date: this.get('startDate'),
+      end_date: this.get('endDate')
+    }
+    );
+  },
 
-  serialize: (model) ->
-    {startDate: @get('startDate')}
+  serialize(model) {
+    return {startDate: this.get('startDate')};
+  },
 
-  startDate:(->
-    moment(UIGlobal.projectsUI.get('startDate')).format "YYYY-MM-DD"
-  ).property('UIGlobal.projectsUI.startDate')
+  startDate:(() => moment(UIGlobal.projectsUI.get('startDate')).format("YYYY-MM-DD")).property('UIGlobal.projectsUI.startDate'),
 
-  endDate:(->
-    moment(UIGlobal.projectsUI.get('endDate')).format "YYYY-MM-DD"
-  ).property('UIGlobal.projectsUI.endDate')
-  actions:
-    updateBundle: ->
-      @store.fetch 'allocationBundle',
-        start_date: @get('startDate')
-        end_date: @get('endDate')
-`export default BundleRoute;`
+  endDate:(() => moment(UIGlobal.projectsUI.get('endDate')).format("YYYY-MM-DD")).property('UIGlobal.projectsUI.endDate'),
+  actions: {
+    updateBundle() {
+      return this.store.fetch('allocationBundle', {
+        start_date: this.get('startDate'),
+        end_date: this.get('endDate')
+      }
+      );
+    }
+  }
+});
+export default BundleRoute;

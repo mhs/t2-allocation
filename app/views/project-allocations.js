@@ -1,16 +1,18 @@
-`import Ember from "ember";`
-`import { ALLOCATION_HEIGHT } from "t2-allocation/utils/constants";`
-`import clickedDate from "t2-allocation/utils/clicked-date";`
+import Ember from "ember";
+import { ALLOCATION_HEIGHT } from "t2-allocation/utils/constants";
+import clickedDate from "t2-allocation/utils/clicked-date";
 
-ProjectAllocationsView = Ember.View.extend
-  trackCount: Ember.computed.alias('controller.trackCount')
+let ProjectAllocationsView = Ember.View.extend({
+  trackCount: Ember.computed.alias('controller.trackCount'),
 
-  projectHeight: (->
-    "height: " + (@get("trackCount") * ALLOCATION_HEIGHT + 1) + "px;"
-  ).property("trackCount")
+  projectHeight: (function() {
+    return `height: ${(this.get("trackCount") * ALLOCATION_HEIGHT) + 1}px;`;
+  }).property("trackCount"),
 
-  doubleClick: (evt) ->
-    newStartDate = clickedDate(evt.clientX)
-    @get('controller').send 'addAllocation', newStartDate
+  doubleClick(evt) {
+    let newStartDate = clickedDate(evt.clientX);
+    return this.get('controller').send('addAllocation', newStartDate);
+  }
+});
 
-`export default ProjectAllocationsView;`
+export default ProjectAllocationsView;

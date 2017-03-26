@@ -1,107 +1,118 @@
-`import Ember from "ember";`
-`import ModalController from "t2-allocation/controllers/modal";`
-`import FormDateRangeMixin from "t2-allocation/mixins/form-date-range";`
+import Ember from "ember";
+import ModalController from "t2-allocation/controllers/modal";
+import FormDateRangeMixin from "t2-allocation/mixins/form-date-range";
 
-EDITABLE_PROPERTIES = [
-  'billable'
-  'binding'
-  'endDate'
-  'notes'
-  'project'
-  'person'
-  'startDate'
-  'percentAllocated'
-  'likelihood'
+let EDITABLE_PROPERTIES = [
+  'billable',
+  'binding',
+  'endDate',
+  'notes',
+  'project',
+  'person',
+  'startDate',
+  'percentAllocated',
+  'likelihood',
   'role'
-]
+];
 
 
 
-ROLES = [ {name: 'Principal', id: 'role:principal', group: 'Roles'},
+const ROLES = [ {name: 'Principal', id: 'role:principal', group: 'Roles'},
           {name: 'Product Manager', id: 'role:product_manager', group: 'Roles'},
           {name: 'Engineer', id: 'role:developer', group: 'Roles'},
-          {name: 'Designer', id: 'role:designer', group: 'Roles'}]
+          {name: 'Designer', id: 'role:designer', group: 'Roles'}];
 
 
-editableProps = EDITABLE_PROPERTIES.reduce (props, name)->
-  props[name] = null
-  props
-, {}
+let editableProps = EDITABLE_PROPERTIES.reduce(function(props, name){
+  props[name] = null;
+  return props;
+}
+, {});
 
-AllocationsModalController = ModalController.extend editableProps, FormDateRangeMixin
+let AllocationsModalController = ModalController.extend(editableProps, FormDateRangeMixin);
 
-AllocationsModalController.reopen
+AllocationsModalController.reopen({
   needs: ['office', 'projects'],
   currentOffice: Ember.computed.alias('controllers.office.model'),
 
 
-  _initialProject: null
+  _initialProject: null,
 
-  personOrRoleSelection: null
+  personOrRoleSelection: null,
 
-  people: (->
-    @get('project.activePeople') || []
-  ).property('project')
+  people: (function() {
+    return this.get('project.activePeople') || [];
+  }).property('project'),
 
-  peopleAndRoles: (->
-    peopleAndRoles = Ember.ArrayProxy.create({content: []})
-    peopleAndRoles.pushObjects(Em.A(ROLES))
-    peopleAndRoles.pushObjects(@get('people').map (person) ->
-      { name: person.get('name'), id: person.get('id'), person: person, group: 'People' }
-    )
-    peopleAndRoles
-  ).property('project')
+  peopleAndRoles: (function() {
+    let peopleAndRoles = Ember.ArrayProxy.create({content: []});
+    peopleAndRoles.pushObjects(Em.A(ROLES));
+    peopleAndRoles.pushObjects(this.get('people').map(person => ({ name: person.get('name'), id: person.get('id'), person, group: 'People' }))
+    );
+    return peopleAndRoles;
+  }).property('project'),
 
-  percentAllocatedObserver: (->
-    pct = @get('person.percentBillable')
-    if @get('isNew')
-      if @get('project.vacation')
-        @set('percentAllocated', '100')
-      else
-        @set('percentAllocated', pct || "100")
-  ).observes('personOrRoleSelection', 'project')
+  percentAllocatedObserver: (function() {
+    let pct = this.get('person.percentBillable');
+    if (this.get('isNew')) {
+      if (this.get('project.vacation')) {
+        return this.set('percentAllocated', '100');
+      } else {
+        return this.set('percentAllocated', pct || "100");
+      }
+    }
+  }).observes('personOrRoleSelection', 'project'),
 
-  projectSort: ['sortOrder:asc', 'name:asc']
-  projects: Ember.computed.filter 'sortedProjects', (item) ->
-    item.get('name') != 'Available'
-  sortedProjects: Ember.computed.sort 'currentOffice.projects', 'projectSort'
+  projectSort: ['sortOrder:asc', 'name:asc'],
+  projects: Ember.computed.filter('sortedProjects', item => item.get('name') !== 'Available'),
+  sortedProjects: Ember.computed.sort('currentOffice.projects', 'projectSort'),
 
-  errors: (->
-    errors = Ember.Object.create()
-    @get('_editedModel.errors').forEach (error)->
-      errors.set(error.attribute, error.message)
-    errors
-  ).property('_editedModel.errors.[]')
+  errors: (function() {
+    let errors = Ember.Object.create();
+    this.get('_editedModel.errors').forEach(error=> errors.set(error.attribute, error.message));
+    return errors;
+  }).property('_editedModel.errors.[]'),
 
-  isNew: Ember.computed.alias '_editedModel.isNew'
+  isNew: Ember.computed.alias('_editedModel.isNew'),
 
-  likelihoodOptions: ['100% Booked', '90% Likely', '60% Likely', '30% Likely']
+  likelihoodOptions: ['100% Booked', '90% Likely', '60% Likely', '30% Likely'],
 
-  getPersonOrRole: (allocation) ->
-    @get('peopleAndRoles').find (personOrRole) =>
-      allocation.get('person.content.id') == personOrRole.id || allocation.get('role') == personOrRole.name
+  getPersonOrRole(allocation) {
+    return this.get('peopleAndRoles').find(personOrRole => {
+      return (allocation.get('person.content.id') === personOrRole.id) || (allocation.get('role') === personOrRole.name);
+    }
+    );
+  },
 
-  setPersonOrRole: (allocation) ->
-    selected = @get('personOrRoleSelection')
-    if selected.group == 'People'
-      allocation.set('person', selected.person)
-      allocation.set('role', null)
-    else
-      allocation.set('person', null)
-      allocation.set('role', selected.name)
+  setPersonOrRole(allocation) {
+    let selected = this.get('personOrRoleSelection');
+    if (selected.group === 'People') {
+      allocation.set('person', selected.person);
+      return allocation.set('role', null);
+    } else {
+      allocation.set('person', null);
+      return allocation.set('role', selected.name);
+    }
+  },
 
-  _initForm: (allocation)->
-    @set('project', null)
-    for n in EDITABLE_PROPERTIES
-      @set(n, allocation.get(n))
-    @set('personOrRoleSelection', @getPersonOrRole(allocation))
+  _initForm(allocation){
+    this.set('project', null);
+    for (let n of Array.from(EDITABLE_PROPERTIES)) {
+      this.set(n, allocation.get(n));
+    }
+    return this.set('personOrRoleSelection', this.getPersonOrRole(allocation));
+  },
 
-  _applyChanges: (allocation)->
-    for n in EDITABLE_PROPERTIES
-      unless n == 'person' || n == 'role'
-        allocation.set(n, @get(n))
-    @setPersonOrRole(allocation)
-    @get('controllers.projects').set('lastLikelihood', @get('likelihood'))
-    @get('controllers.projects').set('lastEndDate', @get('endDate'))
+  _applyChanges(allocation){
+    for (let n of Array.from(EDITABLE_PROPERTIES)) {
+      if ((n !== 'person') && (n !== 'role')) {
+        allocation.set(n, this.get(n));
+      }
+    }
+    this.setPersonOrRole(allocation);
+    this.get('controllers.projects').set('lastLikelihood', this.get('likelihood'));
+    return this.get('controllers.projects').set('lastEndDate', this.get('endDate'));
+  }
+});
 
-`export default AllocationsModalController;`
+export default AllocationsModalController;

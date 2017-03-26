@@ -1,6 +1,6 @@
-`import Ember from "ember";`
+import Ember from "ember";
 
-SelectOffice = Ember.Select.extend
-  attributeBindings: ['data-test']
+let SelectOffice = Ember.Select.extend({
+  attributeBindings: ['data-test']});
 
-`export default SelectOffice;`
+export default SelectOffice;

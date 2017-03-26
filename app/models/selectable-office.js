@@ -1,14 +1,16 @@
-`import Ember from "ember";`
+import Ember from "ember";
 
-SelectableOffice = Ember.ObjectProxy.extend
-  selected: []
-  isSelected: ( (key, value)->
-    office = @get('content')
+let SelectableOffice = Ember.ObjectProxy.extend({
+  selected: [],
+  isSelected: ( function(key, value){
+    let office = this.get('content');
 
-    unless value == undefined
-      if value then @selected.add(office) else @selected.remove(office)
+    if (value !== undefined) {
+      if (value) { this.selected.add(office); } else { this.selected.remove(office); }
+    }
 
-    @selected.contains(office)
-  ).property('selected.[]')
+    return this.selected.contains(office);
+  }).property('selected.[]')
+});
 
-`export default SelectableOffice;`
+export default SelectableOffice;

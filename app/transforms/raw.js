@@ -1,9 +1,12 @@
-`import DS from "ember-data";`
+import DS from "ember-data";
 
-RawTransform = DS.Transform.extend
-  deserialize: (serialized) ->
-    serialized
-  serialize: (deserialized) ->
-    deserialized
+let RawTransform = DS.Transform.extend({
+  deserialize(serialized) {
+    return serialized;
+  },
+  serialize(deserialized) {
+    return deserialized;
+  }
+});
 
-`export default RawTransform;`
+export default RawTransform;

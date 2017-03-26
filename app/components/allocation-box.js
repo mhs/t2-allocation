@@ -1,87 +1,96 @@
-`import Ember from "ember";`
-`import dateMunge from "t2-allocation/utils/date-munge";`
-`import { ALLOCATION_HEIGHT, WIDTH_OF_DAY } from "t2-allocation/utils/constants";`
+import Ember from "ember";
+import dateMunge from "t2-allocation/utils/date-munge";
+import { ALLOCATION_HEIGHT, WIDTH_OF_DAY } from "t2-allocation/utils/constants";
 
-cssPx = (name, val) ->
-  "#{name}: #{val}px; "
+let cssPx = (name, val) => `${name}: ${val}px; `;
 
-AllocationBox = Ember.Component.extend
-  attributeBindings: ['style']
-  classNames: ['allocation']
-  classNameBindings: ['isExternal:external', 'isNonbilling:nonbilling', 'speculative', 'role:role']
+let AllocationBox = Ember.Component.extend({
+  attributeBindings: ['style'],
+  classNames: ['allocation'],
+  classNameBindings: ['isExternal:external', 'isNonbilling:nonbilling', 'speculative', 'role:role'],
 
-  #external properties
-  currentOffice: null
-  allocation: null
-  currentMonday: null
-  index: 0
+  //external properties
+  currentOffice: null,
+  allocation: null,
+  currentMonday: null,
+  index: 0,
 
-  #calculated properties
-  person: Ember.computed.alias('allocation.person')
-  billable: Ember.computed.alias('allocation.billable')
-  office: Ember.computed.alias('allocation.person.office')
-  percentAllocated: Ember.computed.alias('allocation.percentAllocated')
-  startDate: Ember.computed.alias('allocation.startDate')
-  endDate: Ember.computed.alias('allocation.endDate')
-  role: Ember.computed.alias('allocation.role')
-  speculative: Ember.computed.alias('allocation.speculative')
+  //calculated properties
+  person: Ember.computed.alias('allocation.person'),
+  billable: Ember.computed.alias('allocation.billable'),
+  office: Ember.computed.alias('allocation.person.office'),
+  percentAllocated: Ember.computed.alias('allocation.percentAllocated'),
+  startDate: Ember.computed.alias('allocation.startDate'),
+  endDate: Ember.computed.alias('allocation.endDate'),
+  role: Ember.computed.alias('allocation.role'),
+  speculative: Ember.computed.alias('allocation.speculative'),
 
-  isNonBilling: Ember.computed.not('billable')
+  isNonBilling: Ember.computed.not('billable'),
 
-  isPartial: Ember.computed.lt('percentAllocated', 100)
+  isPartial: Ember.computed.lt('percentAllocated', 100),
 
-  isExternal: (->
-    @get('office') != @get('currentOffice')
-  ).property('currentOffice', 'office')
+  isExternal: (function() {
+    return this.get('office') !== this.get('currentOffice');
+  }).property('currentOffice', 'office'),
 
-  style: Ember.computed "topOffset", "leftOffset", "boxWidth", ->
-    cssPx('top', @get('topOffset')) +
-    cssPx('left', @get('leftOffset')) +
-    cssPx('width', @get('boxWidth'))
+  style: Ember.computed("topOffset", "leftOffset", "boxWidth", function() {
+    return cssPx('top', this.get('topOffset')) +
+    cssPx('left', this.get('leftOffset')) +
+    cssPx('width', this.get('boxWidth'));
+  }),
 
-  boxWidth: Ember.computed 'duration', 'startOffset', ->
-    startOffset = @get("startOffset")
-    duration = @get("duration")
-    if startOffset < 0
-      duration += startOffset # startOffset is negative
-    duration * WIDTH_OF_DAY
+  boxWidth: Ember.computed('duration', 'startOffset', function() {
+    let startOffset = this.get("startOffset");
+    let duration = this.get("duration");
+    if (startOffset < 0) {
+      duration += startOffset; // startOffset is negative
+    }
+    return duration * WIDTH_OF_DAY;
+  }),
 
-  topOffset: Ember.computed 'index', ->
-    @get('index') * ALLOCATION_HEIGHT
+  topOffset: Ember.computed('index', function() {
+    return this.get('index') * ALLOCATION_HEIGHT;
+  }),
 
-  leftOffset: Ember.computed 'startOffset', ->
-    startOffset = @get("startOffset")
-    if startOffset < 0
-      0
-    else
-      startOffset * WIDTH_OF_DAY
+  leftOffset: Ember.computed('startOffset', function() {
+    let startOffset = this.get("startOffset");
+    if (startOffset < 0) {
+      return 0;
+    } else {
+      return startOffset * WIDTH_OF_DAY;
+    }
+  }),
 
-  startOffset: (->
-    startDate = moment(dateMunge(@get('startDate')))
-    startDate.diff @get('currentMonday'), "days"
-  ).property("currentMonday", "startDate")
+  startOffset: (function() {
+    let startDate = moment(dateMunge(this.get('startDate')));
+    return startDate.diff(this.get('currentMonday'), "days");
+  }).property("currentMonday", "startDate"),
 
-  duration: (->
-    start = moment(@get("startDate"))
-    end = moment(@get("endDate"))
-    end.diff(start, "days") + 1
-  ).property("startDate", "endDate")
+  duration: (function() {
+    let start = moment(this.get("startDate"));
+    let end = moment(this.get("endDate"));
+    return end.diff(start, "days") + 1;
+  }).property("startDate", "endDate"),
 
-  clicks: []
+  clicks: [],
 
-  #event hooks
-  click: (evt) ->
-    @clicks.push Ember.run.later @, ->
-      @sendAction 'clicked', @get('allocation')
-    , 250
-    false # to keep from bubbling up
+  //event hooks
+  click(evt) {
+    this.clicks.push(Ember.run.later(this, function() {
+      return this.sendAction('clicked', this.get('allocation'));
+    }
+    , 250)
+    );
+    return false;
+  }, // to keep from bubbling up
 
-  doubleClick: (evt) ->
-    @clicks.map (click) ->
-      Ember.run.cancel click
-    @clicks = []
-    @sendAction 'doubleClicked', @get('allocation')
-    false # to keep from bubbling up
+  doubleClick(evt) {
+    this.clicks.map(click => Ember.run.cancel(click));
+    this.clicks = [];
+    this.sendAction('doubleClicked', this.get('allocation'));
+    return false;
+  }
+}); // to keep from bubbling up
 
 
-`export default AllocationBox;`
+export default AllocationBox;
