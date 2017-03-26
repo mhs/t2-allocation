@@ -1,3 +1,5 @@
+// TODO: This file was created by bulk-decaffeinate.
+// Sanity-check the conversion and remove this comment.
 import Ember from "ember";
 import ModalController from "t2-allocation/controllers/modal";
 import FormDateRangeMixin from "t2-allocation/mixins/form-date-range";

@@ -1,3 +1,5 @@
+// TODO: This file was created by bulk-decaffeinate.
+// Sanity-check the conversion and remove this comment.
 import Ember from "ember";
 import { group_by_sorted_project } from "t2-allocation/utils/group-by";
 import { ALLOCATION_HEIGHT } from "t2-allocation/utils/constants";

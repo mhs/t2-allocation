@@ -1,3 +1,5 @@
+// TODO: This file was created by bulk-decaffeinate.
+// Sanity-check the conversion and remove this comment.
 let AJAX_LOADER_IMG = "<%= image_path('ajax-loader.gif') %>";
 let DEFAULT_CSS_TRANSITION_DURATION_MS = 250;
 let ALLOCATION_HEIGHT = 30;

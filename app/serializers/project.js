@@ -1,3 +1,5 @@
+// TODO: This file was created by bulk-decaffeinate.
+// Sanity-check the conversion and remove this comment.
 import Ember from "ember";
 import ApplicationSerializer from "t2-allocation/serializers/application";
 import DS from "ember-data";

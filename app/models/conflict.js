@@ -1,3 +1,5 @@
+// TODO: This file was created by bulk-decaffeinate.
+// Sanity-check the conversion and remove this comment.
 import DS from "ember-data";
 let Conflict = DS.Model.extend({
   allocations: DS.hasMany('allocation', {async: true}),
