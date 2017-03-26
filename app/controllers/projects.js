@@ -3,10 +3,11 @@
 import DS from "ember-data";
 
 let ProjectsController = Ember.ArrayController.extend({
-
+  needs: ['office'],
   // for remembering previously entered values for easier bulk entry
   lastLikelihood: null,
-  lastEndDate: null
+  lastEndDate: null,
+  office: Ember.computed.alias('controllers.office.model')
 });
 
 

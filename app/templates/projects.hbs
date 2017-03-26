@@ -6,7 +6,11 @@
       {{#if project.dummyProject}}
         {{ render 'dummy-project' project }}
       {{else}}
-        {{ render 'project' project }}
+        {{t2-project
+          model=project
+          currentOffice=office
+          lastLikelihood=lastLikelihood
+          lastEndDate=lastEndDate}}
       {{/if}}
     {{/if}}
   {{/each}}
