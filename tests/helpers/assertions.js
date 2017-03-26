@@ -1,4 +1,3 @@
-checkDate = (knownDate, testedDate, assertion) ->
-  equal(knownDate.format('YYYY-MM-DD'), testedDate.format('YYYY-MM-DD'), assertion)
+let checkDate = (knownDate, testedDate, assertion) => equal(knownDate.format('YYYY-MM-DD'), testedDate.format('YYYY-MM-DD'), assertion);
 
-`export { checkDate }`
+export { checkDate };
