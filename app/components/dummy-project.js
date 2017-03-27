@@ -3,8 +3,7 @@
 import Ember from "ember";
 import ALLOCATION_HEIGHT from "t2-allocation/utils/constants";
 
-let DummyProjectController  = Ember.ObjectController.extend({
-  needs: ['application', 'projects'],
+let DummyProjectController  = Ember.Component.extend({
   trackCount: 1,
 
   projectHeight: (function() {
