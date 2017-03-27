@@ -2,12 +2,12 @@
 // Sanity-check the conversion and remove this comment.
 import Ember from "ember";
 
-let ProjectEditView = Ember.View.extend({
+let ProjectEditView = Ember.Component.extend({
   classNameBindings: ['hover'],
   hover: false,
   doubleClick(evt) {
     let project = this.get('controller').get('model');
-    this.get('controller').send('editProject', project);
+    this.sendAction('editProject', project);
     return false;
   }, // to keep from bubbling up
   mouseEnter(evt, view) {

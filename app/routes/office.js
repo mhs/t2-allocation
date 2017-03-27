@@ -18,9 +18,9 @@ let OfficeRoute = Ember.Route.extend({
     },
 
     editProject(project) {
-      this.controllerFor("projects-modal").set("availableOffices", this.controllerFor('office').get('allActive'));
-      this.controllerFor("projects-modal").edit(project);
-      return this.send("openModal", "projects-modal");
+      this.controllerFor("modal").set("availableOffices", this.controllerFor('office').get('allActive'));
+      this.controllerFor("modal").edit(project);
+      return this.send("openModal", "modal");
     }
   }
 });

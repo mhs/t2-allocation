@@ -61,6 +61,10 @@ let ProjectController = Ember.Component.extend({
         endDate: this.get('lastEndDate')
       };
       return this.send('createAllocation', attrs);
+    },
+
+    editProject(project) {
+      this.sendAction('editProject', project);
     }
   }
 });

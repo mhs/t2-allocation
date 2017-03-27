@@ -36,10 +36,10 @@
     {{/each}}
   </div>
 
-  {{#view "project-edit" class="project-descriptor"}}
+  {{#project-edit class="project-descriptor" editProject="editProject"}}
     <a {{bind-attr href="showUrl"}} class="text-link">{{ project.name }}</a>
     <div class="project-controls">
       <i class="add-allocation" {{action "addAllocation"}}>&#10133;</i>
     </div>
-  {{/view}}
+  {{/project-edit}}
 </article>
