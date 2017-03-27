@@ -38,7 +38,7 @@
     </div>
 
     {{#view "project-edit" class="project-descriptor"}}
-      <a {{bind-attr href="showUrl"}} class="text-link">{{ name }}</a>
+      <a {{bind-attr href="showUrl"}} class="text-link">{{ project.name }}</a>
       <div class="project-controls">
         <i class="add-allocation" {{action "addAllocation"}}>&#10133;</i>
       </div>

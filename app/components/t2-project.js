@@ -10,7 +10,7 @@ let ProjectController = Ember.Component.extend({
 
   trackCount: 0,
 
-  allocations: Ember.computed.alias('model.allocations'),
+  allocations: Ember.computed.alias('project.allocations'),
 
   currentMonday: (() => moment(UIGlobal.projectsUI.get("date"))).property('UIGlobal.projectsUI.date'),
 
@@ -47,10 +47,10 @@ let ProjectController = Ember.Component.extend({
     addAllocation(startDate) {
       let attrs = {
         startDate: startDate || (startDate = moment()),
-        project: this.get('model'),
-        billable: this.get('model.billable'),
-        provisional: this.get('model.provisional'),
-        binding: this.get('model.billable') || this.get('model.vacation'),
+        project: this.get('project'),
+        billable: this.get('project.billable'),
+        provisional: this.get('project.provisional'),
+        binding: this.get('project.billable') || this.get('project.vacation'),
         likelihood: this.get('lastLikelihood'),
         endDate: this.get('lastEndDate')
       };
