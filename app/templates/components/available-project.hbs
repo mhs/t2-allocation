@@ -1,13 +1,11 @@
-{{#view "project-allocations"}}
-  <article class="project" {{bind-attr style="projectHeight"}}>
-    <div class="project-allocations">
-      {{#each availability in currentAvailabilities}}
-        {{ render "availability" availability }}
-      {{/each}}
-    </div>
+<article class="project" {{bind-attr style="projectHeight"}}>
+  <div class="project-allocations">
+    {{#each availability in currentAvailabilities}}
+      {{ render "availability" availability }}
+    {{/each}}
+  </div>
 
-    <div class="project-descriptor">
-      {{ project.name }}
-    </div>
-  </article>
-{{/view}}
+  <div class="project-descriptor">
+    {{ project.name }}
+  </div>
+</article>

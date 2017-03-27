@@ -1,14 +1,11 @@
-{{#view "project-allocations"}}
-  <article class="project dummy-project" {{bind-attr style="projectHeight"}}>
-    <div class="project-allocations">
-    </div>
+<article class="project dummy-project" {{bind-attr style="projectHeight"}}>
+  <div class="project-allocations">
+  </div>
 
-    <div class="project-descriptor">
-      <div class="segmented-control">
-        {{link-to 'Projects' 'projects' class="toggle-button" tagName="button"}}
-        {{link-to 'People' 'people' class="toggle-button" tagName="button"}}
-      </div>
+  <div class="project-descriptor">
+    <div class="segmented-control">
+      {{link-to 'Projects' 'projects' class="toggle-button" tagName="button"}}
+      {{link-to 'People' 'people' class="toggle-button" tagName="button"}}
     </div>
-  </article>
-{{/view}}
-
+  </div>
+</article>

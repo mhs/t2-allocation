@@ -4,6 +4,7 @@ import Ember from "ember";
 import { ALLOCATION_HEIGHT } from "t2-allocation/utils/constants";
 import { group_by_sorted_name_role } from "t2-allocation/utils/group-by";
 import AllocationBoxModel from "t2-allocation/models/allocation-box-model";
+import clickedDate from "t2-allocation/utils/clicked-date";
 
 let ProjectController = Ember.Component.extend({
   currentOffice: null,
@@ -42,6 +43,11 @@ let ProjectController = Ember.Component.extend({
   projectHeight: (function() {
     return `height: ${(this.get("trackCount") * ALLOCATION_HEIGHT) + 1}px;`;
   }).property("trackCount"),
+
+  doubleClick(evt) {
+    let newStartDate = clickedDate(evt.clientX);
+    return this.sendAction('addAllocation', newStartDate);
+  },
 
   actions: {
     addAllocation(startDate) {

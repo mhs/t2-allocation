@@ -1,47 +1,45 @@
-{{#view "project-allocations"}}
-  <article class="project" {{bind-attr data-project-id="id"}} {{bind-attr style="projectHeight"}}>
-    <div class="project-allocations">
-      {{#each boxModel in currentAllocations}}
-        {{#allocation-box allocation=boxModel.content
-                         index=boxModel.index
-                         currentOffice=currentOffice
-                         clicked="quickView"
-                         doubleClicked="editAllocation"
-                         currentMonday=currentMonday}}
+<article class="project" {{bind-attr data-project-id="id"}} {{bind-attr style="projectHeight"}}>
+  <div class="project-allocations">
+    {{#each boxModel in currentAllocations}}
+      {{#allocation-box allocation=boxModel.content
+                        index=boxModel.index
+                        currentOffice=currentOffice
+                        clicked="quickView"
+                        doubleClicked="editAllocation"
+                        currentMonday=currentMonday}}
 
-          {{#unless boxModel.vacation}}
-            {{#each conflict in boxModel.conflicts}}
-              {{render "conflict" conflict}}
-            {{/each}}
-          {{/unless}}
+        {{#unless boxModel.vacation}}
+          {{#each conflict in boxModel.conflicts}}
+            {{render "conflict" conflict}}
+          {{/each}}
+        {{/unless}}
 
-          <div class="allocation-content" {{bind-attr title="track.hint"}}>
-            <span class="allocation-identifier">{{ boxModel.identifier }}</span>
+        <div class="allocation-content" {{bind-attr title="track.hint"}}>
+          <span class="allocation-identifier">{{ boxModel.identifier }}</span>
 
-            {{#if boxModel.isExternal}}
-              <em>({{boxModel.person.office.name}})</em>
+          {{#if boxModel.isExternal}}
+            <em>({{boxModel.person.office.name}})</em>
+          {{/if}}
+
+          {{#if boxModel.isPartial}}
+            <span>@{{boxModel.percentAllocated}}%</span>
+          {{/if}}
+
+          <span class="allocation-range">
+            {{short-date boxModel.startDate}} - {{short-date boxModel.endDate}}
+            {{#if boxModel.likelihood}}
+              ({{boxModel.likelihood}})
             {{/if}}
+          </span>
+        </div>
+      {{/allocation-box}}
+    {{/each}}
+  </div>
 
-            {{#if boxModel.isPartial}}
-              <span>@{{boxModel.percentAllocated}}%</span>
-            {{/if}}
-
-            <span class="allocation-range">
-              {{short-date boxModel.startDate}} - {{short-date boxModel.endDate}}
-              {{#if boxModel.likelihood}}
-                ({{boxModel.likelihood}})
-              {{/if}}
-            </span>
-          </div>
-        {{/allocation-box}}
-      {{/each}}
+  {{#view "project-edit" class="project-descriptor"}}
+    <a {{bind-attr href="showUrl"}} class="text-link">{{ project.name }}</a>
+    <div class="project-controls">
+      <i class="add-allocation" {{action "addAllocation"}}>&#10133;</i>
     </div>
-
-    {{#view "project-edit" class="project-descriptor"}}
-      <a {{bind-attr href="showUrl"}} class="text-link">{{ project.name }}</a>
-      <div class="project-controls">
-        <i class="add-allocation" {{action "addAllocation"}}>&#10133;</i>
-      </div>
-    {{/view}}
-  </article>
-{{/view}}
+  {{/view}}
+</article>

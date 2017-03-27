@@ -3,6 +3,7 @@
 import Ember from "ember";
 import { group_by_sorted_name } from "t2-allocation/utils/group-by";
 import { ALLOCATION_HEIGHT } from "t2-allocation/utils/constants";
+import clickedDate from "t2-allocation/utils/clicked-date";
 
 export default Ember.Component.extend({
   project: null,
@@ -34,6 +35,11 @@ export default Ember.Component.extend({
     this.set("trackCount", trackNo);
     return availabilities;
   }).property('availabilities.[]'),
+
+  doubleClick(evt) {
+    let newStartDate = clickedDate(evt.clientX);
+    return this.sendAction('addAllocation', newStartDate);
+  },
 
 
   actions: {
