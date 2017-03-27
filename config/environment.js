@@ -59,7 +59,7 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
-    var apiUrl = "http://t2.neo.com";
+    var apiUrl = "https://t2-api.herokuapp.com";
 
     ENV.API_BASEURL =  apiUrl + "/api/v1";
     ENV.SIGN_IN_URL =  apiUrl + "/sign_in";
@@ -70,7 +70,7 @@ module.exports = function(environment) {
   }
 
   if (environment === 'staging') {
-    var apiUrl = "http://t2api-staging.neo.com";
+    var apiUrl = "https://t2-api-staging.herokuapp.com";
 
     ENV.API_BASEURL =  apiUrl + "/api/v1";
     ENV.SIGN_IN_URL =  apiUrl + "/sign_in";
