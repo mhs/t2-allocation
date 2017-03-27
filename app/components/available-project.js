@@ -2,6 +2,7 @@
 // Sanity-check the conversion and remove this comment.
 import Ember from "ember";
 import { group_by_sorted_name } from "t2-allocation/utils/group-by";
+import { ALLOCATION_HEIGHT } from "t2-allocation/utils/constants";
 
 export default Ember.Component.extend({
   project: null,
@@ -9,6 +10,9 @@ export default Ember.Component.extend({
   endDate: Ember.computed.alias('UIGlobal.projectsUI.endDate'),
   selectedOffice: null,
   people: Ember.computed.alias('selectedOffice.people'),
+  projectHeight: (function() {
+    return `height: ${(this.get("trackCount") * ALLOCATION_HEIGHT) + 1}px;`;
+  }).property("trackCount"),
 
   trackCount: 0,
   availabilities: (function() {
