@@ -10,7 +10,7 @@
 
         {{#unless boxModel.vacation}}
           {{#each conflict in boxModel.conflicts}}
-            {{render "conflict" conflict}}
+            {{conflict-box conflict=conflict parentOffset=startOffset}}
           {{/each}}
         {{/unless}}
 
