@@ -1,7 +1,7 @@
 <section id="projectList">
   {{#each project in model}}
     {{#if project.availableProject}}
-      {{ render 'available-project' project }}
+      {{available-project project=project selectedOffice=office}}
     {{else}}
       {{#if project.dummyProject}}
         {{ render 'dummy-project' project }}

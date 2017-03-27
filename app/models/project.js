@@ -13,6 +13,7 @@ let Project = DS.Model.extend({
 
   startDate: DS.attr('date'),
   endDate: DS.attr('date'),
+  bundle: null,
 
 
   //flat-maps the offices' active people
