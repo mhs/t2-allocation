@@ -24,7 +24,7 @@
 
       <div class="field" {{bind-attr class="errors.likelihood:error :field"}}>
         <label><i>&#59140;</i> Likelihood of Close (%)</label>
-        {{view Ember.Select class="white-button" contentBinding="likelihoodOptions"
+        {{view "select" class="white-button" contentBinding="likelihoodOptions"
                             optionValuePath="content"
                             valueBinding="likelihood"
                             selectionBinding="likelihood"
@@ -74,7 +74,7 @@
 
       <div class="field" data-test="notes" {{bind-attr class="errors.notes:error :field"}}>
         <label><i>&#9998;</i> Notes</label>
-        {{view Ember.TextArea valueBinding="notes"}}
+        {{view "textarea" valueBinding="notes"}}
         {{errors.notes}}
       </div>
     </div>
