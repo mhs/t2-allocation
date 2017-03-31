@@ -11,7 +11,7 @@
 
   <form {{action "save" on="submit"}}>
     <div class="modal-body">
-      <div class="field" {{bind-attr class="errors.project:error :field"}}>
+      <div {{bind-attr class="errors.project:error :field"}}>
         <label><i>&#128710;</i> Project</label>
         {{view "select" class="white-button" contentBinding="projects"
                             optionLabelPath="content.name"
@@ -22,7 +22,7 @@
         {{errors.project}}
       </div>
 
-      <div class="field" {{bind-attr class="errors.likelihood:error :field"}}>
+      <div {{bind-attr class="errors.likelihood:error :field"}}>
         <label><i>&#59140;</i> Likelihood of Close (%)</label>
         {{view "select" class="white-button" contentBinding="likelihoodOptions"
                             optionValuePath="content"
@@ -32,7 +32,7 @@
         {{errors.likelihood}}
       </div>
 
-      <div class="field" {{bind-attr class="errors.person:error :field"}}>
+      <div {{bind-attr class="errors.person:error :field"}}>
         <label><i>&#128100;</i> Person</label>
         {{view "select" class="white-button" contentBinding="peopleAndRoles"
                             optionLabelPath="content.name"
@@ -44,13 +44,13 @@
       </div>
 
       <div class="field">
-        <div class="inline" {{bind-attr class="errors.startDate:error :field"}}>
+        <div {{bind-attr class="errors.startDate:error :field :inline"}}>
           <label><i>&#128197;</i> Start Date</label>
           {{date-picker name="startDate" class="start-date" value=formStartDate}}
           {{errors.startDate}}
         </div>
         <span class="range inline">&#8211;</span>
-        <div class="inline" {{bind-attr class="errors.endDate:error :field"}}>
+        <div {{bind-attr class="errors.endDate:error :field :inline"}}>
           <label>End Date</label>
           {{date-picker name="endDate" class="end-date" value=formEndDate}}
           {{errors.endDate}}
@@ -59,7 +59,7 @@
 
       <div class="field options">
         {{#unless project.vacation}}
-          <div class="option" {{bind-attr class="errors.billable:error :field" }} >
+          <div {{bind-attr class="errors.billable:error :field :option"}} >
             <label>{{input type="checkbox" checked=billable}}Billable<span></span></label>
             {{errors.billable}}
           </div>
@@ -67,12 +67,12 @@
         {{/unless}}
       </div>
 
-      <div class="field" {{bind-attr class="errors.percentAllocated:error :field"}}>
+      <div {{bind-attr class="errors.percentAllocated:error :field"}}>
         <label><i>&#9716;</i> Allocation %{{input type="text" value=percentAllocated }}</label>
         {{errors.percentAllocated}}
       </div>
 
-      <div class="field" data-test="notes" {{bind-attr class="errors.notes:error :field"}}>
+      <div data-test="notes" {{bind-attr class="errors.notes:error :field"}}>
         <label><i>&#9998;</i> Notes</label>
         {{view "textarea" valueBinding="notes"}}
         {{errors.notes}}
