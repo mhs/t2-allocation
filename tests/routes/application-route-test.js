@@ -6,8 +6,8 @@ import { checkDate } from '../helpers/assertions';
 
 moduleFor("route:application", "Application Route");
 
-test("_createAllocation creates a new record with default props and calls _editAllocation with it", function() {
-  expect(4);
+test("_createAllocation creates a new record with default props and calls _editAllocation with it", function(assert) {
+  assert.expect(4);
   let testAttrs =
     {billable: true};
 

@@ -4,7 +4,7 @@ import Ember from "ember";
 import { test, moduleFor } from "ember-qunit";
 moduleFor("controller:project", "Project controller", {needs: ["controller:office", "controller:projects"]});
 
-test("addAllocation", function() {
+test("addAllocation", function(assert) {
   let testModel = Ember.Object.create({
     billable: true,
     provisional: true
@@ -12,10 +12,10 @@ test("addAllocation", function() {
   let ctrl = this.subject();
   ctrl.set('model', testModel);
   ctrl.set('target', {send(actionName, newAllocation) {
-    equal(actionName, 'createAllocation', 'it sends createAllocation');
-    equal(newAllocation.provisional, true);
-    equal(newAllocation.billable, true);
-    equal(newAllocation.binding, true);
+    assert.equal(actionName, 'createAllocation', 'it sends createAllocation');
+    assert.equal(newAllocation.provisional, true);
+    assert.equal(newAllocation.billable, true);
+    assert.equal(newAllocation.binding, true);
     return equal(newAllocation.project, testModel, "it assigns its model as the new allocation's project");
   }
   });
