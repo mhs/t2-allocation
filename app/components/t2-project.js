@@ -9,7 +9,9 @@ import clickedDate from "t2-allocation/utils/clicked-date";
 let ProjectController = Ember.Component.extend({
   currentOffice: null,
 
-  trackCount: 0,
+  trackCount: Ember.computed('currentAllocations.[]', function() {
+    return this.get('currentAllocations').mapBy('track').uniq().get('length');
+  }),
 
   allocations: Ember.computed.alias('project.allocations'),
 
@@ -37,7 +39,6 @@ let ProjectController = Ember.Component.extend({
       allocs.forEach(alloc => alloc.set("track", trackNo));
       return trackNo++;
     });
-    this.set("trackCount", trackNo);
     return allocations.map(allocation => {
       return AllocationBoxModel.create({
         content: allocation,

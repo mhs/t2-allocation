@@ -9,7 +9,9 @@ let PersonController = Ember.Controller.extend({
   officeController: Ember.inject.controller('office'),
   peopleController: Ember.inject.controller('people'),
   currentOffice: Ember.computed.alias('officeController.model'),
-  trackCount: 0,
+  trackCount: Ember.computed('currentAllocations.[]', function() {
+    return this.get('currentAllocations').mapBy('track').uniq().get('length');
+  }),
 
   selectedAllocations: Ember.computed(
     "currentOffice",
@@ -28,7 +30,6 @@ let PersonController = Ember.Controller.extend({
       allocs.forEach(alloc => alloc.set("track", trackNo));
       return trackNo++;
     });
-    this.set("trackCount", trackNo);
     return allocations.map(allocation => {
       return AllocationBoxModel.create({
         content: allocation,

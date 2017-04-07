@@ -16,7 +16,9 @@ export default Ember.Component.extend({
     return Ember.String.htmlSafe(h);
   }),
 
-  trackCount: 0,
+  trackCount: Ember.computed('currentAvailabilities.[]', function() {
+    return this.get('currentAvailabilities').mapBy('track').uniq().get('length');
+  }),
   availabilities: Ember.computed('people', 'allAvailabilities.[]', function() {
     let people = this.get('people');
     return this.get('allAvailabilities').filter(availability => people.contains(availability.get('person')));}),
@@ -33,7 +35,6 @@ export default Ember.Component.extend({
       avs.forEach(av => av.set("track", trackNo));
       return trackNo++;
     });
-    this.set("trackCount", trackNo);
     return availabilities;
   }),
 
