@@ -1,7 +1,7 @@
 {{#view "person-allocations"}}
   <article class="person" {{bind-attr data-person-id="id"}} style={{personHeight}}>
     <div class="person-allocations">
-      {{#each boxModel in currentAllocations}}
+      {{#each currentAllocations as |boxModel|}}
         {{#allocation-box allocation=boxModel.content
                          index=boxModel.index
                          currentOffice=currentOffice

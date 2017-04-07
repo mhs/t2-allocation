@@ -4,19 +4,9 @@ import Ember from "ember";
 
 let PeopleController = Ember.ArrayController.extend({
   officeController: Ember.inject.controller('office'),
-
   office: Ember.computed.alias('officeController.model'),
-
-  sortedPeople: Ember.computed('office', 'model', function() {
-    let people = this.get('model');
-    let sortByName = {
-      sortProperties: ['sortOrder', 'name'],
-      content: people
-    };
-
-    return Ember.ArrayProxy.
-      createWithMixins(Ember.SortableMixin,sortByName);
-  })
+  personSort: ['sortOrder', 'name'],
+  sortedPeople: Ember.computed.sort('model', 'personSort')
 });
 
 export default PeopleController;

@@ -1,5 +1,5 @@
 <section id="projectList">
-  {{#each project in model}}
+  {{#each sortedProjects as |project|}}
     {{#if project.availableProject}}
       {{available-project project=project selectedOffice=office}}
     {{else}}

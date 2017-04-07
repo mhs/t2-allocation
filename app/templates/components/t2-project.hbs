@@ -1,6 +1,6 @@
 <article class="project" {{bind-attr data-project-id="id"}} style={{projectHeight}}>
   <div class="project-allocations">
-    {{#each boxModel in currentAllocations}}
+    {{#each currentAllocations as |boxModel|}}
       {{#allocation-box allocation=boxModel.content
                         index=boxModel.index
                         currentOffice=currentOffice
@@ -9,7 +9,7 @@
                         currentMonday=currentMonday}}
 
         {{#unless boxModel.vacation}}
-          {{#each conflict in boxModel.conflicts}}
+          {{#each boxModel.conflicts as |conflict|}}
             {{conflict-box conflict=conflict parentOffset=startOffset}}
           {{/each}}
         {{/unless}}

@@ -1,6 +1,6 @@
 <a href="#" class="logo"></a>
 <div class="user-actions">
-  {{#each link in view.bottom_links}}
+  {{#each view.bottom_links as |link|}}
     <div class="global-settings">
       <a {{bind-attr href="link.url"}} {{bind-attr title="link.link_text"}}>
         <i>{{link.icon}}</i>
@@ -10,7 +10,7 @@
   <div class="global-logout"><a href="/#/sign_out"><i>&#59201;</i></a></div>
 </div>
 <ul>
-  {{#each link in view.top_links}}
+  {{#each view.top_links as |link|}}
     <li {{bind-attr class="link.classes"}}>
       <a {{bind-attr href="link.url"}} {{bind-attr title="link.link_text"}}>
         <i>{{link.icon}}</i>

@@ -8,7 +8,7 @@
     </div>
   </article>
 
-  {{#each person in sortedPeople}}
+  {{#each sortedPeople as |person|}}
     {{ render 'person' person }}
   {{/each}}
 </section>

@@ -1,16 +1,16 @@
-<header>
+<header class="some-office">
   <section class="nav-bar">
     <div class="faux-select">
       <div class="faux-select-box">
         <span class="faux-select-selected">{{model.name}}</span>
         <span class="faux-select-graphic">&#x25BE;</span>
       </div>
-      {{view "select-office" contentBinding="allActive"
-                              optionLabelPath="content.name"
-                              optionValuePath="content"
-                              selectionBinding="model"
-                              data-test="all"
-                              class="faux-select-element"}}
+
+      {{simple-select
+        class="faux-select-element"
+        content=allActive
+        selection=model
+        action=(action (mut model))}}
     </div>
 
     <div class="add-project">

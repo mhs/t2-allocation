@@ -1,0 +1,10 @@
+<select
+    {{action 'change' on='change'}}
+    class="{{class}}"
+    prompt="{{prompt}}">
+  {{#each content key="@index" as |item|}}
+    <option value="{{item}}" selected={{eq item selection}}>
+      {{item.name}}
+    </option>
+  {{/each}}
+</select>

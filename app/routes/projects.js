@@ -22,13 +22,7 @@ let ProjectsRoute = Ember.Route.extend({
       );
       projects.pushObject(availableProject);
     }
-    let sortByName = {
-      sortProperties: ['sortOrder', 'name'],
-      content: projects
-    };
-
-    return Ember.ArrayProxy.
-      createWithMixins(Ember.SortableMixin,sortByName);
+    return projects;
   }
 });
 

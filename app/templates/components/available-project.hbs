@@ -1,6 +1,6 @@
 <article class="project" style={{projectHeight}}>
   <div class="project-allocations">
-    {{#each availability in currentAvailabilities}}
+    {{#each currentAvailabilities as |availability|}}
       {{availability-preview model=availability }}
     {{/each}}
   </div>

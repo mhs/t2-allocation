@@ -13,33 +13,42 @@
     <div class="modal-body">
       <div {{bind-attr class="errors.project:error :field"}}>
         <label><i>&#128710;</i> Project</label>
-        {{view "select" class="white-button" contentBinding="projects"
-                            optionLabelPath="content.name"
-                            optionValuePath="content"
-                            valueBinding="project"
-                            selectionBinding="project"
-                            prompt="Select a project"}}
+        {{simple-select
+          class="white-button"
+          content=projects
+          selection=project
+          prompt="Select a project"
+          action=(action (mut project))}}
         {{errors.project}}
       </div>
 
       <div {{bind-attr class="errors.likelihood:error :field"}}>
         <label><i>&#59140;</i> Likelihood of Close (%)</label>
-        {{view "select" class="white-button" contentBinding="likelihoodOptions"
-                            optionValuePath="content"
-                            valueBinding="likelihood"
-                            selectionBinding="likelihood"
-                            prompt="Select a value"}}
+        {{simple-select
+          class="white-button"
+          content=likelihoodOptions
+          selection=likelihood
+          prompt="Select a value"
+          action=(action (mut likelihood))}}
         {{errors.likelihood}}
       </div>
 
       <div {{bind-attr class="errors.person:error :field"}}>
         <label><i>&#128100;</i> Person</label>
-        {{view "select" class="white-button" contentBinding="peopleAndRoles"
-                            optionLabelPath="content.name"
-                            optionValuePath="content.id"
-                            optionGroupPath="group"
-                            selection=personOrRoleSelection
-                            prompt="Select a person or role"}}
+        {{!--
+          {{view "select" class="white-button" contentBinding="peopleAndRoles"
+                              optionLabelPath="content.name"
+                              optionValuePath="content.id"
+                              optionGroupPath="group"
+                              selection=personOrRoleSelection
+                              prompt="Select a person or role"}}
+        --}}
+        {{simple-select
+          class="white-button"
+          content=peopleAndRoles
+          selection=personOrRoleSelection
+          prompt="Select a value"
+          action=(action (mut personOrRoleSelection))}}
         {{errors.person}}
       </div>
 
