@@ -34,12 +34,10 @@ let editableProps = EDITABLE_PROPERTIES.reduce(function(props, name){
 let AllocationsModalController = ModalController.extend(editableProps, FormDateRangeMixin);
 
 AllocationsModalController.reopen({
-  needs: ['office', 'projects'],
-  currentOffice: Ember.computed.alias('controllers.office.model'),
-
-
+  projectsController: Ember.inject.controller('projects'),
+  officeController: Ember.inject.controller('office'),
+  currentOffice: Ember.computed.alias('officeController.model'),
   _initialProject: null,
-
   personOrRoleSelection: null,
 
   people: Ember.computed('project', function() {
@@ -76,7 +74,6 @@ AllocationsModalController.reopen({
   }),
 
   isNew: Ember.computed.alias('_editedModel.isNew'),
-
   likelihoodOptions: ['100% Booked', '90% Likely', '60% Likely', '30% Likely'],
 
   getPersonOrRole(allocation) {
@@ -112,8 +109,8 @@ AllocationsModalController.reopen({
       }
     }
     this.setPersonOrRole(allocation);
-    this.get('controllers.projects').set('lastLikelihood', this.get('likelihood'));
-    return this.get('controllers.projects').set('lastEndDate', this.get('endDate'));
+    this.get('projectsController').set('lastLikelihood', this.get('likelihood'));
+    return this.get('projectsController').set('lastEndDate', this.get('endDate'));
   }
 });
 

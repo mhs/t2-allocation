@@ -6,9 +6,9 @@ import { ALLOCATION_HEIGHT } from "t2-allocation/utils/constants";
 import AllocationBoxModel from "t2-allocation/models/allocation-box-model";
 
 let PersonController = Ember.ObjectController.extend({
-  needs: ['people', 'office'],
-  currentOffice: Ember.computed.alias('controllers.office.model'),
-
+  officeController: Ember.inject.controller('office'),
+  peopleController: Ember.inject.controller('people'),
+  currentOffice: Ember.computed.alias('officeController.model'),
   trackCount: 0,
 
   selectedAllocations: Ember.computed(
@@ -45,6 +45,7 @@ let PersonController = Ember.ObjectController.extend({
       if (!startDate) { startDate = moment(); }
       return this.send('createAllocation', {person: this.get('model') , startDate});
     }
-  }});
+  }
+});
 
 export default PersonController;
