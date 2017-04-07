@@ -52,7 +52,7 @@ let ProjectController = Ember.Component.extend({
 
   doubleClick(evt) {
     let newStartDate = clickedDate(evt.clientX);
-    return this.sendAction('addAllocation', newStartDate);
+    return this.send('addAllocation', newStartDate);
   },
 
   actions: {
@@ -66,7 +66,7 @@ let ProjectController = Ember.Component.extend({
         likelihood: this.get('lastLikelihood'),
         endDate: this.get('lastEndDate')
       };
-      return this.send('createAllocation', attrs);
+      return this.sendAction('createAllocation', attrs);
     },
 
     quickView(allocation) {
@@ -75,6 +75,10 @@ let ProjectController = Ember.Component.extend({
 
     editProject(project) {
       this.sendAction('editProject', project);
+    },
+
+    editAllocation(allocation) {
+      this.sendAction('editAllocation', allocation);
     }
   }
 });

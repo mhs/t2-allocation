@@ -9,11 +9,12 @@
   </article>
 
   {{#each sortedPeople as |person|}}
-    {{person-allocation
+    {{t2-person
       model=person
       officeController=officeController
       peopleController=peopleController
       editAllocation="editAllocation"
+      createAllocation="createAllocation"
       quickView="quickView"}}
   {{/each}}
 </section>
