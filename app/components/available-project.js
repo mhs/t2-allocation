@@ -12,7 +12,8 @@ export default Ember.Component.extend({
   selectedOffice: null,
   people: Ember.computed.alias('selectedOffice.people'),
   projectHeight: Ember.computed("trackCount", function() {
-    return `height: ${(this.get("trackCount") * ALLOCATION_HEIGHT) + 1}px;`;
+    let h = `height: ${(this.get("trackCount") * ALLOCATION_HEIGHT) + 1}px;`;
+    return Ember.String.htmlSafe(h);
   }),
 
   trackCount: 0,

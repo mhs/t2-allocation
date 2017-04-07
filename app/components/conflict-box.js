@@ -33,7 +33,7 @@ let ConflictController = Ember.Component.extend({
     if (parentOffset > 0) { dateOffset -= parentOffset; }
     let width = this.get("duration") * WIDTH_OF_DAY;
     let offset = dateOffset * WIDTH_OF_DAY;
-    return `width: ${width}px; left: ${offset}px;`;
+    return Ember.String.htmlSafe(`width: ${width}px; left: ${offset}px;`);
   })
 });
 

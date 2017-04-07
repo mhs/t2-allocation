@@ -36,9 +36,9 @@ let AllocationBox = Ember.Component.extend({
   }),
 
   style: Ember.computed("topOffset", "leftOffset", "boxWidth", function() {
-    return cssPx('top', this.get('topOffset')) +
-    cssPx('left', this.get('leftOffset')) +
-    cssPx('width', this.get('boxWidth'));
+    return Ember.String.htmlSafe(cssPx('top', this.get('topOffset')) +
+                                 cssPx('left', this.get('leftOffset')) +
+                                 cssPx('width', this.get('boxWidth')));
   }),
 
   boxWidth: Ember.computed('duration', 'startOffset', function() {

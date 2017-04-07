@@ -1,4 +1,4 @@
-<article class="project" {{bind-attr data-project-id="id"}} {{bind-attr style="projectHeight"}}>
+<article class="project" {{bind-attr data-project-id="id"}} style={{projectHeight}}>
   <div class="project-allocations">
     {{#each boxModel in currentAllocations}}
       {{#allocation-box allocation=boxModel.content

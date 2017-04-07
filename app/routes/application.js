@@ -62,12 +62,6 @@ let ApplicationRoute = Ember.Route.extend({
       return this.send("closeModal");
     },
 
-    error(err) {
-      return;
-      let auth = this.controllerFor('authentication');
-      return auth.login();
-    },
-
     openModal(modal) {
       return this._openModal(modal);
     },

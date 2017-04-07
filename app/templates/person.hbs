@@ -1,5 +1,5 @@
 {{#view "person-allocations"}}
-  <article class="person" {{bind-attr data-person-id="id"}} {{bind-attr style="personHeight"}}>
+  <article class="person" {{bind-attr data-person-id="id"}} style={{personHeight}}>
     <div class="person-allocations">
       {{#each boxModel in currentAllocations}}
         {{#allocation-box allocation=boxModel.content

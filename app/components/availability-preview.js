@@ -31,7 +31,7 @@ export default Ember.Component.extend({
       duration += startOffset;
       startOffset = 0;
     }
-    return `top: ${this.get("track") * ALLOCATION_HEIGHT}px; left: ${startOffset * WIDTH_OF_DAY}px; width: ${duration * WIDTH_OF_DAY}px; `;
+    return Ember.String.htmlSafe(`top: ${this.get("track") * ALLOCATION_HEIGHT}px; left: ${startOffset * WIDTH_OF_DAY}px; width: ${duration * WIDTH_OF_DAY}px; `);
   }),
 
   isExternal: (() => false).property(),

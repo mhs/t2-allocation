@@ -7,7 +7,7 @@ let DummyProjectController  = Ember.Component.extend({
   trackCount: 1,
 
   projectHeight: Ember.computed("trackCount", function() {
-    return `height: ${(this.get("trackCount") * ALLOCATION_HEIGHT) + 1}px;`;
+    return Ember.String.htmlSafe(`height: ${(this.get("trackCount") * ALLOCATION_HEIGHT) + 1}px;`);
   })
 });
 
