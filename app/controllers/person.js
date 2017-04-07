@@ -18,7 +18,7 @@ let PersonController = Ember.Controller.extend({
     "allocations.[]",
     "allocations.@each.current",
     function() {
-      return this.get('allocations');
+      return this.get('model.allocations');
     }
   ),
 
