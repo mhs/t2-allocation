@@ -12,8 +12,12 @@ let Person = DS.Model.extend({
   unsellable: attr('boolean'),
   startDate: attr('date'),
   endDate: attr('date'),
-  office: DS.belongsTo('office'),
-  allocations: DS.hasMany('allocation'),
+  office: DS.belongsTo('office', {
+    async: false
+  }),
+  allocations: DS.hasMany('allocation', {
+    async: false
+  }),
   percentBillable: DS.attr('number'),
 
   mergedAllocations: Ember.computed(

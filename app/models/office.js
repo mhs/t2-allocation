@@ -4,9 +4,13 @@ import Ember from 'ember';
 import DS from "ember-data";
 let Office = DS.Model.extend({
   name: DS.attr('string'),
-  projects: DS.hasMany('project'),
+  projects: DS.hasMany('project', {
+    async: false
+  }),
   notes: DS.attr('string'),
-  people: DS.hasMany('person'),
+  people: DS.hasMany('person', {
+    async: false
+  }),
   deleted: DS.attr('boolean'),
 
   activePeople: Ember.computed('UIGlobal.projectsUI.startDate', function() {

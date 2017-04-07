@@ -14,7 +14,7 @@ let group_by_sorted_project = function(array, callback) {
     return acc;
   }), projects_with_data);
 
-  let projects = Ember.keys(projects_with_data).sort();
+  let projects = Object.keys(projects_with_data).sort();
 
   return projects.forEach(function(project) {
     let data = projects_with_data[project];
@@ -34,7 +34,7 @@ let group_by_sorted_name = function(array, callback) {
     return acc;
   }), people_with_data);
 
-  let people = Ember.keys(people_with_data).sort();
+  let people = Object.keys(people_with_data).sort();
 
   return people.forEach(function(person) {
     let data = people_with_data[person];
@@ -55,7 +55,7 @@ let group_by_sorted_name_role = function(array, callback) {
     return acc;
   }), people_with_data);
 
-  let people = Ember.keys(people_with_data).sort();
+  let people = Object.keys(people_with_data).sort();
 
   return people.forEach(function(person) {
     let data = people_with_data[person];

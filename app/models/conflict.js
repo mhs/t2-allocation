@@ -3,7 +3,9 @@
 import DS from "ember-data";
 let Conflict = DS.Model.extend({
   allocations: DS.hasMany('allocation', {async: true}),
-  person: DS.belongsTo('person'),
+  person: DS.belongsTo('person', {
+    async: false
+  }),
 
   startDate: DS.attr('date'),
   endDate: DS.attr('date'),

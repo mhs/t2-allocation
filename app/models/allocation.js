@@ -7,14 +7,18 @@ let Allocation = DS.Model.extend({
   endDate: DS.attr('date'),
   person: DS.belongsTo('person', { async: true }),
   role: DS.attr('string'),
-  project: DS.belongsTo('project'),
+  project: DS.belongsTo('project', {
+    async: false
+  }),
   billable: DS.attr('boolean'),
   binding: DS.attr('boolean'),
   notes: DS.attr('string'),
   percentAllocated: DS.attr('number'),
   likelihood: DS.attr('string'),
 
-  conflicts: DS.hasMany('conflict'),
+  conflicts: DS.hasMany('conflict', {
+    async: false
+  }),
 
   current: Ember.computed(
     "startDate",

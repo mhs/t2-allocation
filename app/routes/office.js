@@ -5,7 +5,7 @@ import Ember from "ember";
 let OfficeRoute = Ember.Route.extend({
   model(params) {
     let offices = this.store.all('allocationBundle').get('firstObject.offices');
-    return offices.findProperty('slug', params.slug);
+    return offices.findBy('slug', params.slug);
   },
 
   serialize(model) {

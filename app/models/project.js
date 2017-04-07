@@ -9,7 +9,9 @@ let Project = DS.Model.extend({
   vacation: DS.attr('boolean'),
   billable: DS.attr('boolean', {defaultValue: true}),
 
-  offices: DS.hasMany('office'),
+  offices: DS.hasMany('office', {
+    async: false
+  }),
   allocations: DS.hasMany('allocation', { async: true }),
 
   startDate: DS.attr('date'),

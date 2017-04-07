@@ -14,7 +14,7 @@ let AllocationBoxModel = Ember.ObjectProxy.extend({
     let office = this.get('content.person.office');
     return office && (office !== this.get('currentOffice'));
   }),
-  identifier: Ember.computed.any('content.person.name','content.role'),
+  identifier: Ember.computed.or('content.person.name','content.role'),
   index: Ember.computed.alias('content.track'),
 
   hint: Ember.computed(
