@@ -43,7 +43,7 @@ let AuthenticationController = Ember.ObjectController.extend({
     return this._redirectToSignOut();
   },
 
-  accessTokenChanged: (function() {
+  accessTokenChanged: Ember.observer("accessToken", function() {
     let token = this.get('accessToken');
 
     if (token) {
@@ -51,9 +51,9 @@ let AuthenticationController = Ember.ObjectController.extend({
     } else {
       return delete localStorage.accessToken;
     }
-  }).observes("accessToken"),
+  }),
 
-  currentUser: (function() {
+  currentUser: Ember.computed('accessToken', function() {
     let person = {};
     Ember.$.ajax({
       // ASYNC MY BALLS
@@ -67,7 +67,7 @@ let AuthenticationController = Ember.ObjectController.extend({
       }
     );
     return person;
-  }).property('accessToken')
+  })
 });
 
 export default AuthenticationController;

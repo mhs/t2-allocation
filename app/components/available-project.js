@@ -11,20 +11,20 @@ export default Ember.Component.extend({
   endDate: Ember.computed.alias('UIGlobal.projectsUI.endDate'),
   selectedOffice: null,
   people: Ember.computed.alias('selectedOffice.people'),
-  projectHeight: (function() {
+  projectHeight: Ember.computed("trackCount", function() {
     return `height: ${(this.get("trackCount") * ALLOCATION_HEIGHT) + 1}px;`;
-  }).property("trackCount"),
+  }),
 
   trackCount: 0,
-  availabilities: (function() {
+  availabilities: Ember.computed('people', 'allAvailabilities.[]', function() {
     let people = this.get('people');
-    return this.get('allAvailabilities').filter(availability => people.contains(availability.get('person')));}).property('people', 'allAvailabilities.[]'),
+    return this.get('allAvailabilities').filter(availability => people.contains(availability.get('person')));}),
 
   allAvailabilities: Ember.computed('project.bundle.availabilities.@each.id', function() {
     return this.get('project.bundle.availabilities');
   }),
 
-  currentAvailabilities: (function() {
+  currentAvailabilities: Ember.computed('availabilities.[]', function() {
     let availabilities = this.get("availabilities");
 
     let trackNo = 0;
@@ -34,7 +34,7 @@ export default Ember.Component.extend({
     });
     this.set("trackCount", trackNo);
     return availabilities;
-  }).property('availabilities.[]'),
+  }),
 
   doubleClick(evt) {
     let newStartDate = clickedDate(evt.clientX);

@@ -42,19 +42,19 @@ AllocationsModalController.reopen({
 
   personOrRoleSelection: null,
 
-  people: (function() {
+  people: Ember.computed('project', function() {
     return this.get('project.activePeople') || [];
-  }).property('project'),
+  }),
 
-  peopleAndRoles: (function() {
+  peopleAndRoles: Ember.computed('project', function() {
     let peopleAndRoles = Ember.ArrayProxy.create({content: []});
     peopleAndRoles.pushObjects(Em.A(ROLES));
     peopleAndRoles.pushObjects(this.get('people').map(person => ({ name: person.get('name'), id: person.get('id'), person, group: 'People' }))
     );
     return peopleAndRoles;
-  }).property('project'),
+  }),
 
-  percentAllocatedObserver: (function() {
+  percentAllocatedObserver: Ember.observer('personOrRoleSelection', 'project', function() {
     let pct = this.get('person.percentBillable');
     if (this.get('isNew')) {
       if (this.get('project.vacation')) {
@@ -63,17 +63,17 @@ AllocationsModalController.reopen({
         return this.set('percentAllocated', pct || "100");
       }
     }
-  }).observes('personOrRoleSelection', 'project'),
+  }),
 
   projectSort: ['sortOrder:asc', 'name:asc'],
   projects: Ember.computed.filter('sortedProjects', item => item.get('name') !== 'Available'),
   sortedProjects: Ember.computed.sort('currentOffice.projects', 'projectSort'),
 
-  errors: (function() {
+  errors: Ember.computed('_editedModel.errors.[]', function() {
     let errors = Ember.Object.create();
     this.get('_editedModel.errors').forEach(error=> errors.set(error.attribute, error.message));
     return errors;
-  }).property('_editedModel.errors.[]'),
+  }),
 
   isNew: Ember.computed.alias('_editedModel.isNew'),
 

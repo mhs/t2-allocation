@@ -17,13 +17,13 @@ let QuickLookModalController = Ember.ObjectController.extend({
     }
   },
 
-  startDate: (function() {
+  startDate: Ember.computed('model.startDate', function() {
     return moment(this.get('model.startDate')).format("MMM DD");
-  }).property('model.startDate'),
+  }),
 
-  endDate: (function() {
+  endDate: Ember.computed('model.endDate', function() {
     return moment(this.get('model.endDate')).format("MMM DD");
-  }).property('model.endDate')
+  })
 });
 
 export default QuickLookModalController;

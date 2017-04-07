@@ -4,13 +4,13 @@ import Ember from "ember";
 import { WIDTH_OF_DESCRIPTOR, WIDTH_OF_DAY } from "t2-allocation/utils/constants";
 let DateUI = Ember.Object.extend({
   date: null,
-  startDate: (function() {
+  startDate: Ember.computed("date", function() {
     return moment(this.date);
-  }).property("date"),
+  }),
 
-  endDate: (function() {
+  endDate: Ember.computed("date", "daysInWindow", function() {
     return moment(this.get('date')).add("days", this.get('daysInWindow'));
-  }).property("date","daysInWindow"),
+  }),
 
   calculateWindow() {
     return Math.ceil((window.innerWidth - WIDTH_OF_DESCRIPTOR) / WIDTH_OF_DAY);},

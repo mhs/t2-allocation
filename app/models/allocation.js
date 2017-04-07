@@ -16,23 +16,29 @@ let Allocation = DS.Model.extend({
 
   conflicts: DS.hasMany('conflict'),
 
-  current: (function() {
-    return (this.get("startDate") <= UIGlobal.projectsUI.get("endDate")) && (this.get("endDate") >= UIGlobal.projectsUI.get("startDate"));
-  }).property("startDate","endDate","UIGlobal.projectsUI.startDate", "UIGlobal.projectsUI.endDate"),
+  current: Ember.computed(
+    "startDate",
+    "endDate",
+    "UIGlobal.projectsUI.startDate",
+    "UIGlobal.projectsUI.endDate",
+    function() {
+      return (this.get("startDate") <= UIGlobal.projectsUI.get("endDate")) && (this.get("endDate") >= UIGlobal.projectsUI.get("startDate"));
+    }
+  ),
 
   vacation: Ember.computed.alias('project.vacation'),
 
-  status: (function() {
+  status: Ember.computed("likelihood", "billable", function() {
     let words = [];
     words.push(this.get('billable') ? "Billable" : "Non-Billable");
     if (this.get('likelihood')) { words.push(this.get('likelihood')); }
     if (this.get('vacation')) { words.push("Vacation"); }
     return words.join(" / ");
-  }).property("likelihood", "billable"),
+  }),
 
-  speculative: (function() {
+  speculative: Ember.computed('likelihood', function() {
     return (this.get('likelihood') !== '100% Booked') && (this.get('likelihood') !== null);
-  }).property('likelihood')
+  })
 });
 
 export default Allocation;

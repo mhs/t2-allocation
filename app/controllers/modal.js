@@ -28,9 +28,9 @@ let ModalController = Ember.ObjectController.extend({
     }
   },
 
-  modelChanged: ( function() {
+  modelChanged: Ember.observer('model', function() {
     throw new Error("This controller should not use 'model'! We don't want the object to be autoupdated while editing. Use edit() instead");
-  }).observes('model'),
+  }),
 
   actions: {
     save() {

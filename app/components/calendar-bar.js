@@ -10,9 +10,9 @@ let CalendarBarComponent = Ember.Component.extend({
   dateBinding: "UIGlobal.projectsUI.date",
   daysInWindowBinding: "UIGlobal.projectsUI.daysInWindow",
 
-  firstDate: (function() {
+  firstDate: Ember.computed("date", function() {
     return moment(this.get("date")).format("D MMM, YYYY");
-  }).property("date"),
+  }),
 
   didInsertElement() {
     return $(window).resize(function() {
@@ -24,7 +24,7 @@ let CalendarBarComponent = Ember.Component.extend({
     });
   },
 
-  dateRange: (function() {
+  dateRange: Ember.computed("date", "daysInWindow", function() {
     let date = moment(this.get("date"));
     let daysInWindow = this.get("daysInWindow");
     if (!date.isValid()) { date = moment(); }
@@ -37,11 +37,11 @@ let CalendarBarComponent = Ember.Component.extend({
       i++;
     }
     return dateArray;
-  }).property("date", "daysInWindow"),
+  }),
 
-  dateRangeDidChange: (function() {
+  dateRangeDidChange: Ember.observer('dateRange', function() {
     return this.sendAction('resize');
-  }).observes('dateRange'),
+  }),
 
   actions: {
     editDate() {

@@ -23,7 +23,7 @@ export default Ember.Component.extend({
   }, // to keep from bubbling up
 
   // to offset zero, an 'extra' day will be removed
-  style: (function() {
+  style: Ember.computed("startOffset", "duration", "track", function() {
     let scale = 16;
     let startOffset = this.get("startOffset");
     let duration = this.get("duration");
@@ -32,28 +32,28 @@ export default Ember.Component.extend({
       startOffset = 0;
     }
     return `top: ${this.get("track") * ALLOCATION_HEIGHT}px; left: ${startOffset * WIDTH_OF_DAY}px; width: ${duration * WIDTH_OF_DAY}px; `;
-  }).property("startOffset", "duration", "track"),
+  }),
 
   isExternal: (() => false).property(),
 
-  isPartial: (function() {
+  isPartial: Ember.computed('percentAllocated', function() {
     return this.get('percentAllocated') < 100;
-  }).property('percentAllocated'),
+  }),
 
-  hint: (function() {
+  hint: Ember.computed('office', 'isExternal', 'person', function() {
     let _external = this.get('isExternal') ? ` (${this.get('office.name')})` : '';
     return `${this.get('person.name')}${_external}`;
-  }).property('office', 'isExternal', 'person'),
+  }),
 
-  startOffset: (function() {
+  startOffset: Ember.computed("UIGlobal.projectsUI.date", "project.startDate", function() {
     let currentMonday = moment(UIGlobal.projectsUI.get("date"));
     let startDate = moment(this.get("project.startDate")) || moment();
     return startDate.diff(currentMonday, "days");
-  }).property("UIGlobal.projectsUI.date", "project.startDate"),
+  }),
 
-  duration: (function() {
+  duration: Ember.computed("startDate", "endDate", function() {
     let start = moment(this.get("startDate"));
     let end = moment(this.get("endDate"));
     return end.diff(start, "days") + 1;
-  }).property("startDate", "endDate")
+  })
 });

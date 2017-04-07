@@ -11,30 +11,30 @@ let ConflictController = Ember.Component.extend({
   parentOffset: null,
   conflict: null,
 
-  startOffset: (function() {
+  startOffset: Ember.computed('UIGlobal.projectsUI.date', 'conflict.startDate', function() {
     let currentMonday = moment(UIGlobal.projectsUI.get("date"));
     let startDate = moment(dateMunge(this.get('conflict.startDate')));
     return startDate.diff(currentMonday, "days");
-  }).property('UIGlobal.projectsUI.date', 'conflict.startDate'),
+  }),
 
-  duration: (function() {
+  duration: Ember.computed('conflict.startDate', 'conflict.endDate', function() {
     let start = moment(this.get("conflict.startDate"));
     let end = moment(this.get("conflict.endDate"));
     return end.diff(start, "days") + 1;
-  }).property('conflict.startDate', 'conflict.endDate'),
+  }),
 
-  hint: (function() {
+  hint: Ember.computed('conflict.allocations.[]', function() {
     return this.get('conflict.allocations').mapProperty('project.name').join(', ');
-  }).property('conflict.allocations.[]'),
+  }),
 
-  style: (function() {
+  style: Ember.computed("parentOffset", "startOffset", "duration", function() {
     let dateOffset = this.get('startOffset');
     let parentOffset = this.get('parentOffset');
     if (parentOffset > 0) { dateOffset -= parentOffset; }
     let width = this.get("duration") * WIDTH_OF_DAY;
     let offset = dateOffset * WIDTH_OF_DAY;
     return `width: ${width}px; left: ${offset}px;`;
-  }).property("parentOffset", "startOffset", "duration")
+  })
 });
 
 export default ConflictController;

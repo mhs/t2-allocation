@@ -7,7 +7,7 @@ let PeopleController = Ember.ArrayController.extend({
 
   office: Ember.computed.alias('controllers.office.model'),
 
-  sortedPeople: (function() {
+  sortedPeople: Ember.computed('office', 'model', function() {
     let people = this.get('model');
     let sortByName = {
       sortProperties: ['sortOrder', 'name'],
@@ -16,7 +16,7 @@ let PeopleController = Ember.ArrayController.extend({
 
     return Ember.ArrayProxy.
       createWithMixins(Ember.SortableMixin,sortByName);
-  }).property('office', 'model')
+  })
 });
 
 export default PeopleController;

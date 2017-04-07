@@ -31,9 +31,9 @@ let AllocationBox = Ember.Component.extend({
 
   isPartial: Ember.computed.lt('percentAllocated', 100),
 
-  isExternal: (function() {
+  isExternal: Ember.computed('currentOffice', 'office', function() {
     return this.get('office') !== this.get('currentOffice');
-  }).property('currentOffice', 'office'),
+  }),
 
   style: Ember.computed("topOffset", "leftOffset", "boxWidth", function() {
     return cssPx('top', this.get('topOffset')) +
@@ -63,16 +63,16 @@ let AllocationBox = Ember.Component.extend({
     }
   }),
 
-  startOffset: (function() {
+  startOffset: Ember.computed("currentMonday", "startDate", function() {
     let startDate = moment(dateMunge(this.get('startDate')));
     return startDate.diff(this.get('currentMonday'), "days");
-  }).property("currentMonday", "startDate"),
+  }),
 
-  duration: (function() {
+  duration: Ember.computed("startDate", "endDate", function() {
     let start = moment(this.get("startDate"));
     let end = moment(this.get("endDate"));
     return end.diff(start, "days") + 1;
-  }).property("startDate", "endDate"),
+  }),
 
   clicks: [],
 

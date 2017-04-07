@@ -6,9 +6,9 @@ import ALLOCATION_HEIGHT from "t2-allocation/utils/constants";
 let DummyProjectController  = Ember.Component.extend({
   trackCount: 1,
 
-  projectHeight: (function() {
+  projectHeight: Ember.computed("trackCount", function() {
     return `height: ${(this.get("trackCount") * ALLOCATION_HEIGHT) + 1}px;`;
-  }).property("trackCount")
+  })
 });
 
 export default DummyProjectController ;

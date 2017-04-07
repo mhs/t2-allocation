@@ -4,7 +4,7 @@ import Ember from "ember";
 
 let SelectableOffice = Ember.ObjectProxy.extend({
   selected: [],
-  isSelected: ( function(key, value){
+  isSelected: Ember.computed('selected.[]', function(key, value){
     let office = this.get('content');
 
     if (value !== undefined) {
@@ -12,7 +12,7 @@ let SelectableOffice = Ember.ObjectProxy.extend({
     }
 
     return this.selected.contains(office);
-  }).property('selected.[]')
+  })
 });
 
 export default SelectableOffice;

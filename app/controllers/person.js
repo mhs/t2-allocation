@@ -11,11 +11,16 @@ let PersonController = Ember.ObjectController.extend({
 
   trackCount: 0,
 
-  selectedAllocations: (function() {
-    return this.get('allocations');
-  }).property("currentOffice", "allocations.[]", "allocations.@each.current"),
+  selectedAllocations: Ember.computed(
+    "currentOffice",
+    "allocations.[]",
+    "allocations.@each.current",
+    function() {
+      return this.get('allocations');
+    }
+  ),
 
-  currentAllocations: (function() {
+  currentAllocations: Ember.computed("selectedAllocations", function() {
     let allocations = this.get("selectedAllocations").filterProperty("current");
 
     let trackNo = 0;
@@ -29,11 +34,11 @@ let PersonController = Ember.ObjectController.extend({
         content: allocation,
         currentOffice: this.get('currentOffice')});
     }
-  );}).property("selectedAllocations"),
+  );}),
 
-  personHeight: (function() {
+  personHeight: Ember.computed("trackCount", function() {
     return `height: ${(this.get("trackCount") * ALLOCATION_HEIGHT) + 1}px;`;
-  }).property("trackCount"),
+  }),
 
   actions: {
     addAllocation(startDate) {

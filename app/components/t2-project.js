@@ -15,16 +15,21 @@ let ProjectController = Ember.Component.extend({
 
   currentMonday: (() => moment(UIGlobal.projectsUI.get("date"))).property('UIGlobal.projectsUI.date'),
 
-  selectedAllocations: (function() {
-    let allocations = this.get('allocations');
-    if (this.get('vacation')) {
-      return allocations.filterBy('person.office.id', this.get('currentOffice.id'));
-    } else {
-      return allocations;
+  selectedAllocations: Ember.computed(
+    "currentOffice",
+    "allocations.[]",
+    "allocations.@each.current",
+    function() {
+      let allocations = this.get('allocations');
+      if (this.get('vacation')) {
+        return allocations.filterBy('person.office.id', this.get('currentOffice.id'));
+      } else {
+        return allocations;
+      }
     }
-  }).property("currentOffice", "allocations.[]", "allocations.@each.current"),
+  ),
 
-  currentAllocations: (function() {
+  currentAllocations: Ember.computed("selectedAllocations", function() {
     let allocations = this.get("selectedAllocations").filterProperty("current");
 
     let trackNo = 0;
@@ -38,11 +43,11 @@ let ProjectController = Ember.Component.extend({
         content: allocation,
         currentOffice: this.get('currentOffice')});
     }
-  );}).property("selectedAllocations"),
+  );}),
 
-  projectHeight: (function() {
+  projectHeight: Ember.computed("trackCount", function() {
     return `height: ${(this.get("trackCount") * ALLOCATION_HEIGHT) + 1}px;`;
-  }).property("trackCount"),
+  }),
 
   doubleClick(evt) {
     let newStartDate = clickedDate(evt.clientX);

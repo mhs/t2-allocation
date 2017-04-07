@@ -6,21 +6,21 @@ import ENV from "t2-allocation/config/environment";
 let OfficeController = Ember.ObjectController.extend({
   needs: ['application'],
 
-  all: (function() {
+  all: Ember.computed(function() {
     return this.store.all('office');
-  }).property(),
+  }),
 
-  allActive: (function() {
+  allActive: Ember.computed(function() {
     return this.store.filter('office', office => !office.get('deleted'));
-  }).property(),
+  }),
 
   newProjectUrl: ENV.PROJECTS_URL + 'new',
 
-  modelChanged: (function() {
+  modelChanged: Ember.observer('model', function() {
     let route = this.get('controllers.application.currentRouteName');
     if (!route) { return; }
     return this.transitionToRoute(route, this.get('model'));
-  }).observes('model'),
+  }),
 
   actions: {
     selectDate(newDate) {

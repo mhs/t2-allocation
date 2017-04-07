@@ -1,3 +1,4 @@
+import Ember from 'ember';
 // TODO: This file was created by bulk-decaffeinate.
 // Sanity-check the conversion and remove this comment.
 import DS from "ember-data";
@@ -24,7 +25,7 @@ let Project = DS.Model.extend({
   peopleSort: ['name:asc'],
   activePeople: Ember.computed.sort('_activePeople', 'peopleSort'),
 
-  sortOrder: (function() {
+  sortOrder: Ember.computed('billable', 'vacation', function() {
     let val = 0;
     if (!this.get('billable')) {
       val += 1;
@@ -33,11 +34,11 @@ let Project = DS.Model.extend({
       val += 2;
     }
     return val;
-  }).property('billable', 'vacation'),
+  }),
 
-  showUrl:(function() {
+  showUrl:Ember.computed(function() {
     return ENV.PROJECTS_URL + this.get('id');
-  }).property()
+  })
 });
 
 

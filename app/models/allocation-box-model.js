@@ -17,10 +17,15 @@ let AllocationBoxModel = Ember.ObjectProxy.extend({
   identifier: Ember.computed.any('content.person.name','content.role'),
   index: Ember.computed.alias('content.track'),
 
-  hint: (function() {
-    let _external = this.get('isExternal') ? ` (${this.get('content.person.office.name')})` : '';
-    return `${this.get('content.person.name')}${_external}`;
-  }).property('content.person.office.name', 'isExternal', 'content.person.name')
+  hint: Ember.computed(
+    'content.person.office.name',
+    'isExternal',
+    'content.person.name',
+    function() {
+      let _external = this.get('isExternal') ? ` (${this.get('content.person.office.name')})` : '';
+      return `${this.get('content.person.name')}${_external}`;
+    }
+  )
 });
 
 export default AllocationBoxModel;
