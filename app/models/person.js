@@ -26,7 +26,7 @@ let Person = DS.Model.extend({
     'allocations.[]',
     'allocations.@each.current',
     function() {
-      let allocations = this.get('allocations').filterProperty('current').toArray().sort((a,b)=> a.get('startDate') - b.get('startDate'));
+      let allocations = this.get('allocations').filterBy('current').toArray().sort((a,b)=> a.get('startDate') - b.get('startDate'));
       let merged = [];
       let start = null;
       let end = null;

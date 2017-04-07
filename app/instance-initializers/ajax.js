@@ -5,9 +5,9 @@ import projectsUI from "t2-allocation/utils/date-ui";
 let initializer = {
   name: 'ajaxInitializer',
 
-  initialize(container, application) {
+  initialize(instance) {
     $.ajaxSetup({beforeSend(xhr) {
-      let auth = container.lookup("controller:authentication");
+      let auth = instance.container.lookup("controller:authentication");
       xhr.setRequestHeader("Authorization", auth.get('accessToken'));
       xhr.setRequestHeader("x-Requested-With", "XMLHTTPRequest");
       let startDate = UIGlobal.projectsUI.get('startDate');
@@ -24,7 +24,7 @@ let initializer = {
       // HAX HAX HAX
       localStorage.removeItem('accessToken');
       return;
-      let auth = container.lookup("controller:authentication");
+      let auth = instance.container.lookup("controller:authentication");
       return auth.logout();
     });
   }

@@ -2,7 +2,7 @@
 // Sanity-check the conversion and remove this comment.
 import Ember from "ember";
 
-let QuickLookModalController = Ember.ObjectController.extend({
+let QuickLookModalController = Ember.Controller.extend({
   actions: {
     close() {
       return this.send("closeQuickLook");

@@ -5,7 +5,7 @@ import { group_by_sorted_project } from "t2-allocation/utils/group-by";
 import { ALLOCATION_HEIGHT } from "t2-allocation/utils/constants";
 import AllocationBoxModel from "t2-allocation/models/allocation-box-model";
 
-let PersonController = Ember.ObjectController.extend({
+let PersonController = Ember.Controller.extend({
   officeController: Ember.inject.controller('office'),
   peopleController: Ember.inject.controller('people'),
   currentOffice: Ember.computed.alias('officeController.model'),
@@ -21,7 +21,7 @@ let PersonController = Ember.ObjectController.extend({
   ),
 
   currentAllocations: Ember.computed("selectedAllocations", function() {
-    let allocations = this.get("selectedAllocations").filterProperty("current");
+    let allocations = this.get("selectedAllocations").filterBy("current");
 
     let trackNo = 0;
     group_by_sorted_project(allocations, function(allocs, person) {

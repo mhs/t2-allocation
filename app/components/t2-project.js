@@ -30,7 +30,7 @@ let ProjectController = Ember.Component.extend({
   ),
 
   currentAllocations: Ember.computed("selectedAllocations", function() {
-    let allocations = this.get("selectedAllocations").filterProperty("current");
+    let allocations = this.get("selectedAllocations").filterBy("current");
 
     let trackNo = 0;
     group_by_sorted_name_role(allocations, function(allocs, person) {

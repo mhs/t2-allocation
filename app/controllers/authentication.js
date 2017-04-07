@@ -10,7 +10,7 @@ let _redirectTo = function(url){
 };
 
 
-let AuthenticationController = Ember.ObjectController.extend({
+let AuthenticationController = Ember.Controller.extend({
   init() { return this.set('accessToken', localStorage.accessToken); },
 
   accessToken: null,

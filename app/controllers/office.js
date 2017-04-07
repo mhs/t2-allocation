@@ -3,11 +3,11 @@
 import Ember from "ember";
 import ENV from "t2-allocation/config/environment";
 
-let OfficeController = Ember.ObjectController.extend({
+let OfficeController = Ember.Controller.extend({
   applicationController: Ember.inject.controller('application'),
 
   all: Ember.computed(function() {
-    return this.store.all('office');
+    return this.store.peekAll('office');
   }),
 
   allActive: Ember.computed(function() {
