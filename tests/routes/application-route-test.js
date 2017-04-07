@@ -15,11 +15,11 @@ test("_createAllocation creates a new record with default props and calls _editA
   route.set('store', {createRecord(type, attrs) {
     checkDate(attrs.startDate, moment(), "The start date defaults to the current date");
     checkDate(attrs.endDate, moment().add(2, 'weeks'), "The end date defaults to 2 weeks from the current date");
-    return equal(attrs.billable, true, "It merges in the defaults with the arguments");
+    return assert.equal(attrs.billable, true, "It merges in the defaults with the arguments");
   }
   });
 
-  route._editAllocation = allocation => ok(true, "it calls _editAllocation");
+  route._editAllocation = allocation => assert.ok(true, "it calls _editAllocation");
 
   return route._createAllocation(testAttrs);
 });

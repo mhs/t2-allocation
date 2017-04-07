@@ -16,7 +16,7 @@ test("calling edit properly initializes the modal", function(assert) {
   assert.ok(!ctrl.get('canDelete'));
   assert.equal(ctrl.get('billable'), true, "proxies billable to the controller");
   assert.equal(ctrl.get('binding'), true, "proxies binding to the controller");
-  return equal(ctrl.get('_editedModel'), props, "sets the edited model");
+  return assert.equal(ctrl.get('_editedModel'), props, "sets the edited model");
 });
 
 test("changing the start date adjusts the end date", function(assert) {

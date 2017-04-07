@@ -16,7 +16,7 @@ test("it works", function(assert) {
   component.set("allocation",
     {percentAllocated: 90});
 
-  return equal(component.get("isPartial"), true, "It should be partial");
+  return assert.equal(component.get("isPartial"), true, "It should be partial");
 });
 
 test("startOffset returns the difference in days between the allocation's start date and the currentMonday", function(assert) {
@@ -27,7 +27,7 @@ test("startOffset returns the difference in days between the allocation's start 
   component.set("currentMonday", moment("2015-01-5"));
   assert.equal(component.get("startOffset"), 7);
   component.set("currentMonday", moment("2015-01-14"));
-  return equal(component.get("startOffset"), -2, "startOffset can be negative");
+  return assert.equal(component.get("startOffset"), -2, "startOffset can be negative");
 });
 
 test("boxWidth is in pixels", function(assert) {
@@ -38,7 +38,7 @@ test("boxWidth is in pixels", function(assert) {
   component.set("startOffset", -5);
   assert.equal(component.get("boxWidth"), 5 * WIDTH_OF_DAY, "it accounts for negative offset");
   component.set("startOffset", 5);
-  return equal(component.get("boxWidth"), 10 * WIDTH_OF_DAY, "positive offsets dont affect the width");
+  return assert.equal(component.get("boxWidth"), 10 * WIDTH_OF_DAY, "positive offsets dont affect the width");
 });
 
 test("topOffset is in pixels", function(assert) {
@@ -48,7 +48,7 @@ test("topOffset is in pixels", function(assert) {
   assert.equal(component.get("topOffset"), 0 * ALLOCATION_HEIGHT);
   component.set("index", 5);
 
-  return equal(component.get("topOffset"), 5 * ALLOCATION_HEIGHT);
+  return assert.equal(component.get("topOffset"), 5 * ALLOCATION_HEIGHT);
 });
 
 test("leftOffset is in pixels", function(assert) {
@@ -56,7 +56,7 @@ test("leftOffset is in pixels", function(assert) {
   component.set("startOffset", 5);
   assert.equal(component.get("leftOffset"), 5 * WIDTH_OF_DAY);
   component.set("startOffset", -5);
-  return equal(component.get("leftOffset"), 0, "leftOffset is 0 if startOffset is negative");
+  return assert.equal(component.get("leftOffset"), 0, "leftOffset is 0 if startOffset is negative");
 });
 
 let testProperties = function() {
@@ -87,14 +87,14 @@ test("it renders", function(assert) {
   let component = this.subject();
   Ember.run(() => component.setProperties(testProperties()));
 
-  return ok(this.$().hasClass("speculative"), "it is provisional");
+  return assert.ok(this.$().hasClass("speculative"), "it is provisional");
 });
 
 test("clicking once sends the 'clicked' action", function(assert) {
   assert.expect(1);
-  let App = startApp();
+  startApp();
   let actionTarget = { externalAction() {
-    return ok(true);
+    return assert.ok(true);
   }
 };
 
@@ -108,14 +108,14 @@ test("clicking once sends the 'clicked' action", function(assert) {
 
 test("double clicking sends the 'doubleClicked' action and DOESNT send click", function(assert) {
   assert.expect(1);
-  let App = startApp();
+  startApp();
   let actionTarget = {
     clickAction() {
-      return ok(false);
+      return assert.ok(false);
     },
 
     doubleClickAction() {
-      return ok(true);
+      return assert.ok(true);
     }
   };
 
