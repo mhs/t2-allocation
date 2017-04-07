@@ -69,6 +69,10 @@ let ProjectController = Ember.Component.extend({
       return this.send('createAllocation', attrs);
     },
 
+    quickView(allocation) {
+      this.sendAction('quickView', allocation);
+    },
+
     editProject(project) {
       this.sendAction('editProject', project);
     }

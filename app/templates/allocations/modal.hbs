@@ -83,7 +83,7 @@
 
       <div data-test="notes" {{bind-attr class="errors.notes:error :field"}}>
         <label><i>&#9998;</i> Notes</label>
-        {{view "textarea" valueBinding="notes"}}
+        {{textarea value=notes}}
         {{errors.notes}}
       </div>
     </div>

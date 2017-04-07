@@ -1,5 +1,3 @@
-// TODO: This file was created by bulk-decaffeinate.
-// Sanity-check the conversion and remove this comment.
 import Ember from "ember";
 import { animateModalOpen, animateModalClose } from 't2-allocation/utils/modal-animation';
 let ApplicationRoute = Ember.Route.extend({
@@ -8,7 +6,7 @@ let ApplicationRoute = Ember.Route.extend({
     auth.extractAccessToken();
     if (!auth.get('isAuthenticated')) {
       transition.abort();
-      return auth.login();
+      auth.login();
     }
   },
 

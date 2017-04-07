@@ -1,5 +1,3 @@
-// TODO: This file was created by bulk-decaffeinate.
-// Sanity-check the conversion and remove this comment.
 import Ember from "ember";
 let ModalController = Ember.Controller.extend({
   isDirty: true,
@@ -24,7 +22,7 @@ let ModalController = Ember.Controller.extend({
     if (editedModel.get('isNew')) {
       return editedModel.deleteRecord();
     } else {
-      return editedModel.rollback();
+      return editedModel.rollbackAttributes();
     }
   },
 
@@ -44,7 +42,7 @@ let ModalController = Ember.Controller.extend({
           return this.send('updateBundle');
         }
         ,
-        function(error) {} 
+        function(error) {}
       );
     },
 
@@ -55,7 +53,7 @@ let ModalController = Ember.Controller.extend({
           return this.send('updateBundle');
         }
         ,
-        function(error) {} 
+        function(error) {}
       );
     },
 
