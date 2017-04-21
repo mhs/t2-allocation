@@ -11,13 +11,10 @@ let ApplicationRoute = Ember.Route.extend({
 
   actions: {
     loading() {
-      if (!this.get('loadingView')) {
-        let view = this.container.lookup('view:loading').append();
-        this.set('loadingView', view);
-      }
+      this.controllerFor('application').set('isLoading', true);
 
       return this.router.one('didTransition', () => {
-        return this.get('loadingView').destroy();
+        this.controllerFor('application').set('isLoading', false);
       }
       );
     }
