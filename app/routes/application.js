@@ -1,4 +1,5 @@
 import Ember from "ember";
+// TODO make sure modal animates
 import { animateModalOpen, animateModalClose } from 't2-allocation/utils/modal-animation';
 let ApplicationRoute = Ember.Route.extend({
   beforeModel(transition){

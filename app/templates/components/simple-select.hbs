@@ -4,7 +4,11 @@
     prompt="{{prompt}}">
   {{#each content key="@index" as |item|}}
     <option value="{{item}}" selected={{eq item selection}}>
-      {{item.name}}
+      {{#if hasBlock}}
+        {{yield item}}
+      {{else}}
+        {{item.name}}
+      {{/if}}
     </option>
   {{/each}}
 </select>

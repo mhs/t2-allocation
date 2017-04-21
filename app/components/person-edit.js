@@ -4,7 +4,7 @@ export default Ember.Component.extend({
   classNameBindings: ['hover'],
   hover: false,
   doubleClick(evt) {
-    this.sendAction('editProject');
+    this.sendAction('editPerson');
     return false;
   }, // to keep from bubbling up
   mouseEnter(evt, view) {

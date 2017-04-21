@@ -1,10 +1,10 @@
-// TODO: This file was created by bulk-decaffeinate.
-// Sanity-check the conversion and remove this comment.
 import Ember from "ember";
 import ENV from "t2-allocation/config/environment";
 
-let ApplicationController = Ember.Controller.extend({
+export default Ember.Controller.extend({
+  projectsController: Ember.inject.controller('projects'),
+  officeController: Ember.inject.controller('office'),
+
+  allocationModal: Ember.inject.service("allocation"),
   navUrl:(() => ENV.NAVBAR_URL).property()
 });
-
-export default ApplicationController;

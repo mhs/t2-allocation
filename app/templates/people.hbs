@@ -13,8 +13,9 @@
       model=person
       officeController=officeController
       peopleController=peopleController
-      editAllocation="editAllocation"
-      createAllocation="createAllocation"
-      quickView="quickView"}}
+      createAllocation=(route-action "createAllocation")
+      editAllocation=(route-action "editAllocation")
+      editPerson="editPerson"
+      quickView=(route-action "quickView")}}
   {{/each}}
 </section>

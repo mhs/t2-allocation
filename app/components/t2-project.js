@@ -14,6 +14,7 @@ let ProjectController = Ember.Component.extend({
   }),
 
   allocations: Ember.computed.alias('project.allocations'),
+  allocationModal: Ember.inject.service('allocation'),
 
   currentMonday: (() => moment(UIGlobal.projectsUI.get("date"))).property('UIGlobal.projectsUI.date'),
 
@@ -66,19 +67,19 @@ let ProjectController = Ember.Component.extend({
         likelihood: this.get('lastLikelihood'),
         endDate: this.get('lastEndDate')
       };
-      return this.sendAction('createAllocation', attrs);
+      return this.get('allocationModal').createAllocation(attrs);
     },
 
     quickView(allocation) {
-      this.sendAction('quickView', allocation);
+      this.get('allocationModal').quickView(allocation);
     },
 
-    editProject(project) {
-      this.sendAction('editProject', project);
+    editProject() {
+      this.sendAction('editProject', this.get('project'));
     },
 
     editAllocation(allocation) {
-      this.sendAction('editAllocation', allocation);
+      this.get('allocationModal').editAllocation(allocation);
     }
   }
 });

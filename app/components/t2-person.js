@@ -7,9 +7,11 @@ import clickedDate from "t2-allocation/utils/clicked-date";
 export default Ember.Component.extend({
   officeController: null,
   peopleController: null,
-  currentOffice: Ember.computed.alias('officeController.model'),
-  trackCount: Ember.computed('currentAllocations.[]', function() {
-    return this.get('currentAllocations').mapBy('track').uniq().get('length');
+  allocationModal: Ember.inject.service("allocation"),
+
+  currentOffice: Ember.computed.alias("officeController.model"),
+  trackCount: Ember.computed("currentAllocations.[]", function() {
+    return this.get("currentAllocations").mapBy("track").uniq().get("length");
   }),
 
   selectedAllocations: Ember.computed(
@@ -17,7 +19,7 @@ export default Ember.Component.extend({
     "allocations.[]",
     "allocations.@each.current",
     function() {
-      return this.get('model.allocations');
+      return this.get("model.allocations");
     }
   ),
 
@@ -32,17 +34,25 @@ export default Ember.Component.extend({
     return allocations.map(allocation => {
       return AllocationBoxModel.create({
         content: allocation,
-        currentOffice: this.get('currentOffice')});
-    }
-  );}),
+        currentOffice: this.get("currentOffice")
+      });
+    });
+  }),
 
   personHeight: Ember.computed("trackCount", function() {
-    return Ember.String.htmlSafe(`height: ${(this.get("trackCount") * ALLOCATION_HEIGHT) + 1}px;`);
+    return Ember.String.htmlSafe(
+      `height: ${this.get("trackCount") * ALLOCATION_HEIGHT + 1}px;`
+    );
   }),
 
   _addAllocation(startDate) {
-    if (!startDate) { startDate = moment(); }
-    return this.sendAction('createAllocation', {person: this.get('model') , startDate});
+    if (!startDate) {
+      startDate = moment();
+    }
+    return this.get("allocationModal").createAllocation({
+      person: this.get("model"),
+      startDate
+    });
   },
 
   doubleClick(evt) {
@@ -55,10 +65,13 @@ export default Ember.Component.extend({
       this._addAllocation(startDate);
     },
     quickView(allocation) {
-      this.sendAction('quickView', allocation);
+      this.get("allocationModal").quickView(allocation);
     },
     editAllocation(allocation) {
-      this.sendAction('editAllocation', allocation);
+      this.get("allocationModal").editAllocation(allocation);
+    },
+    editPerson() {
+      this.sendAction("editPerson", person);
     }
   }
 });
