@@ -61,9 +61,9 @@ export default T2Modal.extend(editableProps, FormDateRangeMixin, {
       let pct = this.get('person.percentBillable');
       if (this.get('isNew')) {
         if (this.get('project.vacation')) {
-          return this.set('percentAllocated', '100');
+          this.set('percentAllocated', '100');
         } else {
-          return this.set('percentAllocated', pct || '100');
+          this.set('percentAllocated', pct || '100');
         }
       }
     }

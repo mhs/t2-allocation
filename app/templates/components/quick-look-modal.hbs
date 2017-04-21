@@ -7,7 +7,7 @@
   <div class="modal-body">
     {{#if person }}
     <h3><i>&#128100;</i> 
-      <a {{bind-attr href="person.editUrl"}} class="text-link">{{person.name}}</a> 
+      <a href="{{person.editUrl}}" class="text-link">{{person.name}}</a> 
       <span class="person-role">({{person.role}})</span>
     </h3>
     {{/if}}

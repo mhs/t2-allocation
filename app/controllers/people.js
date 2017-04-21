@@ -2,7 +2,7 @@
 // Sanity-check the conversion and remove this comment.
 import Ember from "ember";
 
-let PeopleController = Ember.ArrayController.extend({
+let PeopleController = Ember.Controller.extend({
   officeController: Ember.inject.controller('office'),
   peopleController: Ember.inject.controller('people'),
   office: Ember.computed.alias('officeController.model'),

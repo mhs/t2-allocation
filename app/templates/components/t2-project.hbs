@@ -1,4 +1,4 @@
-<article class="project" {{bind-attr data-project-id="id"}} style={{projectHeight}}>
+<article class="project" data-project-id="{{id}}" style={{projectHeight}}>
   <div class="project-allocations">
     {{#each currentAllocations as |boxModel|}}
       {{#allocation-box allocation=boxModel.content
@@ -14,7 +14,7 @@
           {{/each}}
         {{/unless}}
 
-        <div class="allocation-content" {{bind-attr title="track.hint"}}>
+        <div class="allocation-content" title="{{track.hint}}">
           <span class="allocation-identifier">{{ boxModel.identifier }}</span>
 
           {{#if boxModel.isExternal}}
@@ -37,7 +37,7 @@
   </div>
 
   {{#project-edit class="project-descriptor" editProject="editProject"}}
-    <a {{bind-attr href="showUrl"}} class="text-link">{{ project.name }}</a>
+    <a href="{{showUrl}}" class="text-link">{{ project.name }}</a>
     <div class="project-controls">
       <i class="add-allocation" {{action "addAllocation"}}>&#10133;</i>
     </div>

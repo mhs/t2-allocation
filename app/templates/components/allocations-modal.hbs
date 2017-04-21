@@ -10,7 +10,7 @@
 
   <form {{action "save" on="submit"}}>
     <div class="modal-body">
-      <div {{bind-attr class="errors.project:error :field"}}>
+      <div class="{{if errors.project "error"}} field">
         <label><i>&#128710;</i> Project</label>
         {{simple-select
           class="white-button"
@@ -21,7 +21,7 @@
         {{errors.project}}
       </div>
 
-      <div {{bind-attr class="errors.likelihood:error :field"}}>
+      <div class="{{if errors.likelihood "error"}} field">
         <label><i>&#59140;</i> Likelihood of Close (%)</label>
         {{#simple-select
           class="white-button"
@@ -34,7 +34,7 @@
         {{errors.likelihood}}
       </div>
 
-      <div {{bind-attr class="errors.person:error :field"}}>
+      <div class="{{if errors.person "error"}} field">
         <label><i>&#128100;</i> Person</label>
         {{!--
           {{view "select" class="white-button" contentBinding="peopleAndRoles"
@@ -54,13 +54,13 @@
       </div>
 
       <div class="field">
-        <div {{bind-attr class="errors.startDate:error :field :inline"}}>
+        <div class="{{if errors.startDate "error"}} field inline">
           <label><i>&#128197;</i> Start Date</label>
           {{date-picker name="startDate" class="start-date" value=formStartDate}}
           {{errors.startDate}}
         </div>
         <span class="range inline">&#8211;</span>
-        <div {{bind-attr class="errors.endDate:error :field :inline"}}>
+        <div class="{{if errors.endDate "error"}} field inline">
           <label>End Date</label>
           {{date-picker name="endDate" class="end-date" value=formEndDate}}
           {{errors.endDate}}
@@ -69,7 +69,7 @@
 
       <div class="field options">
         {{#unless project.vacation}}
-          <div {{bind-attr class="errors.billable:error :field :option"}} >
+          <div class="{{if errors.billable "error"}} field option">
             <label>{{input type="checkbox" checked=billable}}Billable<span></span></label>
             {{errors.billable}}
           </div>
@@ -77,12 +77,12 @@
         {{/unless}}
       </div>
 
-      <div {{bind-attr class="errors.percentAllocated:error :field"}}>
+      <div class="{{if errors.percentAllocated "error"}} field">
         <label><i>&#9716;</i> Allocation %{{input type="text" value=percentAllocated }}</label>
         {{errors.percentAllocated}}
       </div>
 
-      <div data-test="notes" {{bind-attr class="errors.notes:error :field"}}>
+      <div data-test="notes" class="{{if errors.notes "error"}} field">
         <label><i>&#9998;</i> Notes</label>
         {{textarea value=notes}}
         {{errors.notes}}
@@ -90,7 +90,7 @@
     </div>
 
     <div class="modal-footer">
-      <button class="blue-button" type="submit" {{bind-attr disabled="shouldDisableSubmit"}}>Save</button>
+      <button class="blue-button" type="submit" disabled="{{if shouldDisableSubmit}}">Save</button>
       <button class="white-button" {{action "close"}}>Cancel</button>
       {{#if canDelete}}
         <a href="#" class="delete" {{action "delete"}}>Delete</a>
